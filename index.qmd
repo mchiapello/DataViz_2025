@@ -1,0 +1,110 @@
+---
+title: "Corso di Data Visualization con ggplot2"
+author: "Marco Chiapello"
+---
+
+![](materials/images/ggplot2_logo.png){width=300px fig-align="center"}
+
+## Location {#location}
+
+Il corso si terrà in:
+
+**Dipartimento di [Your Department]**  
+**Università di [Your University]**  
+**[Building/Room Details]**  
+**[Address]**  
+**[City, Postal Code]**
+
+## Programma del corso {#programma}
+
+### Giorno 1 {#giorno1}
+
+| Orario | Argomento |
+|--------|-----------|
+| 9:30   | Introduzione al Corso |
+| 10:00  | Fondamenti di ggplot2: Grammar of Graphics |
+| 10:45  | Pausa |
+| 11:15  | Geometrie Base: punti, linee e barre |
+| 12:30  | Pausa pranzo |
+| 13:30  | Estetiche e Mappature |
+| 15:00  | Pausa |
+| 15:30  | Facets e Coordinate |
+| 16:30  | Esercitazioni pratiche |
+
+### Giorno 2 {#giorno2}
+
+| Orario | Argomento |
+|--------|-----------|
+| 9:30   | Recap Giorno 1 |
+| 10:00  | Scale e Trasformazioni |
+| 10:45  | Pausa |
+| 11:15  | Themes e Personalizzazione |
+| 12:30  | Pausa pranzo |
+| 13:30  | Visualizzazioni Avanzate |
+| 15:00  | Pausa |
+| 15:30  | Progetto Finale |
+| 16:30  | Considerazioni finali e Q&A |
+
+## Obiettivi del corso {#obiettivi}
+
+Al termine del corso i partecipanti saranno in grado di:
+
+- Comprendere i principi della Grammar of Graphics
+- Creare visualizzazioni efficaci con ggplot2
+- Personalizzare grafici per pubblicazioni scientifiche
+- Scegliere il tipo di grafico appropriato per diversi tipi di dati
+- Applicare best practices nella visualizzazione dati
+
+## Prerequisiti {#prerequisiti}
+
+- Conoscenza base di R
+- RStudio installato
+- Familiarità con data frames e manipolazione dati
+
+## Come installare i software necessari al corso {#setup}
+
+### R {#r}
+
+Per installare R cliccate sul seguente [link](https://cran.r-project.org/) e seguite le istruzioni per il vostro sistema operativo.
+
+### RStudio {#rstudio}
+
+Per installare RStudio cliccate sul seguente [link](https://posit.co/download/rstudio-desktop/) e seguite le istruzioni per il vostro sistema operativo.
+
+In alternativa potete usare il servizio cloud di RStudio cliccando sul seguente [link](https://posit.cloud/).
+
+### Pacchetti R necessari {#pacchetti}
+
+Installare i seguenti pacchetti prima dell'inizio del corso:
+
+```r
+# Pacchetti principali
+install.packages("tidyverse")
+install.packages("ggplot2")
+
+# Pacchetti aggiuntivi per esempi
+install.packages("scales")
+install.packages("patchwork")
+install.packages("ggthemes")
+install.packages("palmerpenguins")
+```
+
+### Slack {#slack}
+
+Seguire il [link](https://revelotraining.slack.com/) per iscriversi al canale Slack del corso.
+
+## Materiali del corso {#materiali}
+
+Tutti i materiali del corso (slides, script, datasets) saranno disponibili nella sezione [Materiali](materials/day1.qmd).
+
+## Docente {#docente}
+
+**Marco Chiapello** è un bioinformatico con lunga esperienza di utilizzo di R e Bioconductor. Dal 2016 è un istruttore certificato per l'organizzazione internazionale [The Carpentries](https://carpentries.org/) con la quale ha insegnato negli ultimi anni più di 10 corsi in varie università Europee di analisi dati con R. Dal 2015 insegna il corso PhD ToolBox presso l'Università degli Studi di Torino. Attualmente è Application Engineer presso [Agilent Technologies](https://www.agilent.com/) nella divisione "Diagnostics & Genomics".
+
+## Contatti {#contatti}
+
+Per domande o informazioni sul corso:
+
+- Email: [your.email@example.com]
+- Slack: [REVELO Training workspace](https://revelotraining.slack.com/)
+- GitHub: [Course Repository](https://github.com/yourusername/dataviz-course)

@@ -1,0 +1,467 @@
+---
+title: "Giorno 2 - Visualizzazioni Avanzate"
+---
+
+## Benvenuti al Giorno 2! 🚀
+
+Oggi ci concentreremo su tecniche avanzate di visualizzazione e personalizzazione.
+
+## Materiali
+
+### Slides
+
+- [Scale e Trasformazioni](slides/06_scales.pdf) (da aggiungere)
+- [Themes e Personalizzazione](slides/07_themes.pdf) (da aggiungere)
+- [Visualizzazioni Avanzate](slides/08_advanced_viz.pdf) (da aggiungere)
+- [Best Practices](slides/09_best_practices.pdf) (da aggiungere)
+
+### Script
+
+- [06_scales.R](scripts/day2/06_scales.R) (da aggiungere)
+- [07_themes.R](scripts/day2/07_themes.R) (da aggiungere)
+- [08_advanced.R](scripts/day2/08_advanced.R) (da aggiungere)
+
+## Programma Dettagliato
+
+### 9:30 - 10:00: Recap Giorno 1 {#recap}
+
+**Ripasso veloce:**
+
+```{r}
+#| eval: false
+library(ggplot2)
+library(palmerpenguins)
+
+# I 3 componenti essenziali
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +  # data + aes
+  geom_point(aes(color = species)) +                      # geometry
+  facet_wrap(~island)                                     # facet
+
+# Quiz interattivo e domande
+```
+
+### 10:00 - 10:45: Scale e Trasformazioni {#scales}
+
+**Scale: controllare la mappatura tra dati e estetiche**
+
+#### Scale per Posizione
+
+```{r}
+#| eval: false
+# Limiti e breaks
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point() +
+  scale_x_continuous(
+    limits = c(170, 235),
+    breaks = seq(170, 235, by = 10)
+  ) +
+  scale_y_continuous(
+    limits = c(2500, 6500),
+    breaks = seq(2500, 6500, by = 1000)
+  )
+
+# Trasformazioni
+ggplot(diamonds, aes(carat, price)) +
+  geom_point(alpha = 0.1) +
+  scale_x_log10() +
+  scale_y_log10()
+
+# Espansione
+ggplot(penguins, aes(species, body_mass_g)) +
+  geom_boxplot() +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1)))
+```
+
+#### Scale per Colore
+
+```{r}
+#| eval: false
+# Scale continue
+ggplot(penguins, aes(flipper_length_mm, body_mass_g, 
+                     color = bill_length_mm)) +
+  geom_point(size = 3) +
+  scale_color_viridis_c()
+
+# Scale discrete - manual
+ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +
+  geom_point(size = 3) +
+  scale_color_manual(
+    values = c("Adelie" = "#FF6B35",
+               "Chinstrap" = "#004E89", 
+               "Gentoo" = "#8AC926")
+  )
+
+# ColorBrewer
+ggplot(penguins, aes(species, fill = species)) +
+  geom_bar() +
+  scale_fill_brewer(palette = "Set2")
+
+# Viridis (colorblind-friendly)
+ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +
+  geom_point(size = 3) +
+  scale_color_viridis_d()
+```
+
+#### Scale per Dimensione e Forma
+
+```{r}
+#| eval: false
+# Dimensione
+ggplot(penguins, aes(flipper_length_mm, body_mass_g, 
+                     size = bill_length_mm)) +
+  geom_point(alpha = 0.6) +
+  scale_size_continuous(range = c(0.5, 8))
+
+# Forma
+ggplot(penguins, aes(flipper_length_mm, body_mass_g, 
+                     shape = species)) +
+  geom_point(size = 3) +
+  scale_shape_manual(values = c(16, 17, 18))
+```
+
+### 10:45 - 11:15: ☕ Pausa
+
+### 11:15 - 12:30: Themes e Personalizzazione {#themes}
+
+#### Themes Built-in
+
+```{r}
+#| eval: false
+p <- ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +
+  geom_point(size = 3)
+
+# Themes predefiniti
+p + theme_gray()      # default
+p + theme_bw()
+p + theme_minimal()
+p + theme_classic()
+p + theme_dark()
+p + theme_void()
+```
+
+#### Personalizzazione Themes
+
+```{r}
+#| eval: false
+# Modificare elementi del theme
+ggplot(penguins, aes(species, body_mass_g, fill = species)) +
+  geom_boxplot() +
+  labs(
+    title = "Massa Corporea dei Pinguini",
+    subtitle = "Per specie",
+    x = "Specie",
+    y = "Massa Corporea (g)"
+  ) +
+  theme_minimal() +
+  theme(
+    # Testo
+    plot.title = element_text(size = 20, face = "bold"),
+    plot.subtitle = element_text(size = 14, color = "gray40"),
+    axis.title = element_text(size = 12, face = "bold"),
+    axis.text = element_text(size = 10),
+    
+    # Leggenda
+    legend.position = "bottom",
+    legend.title = element_text(face = "bold"),
+    
+    # Panel
+    panel.grid.major = element_line(color = "gray90"),
+    panel.grid.minor = element_blank(),
+    
+    # Background
+    plot.background = element_rect(fill = "white"),
+    panel.background = element_rect(fill = "gray98")
+  )
+```
+
+#### Theme Personalizzato Riutilizzabile
+
+```{r}
+#| eval: false
+# Creare un theme personalizzato
+theme_custom <- function() {
+  theme_minimal() +
+    theme(
+      text = element_text(family = "sans"),
+      plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
+      plot.subtitle = element_text(size = 12, hjust = 0.5),
+      axis.title = element_text(size = 12, face = "bold"),
+      legend.position = "bottom",
+      panel.grid.minor = element_blank(),
+      panel.background = element_rect(fill = "gray98", color = NA)
+    )
+}
+
+# Usare il theme
+ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +
+  geom_point(size = 3) +
+  labs(title = "Pinguini dell'Antartide") +
+  theme_custom()
+```
+
+#### Pacchetto ggthemes
+
+```{r}
+#| eval: false
+library(ggthemes)
+
+p + theme_economist()
+p + theme_fivethirtyeight()
+p + theme_wsj()
+p + theme_tufte()
+```
+
+### 12:30 - 13:30: 🍕 Pausa Pranzo
+
+### 13:30 - 15:00: Visualizzazioni Avanzate {#advanced}
+
+#### Smoothing e Modelli
+
+```{r}
+#| eval: false
+# geom_smooth() - default loess
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth()
+
+# Linear model
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = TRUE)
+
+# Per gruppi
+ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+#### Density Plots
+
+```{r}
+#| eval: false
+# 1D density
+ggplot(penguins, aes(body_mass_g, fill = species)) +
+  geom_density(alpha = 0.6)
+
+# 2D density contours
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point(alpha = 0.3) +
+  geom_density_2d()
+
+# 2D density filled
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  stat_density_2d(aes(fill = after_stat(level)), geom = "polygon") +
+  scale_fill_viridis_c()
+```
+
+#### Violin Plots e Beeswarm
+
+```{r}
+#| eval: false
+# Violin plot
+ggplot(penguins, aes(species, body_mass_g, fill = species)) +
+  geom_violin() +
+  theme(legend.position = "none")
+
+# Combinazione: violin + boxplot + points
+ggplot(penguins, aes(species, body_mass_g, fill = species)) +
+  geom_violin(alpha = 0.5) +
+  geom_boxplot(width = 0.2, alpha = 0.7) +
+  geom_jitter(width = 0.1, alpha = 0.3, size = 1) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+#### Heatmaps
+
+```{r}
+#| eval: false
+library(tidyr)
+library(dplyr)
+
+# Preparare dati
+penguins_summary <- penguins %>%
+  filter(!is.na(sex)) %>%
+  group_by(species, island) %>%
+  summarise(mean_mass = mean(body_mass_g, na.rm = TRUE), .groups = "drop")
+
+# Heatmap
+ggplot(penguins_summary, aes(island, species, fill = mean_mass)) +
+  geom_tile() +
+  geom_text(aes(label = round(mean_mass)), color = "white", size = 5) +
+  scale_fill_viridis_c() +
+  theme_minimal() +
+  labs(title = "Massa Media per Specie e Isola", fill = "Massa (g)")
+```
+
+#### Text e Labels
+
+```{r}
+#| eval: false
+library(ggrepel)
+
+# Etichette con ggrepel (evita sovrapposizioni)
+penguins_labeled <- penguins %>%
+  group_by(species) %>%
+  slice_max(body_mass_g, n = 1)
+
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point(aes(color = species), alpha = 0.6) +
+  geom_label_repel(
+    data = penguins_labeled,
+    aes(label = paste(species, body_mass_g, "g")),
+    size = 3,
+    box.padding = 1
+  )
+```
+
+#### Combinare Grafici con patchwork
+
+```{r}
+#| eval: false
+library(patchwork)
+
+# Creare grafici individuali
+p1 <- ggplot(penguins, aes(species, fill = species)) +
+  geom_bar() +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p2 <- ggplot(penguins, aes(species, body_mass_g, fill = species)) +
+  geom_boxplot() +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p3 <- ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +
+  geom_point() +
+  theme_minimal()
+
+# Combinare
+(p1 | p2) / p3 + 
+  plot_annotation(
+    title = "Analisi Multi-pannello dei Pinguini",
+    tag_levels = "A"
+  )
+```
+
+### 15:00 - 15:30: ☕ Pausa
+
+### 15:30 - 16:30: Progetto Finale {#project}
+
+**Traccia del progetto:**
+
+Utilizzare il dataset `diamonds` o un dataset a scelta per creare una presentazione visiva che includa:
+
+1. **Overview**: Grafici esplorativi dei dati
+2. **Relazioni**: Analisi delle relazioni tra variabili
+3. **Comparazioni**: Confronti tra gruppi
+4. **Conclusioni**: Visualizzazioni riassuntive
+
+**Requisiti:**
+
+- Almeno 4 grafici diversi
+- Uso appropriato di colori e themes
+- Titoli e labels informativi
+- Almeno un grafico con facets
+- Almeno un grafico combinato (patchwork)
+
+**Esempio struttura:**
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(patchwork)
+
+# 1. Overview
+overview <- ggplot(diamonds, aes(carat)) +
+  geom_histogram(bins = 50, fill = "steelblue") +
+  labs(title = "Distribuzione Carati")
+
+# 2. Relazione prezzo-carati
+relationship <- ggplot(diamonds, aes(carat, price)) +
+  geom_point(alpha = 0.1) +
+  geom_smooth(method = "lm") +
+  scale_y_log10() +
+  labs(title = "Prezzo vs Carati")
+
+# 3. Comparazione per taglio
+comparison <- ggplot(diamonds, aes(cut, price, fill = cut)) +
+  geom_boxplot() +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(title = "Prezzo per Qualità del Taglio")
+
+# 4. Analisi multi-dimensionale
+multidim <- ggplot(diamonds, aes(carat, price, color = clarity)) +
+  geom_point(alpha = 0.3) +
+  facet_wrap(~cut) +
+  scale_y_log10() +
+  scale_color_viridis_d() +
+  labs(title = "Analisi Multi-dimensionale")
+
+# Combinare tutto
+(overview | relationship) / (comparison | multidim) +
+  plot_annotation(
+    title = "Analisi Completa Dataset Diamonds",
+    subtitle = "Progetto Finale - Data Visualization con ggplot2",
+    theme = theme(plot.title = element_text(size = 20, face = "bold"))
+  )
+```
+
+### 16:30 - 17:00: Considerazioni Finali e Q&A {#wrap-up}
+
+**Best Practices Recap:**
+
+1. ✅ Iniziare sempre con una domanda chiara
+2. ✅ Scegliere il tipo di grafico appropriato
+3. ✅ Usare colori con significato e accessibili
+4. ✅ Includere titoli, labels e caption informativi
+5. ✅ Mantenere i grafici semplici e leggibili
+6. ✅ Documentare il codice
+7. ✅ Salvare i grafici in alta risoluzione
+
+**Salvare i grafici:**
+
+```{r}
+#| eval: false
+# ggsave() - metodo consigliato
+ggsave(
+  filename = "my_plot.png",
+  plot = last_plot(),
+  width = 10,
+  height = 6,
+  dpi = 300,
+  bg = "white"
+)
+
+# Diversi formati
+ggsave("my_plot.pdf", width = 10, height = 6)
+ggsave("my_plot.svg", width = 10, height = 6)
+```
+
+## Risorse per Continuare
+
+### Prossimi Passi
+
+1. Esplorare [ggplot2 extensions](https://exts.ggplot2.tidyverse.org/gallery/)
+2. Partecipare a [#TidyTuesday](https://github.com/rfordatascience/tidytuesday)
+3. Leggere [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/)
+4. Praticare, praticare, praticare!
+
+### Pacchetti da Esplorare
+
+- `gganimate` - Animazioni
+- `plotly` - Grafici interattivi
+- `ggraph` - Network graphs
+- `ggridges` - Ridge plots
+- `gghighlight` - Evidenziare dati
+
+## Feedback
+
+Per favore, compila il [questionario di feedback](https://forms.gle/xxx) (da aggiungere)!
+
+---
+
+**Grazie per aver partecipato! 🎉**
+
+Continua a visualizzare dati e a creare bellissimi grafici con ggplot2!

@@ -1,0 +1,230 @@
+/* Custom CSS for Data Visualization Course Website */
+
+/* Typography */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Code blocks */
+pre {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+code {
+  color: #e83e8c;
+  background-color: #f8f9fa;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5rem 0;
+}
+
+table th {
+  background-color: #007bff;
+  color: white;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+table tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Callout boxes */
+.callout {
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-left: 4px solid #007bff;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.callout-note {
+  border-left-color: #17a2b8;
+}
+
+.callout-tip {
+  border-left-color: #28a745;
+}
+
+.callout-warning {
+  border-left-color: #ffc107;
+}
+
+.callout-important {
+  border-left-color: #dc3545;
+}
+
+/* Navigation */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+/* Footer */
+.page-footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #dee2e6;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+/* Details/Summary for collapsible solutions */
+details {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+}
+
+summary {
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin: -1rem -1rem 0 -1rem;
+  background-color: #e9ecef;
+  border-radius: 4px 4px 0 0;
+  user-select: none;
+}
+
+summary:hover {
+  background-color: #dee2e6;
+}
+
+details[open] summary {
+  margin-bottom: 1rem;
+}
+
+/* Buttons and links */
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  text-decoration: none;
+}
+
+/* Emoji and icons */
+.icon {
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  vertical-align: middle;
+}
+
+/* Schedule tables specific styling */
+.schedule-table th:first-child {
+  width: 80px;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;
+}
+
+/* Checklist styling */
+ul.task-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul.task-list li {
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+ul.task-list li::before {
+  content: "☐";
+  position: absolute;
+  left: 0;
+  font-size: 1.2em;
+}
+
+ul.task-list li.checked::before {
+  content: "☑";
+  color: #28a745;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  body {
+    font-size: 0.95rem;
+  }
+  
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  table {
+    font-size: 0.9rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .navbar,
+  .page-footer {
+    display: none;
+  }
+  
+  pre {
+    border: 1px solid #000;
+    page-break-inside: avoid;
+  }
+}

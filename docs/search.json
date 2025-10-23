@@ -1,0 +1,450 @@
+[
+  {
+    "objectID": "SETUP_GUIDE.html",
+    "href": "SETUP_GUIDE.html",
+    "title": "",
+    "section": "",
+    "text": "Code"
+  },
+  {
+    "objectID": "SETUP_GUIDE.html#infrastruttura-creata",
+    "href": "SETUP_GUIDE.html#infrastruttura-creata",
+    "title": "",
+    "section": "Infrastruttura Creata ✅",
+    "text": "Infrastruttura Creata ✅\nHo creato una completa infrastruttura Quarto per il tuo corso di Data Visualization con ggplot2, simile al sito RNASeq che hai condiviso.\n\n📁 Struttura del Progetto\nCourse/\n├── _quarto.yml              # Configurazione principale Quarto\n├── index.qmd                # Homepage con info corso\n├── setup.qmd                # Istruzioni installazione\n├── resources.qmd            # Risorse e riferimenti\n├── styles.css               # CSS personalizzato\n├── README.md                # Documentazione progetto\n├── .gitignore              # File da ignorare in Git\n├── .nojekyll               # Per GitHub Pages\n├── .Rprofile               # Configurazione R per il corso\n│\n└── materials/              # Materiali didattici\n    ├── day1.qmd           # Programma e materiali Giorno 1\n    ├── day2.qmd           # Programma e materiali Giorno 2\n    ├── exercises.qmd      # Esercizi con soluzioni\n    └── images/            # Immagini\n        └── ggplot2_logo.svg\n\n\n🎯 Caratteristiche Principali\n\nHomepage (index.qmd)\n\nInformazioni logistiche\nProgramma completo 2 giorni\nObiettivi del corso\nPrerequisiti\nInfo docente\nIstruzioni installazione\n\nSetup (setup.qmd)\n\nGuida installazione R e RStudio\nLista pacchetti necessari\nCodice per verifica installazione\nStruttura progetto consigliata\nTroubleshooting problemi comuni\nChecklist pre-corso\n\nRisorse (resources.qmd)\n\nDocumentazione ufficiale\nLibri (gratuiti e a pagamento)\nTutorial e video\nDataset per esercitarsi\nPacchetti ggplot2 extensions\nCommunity e supporto\nStrumenti online\n\nMateriali Giorno 1 (materials/day1.qmd)\n\nProgramma dettagliato con orari\nFondamenti ggplot2\nGrammar of Graphics\nGeometrie base (point, line, bar, histogram, boxplot)\nEstetiche e mappature\nFacets e coordinate\nEsempi di codice R\nEsercizi pratici\n\nMateriali Giorno 2 (materials/day2.qmd)\n\nRecap Giorno 1\nScale e trasformazioni\nThemes e personalizzazione\nVisualizzazioni avanzate\nSmoothing, density plots, violin plots\nHeatmaps e labels\nCombinare grafici con patchwork\nProgetto finale\nBest practices\n\nEsercizi (materials/exercises.qmd)\n\nEsercizi Giorno 1 (4 esercizi)\nEsercizi Giorno 2 (4 esercizi)\nChallenge projects\nSoluzioni collapsable (details/summary)\n\n\n\n\n🎨 Design e Styling\n\nTheme: Cosmo (light) / Darkly (dark mode)\nColori: Schema professionale blu/grigio\nResponsive: Ottimizzato per mobile e desktop\nNavigazione: Navbar con dropdown menu\nFooter: Credits e copyright\nCSS personalizzato: Per tabelle, codice, callouts, ecc.\n\n\n\n🚀 Come Utilizzare\n\n1. Preview Locale\ncd Course\nquarto preview\nQuesto aprirà il sito in un browser locale con live reload.\n\n\n2. Build del Sito\nquarto render\nGenera i file HTML nella cartella docs/.\n\n\n3. Deploy su GitHub Pages\n# Inizializza Git (se non già fatto)\ngit init\ngit add .\ngit commit -m \"Initial course website\"\n\n# Crea repository su GitHub e collegalo\ngit remote add origin https://github.com/yourusername/dataviz-course.git\ngit push -u origin main\n\n# Vai su GitHub Settings &gt; Pages\n# Source: Deploy from a branch\n# Branch: main, Folder: /docs\n# Save\nIl sito sarà disponibile su https://yourusername.github.io/dataviz-course/\n\n\n\n📝 Personalizzazione\n\nAggiornare Informazioni Corso\nModifica index.qmd: - Cambia location, date, orari - Aggiorna info docente - Modifica email e link Slack\n\n\nAggiungere Contenuti\n\nSlides:\n\nCrea materials/slides/\nAggiungi PDF o Quarto presentations\nLinka in day1.qmd e day2.qmd\n\nScripts:\n\nCrea materials/scripts/day1/ e materials/scripts/day2/\nAggiungi file .R\nLinka nelle pagine materiali\n\nDataset:\n\nCrea materials/data/\nAggiungi CSV, RData, ecc.\nDocumenta in setup.qmd\n\n\n\n\nModificare Theme\nIn _quarto.yml:\nformat:\n  html:\n    theme: \n      light: cosmo  # prova: flatly, litera, minty, etc.\n      dark: darkly  # prova: slate, solar, superhero, etc.\n\n\nAggiungere Pagine\n\nCrea nuovo file .qmd\nAggiungi alla navbar in _quarto.yml:\n\nnavbar:\n  left:\n    - text: \"Nuova Pagina\"\n      href: nuova-pagina.qmd\n\n\n\n🎓 Workflow Durante il Corso\n\nPre-corso:\n\nCondividi link al sito\nPartecipanti installano software seguendo setup.qmd\nDownload materiali\n\nDurante:\n\nProietta le pagine day1/day2\nCodice live da copiare/seguire\nEsercizi individuali/di gruppo\n\nPost-corso:\n\nAggiungi soluzioni esercizi\nUpload progetti dei partecipanti\nLink a risorse aggiuntive\n\n\n\n\n📦 Pacchetti R Suggeriti\nIl sito include già liste complete, ma i principali sono:\n# Essenziali\ninstall.packages(\"tidyverse\")  # include ggplot2\n\n# Aggiuntivi\ninstall.packages(c(\n  \"scales\", \"patchwork\", \"ggthemes\", \n  \"palmerpenguins\", \"viridis\", \"ggrepel\"\n))\n\n\n🔧 Comandi Utili\n# Preview con live reload\nquarto preview\n\n# Render tutto\nquarto render\n\n# Render singolo file\nquarto render index.qmd\n\n# Check configurazione\nquarto check\n\n# Pulire file generati\nquarto clean\n\n\n📚 Prossimi Passi\n\nPersonalizza contenuti:\n\nAggiorna informazioni in index.qmd\nModifica programma se necessario\nAggiungi tue slide/script\nCarica dataset\n\nAggiungi materiali:\n\nCrea cartelle slides/ e scripts/\nPrepara esercizi e soluzioni\nAggiungi immagini/screenshots\n\nDeploy:\n\nCrea repository GitHub\nPush del codice\nAttiva GitHub Pages\nTesta il sito pubblico\n\nPromuovi:\n\nCondividi link con partecipanti\nAggiungi al tuo sito/CV\nSocial media announcement\n\n\n\n\n💡 Tips\n\nImmagini: Usa immagini reali al posto del placeholder SVG\nVideo: Puoi embeddare video YouTube nelle pagine\nQuiz: Aggiungi quiz interattivi con shinylive\nDownload: Offri ZIP con tutti i materiali\nFeedback: Crea form per raccogliere feedback\nCertificati: Template per certificati di partecipazione\n\n\n\n🆘 Supporto\nSe hai domande o problemi:\n\nConsulta Quarto Documentation\nQuarto Community\nggplot2 Reference\n\n\n\n🎉 Pronto!\nLa tua infrastruttura è pronta! Ora puoi:\n\nFare preview locale con quarto preview\nPersonalizzare i contenuti\nAggiungere i tuoi materiali\nFare il deploy su GitHub Pages\n\nBuon corso! 🚀📊🎨"
+  },
+  {
+    "objectID": "setup.html",
+    "href": "setup.html",
+    "title": "Setup e Installazione",
+    "section": "",
+    "text": "R è il linguaggio di programmazione che useremo durante il corso.\n\nVisita https://cran.r-project.org/\nSeleziona il link per il tuo sistema operativo:\n\nWindows: Download R for Windows → base → Download R X.X.X for Windows\nmacOS: Download R for macOS → R-X.X.X.pkg\nLinux: Seleziona la tua distribuzione e segui le istruzioni\n\n\n\n\n\nRStudio è l’ambiente di sviluppo integrato (IDE) che useremo.\n\nVisita https://posit.co/download/rstudio-desktop/\nScarica la versione gratuita di RStudio Desktop\nInstalla seguendo le istruzioni per il tuo sistema operativo\n\n\n\nSe preferisci non installare software sul tuo computer, puoi usare Posit Cloud:\n\nCrea un account gratuito\nInizia un nuovo progetto\nInstalla i pacchetti necessari"
+  },
+  {
+    "objectID": "setup.html#installazione-software",
+    "href": "setup.html#installazione-software",
+    "title": "Setup e Installazione",
+    "section": "",
+    "text": "R è il linguaggio di programmazione che useremo durante il corso.\n\nVisita https://cran.r-project.org/\nSeleziona il link per il tuo sistema operativo:\n\nWindows: Download R for Windows → base → Download R X.X.X for Windows\nmacOS: Download R for macOS → R-X.X.X.pkg\nLinux: Seleziona la tua distribuzione e segui le istruzioni\n\n\n\n\n\nRStudio è l’ambiente di sviluppo integrato (IDE) che useremo.\n\nVisita https://posit.co/download/rstudio-desktop/\nScarica la versione gratuita di RStudio Desktop\nInstalla seguendo le istruzioni per il tuo sistema operativo\n\n\n\nSe preferisci non installare software sul tuo computer, puoi usare Posit Cloud:\n\nCrea un account gratuito\nInizia un nuovo progetto\nInstalla i pacchetti necessari"
+  },
+  {
+    "objectID": "setup.html#installazione-pacchetti-r",
+    "href": "setup.html#installazione-pacchetti-r",
+    "title": "Setup e Installazione",
+    "section": "Installazione Pacchetti R",
+    "text": "Installazione Pacchetti R\nUna volta installato R e RStudio, apri RStudio ed esegui i seguenti comandi nella Console:\n\nPacchetti Essenziali\n# Tidyverse (include ggplot2, dplyr, tidyr, readr, ecc.)\ninstall.packages(\"tidyverse\")\n\n# Se preferisci installare solo ggplot2\ninstall.packages(\"ggplot2\")\n\n\nPacchetti Aggiuntivi\n# Per lavorare con scale e colori\ninstall.packages(\"scales\")\ninstall.packages(\"RColorBrewer\")\ninstall.packages(\"viridis\")\n\n# Per combinare grafici\ninstall.packages(\"patchwork\")\ninstall.packages(\"cowplot\")\n\n# Temi aggiuntivi\ninstall.packages(\"ggthemes\")\ninstall.packages(\"hrbrthemes\")\n\n# Dataset per esercizi\ninstall.packages(\"palmerpenguins\")\ninstall.packages(\"gapminder\")\n\n# Strumenti utili\ninstall.packages(\"here\")\ninstall.packages(\"rmarkdown\")\ninstall.packages(\"knitr\")"
+  },
+  {
+    "objectID": "setup.html#verifica-installazione",
+    "href": "setup.html#verifica-installazione",
+    "title": "Setup e Installazione",
+    "section": "Verifica Installazione",
+    "text": "Verifica Installazione\nPer verificare che tutto sia installato correttamente, esegui questo codice:\n# Carica ggplot2\nlibrary(ggplot2)\n\n# Crea un grafico di test\nggplot(mtcars, aes(x = wt, y = mpg)) +\n  geom_point(aes(color = factor(cyl)), size = 3) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  labs(\n    title = \"Se vedi questo grafico, tutto funziona!\",\n    x = \"Peso (1000 lbs)\",\n    y = \"Miglia per gallone\",\n    color = \"Cilindri\"\n  ) +\n  theme_minimal()\nSe vedi un grafico con punti colorati e una linea di tendenza, sei pronto per il corso! 🎉"
+  },
+  {
+    "objectID": "setup.html#struttura-del-progetto",
+    "href": "setup.html#struttura-del-progetto",
+    "title": "Setup e Installazione",
+    "section": "Struttura del Progetto",
+    "text": "Struttura del Progetto\nDurante il corso, organizzeremo il nostro lavoro in una struttura di cartelle:\ndataviz-course/\n├── data/           # Dataset\n├── scripts/        # Script R\n├── plots/          # Grafici salvati\n├── exercises/      # Esercizi\n└── project/        # Progetto finale\nCrea questa struttura sul tuo computer prima dell’inizio del corso:\n# Crea le cartelle\ndir.create(\"dataviz-course\")\nsetwd(\"dataviz-course\")\ndir.create(\"data\")\ndir.create(\"scripts\")\ndir.create(\"plots\")\ndir.create(\"exercises\")\ndir.create(\"project\")"
+  },
+  {
+    "objectID": "setup.html#risorse-aggiuntive",
+    "href": "setup.html#risorse-aggiuntive",
+    "title": "Setup e Installazione",
+    "section": "Risorse Aggiuntive",
+    "text": "Risorse Aggiuntive\n\nDownload Dataset\nI dataset per il corso saranno disponibili qui:\n\n[Link ai dataset] (da aggiungere)\n\n\n\nCheatsheets\nStampa e tieni a portata di mano questi cheatsheet:\n\nggplot2 Cheatsheet\nRStudio IDE Cheatsheet"
+  },
+  {
+    "objectID": "setup.html#problemi-comuni",
+    "href": "setup.html#problemi-comuni",
+    "title": "Setup e Installazione",
+    "section": "Problemi Comuni",
+    "text": "Problemi Comuni\n\nWindows: Rtools\nSe usi Windows e vedi errori durante l’installazione dei pacchetti, potresti aver bisogno di Rtools:\n\nVisita https://cran.r-project.org/bin/windows/Rtools/\nScarica e installa la versione corrispondente alla tua versione di R\n\n\n\nmacOS: XQuartz\nSe usi macOS e hai problemi con i grafici, installa XQuartz:\n\nVisita https://www.xquartz.org/\nScarica e installa XQuartz\nRiavvia il computer\n\n\n\nLibrerie di Sistema (Linux)\nSu Linux, potrebbero essere necessarie alcune librerie di sistema:\n# Ubuntu/Debian\nsudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev\n\n# Fedora/RedHat\nsudo yum install libcurl-devel openssl-devel libxml2-devel"
+  },
+  {
+    "objectID": "setup.html#supporto",
+    "href": "setup.html#supporto",
+    "title": "Setup e Installazione",
+    "section": "Supporto",
+    "text": "Supporto\nSe hai problemi con l’installazione:\n\nControlla la sezione Problemi Comuni sopra\nCerca l’errore su Stack Overflow\nChiedi aiuto sul canale Slack del corso\nContatta il docente via email"
+  },
+  {
+    "objectID": "setup.html#checklist-pre-corso",
+    "href": "setup.html#checklist-pre-corso",
+    "title": "Setup e Installazione",
+    "section": "Checklist Pre-Corso",
+    "text": "Checklist Pre-Corso\nPrima dell’inizio del corso, assicurati di aver:\n\nInstallato R (versione ≥ 4.0)\nInstallato RStudio (versione recente)\nInstallato i pacchetti essenziali (tidyverse)\nVerificato che tutto funzioni con il codice di test\nCreato la struttura delle cartelle\nScaricato i dataset del corso\nUnito al canale Slack\nStampato i cheatsheet (opzionale ma consigliato)\n\nSei pronto! Ci vediamo al corso! 🚀"
+  },
+  {
+    "objectID": "STRUCTURE.html",
+    "href": "STRUCTURE.html",
+    "title": "",
+    "section": "",
+    "text": "Code"
+  },
+  {
+    "objectID": "STRUCTURE.html#il-nuovo-sito-corso",
+    "href": "STRUCTURE.html#il-nuovo-sito-corso",
+    "title": "",
+    "section": "🎯 Il Nuovo Sito Corso",
+    "text": "🎯 Il Nuovo Sito Corso\n\nStruttura Completa Post-Build\nDopo aver eseguito quarto render, la struttura sarà:\nCourse/\n├── _quarto.yml\n├── index.qmd\n├── setup.qmd\n├── resources.qmd\n├── styles.css\n├── README.md\n├── SETUP_GUIDE.md\n├── .gitignore\n├── .nojekyll\n├── .Rprofile\n│\n├── materials/\n│   ├── day1.qmd\n│   ├── day2.qmd\n│   ├── exercises.qmd\n│   └── images/\n│       └── ggplot2_logo.svg\n│\n└── docs/                               🌐 SITO GENERATO (GitHub Pages)\n    ├── index.html\n    ├── setup.html\n    ├── resources.html\n    ├── materials/\n    │   ├── day1.html\n    │   ├── day2.html\n    │   ├── exercises.html\n    │   └── images/\n    ├── site_libs/                      📚 Librerie Quarto\n    ├── search.json                     🔍 Indice ricerca\n    └── styles.css"
+  },
+  {
+    "objectID": "STRUCTURE.html#files-principali",
+    "href": "STRUCTURE.html#files-principali",
+    "title": "",
+    "section": "📝 Files Principali",
+    "text": "📝 Files Principali\n\nConfigurazione\n\n_quarto.yml: Configurazione principale (navbar, theme, output)\n.gitignore: Esclusioni Git\n.nojekyll: Disabilita Jekyll per GitHub Pages\n.Rprofile: Configurazione R per il corso\n\n\n\nContenuti\n\nindex.qmd: Homepage con info corso\nsetup.qmd: Guida installazione completa\nresources.qmd: Risorse e riferimenti\nmaterials/day1.qmd: Materiali primo giorno\nmaterials/day2.qmd: Materiali secondo giorno\nmaterials/exercises.qmd: Esercizi con soluzioni\n\n\n\nStyling\n\nstyles.css: CSS personalizzato per il sito\n\n\n\nDocumentazione\n\nREADME.md: Documentazione tecnica progetto\nSETUP_GUIDE.md: Guida completa setup e uso"
+  },
+  {
+    "objectID": "STRUCTURE.html#quick-start-commands",
+    "href": "STRUCTURE.html#quick-start-commands",
+    "title": "",
+    "section": "🚀 Quick Start Commands",
+    "text": "🚀 Quick Start Commands\n# Navigate to Course directory\ncd /Users/chiapell/personale/REVELO/DataViz/Course\n\n# Preview site locally\nquarto preview\n\n# Build site\nquarto render\n\n# Check Quarto installation\nquarto check"
+  },
+  {
+    "objectID": "STRUCTURE.html#urls",
+    "href": "STRUCTURE.html#urls",
+    "title": "",
+    "section": "🌐 URLs",
+    "text": "🌐 URLs\n\nLocale (dopo quarto preview)\n\nHomepage: http://localhost:XXXX/\nSetup: http://localhost:XXXX/setup.html\nResources: http://localhost:XXXX/resources.html\nDay 1: http://localhost:XXXX/materials/day1.html\nDay 2: http://localhost:XXXX/materials/day2.html\nExercises: http://localhost:XXXX/materials/exercises.html\n\n\n\nGitHub Pages (dopo deploy)\n\nhttps://yourusername.github.io/dataviz-course/\nhttps://yourusername.github.io/dataviz-course/setup.html\nhttps://yourusername.github.io/dataviz-course/resources.html\netc."
+  },
+  {
+    "objectID": "STRUCTURE.html#contenuti-da-aggiungere-todo",
+    "href": "STRUCTURE.html#contenuti-da-aggiungere-todo",
+    "title": "",
+    "section": "📦 Contenuti da Aggiungere (TODO)",
+    "text": "📦 Contenuti da Aggiungere (TODO)\n\nSlides (da creare)\nmaterials/slides/\n├── 01_introduction.pdf\n├── 02_grammar_of_graphics.pdf\n├── 03_basic_geoms.pdf\n├── 04_aesthetics.pdf\n├── 05_facets_coords.pdf\n├── 06_scales.pdf\n├── 07_themes.pdf\n├── 08_advanced_viz.pdf\n└── 09_best_practices.pdf\n\n\nScripts (da creare)\nmaterials/scripts/\n├── day1/\n│   ├── 01_intro.R\n│   ├── 02_grammar.R\n│   ├── 03_geoms.R\n│   ├── 04_aesthetics.R\n│   └── 05_facets.R\n└── day2/\n    ├── 06_scales.R\n    ├── 07_themes.R\n    └── 08_advanced.R\n\n\nDataset (opzionale)\nmaterials/data/\n├── penguins.csv\n├── diamonds_sample.csv\n└── custom_dataset.csv\n\n\nSoluzioni Esercizi (da creare)\nmaterials/exercises/\n├── day1_solutions.R\n└── day2_solutions.R"
+  },
+  {
+    "objectID": "STRUCTURE.html#personalizzazione-rapida",
+    "href": "STRUCTURE.html#personalizzazione-rapida",
+    "title": "",
+    "section": "🎨 Personalizzazione Rapida",
+    "text": "🎨 Personalizzazione Rapida\n\nCambiare Colori\nModifica _quarto.yml:\nformat:\n  html:\n    theme: \n      light: [cosmo, custom.scss]  # crea custom.scss\n\n\nAggiungere Logo Reale\nSostituisci materials/images/ggplot2_logo.svg con PNG/JPG\n\n\nModificare Footer\nModifica _quarto.yml:\nwebsite:\n  page-footer:\n    left: \"Il tuo testo\"\n    right: \"© 2025\""
+  },
+  {
+    "objectID": "STRUCTURE.html#statistiche",
+    "href": "STRUCTURE.html#statistiche",
+    "title": "",
+    "section": "📊 Statistiche",
+    "text": "📊 Statistiche\n\nFiles Creati: 13\n\nQuarto files (.qmd): 5\nConfig files: 4\nDocumentation: 3\nAssets: 1\n\n\n\nLinee di Codice: ~3,000+\n\nQMD content: ~2,500\nCSS: ~200\nConfig: ~100\nDocumentation: ~200\n\n\n\nPagine Web: 6\n\nHomepage\nSetup\nResources\nDay 1 materials\nDay 2 materials\nExercises"
+  },
+  {
+    "objectID": "STRUCTURE.html#checklist-completamento",
+    "href": "STRUCTURE.html#checklist-completamento",
+    "title": "",
+    "section": "✅ Checklist Completamento",
+    "text": "✅ Checklist Completamento\n\n✅ Infrastruttura\n\nConfigurazione Quarto\nStruttura directory\nFiles di configurazione\nCSS personalizzato\nDocumentazione\n\n\n\n✅ Contenuti Base\n\nHomepage con programma\nSetup instructions\nResources page\nDay 1 materials\nDay 2 materials\nExercises with solutions\n\n\n\n📝 Da Completare (quando pronto)\n\nAggiungere slides PDF\nAggiungere scripts R\nAggiungere dataset custom\nAggiungere immagini reali\nPersonalizzare informazioni contatto\nTest deploy GitHub Pages\nCondividere con partecipanti"
+  },
+  {
+    "objectID": "STRUCTURE.html#pronto-per-luso",
+    "href": "STRUCTURE.html#pronto-per-luso",
+    "title": "",
+    "section": "🎓 Pronto per l’Uso!",
+    "text": "🎓 Pronto per l’Uso!\nIl sito è completamente funzionale e pronto per: 1. Preview locale 2. Personalizzazione contenuti 3. Deploy su GitHub Pages 4. Uso nel corso\nHai tutto il necessario per un corso professionale di Data Visualization! 🚀"
+  },
+  {
+    "objectID": "materials/day2.html",
+    "href": "materials/day2.html",
+    "title": "Giorno 2 - Visualizzazioni Avanzate",
+    "section": "",
+    "text": "Oggi ci concentreremo su tecniche avanzate di visualizzazione e personalizzazione."
+  },
+  {
+    "objectID": "materials/day2.html#benvenuti-al-giorno-2",
+    "href": "materials/day2.html#benvenuti-al-giorno-2",
+    "title": "Giorno 2 - Visualizzazioni Avanzate",
+    "section": "",
+    "text": "Oggi ci concentreremo su tecniche avanzate di visualizzazione e personalizzazione."
+  },
+  {
+    "objectID": "materials/day2.html#materiali",
+    "href": "materials/day2.html#materiali",
+    "title": "Giorno 2 - Visualizzazioni Avanzate",
+    "section": "Materiali",
+    "text": "Materiali\n\nSlides\n\nScale e Trasformazioni (da aggiungere)\nThemes e Personalizzazione (da aggiungere)\nVisualizzazioni Avanzate (da aggiungere)\nBest Practices (da aggiungere)\n\n\n\nScript\n\n06_scales.R (da aggiungere)\n07_themes.R (da aggiungere)\n08_advanced.R (da aggiungere)"
+  },
+  {
+    "objectID": "materials/day2.html#programma-dettagliato",
+    "href": "materials/day2.html#programma-dettagliato",
+    "title": "Giorno 2 - Visualizzazioni Avanzate",
+    "section": "Programma Dettagliato",
+    "text": "Programma Dettagliato\n\n9:30 - 10:00: Recap Giorno 1\nRipasso veloce:\n\nlibrary(ggplot2)\nlibrary(palmerpenguins)\n\n# I 3 componenti essenziali\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +  # data + aes\n  geom_point(aes(color = species)) +                      # geometry\n  facet_wrap(~island)                                     # facet\n\n# Quiz interattivo e domande\n\n\n\n10:00 - 10:45: Scale e Trasformazioni\nScale: controllare la mappatura tra dati e estetiche\n\nScale per Posizione\n\n# Limiti e breaks\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point() +\n  scale_x_continuous(\n    limits = c(170, 235),\n    breaks = seq(170, 235, by = 10)\n  ) +\n  scale_y_continuous(\n    limits = c(2500, 6500),\n    breaks = seq(2500, 6500, by = 1000)\n  )\n\n# Trasformazioni\nggplot(diamonds, aes(carat, price)) +\n  geom_point(alpha = 0.1) +\n  scale_x_log10() +\n  scale_y_log10()\n\n# Espansione\nggplot(penguins, aes(species, body_mass_g)) +\n  geom_boxplot() +\n  scale_y_continuous(expand = expansion(mult = c(0, 0.1)))\n\n\n\nScale per Colore\n\n# Scale continue\nggplot(penguins, aes(flipper_length_mm, body_mass_g, \n                     color = bill_length_mm)) +\n  geom_point(size = 3) +\n  scale_color_viridis_c()\n\n# Scale discrete - manual\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3) +\n  scale_color_manual(\n    values = c(\"Adelie\" = \"#FF6B35\",\n               \"Chinstrap\" = \"#004E89\", \n               \"Gentoo\" = \"#8AC926\")\n  )\n\n# ColorBrewer\nggplot(penguins, aes(species, fill = species)) +\n  geom_bar() +\n  scale_fill_brewer(palette = \"Set2\")\n\n# Viridis (colorblind-friendly)\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3) +\n  scale_color_viridis_d()\n\n\n\nScale per Dimensione e Forma\n\n# Dimensione\nggplot(penguins, aes(flipper_length_mm, body_mass_g, \n                     size = bill_length_mm)) +\n  geom_point(alpha = 0.6) +\n  scale_size_continuous(range = c(0.5, 8))\n\n# Forma\nggplot(penguins, aes(flipper_length_mm, body_mass_g, \n                     shape = species)) +\n  geom_point(size = 3) +\n  scale_shape_manual(values = c(16, 17, 18))\n\n\n\n\n10:45 - 11:15: ☕ Pausa\n\n\n11:15 - 12:30: Themes e Personalizzazione\n\nThemes Built-in\n\np &lt;- ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3)\n\n# Themes predefiniti\np + theme_gray()      # default\np + theme_bw()\np + theme_minimal()\np + theme_classic()\np + theme_dark()\np + theme_void()\n\n\n\nPersonalizzazione Themes\n\n# Modificare elementi del theme\nggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_boxplot() +\n  labs(\n    title = \"Massa Corporea dei Pinguini\",\n    subtitle = \"Per specie\",\n    x = \"Specie\",\n    y = \"Massa Corporea (g)\"\n  ) +\n  theme_minimal() +\n  theme(\n    # Testo\n    plot.title = element_text(size = 20, face = \"bold\"),\n    plot.subtitle = element_text(size = 14, color = \"gray40\"),\n    axis.title = element_text(size = 12, face = \"bold\"),\n    axis.text = element_text(size = 10),\n    \n    # Leggenda\n    legend.position = \"bottom\",\n    legend.title = element_text(face = \"bold\"),\n    \n    # Panel\n    panel.grid.major = element_line(color = \"gray90\"),\n    panel.grid.minor = element_blank(),\n    \n    # Background\n    plot.background = element_rect(fill = \"white\"),\n    panel.background = element_rect(fill = \"gray98\")\n  )\n\n\n\nTheme Personalizzato Riutilizzabile\n\n# Creare un theme personalizzato\ntheme_custom &lt;- function() {\n  theme_minimal() +\n    theme(\n      text = element_text(family = \"sans\"),\n      plot.title = element_text(size = 18, face = \"bold\", hjust = 0.5),\n      plot.subtitle = element_text(size = 12, hjust = 0.5),\n      axis.title = element_text(size = 12, face = \"bold\"),\n      legend.position = \"bottom\",\n      panel.grid.minor = element_blank(),\n      panel.background = element_rect(fill = \"gray98\", color = NA)\n    )\n}\n\n# Usare il theme\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3) +\n  labs(title = \"Pinguini dell'Antartide\") +\n  theme_custom()\n\n\n\nPacchetto ggthemes\n\nlibrary(ggthemes)\n\np + theme_economist()\np + theme_fivethirtyeight()\np + theme_wsj()\np + theme_tufte()\n\n\n\n\n12:30 - 13:30: 🍕 Pausa Pranzo\n\n\n13:30 - 15:00: Visualizzazioni Avanzate\n\nSmoothing e Modelli\n\n# geom_smooth() - default loess\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(alpha = 0.5) +\n  geom_smooth()\n\n# Linear model\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(alpha = 0.5) +\n  geom_smooth(method = \"lm\", se = TRUE)\n\n# Per gruppi\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(alpha = 0.5) +\n  geom_smooth(method = \"lm\", se = FALSE)\n\n\n\nDensity Plots\n\n# 1D density\nggplot(penguins, aes(body_mass_g, fill = species)) +\n  geom_density(alpha = 0.6)\n\n# 2D density contours\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(alpha = 0.3) +\n  geom_density_2d()\n\n# 2D density filled\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  stat_density_2d(aes(fill = after_stat(level)), geom = \"polygon\") +\n  scale_fill_viridis_c()\n\n\n\nViolin Plots e Beeswarm\n\n# Violin plot\nggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_violin() +\n  theme(legend.position = \"none\")\n\n# Combinazione: violin + boxplot + points\nggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_violin(alpha = 0.5) +\n  geom_boxplot(width = 0.2, alpha = 0.7) +\n  geom_jitter(width = 0.1, alpha = 0.3, size = 1) +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\n\n\nHeatmaps\n\nlibrary(tidyr)\nlibrary(dplyr)\n\n# Preparare dati\npenguins_summary &lt;- penguins %&gt;%\n  filter(!is.na(sex)) %&gt;%\n  group_by(species, island) %&gt;%\n  summarise(mean_mass = mean(body_mass_g, na.rm = TRUE), .groups = \"drop\")\n\n# Heatmap\nggplot(penguins_summary, aes(island, species, fill = mean_mass)) +\n  geom_tile() +\n  geom_text(aes(label = round(mean_mass)), color = \"white\", size = 5) +\n  scale_fill_viridis_c() +\n  theme_minimal() +\n  labs(title = \"Massa Media per Specie e Isola\", fill = \"Massa (g)\")\n\n\n\nText e Labels\n\nlibrary(ggrepel)\n\n# Etichette con ggrepel (evita sovrapposizioni)\npenguins_labeled &lt;- penguins %&gt;%\n  group_by(species) %&gt;%\n  slice_max(body_mass_g, n = 1)\n\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(aes(color = species), alpha = 0.6) +\n  geom_label_repel(\n    data = penguins_labeled,\n    aes(label = paste(species, body_mass_g, \"g\")),\n    size = 3,\n    box.padding = 1\n  )\n\n\n\nCombinare Grafici con patchwork\n\nlibrary(patchwork)\n\n# Creare grafici individuali\np1 &lt;- ggplot(penguins, aes(species, fill = species)) +\n  geom_bar() +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\np2 &lt;- ggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_boxplot() +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\np3 &lt;- ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point() +\n  theme_minimal()\n\n# Combinare\n(p1 | p2) / p3 + \n  plot_annotation(\n    title = \"Analisi Multi-pannello dei Pinguini\",\n    tag_levels = \"A\"\n  )\n\n\n\n\n15:00 - 15:30: ☕ Pausa\n\n\n15:30 - 16:30: Progetto Finale\nTraccia del progetto:\nUtilizzare il dataset diamonds o un dataset a scelta per creare una presentazione visiva che includa:\n\nOverview: Grafici esplorativi dei dati\nRelazioni: Analisi delle relazioni tra variabili\nComparazioni: Confronti tra gruppi\nConclusioni: Visualizzazioni riassuntive\n\nRequisiti:\n\nAlmeno 4 grafici diversi\nUso appropriato di colori e themes\nTitoli e labels informativi\nAlmeno un grafico con facets\nAlmeno un grafico combinato (patchwork)\n\nEsempio struttura:\n\nlibrary(tidyverse)\nlibrary(patchwork)\n\n# 1. Overview\noverview &lt;- ggplot(diamonds, aes(carat)) +\n  geom_histogram(bins = 50, fill = \"steelblue\") +\n  labs(title = \"Distribuzione Carati\")\n\n# 2. Relazione prezzo-carati\nrelationship &lt;- ggplot(diamonds, aes(carat, price)) +\n  geom_point(alpha = 0.1) +\n  geom_smooth(method = \"lm\") +\n  scale_y_log10() +\n  labs(title = \"Prezzo vs Carati\")\n\n# 3. Comparazione per taglio\ncomparison &lt;- ggplot(diamonds, aes(cut, price, fill = cut)) +\n  geom_boxplot() +\n  theme_minimal() +\n  theme(legend.position = \"none\") +\n  labs(title = \"Prezzo per Qualità del Taglio\")\n\n# 4. Analisi multi-dimensionale\nmultidim &lt;- ggplot(diamonds, aes(carat, price, color = clarity)) +\n  geom_point(alpha = 0.3) +\n  facet_wrap(~cut) +\n  scale_y_log10() +\n  scale_color_viridis_d() +\n  labs(title = \"Analisi Multi-dimensionale\")\n\n# Combinare tutto\n(overview | relationship) / (comparison | multidim) +\n  plot_annotation(\n    title = \"Analisi Completa Dataset Diamonds\",\n    subtitle = \"Progetto Finale - Data Visualization con ggplot2\",\n    theme = theme(plot.title = element_text(size = 20, face = \"bold\"))\n  )\n\n\n\n16:30 - 17:00: Considerazioni Finali e Q&A\nBest Practices Recap:\n\n✅ Iniziare sempre con una domanda chiara\n✅ Scegliere il tipo di grafico appropriato\n✅ Usare colori con significato e accessibili\n✅ Includere titoli, labels e caption informativi\n✅ Mantenere i grafici semplici e leggibili\n✅ Documentare il codice\n✅ Salvare i grafici in alta risoluzione\n\nSalvare i grafici:\n\n# ggsave() - metodo consigliato\nggsave(\n  filename = \"my_plot.png\",\n  plot = last_plot(),\n  width = 10,\n  height = 6,\n  dpi = 300,\n  bg = \"white\"\n)\n\n# Diversi formati\nggsave(\"my_plot.pdf\", width = 10, height = 6)\nggsave(\"my_plot.svg\", width = 10, height = 6)"
+  },
+  {
+    "objectID": "materials/day2.html#risorse-per-continuare",
+    "href": "materials/day2.html#risorse-per-continuare",
+    "title": "Giorno 2 - Visualizzazioni Avanzate",
+    "section": "Risorse per Continuare",
+    "text": "Risorse per Continuare\n\nProssimi Passi\n\nEsplorare ggplot2 extensions\nPartecipare a #TidyTuesday\nLeggere Fundamentals of Data Visualization\nPraticare, praticare, praticare!\n\n\n\nPacchetti da Esplorare\n\ngganimate - Animazioni\nplotly - Grafici interattivi\nggraph - Network graphs\nggridges - Ridge plots\ngghighlight - Evidenziare dati"
+  },
+  {
+    "objectID": "materials/day2.html#feedback",
+    "href": "materials/day2.html#feedback",
+    "title": "Giorno 2 - Visualizzazioni Avanzate",
+    "section": "Feedback",
+    "text": "Feedback\nPer favore, compila il questionario di feedback (da aggiungere)!\n\nGrazie per aver partecipato! 🎉\nContinua a visualizzare dati e a creare bellissimi grafici con ggplot2!"
+  },
+  {
+    "objectID": "materials/exercises.html",
+    "href": "materials/exercises.html",
+    "title": "Esercizi",
+    "section": "",
+    "text": "Usa il dataset penguins per creare uno scatterplot che mostri:\n\nX axis: flipper_length_mm\nY axis: body_mass_g\nColor: species\nAdd appropriate labels\n\n\nlibrary(ggplot2)\nlibrary(palmerpenguins)\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3, alpha = 0.7) +\n  labs(\n    title = \"Relazione tra Lunghezza Pinne e Massa Corporea\",\n    x = \"Lunghezza Pinne (mm)\",\n    y = \"Massa Corporea (g)\",\n    color = \"Specie\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea un bar chart che mostri:\n\nIl conteggio di pinguini per island\nDiviso per species usando facets\nColora le barre per sex\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(island, fill = sex)) +\n  geom_bar(position = \"dodge\") +\n  facet_wrap(~species) +\n  labs(\n    title = \"Distribuzione Pinguini per Isola, Specie e Sesso\",\n    x = \"Isola\",\n    y = \"Conteggio\",\n    fill = \"Sesso\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea due grafici della distribuzione di body_mass_g:\n\nUn histogram con 30 bins\nUn density plot colorato per specie\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\n# Histogram\nggplot(penguins, aes(body_mass_g)) +\n  geom_histogram(bins = 30, fill = \"steelblue\", color = \"white\") +\n  labs(\n    title = \"Distribuzione Massa Corporea\",\n    x = \"Massa Corporea (g)\",\n    y = \"Conteggio\"\n  ) +\n  theme_minimal()\n\n# Density plot\nggplot(penguins, aes(body_mass_g, fill = species)) +\n  geom_density(alpha = 0.6) +\n  labs(\n    title = \"Distribuzione Massa Corporea per Specie\",\n    x = \"Massa Corporea (g)\",\n    y = \"Densità\",\n    fill = \"Specie\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea un boxplot che mostri:\n\nY axis: bill_length_mm\nX axis: species\nFill color: island\nUsa position = \"dodge\" per separare i boxplot\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(species, bill_length_mm, fill = island)) +\n  geom_boxplot(position = \"dodge\") +\n  labs(\n    title = \"Lunghezza Becco per Specie e Isola\",\n    x = \"Specie\",\n    y = \"Lunghezza Becco (mm)\",\n    fill = \"Isola\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "materials/exercises.html#esercizi-giorno-1",
+    "href": "materials/exercises.html#esercizi-giorno-1",
+    "title": "Esercizi",
+    "section": "",
+    "text": "Usa il dataset penguins per creare uno scatterplot che mostri:\n\nX axis: flipper_length_mm\nY axis: body_mass_g\nColor: species\nAdd appropriate labels\n\n\nlibrary(ggplot2)\nlibrary(palmerpenguins)\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3, alpha = 0.7) +\n  labs(\n    title = \"Relazione tra Lunghezza Pinne e Massa Corporea\",\n    x = \"Lunghezza Pinne (mm)\",\n    y = \"Massa Corporea (g)\",\n    color = \"Specie\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea un bar chart che mostri:\n\nIl conteggio di pinguini per island\nDiviso per species usando facets\nColora le barre per sex\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(island, fill = sex)) +\n  geom_bar(position = \"dodge\") +\n  facet_wrap(~species) +\n  labs(\n    title = \"Distribuzione Pinguini per Isola, Specie e Sesso\",\n    x = \"Isola\",\n    y = \"Conteggio\",\n    fill = \"Sesso\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea due grafici della distribuzione di body_mass_g:\n\nUn histogram con 30 bins\nUn density plot colorato per specie\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\n# Histogram\nggplot(penguins, aes(body_mass_g)) +\n  geom_histogram(bins = 30, fill = \"steelblue\", color = \"white\") +\n  labs(\n    title = \"Distribuzione Massa Corporea\",\n    x = \"Massa Corporea (g)\",\n    y = \"Conteggio\"\n  ) +\n  theme_minimal()\n\n# Density plot\nggplot(penguins, aes(body_mass_g, fill = species)) +\n  geom_density(alpha = 0.6) +\n  labs(\n    title = \"Distribuzione Massa Corporea per Specie\",\n    x = \"Massa Corporea (g)\",\n    y = \"Densità\",\n    fill = \"Specie\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea un boxplot che mostri:\n\nY axis: bill_length_mm\nX axis: species\nFill color: island\nUsa position = \"dodge\" per separare i boxplot\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(species, bill_length_mm, fill = island)) +\n  geom_boxplot(position = \"dodge\") +\n  labs(\n    title = \"Lunghezza Becco per Specie e Isola\",\n    x = \"Specie\",\n    y = \"Lunghezza Becco (mm)\",\n    fill = \"Isola\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "materials/exercises.html#esercizi-giorno-2",
+    "href": "materials/exercises.html#esercizi-giorno-2",
+    "title": "Esercizi",
+    "section": "Esercizi Giorno 2",
+    "text": "Esercizi Giorno 2\n\nEsercizio 2.1: Scale e Trasformazioni\nUsando il dataset diamonds, crea uno scatterplot di carat vs price:\n\nUsa trasformazione logaritmica per entrambi gli assi\nColora i punti per cut\nUsa una palette viridis\nAggiungi trasparenza ai punti\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(diamonds, aes(carat, price, color = cut)) +\n  geom_point(alpha = 0.3, size = 1) +\n  scale_x_log10() +\n  scale_y_log10() +\n  scale_color_viridis_d() +\n  labs(\n    title = \"Prezzo vs Carati (scala logaritmica)\",\n    x = \"Carati (log scale)\",\n    y = \"Prezzo (log scale)\",\n    color = \"Taglio\"\n  ) +\n  theme_minimal()\n\n\n\n\n\nEsercizio 2.2: Theme Personalizzato\nCrea un theme personalizzato chiamato theme_my_style() che:\n\nUsa theme_minimal() come base\nHa sfondo grigio chiaro\nTitolo centrato e in grassetto\nLegenda in basso\nRimuove le linee di griglia minori\n\nApplicalo a un grafico a tua scelta.\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\ntheme_my_style &lt;- function() {\n  theme_minimal() +\n    theme(\n      plot.title = element_text(hjust = 0.5, face = \"bold\", size = 16),\n      panel.background = element_rect(fill = \"gray95\", color = NA),\n      legend.position = \"bottom\",\n      panel.grid.minor = element_blank(),\n      axis.title = element_text(face = \"bold\")\n    )\n}\n\n# Applicarlo\nggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_boxplot() +\n  labs(title = \"Distribuzione Massa Corporea per Specie\") +\n  theme_my_style() +\n  theme(legend.position = \"none\")\n\n\n\n\n\nEsercizio 2.3: Grafici Combinati\nUsando il dataset penguins, crea 4 grafici e combinali con patchwork:\n\nBar chart del conteggio per specie\nBoxplot di body_mass_g per specie\nScatterplot flipper_length vs body_mass_g colorato per specie\nDensity plot di bill_length_mm per specie\n\nDisponi i grafici in un layout 2x2 con un titolo generale.\n\nlibrary(patchwork)\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nlibrary(patchwork)\n\np1 &lt;- ggplot(penguins, aes(species, fill = species)) +\n  geom_bar() +\n  labs(title = \"Conteggio\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\np2 &lt;- ggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_boxplot() +\n  labs(title = \"Massa Corporea\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\np3 &lt;- ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(alpha = 0.6) +\n  labs(title = \"Pinne vs Massa\") +\n  theme_minimal()\n\np4 &lt;- ggplot(penguins, aes(bill_length_mm, fill = species)) +\n  geom_density(alpha = 0.6) +\n  labs(title = \"Lunghezza Becco\") +\n  theme_minimal()\n\n(p1 | p2) / (p3 | p4) +\n  plot_annotation(\n    title = \"Analisi Multi-pannello Pinguini Palmer\",\n    tag_levels = \"A\"\n  )\n\n\n\n\n\nEsercizio 2.4: Visualizzazione Pubblicazione\nCrea un grafico publication-ready con:\n\nDataset: mpg\nScatterplot di displ vs hwy\nSmooth line per ogni class di auto\nScala colori ColorBrewer “Set2”\nTheme pulito e professionale\nTitolo, sottotitolo e caption\nDimensioni appropriate per pubblicazione (width=10, height=6)\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nplot_publication &lt;- ggplot(mpg, aes(displ, hwy, color = class)) +\n  geom_point(alpha = 0.6, size = 2) +\n  geom_smooth(method = \"lm\", se = FALSE, linewidth = 1) +\n  scale_color_brewer(palette = \"Set2\") +\n  labs(\n    title = \"Fuel Economy vs Engine Displacement\",\n    subtitle = \"Analysis by vehicle class\",\n    x = \"Engine Displacement (liters)\",\n    y = \"Highway Miles per Gallon\",\n    color = \"Vehicle Class\",\n    caption = \"Data source: EPA (1999-2008)\"\n  ) +\n  theme_minimal(base_size = 12) +\n  theme(\n    plot.title = element_text(face = \"bold\", size = 16),\n    plot.subtitle = element_text(color = \"gray40\", size = 12),\n    plot.caption = element_text(color = \"gray60\", hjust = 0),\n    legend.position = \"bottom\",\n    panel.grid.minor = element_blank(),\n    panel.border = element_rect(color = \"gray80\", fill = NA)\n  )\n\n# Salvare\nggsave(\n  \"fuel_economy_publication.png\",\n  plot = plot_publication,\n  width = 10,\n  height = 6,\n  dpi = 300,\n  bg = \"white\"\n)"
+  },
+  {
+    "objectID": "materials/exercises.html#progetti-challenge",
+    "href": "materials/exercises.html#progetti-challenge",
+    "title": "Esercizi",
+    "section": "Progetti Challenge 🏆",
+    "text": "Progetti Challenge 🏆\n\nChallenge 1: Explorer\nEsplora il dataset diamonds e crea almeno 5 visualizzazioni diverse che rivelino insights interessanti sui dati.\n\n\nChallenge 2: Storyteller\nUsando i dataset gapminder (pacchetto gapminder), crea una storia visiva che mostri l’evoluzione della vita nel mondo negli ultimi decenni.\n\n# install.packages(\"gapminder\")\nlibrary(gapminder)\ndata(gapminder)\n\n\n\nChallenge 3: Designer\nRicrea il tuo grafico preferito da un giornale/pubblicazione usando ggplot2 e dati pubblici."
+  },
+  {
+    "objectID": "materials/exercises.html#risorse-aggiuntive",
+    "href": "materials/exercises.html#risorse-aggiuntive",
+    "title": "Esercizi",
+    "section": "Risorse Aggiuntive",
+    "text": "Risorse Aggiuntive\n\nR Graph Gallery - Esempi e codice\nTidyTuesday - Dataset settimanali\nStack Overflow - ggplot2"
+  },
+  {
+    "objectID": "materials/exercises.html#condividi-il-tuo-lavoro",
+    "href": "materials/exercises.html#condividi-il-tuo-lavoro",
+    "title": "Esercizi",
+    "section": "Condividi il Tuo Lavoro!",
+    "text": "Condividi il Tuo Lavoro!\nCondividi i tuoi grafici sul canale Slack del corso! 🎨"
+  },
+  {
+    "objectID": "materials/day1.html",
+    "href": "materials/day1.html",
+    "title": "Giorno 1 - Fondamenti di ggplot2",
+    "section": "",
+    "text": "Benvenuti al primo giorno del corso di Data Visualization con ggplot2!"
+  },
+  {
+    "objectID": "materials/day1.html#benvenuti",
+    "href": "materials/day1.html#benvenuti",
+    "title": "Giorno 1 - Fondamenti di ggplot2",
+    "section": "",
+    "text": "Benvenuti al primo giorno del corso di Data Visualization con ggplot2!"
+  },
+  {
+    "objectID": "materials/day1.html#materiali",
+    "href": "materials/day1.html#materiali",
+    "title": "Giorno 1 - Fondamenti di ggplot2",
+    "section": "Materiali",
+    "text": "Materiali\n\nSlides\n\nIntroduzione al Corso (da aggiungere)\nGrammar of Graphics (da aggiungere)\nGeometrie Base (da aggiungere)\nEstetiche e Mappature (da aggiungere)\nFacets e Coordinate (da aggiungere)\n\n\n\nScript\n\n01_intro.R (da aggiungere)\n02_grammar.R (da aggiungere)\n03_geoms.R (da aggiungere)\n04_aesthetics.R (da aggiungere)\n05_facets.R (da aggiungere)"
+  },
+  {
+    "objectID": "materials/day1.html#programma-dettagliato",
+    "href": "materials/day1.html#programma-dettagliato",
+    "title": "Giorno 1 - Fondamenti di ggplot2",
+    "section": "Programma Dettagliato",
+    "text": "Programma Dettagliato\n\n9:30 - 10:00: Introduzione al Corso\nObiettivi:\n\nPresentazione del corso e degli obiettivi\nPanoramica di ggplot2 e della Grammar of Graphics\nSetup e verifica ambiente di lavoro\n\nCodice di esempio:\n\n# Verifica installazione\nlibrary(ggplot2)\n\n# Primo grafico\nggplot(mpg, aes(displ, hwy)) +\n  geom_point() +\n  labs(title = \"Il mio primo ggplot!\")\n\n\n\n10:00 - 10:45: Fondamenti di ggplot2\nConcetti chiave:\n\nGrammar of Graphics: La grammatica layered di ggplot2\nComponenti principali:\n\nData\nAesthetics (aes)\nGeometries (geom)\nStatistics\nScales\nCoordinates\nFacets\nThemes\n\n\nStruttura di un grafico ggplot2:\n\nggplot(data = &lt;DATA&gt;) +\n  &lt;GEOM_FUNCTION&gt;(\n    mapping = aes(&lt;MAPPINGS&gt;),\n    stat = &lt;STAT&gt;,\n    position = &lt;POSITION&gt;\n  ) +\n  &lt;SCALE_FUNCTION&gt;() +\n  &lt;COORD_FUNCTION&gt;() +\n  &lt;FACET_FUNCTION&gt;() +\n  &lt;THEME_FUNCTION&gt;()\n\nEsempio pratico:\n\nlibrary(ggplot2)\nlibrary(palmerpenguins)\n\n# Carica i dati\ndata(penguins)\n\n# Anatomia di un grafico ggplot2\nggplot(data = penguins, \n       mapping = aes(x = flipper_length_mm, \n                     y = body_mass_g)) +\n  geom_point()\n\n\n\n10:45 - 11:15: ☕ Pausa\n\n\n11:15 - 12:30: Geometrie Base\nGeometrie principali:\n\ngeom_point() - Scatterplots\n\n# Base scatterplot\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point()\n\n# Con colore\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(aes(color = species))\n\n# Dimensione e trasparenza\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(aes(color = species, size = bill_length_mm), alpha = 0.6)\n\n\n\ngeom_line() - Line plots\n\nlibrary(dplyr)\n\n# Dati aggregati per anno\npenguins_year &lt;- penguins %&gt;%\n  filter(!is.na(body_mass_g)) %&gt;%\n  group_by(year, species) %&gt;%\n  summarise(mean_mass = mean(body_mass_g), .groups = \"drop\")\n\n# Line plot\nggplot(penguins_year, aes(year, mean_mass, color = species)) +\n  geom_line(linewidth = 1) +\n  geom_point(size = 3)\n\n\n\ngeom_bar() e geom_col() - Bar charts\n\n# Count bar chart\nggplot(penguins, aes(species)) +\n  geom_bar()\n\n# Bar chart con valori\nspecies_count &lt;- penguins %&gt;%\n  count(species)\n\nggplot(species_count, aes(species, n)) +\n  geom_col(fill = \"steelblue\")\n\n# Stacked bars\nggplot(penguins, aes(species, fill = island)) +\n  geom_bar()\n\n# Dodged bars\nggplot(penguins, aes(species, fill = island)) +\n  geom_bar(position = \"dodge\")\n\n\n\ngeom_histogram() - Histograms\n\n# Histogram base\nggplot(penguins, aes(body_mass_g)) +\n  geom_histogram(bins = 30)\n\n# Con colore per specie\nggplot(penguins, aes(body_mass_g, fill = species)) +\n  geom_histogram(bins = 30, alpha = 0.6)\n\n\n\ngeom_boxplot() - Box plots\n\n# Boxplot base\nggplot(penguins, aes(species, body_mass_g)) +\n  geom_boxplot()\n\n# Con colore\nggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_boxplot() +\n  theme(legend.position = \"none\")\n\n\n\n\n12:30 - 13:30: 🍕 Pausa Pranzo\n\n\n13:30 - 15:00: Estetiche e Mappature\nEstetiche principali:\n\nPosition: x, y\nColor: colour, fill, alpha\nShape: shape, size, linewidth\nText: label\nGroup: group\n\nMappature vs Impostazioni fisse:\n\n# Mappatura (dentro aes) - varia con i dati\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(aes(color = species))\n\n# Impostazione fissa (fuori aes) - uguale per tutti\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(color = \"blue\", size = 3, alpha = 0.5)\n\nScale per le estetiche:\n\n# Scala colori manuale\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point() +\n  scale_color_manual(values = c(\"darkorange\", \"purple\", \"cyan4\"))\n\n# Scala dimensioni\nggplot(penguins, aes(flipper_length_mm, body_mass_g, size = bill_length_mm)) +\n  geom_point(alpha = 0.6) +\n  scale_size_continuous(range = c(1, 8))\n\n\n\n15:00 - 15:30: ☕ Pausa\n\n\n15:30 - 16:30: Facets e Coordinate\n\nFacets - Suddividere in pannelli\n\n# facet_wrap() - una variabile\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point() +\n  facet_wrap(~species)\n\n# facet_wrap() con controllo layout\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point() +\n  facet_wrap(~species, ncol = 1)\n\n# facet_grid() - due variabili\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point() +\n  facet_grid(species ~ island)\n\n# Scale libere\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point() +\n  facet_wrap(~species, scales = \"free\")\n\n\n\nCoordinate\n\n# Flip coordinate\nggplot(penguins, aes(species, body_mass_g)) +\n  geom_boxplot() +\n  coord_flip()\n\n# Zoom (cartesian)\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point() +\n  geom_smooth() +\n  coord_cartesian(xlim = c(180, 230), ylim = c(3500, 5500))\n\n# Fixed ratio\nggplot(penguins, aes(bill_length_mm, bill_depth_mm)) +\n  geom_point() +\n  coord_fixed(ratio = 1)\n\n\n\n\n16:30 - 17:00: Esercitazioni Pratiche\nEsercizio 1: Creare uno scatterplot che mostri la relazione tra lunghezza del becco e profondità del becco, colorato per specie.\nEsercizio 2: Creare un bar chart che mostri il conteggio di pinguini per isola, con barre separate per sesso.\nEsercizio 3: Creare un grafico con facet che mostri la distribuzione della massa corporea per ogni combinazione di specie e sesso.\nSoluzioni disponibili (da aggiungere)"
+  },
+  {
+    "objectID": "materials/day1.html#dataset-utilizzati",
+    "href": "materials/day1.html#dataset-utilizzati",
+    "title": "Giorno 1 - Fondamenti di ggplot2",
+    "section": "Dataset Utilizzati",
+    "text": "Dataset Utilizzati\n\npalmerpenguins\nIl dataset penguins contiene misurazioni di 344 pinguini di 3 specie nell’arcipelago Palmer, Antartide.\n\nlibrary(palmerpenguins)\ndata(penguins)\n\n# Variabili\nnames(penguins)\n# species, island, bill_length_mm, bill_depth_mm, \n# flipper_length_mm, body_mass_g, sex, year\n\n\n\nmtcars\nDataset classico con dati su automobili.\n\ndata(mtcars)\nhead(mtcars)"
+  },
+  {
+    "objectID": "materials/day1.html#risorse-aggiuntive",
+    "href": "materials/day1.html#risorse-aggiuntive",
+    "title": "Giorno 1 - Fondamenti di ggplot2",
+    "section": "Risorse Aggiuntive",
+    "text": "Risorse Aggiuntive\n\nggplot2 Cheatsheet\nggplot2 documentation\nR for Data Science - Data Visualization"
+  },
+  {
+    "objectID": "materials/day1.html#compiti-per-casa",
+    "href": "materials/day1.html#compiti-per-casa",
+    "title": "Giorno 1 - Fondamenti di ggplot2",
+    "section": "Compiti per Casa 📚",
+    "text": "Compiti per Casa 📚\n\nInstallare i pacchetti per il Giorno 2\nEsplorare il dataset diamonds con almeno 3 grafici diversi\nLeggere il capitolo sulle scale nel libro ggplot2 book\n\n\nDomande? Usa il canale Slack o contatta il docente!"
+  },
+  {
+    "objectID": "index.html#location",
+    "href": "index.html#location",
+    "title": "Corso di Data Visualization con ggplot2",
+    "section": "Location",
+    "text": "Location\nIl corso si terrà in:\nDipartimento di [Your Department]\nUniversità di [Your University]\n[Building/Room Details]\n[Address]\n[City, Postal Code]"
+  },
+  {
+    "objectID": "index.html#programma",
+    "href": "index.html#programma",
+    "title": "Corso di Data Visualization con ggplot2",
+    "section": "Programma del corso",
+    "text": "Programma del corso\n\nGiorno 1\n\n\n\nOrario\nArgomento\n\n\n\n\n9:30\nIntroduzione al Corso\n\n\n10:00\nFondamenti di ggplot2: Grammar of Graphics\n\n\n10:45\nPausa\n\n\n11:15\nGeometrie Base: punti, linee e barre\n\n\n12:30\nPausa pranzo\n\n\n13:30\nEstetiche e Mappature\n\n\n15:00\nPausa\n\n\n15:30\nFacets e Coordinate\n\n\n16:30\nEsercitazioni pratiche\n\n\n\n\n\nGiorno 2\n\n\n\nOrario\nArgomento\n\n\n\n\n9:30\nRecap Giorno 1\n\n\n10:00\nScale e Trasformazioni\n\n\n10:45\nPausa\n\n\n11:15\nThemes e Personalizzazione\n\n\n12:30\nPausa pranzo\n\n\n13:30\nVisualizzazioni Avanzate\n\n\n15:00\nPausa\n\n\n15:30\nProgetto Finale\n\n\n16:30\nConsiderazioni finali e Q&A"
+  },
+  {
+    "objectID": "index.html#obiettivi",
+    "href": "index.html#obiettivi",
+    "title": "Corso di Data Visualization con ggplot2",
+    "section": "Obiettivi del corso",
+    "text": "Obiettivi del corso\nAl termine del corso i partecipanti saranno in grado di:\n\nComprendere i principi della Grammar of Graphics\nCreare visualizzazioni efficaci con ggplot2\nPersonalizzare grafici per pubblicazioni scientifiche\nScegliere il tipo di grafico appropriato per diversi tipi di dati\nApplicare best practices nella visualizzazione dati"
+  },
+  {
+    "objectID": "index.html#prerequisiti",
+    "href": "index.html#prerequisiti",
+    "title": "Corso di Data Visualization con ggplot2",
+    "section": "Prerequisiti",
+    "text": "Prerequisiti\n\nConoscenza base di R\nRStudio installato\nFamiliarità con data frames e manipolazione dati"
+  },
+  {
+    "objectID": "index.html#setup",
+    "href": "index.html#setup",
+    "title": "Corso di Data Visualization con ggplot2",
+    "section": "Come installare i software necessari al corso",
+    "text": "Come installare i software necessari al corso\n\nR\nPer installare R cliccate sul seguente link e seguite le istruzioni per il vostro sistema operativo.\n\n\nRStudio\nPer installare RStudio cliccate sul seguente link e seguite le istruzioni per il vostro sistema operativo.\nIn alternativa potete usare il servizio cloud di RStudio cliccando sul seguente link.\n\n\nPacchetti R necessari\nInstallare i seguenti pacchetti prima dell’inizio del corso:\n# Pacchetti principali\ninstall.packages(\"tidyverse\")\ninstall.packages(\"ggplot2\")\n\n# Pacchetti aggiuntivi per esempi\ninstall.packages(\"scales\")\ninstall.packages(\"patchwork\")\ninstall.packages(\"ggthemes\")\ninstall.packages(\"palmerpenguins\")\n\n\nSlack\nSeguire il link per iscriversi al canale Slack del corso."
+  },
+  {
+    "objectID": "index.html#materiali",
+    "href": "index.html#materiali",
+    "title": "Corso di Data Visualization con ggplot2",
+    "section": "Materiali del corso",
+    "text": "Materiali del corso\nTutti i materiali del corso (slides, script, datasets) saranno disponibili nella sezione Materiali."
+  },
+  {
+    "objectID": "index.html#docente",
+    "href": "index.html#docente",
+    "title": "Corso di Data Visualization con ggplot2",
+    "section": "Docente",
+    "text": "Docente\nMarco Chiapello è un bioinformatico con lunga esperienza di utilizzo di R e Bioconductor. Dal 2016 è un istruttore certificato per l’organizzazione internazionale The Carpentries con la quale ha insegnato negli ultimi anni più di 10 corsi in varie università Europee di analisi dati con R. Dal 2015 insegna il corso PhD ToolBox presso l’Università degli Studi di Torino. Attualmente è Application Engineer presso Agilent Technologies nella divisione “Diagnostics & Genomics”."
+  },
+  {
+    "objectID": "index.html#contatti",
+    "href": "index.html#contatti",
+    "title": "Corso di Data Visualization con ggplot2",
+    "section": "Contatti",
+    "text": "Contatti\nPer domande o informazioni sul corso:\n\nEmail: [your.email@example.com]\nSlack: REVELO Training workspace\nGitHub: Course Repository"
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Risorse e Riferimenti",
+    "section": "",
+    "text": "Sito ufficiale ggplot2\nDocumentazione delle funzioni\nGitHub Repository\n\n\n\n\n\nTidyverse\nR for Data Science - Libro gratuito online"
+  },
+  {
+    "objectID": "resources.html#documentazione-ufficiale",
+    "href": "resources.html#documentazione-ufficiale",
+    "title": "Risorse e Riferimenti",
+    "section": "",
+    "text": "Sito ufficiale ggplot2\nDocumentazione delle funzioni\nGitHub Repository\n\n\n\n\n\nTidyverse\nR for Data Science - Libro gratuito online"
+  },
+  {
+    "objectID": "resources.html#libri",
+    "href": "resources.html#libri",
+    "title": "Risorse e Riferimenti",
+    "section": "Libri",
+    "text": "Libri\n\nGratuiti Online\n\nggplot2: Elegant Graphics for Data Analysis (3rd edition)\n\nAutore: Hadley Wickham\nLink\nIl libro di riferimento per ggplot2\n\nR Graphics Cookbook (2nd edition)\n\nAutore: Winston Chang\nLink\nRicette pratiche per grafici comuni\n\nFundamentals of Data Visualization\n\nAutore: Claus O. Wilke\nLink\nTeoria e principi della visualizzazione dati\n\nData Visualization: A practical introduction\n\nAutore: Kieran Healy\nLink\nApproccio pratico con esempi in ggplot2\n\n\n\n\nA Pagamento (Consigliati)\n\nThe Visual Display of Quantitative Information - Edward Tufte\nThe Functional Art - Alberto Cairo\nStorytelling with Data - Cole Nussbaumer Knaflic"
+  },
+  {
+    "objectID": "resources.html#cheatsheets",
+    "href": "resources.html#cheatsheets",
+    "title": "Risorse e Riferimenti",
+    "section": "Cheatsheets",
+    "text": "Cheatsheets\n\nggplot2 Cheatsheet\nData Visualization Cheatsheet\nColors in R"
+  },
+  {
+    "objectID": "resources.html#tutorial-e-guide",
+    "href": "resources.html#tutorial-e-guide",
+    "title": "Risorse e Riferimenti",
+    "section": "Tutorial e Guide",
+    "text": "Tutorial e Guide\n\nVideo\n\nggplot2 workshop by Thomas Lin Pedersen\nPlotting Anything with ggplot2\n\n\n\nArticoli\n\nBBC Visual and Data Journalism cookbook for R graphics\nTop 50 ggplot2 Visualizations\nggplot2 extensions gallery"
+  },
+  {
+    "objectID": "resources.html#dataset-per-esercitarsi",
+    "href": "resources.html#dataset-per-esercitarsi",
+    "title": "Risorse e Riferimenti",
+    "section": "Dataset per Esercitarsi",
+    "text": "Dataset per Esercitarsi\n\nInclusi in R/Pacchetti\n# Dataset base R\ndata(mtcars)\ndata(iris)\ndata(diamonds)  # da ggplot2\n\n# Da pacchetti\nlibrary(palmerpenguins)\ndata(penguins)\n\nlibrary(gapminder)\ndata(gapminder)\n\nlibrary(nycflights13)\ndata(flights)\n\n\nOnline\n\nKaggle Datasets\nUCI Machine Learning Repository\nData.gov\nEuropean Data Portal"
+  },
+  {
+    "objectID": "resources.html#pacchetti-ggplot2-extensions",
+    "href": "resources.html#pacchetti-ggplot2-extensions",
+    "title": "Risorse e Riferimenti",
+    "section": "Pacchetti ggplot2 Extensions",
+    "text": "Pacchetti ggplot2 Extensions\n\nTemi\n\nggthemes - Temi aggiuntivi (Economist, FiveThirtyEight, ecc.)\nhrbrthemes - Temi minimalisti e tipografia\ntvthemes - Temi ispirati a serie TV\n\n\n\nGrafici Specializzati\n\nggridges - Ridge plots (joy plots)\nggalluvial - Diagrammi alluviali\nggraph - Grafici di rete\ngganimate - Animazioni\nplotly - Grafici interattivi\nggrepel - Etichette senza sovrapposizioni\ngghighlight - Evidenziare subset di dati\n\n\n\nComposizione\n\npatchwork - Combinare grafici (consigliato)\ncowplot - Combinare grafici e pubblicazione\ngridExtra - Arrangiare grafici\n\n\n\nColori\n\nviridis - Palette colorblind-friendly\nRColorBrewer - Palette ColorBrewer\nscico - Scientific colour maps\npaletteer - Meta-pacchetto con tutte le palette"
+  },
+  {
+    "objectID": "resources.html#comunità-e-supporto",
+    "href": "resources.html#comunità-e-supporto",
+    "title": "Risorse e Riferimenti",
+    "section": "Comunità e Supporto",
+    "text": "Comunità e Supporto\n\nForum e Q&A\n\nRStudio Community\nStack Overflow - ggplot2 tag\nReddit - r/rstats\n\n\n\nSocial Media\n\n#ggplot2 su Twitter/X\n#TidyTuesday - Sfida settimanale di data viz\n\n\n\nNewsletter\n\nR Weekly\nData Visualization Society"
+  },
+  {
+    "objectID": "resources.html#strumenti-online",
+    "href": "resources.html#strumenti-online",
+    "title": "Risorse e Riferimenti",
+    "section": "Strumenti Online",
+    "text": "Strumenti Online\n\nColor Pickers e Palette\n\nCoolors - Generatore di palette\nColorBrewer - Palette per mappe\nAdobe Color - Ruota dei colori\n\n\n\nDesign e Ispirazione\n\nData Viz Project - Catalogo tipi di visualizzazioni\nFrom Data to Viz - Guida alla scelta del grafico\nThe R Graph Gallery - Esempi e codice"
+  },
+  {
+    "objectID": "resources.html#best-practices-e-linee-guida",
+    "href": "resources.html#best-practices-e-linee-guida",
+    "title": "Risorse e Riferimenti",
+    "section": "Best Practices e Linee Guida",
+    "text": "Best Practices e Linee Guida\n\nPrinciples of Figure Design - Karl Broman\nTen Simple Rules for Better Figures\nchartmaker directory - Scegliere il tipo di grafico giusto"
+  },
+  {
+    "objectID": "resources.html#accessibilità",
+    "href": "resources.html#accessibilità",
+    "title": "Risorse e Riferimenti",
+    "section": "Accessibilità",
+    "text": "Accessibilità\n\nViz Palette - Test per daltonismo\nCoblis - Simulatore daltonismo\nWriting Alt Text for Data Visualization"
+  },
+  {
+    "objectID": "resources.html#blogs-e-siti-consigliati",
+    "href": "resources.html#blogs-e-siti-consigliati",
+    "title": "Risorse e Riferimenti",
+    "section": "Blogs e Siti Consigliati",
+    "text": "Blogs e Siti Consigliati\n\nFlowing Data - Nathan Yau\nInformation is Beautiful - David McCandless\nThe Pudding - Visual essays\nMakeover Monday - Sfide di data viz"
+  },
+  {
+    "objectID": "resources.html#conferenze",
+    "href": "resources.html#conferenze",
+    "title": "Risorse e Riferimenti",
+    "section": "Conferenze",
+    "text": "Conferenze\n\nuseR! - Conferenza annuale R\nrstudio::conf - Conferenza Posit/RStudio\nCSV Conference - Community data\nIEEE VIS - Visualizzazione scientifica"
+  },
+  {
+    "objectID": "resources.html#corsi-online",
+    "href": "resources.html#corsi-online",
+    "title": "Risorse e Riferimenti",
+    "section": "Corsi Online",
+    "text": "Corsi Online\n\nGratuiti\n\nData Science Specialization - Johns Hopkins (Coursera)\nR Programming - Johns Hopkins (Coursera)\nThe Carpentries - R for Reproducible Scientific Analysis\n\n\n\nA Pagamento\n\nDataCamp - Data Visualization with ggplot2\nLinkedIn Learning - R courses"
+  },
+  {
+    "objectID": "resources.html#repository-github-interessanti",
+    "href": "resources.html#repository-github-interessanti",
+    "title": "Risorse e Riferimenti",
+    "section": "Repository GitHub Interessanti",
+    "text": "Repository GitHub Interessanti\n\nawesome-ggplot2 - Lista curata di risorse\nBBC Visual and Data Journalism - Stile BBC\nTidyTuesday - Dataset e esempi settimanali"
+  },
+  {
+    "objectID": "resources.html#contact",
+    "href": "resources.html#contact",
+    "title": "Risorse e Riferimenti",
+    "section": "Contact",
+    "text": "Contact\nPer suggerire aggiunte a questa lista di risorse:\n\nApri una issue nel repository del corso\nContatta via email\nCondividi sul canale Slack\n\n\nQuesta pagina viene aggiornata regolarmente. Ultimo aggiornamento: Ottobre 2025"
+  }
+]

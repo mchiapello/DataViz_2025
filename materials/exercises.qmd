@@ -1,0 +1,387 @@
+---
+title: "Esercizi"
+---
+
+## Esercizi Giorno 1
+
+### Esercizio 1.1: Primo Scatterplot
+
+Usa il dataset `penguins` per creare uno scatterplot che mostri:
+
+- X axis: `flipper_length_mm`
+- Y axis: `body_mass_g`
+- Color: `species`
+- Add appropriate labels
+
+```{r}
+#| eval: false
+library(ggplot2)
+library(palmerpenguins)
+
+# Il tuo codice qui
+```
+
+<details>
+<summary>💡 Soluzione</summary>
+
+```{r}
+#| eval: false
+ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +
+  geom_point(size = 3, alpha = 0.7) +
+  labs(
+    title = "Relazione tra Lunghezza Pinne e Massa Corporea",
+    x = "Lunghezza Pinne (mm)",
+    y = "Massa Corporea (g)",
+    color = "Specie"
+  ) +
+  theme_minimal()
+```
+
+</details>
+
+---
+
+### Esercizio 1.2: Bar Chart con Facets
+
+Crea un bar chart che mostri:
+
+- Il conteggio di pinguini per `island`
+- Diviso per `species` usando facets
+- Colora le barre per `sex`
+
+```{r}
+#| eval: false
+# Il tuo codice qui
+```
+
+<details>
+<summary>💡 Soluzione</summary>
+
+```{r}
+#| eval: false
+ggplot(penguins, aes(island, fill = sex)) +
+  geom_bar(position = "dodge") +
+  facet_wrap(~species) +
+  labs(
+    title = "Distribuzione Pinguini per Isola, Specie e Sesso",
+    x = "Isola",
+    y = "Conteggio",
+    fill = "Sesso"
+  ) +
+  theme_minimal()
+```
+
+</details>
+
+---
+
+### Esercizio 1.3: Histogram e Density
+
+Crea due grafici della distribuzione di `body_mass_g`:
+
+1. Un histogram con 30 bins
+2. Un density plot colorato per specie
+
+```{r}
+#| eval: false
+# Il tuo codice qui
+```
+
+<details>
+<summary>💡 Soluzione</summary>
+
+```{r}
+#| eval: false
+# Histogram
+ggplot(penguins, aes(body_mass_g)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  labs(
+    title = "Distribuzione Massa Corporea",
+    x = "Massa Corporea (g)",
+    y = "Conteggio"
+  ) +
+  theme_minimal()
+
+# Density plot
+ggplot(penguins, aes(body_mass_g, fill = species)) +
+  geom_density(alpha = 0.6) +
+  labs(
+    title = "Distribuzione Massa Corporea per Specie",
+    x = "Massa Corporea (g)",
+    y = "Densità",
+    fill = "Specie"
+  ) +
+  theme_minimal()
+```
+
+</details>
+
+---
+
+### Esercizio 1.4: Boxplot Complesso
+
+Crea un boxplot che mostri:
+
+- Y axis: `bill_length_mm`
+- X axis: `species`
+- Fill color: `island`
+- Usa `position = "dodge"` per separare i boxplot
+
+```{r}
+#| eval: false
+# Il tuo codice qui
+```
+
+<details>
+<summary>💡 Soluzione</summary>
+
+```{r}
+#| eval: false
+ggplot(penguins, aes(species, bill_length_mm, fill = island)) +
+  geom_boxplot(position = "dodge") +
+  labs(
+    title = "Lunghezza Becco per Specie e Isola",
+    x = "Specie",
+    y = "Lunghezza Becco (mm)",
+    fill = "Isola"
+  ) +
+  theme_minimal()
+```
+
+</details>
+
+---
+
+## Esercizi Giorno 2
+
+### Esercizio 2.1: Scale e Trasformazioni
+
+Usando il dataset `diamonds`, crea uno scatterplot di `carat` vs `price`:
+
+- Usa trasformazione logaritmica per entrambi gli assi
+- Colora i punti per `cut`
+- Usa una palette viridis
+- Aggiungi trasparenza ai punti
+
+```{r}
+#| eval: false
+# Il tuo codice qui
+```
+
+<details>
+<summary>💡 Soluzione</summary>
+
+```{r}
+#| eval: false
+ggplot(diamonds, aes(carat, price, color = cut)) +
+  geom_point(alpha = 0.3, size = 1) +
+  scale_x_log10() +
+  scale_y_log10() +
+  scale_color_viridis_d() +
+  labs(
+    title = "Prezzo vs Carati (scala logaritmica)",
+    x = "Carati (log scale)",
+    y = "Prezzo (log scale)",
+    color = "Taglio"
+  ) +
+  theme_minimal()
+```
+
+</details>
+
+---
+
+### Esercizio 2.2: Theme Personalizzato
+
+Crea un theme personalizzato chiamato `theme_my_style()` che:
+
+- Usa `theme_minimal()` come base
+- Ha sfondo grigio chiaro
+- Titolo centrato e in grassetto
+- Legenda in basso
+- Rimuove le linee di griglia minori
+
+Applicalo a un grafico a tua scelta.
+
+```{r}
+#| eval: false
+# Il tuo codice qui
+```
+
+<details>
+<summary>💡 Soluzione</summary>
+
+```{r}
+#| eval: false
+theme_my_style <- function() {
+  theme_minimal() +
+    theme(
+      plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+      panel.background = element_rect(fill = "gray95", color = NA),
+      legend.position = "bottom",
+      panel.grid.minor = element_blank(),
+      axis.title = element_text(face = "bold")
+    )
+}
+
+# Applicarlo
+ggplot(penguins, aes(species, body_mass_g, fill = species)) +
+  geom_boxplot() +
+  labs(title = "Distribuzione Massa Corporea per Specie") +
+  theme_my_style() +
+  theme(legend.position = "none")
+```
+
+</details>
+
+---
+
+### Esercizio 2.3: Grafici Combinati
+
+Usando il dataset `penguins`, crea 4 grafici e combinali con `patchwork`:
+
+1. Bar chart del conteggio per specie
+2. Boxplot di body_mass_g per specie
+3. Scatterplot flipper_length vs body_mass_g colorato per specie
+4. Density plot di bill_length_mm per specie
+
+Disponi i grafici in un layout 2x2 con un titolo generale.
+
+```{r}
+#| eval: false
+library(patchwork)
+
+# Il tuo codice qui
+```
+
+<details>
+<summary>💡 Soluzione</summary>
+
+```{r}
+#| eval: false
+library(patchwork)
+
+p1 <- ggplot(penguins, aes(species, fill = species)) +
+  geom_bar() +
+  labs(title = "Conteggio") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p2 <- ggplot(penguins, aes(species, body_mass_g, fill = species)) +
+  geom_boxplot() +
+  labs(title = "Massa Corporea") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p3 <- ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +
+  geom_point(alpha = 0.6) +
+  labs(title = "Pinne vs Massa") +
+  theme_minimal()
+
+p4 <- ggplot(penguins, aes(bill_length_mm, fill = species)) +
+  geom_density(alpha = 0.6) +
+  labs(title = "Lunghezza Becco") +
+  theme_minimal()
+
+(p1 | p2) / (p3 | p4) +
+  plot_annotation(
+    title = "Analisi Multi-pannello Pinguini Palmer",
+    tag_levels = "A"
+  )
+```
+
+</details>
+
+---
+
+### Esercizio 2.4: Visualizzazione Pubblicazione
+
+Crea un grafico publication-ready con:
+
+- Dataset: `mpg`
+- Scatterplot di `displ` vs `hwy`
+- Smooth line per ogni `class` di auto
+- Scala colori ColorBrewer "Set2"
+- Theme pulito e professionale
+- Titolo, sottotitolo e caption
+- Dimensioni appropriate per pubblicazione (width=10, height=6)
+
+```{r}
+#| eval: false
+# Il tuo codice qui
+```
+
+<details>
+<summary>💡 Soluzione</summary>
+
+```{r}
+#| eval: false
+plot_publication <- ggplot(mpg, aes(displ, hwy, color = class)) +
+  geom_point(alpha = 0.6, size = 2) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 1) +
+  scale_color_brewer(palette = "Set2") +
+  labs(
+    title = "Fuel Economy vs Engine Displacement",
+    subtitle = "Analysis by vehicle class",
+    x = "Engine Displacement (liters)",
+    y = "Highway Miles per Gallon",
+    color = "Vehicle Class",
+    caption = "Data source: EPA (1999-2008)"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 16),
+    plot.subtitle = element_text(color = "gray40", size = 12),
+    plot.caption = element_text(color = "gray60", hjust = 0),
+    legend.position = "bottom",
+    panel.grid.minor = element_blank(),
+    panel.border = element_rect(color = "gray80", fill = NA)
+  )
+
+# Salvare
+ggsave(
+  "fuel_economy_publication.png",
+  plot = plot_publication,
+  width = 10,
+  height = 6,
+  dpi = 300,
+  bg = "white"
+)
+```
+
+</details>
+
+---
+
+## Progetti Challenge 🏆
+
+### Challenge 1: Explorer
+
+Esplora il dataset `diamonds` e crea almeno 5 visualizzazioni diverse che rivelino insights interessanti sui dati.
+
+### Challenge 2: Storyteller
+
+Usando i dataset `gapminder` (pacchetto gapminder), crea una storia visiva che mostri l'evoluzione della vita nel mondo negli ultimi decenni.
+
+```{r}
+#| eval: false
+# install.packages("gapminder")
+library(gapminder)
+data(gapminder)
+```
+
+### Challenge 3: Designer
+
+Ricrea il tuo grafico preferito da un giornale/pubblicazione usando ggplot2 e dati pubblici.
+
+---
+
+## Risorse Aggiuntive
+
+- [R Graph Gallery](https://r-graph-gallery.com/) - Esempi e codice
+- [TidyTuesday](https://github.com/rfordatascience/tidytuesday) - Dataset settimanali
+- [Stack Overflow - ggplot2](https://stackoverflow.com/questions/tagged/ggplot2)
+
+## Condividi il Tuo Lavoro!
+
+Condividi i tuoi grafici sul canale Slack del corso! 🎨

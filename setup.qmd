@@ -1,0 +1,188 @@
+---
+title: "Setup e Installazione"
+---
+
+## Installazione Software
+
+### R
+
+R è il linguaggio di programmazione che useremo durante il corso.
+
+1. Visita [https://cran.r-project.org/](https://cran.r-project.org/)
+2. Seleziona il link per il tuo sistema operativo:
+   - **Windows**: Download R for Windows → base → Download R X.X.X for Windows
+   - **macOS**: Download R for macOS → R-X.X.X.pkg
+   - **Linux**: Seleziona la tua distribuzione e segui le istruzioni
+
+### RStudio
+
+RStudio è l'ambiente di sviluppo integrato (IDE) che useremo.
+
+1. Visita [https://posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/)
+2. Scarica la versione gratuita di RStudio Desktop
+3. Installa seguendo le istruzioni per il tuo sistema operativo
+
+#### Alternativa: Posit Cloud
+
+Se preferisci non installare software sul tuo computer, puoi usare [Posit Cloud](https://posit.cloud/):
+
+- Crea un account gratuito
+- Inizia un nuovo progetto
+- Installa i pacchetti necessari
+
+## Installazione Pacchetti R
+
+Una volta installato R e RStudio, apri RStudio ed esegui i seguenti comandi nella Console:
+
+### Pacchetti Essenziali
+
+```r
+# Tidyverse (include ggplot2, dplyr, tidyr, readr, ecc.)
+install.packages("tidyverse")
+
+# Se preferisci installare solo ggplot2
+install.packages("ggplot2")
+```
+
+### Pacchetti Aggiuntivi
+
+```r
+# Per lavorare con scale e colori
+install.packages("scales")
+install.packages("RColorBrewer")
+install.packages("viridis")
+
+# Per combinare grafici
+install.packages("patchwork")
+install.packages("cowplot")
+
+# Temi aggiuntivi
+install.packages("ggthemes")
+install.packages("hrbrthemes")
+
+# Dataset per esercizi
+install.packages("palmerpenguins")
+install.packages("gapminder")
+
+# Strumenti utili
+install.packages("here")
+install.packages("rmarkdown")
+install.packages("knitr")
+```
+
+## Verifica Installazione
+
+Per verificare che tutto sia installato correttamente, esegui questo codice:
+
+```r
+# Carica ggplot2
+library(ggplot2)
+
+# Crea un grafico di test
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point(aes(color = factor(cyl)), size = 3) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    title = "Se vedi questo grafico, tutto funziona!",
+    x = "Peso (1000 lbs)",
+    y = "Miglia per gallone",
+    color = "Cilindri"
+  ) +
+  theme_minimal()
+```
+
+Se vedi un grafico con punti colorati e una linea di tendenza, sei pronto per il corso! 🎉
+
+## Struttura del Progetto
+
+Durante il corso, organizzeremo il nostro lavoro in una struttura di cartelle:
+
+```
+dataviz-course/
+├── data/           # Dataset
+├── scripts/        # Script R
+├── plots/          # Grafici salvati
+├── exercises/      # Esercizi
+└── project/        # Progetto finale
+```
+
+Crea questa struttura sul tuo computer prima dell'inizio del corso:
+
+```r
+# Crea le cartelle
+dir.create("dataviz-course")
+setwd("dataviz-course")
+dir.create("data")
+dir.create("scripts")
+dir.create("plots")
+dir.create("exercises")
+dir.create("project")
+```
+
+## Risorse Aggiuntive
+
+### Download Dataset
+
+I dataset per il corso saranno disponibili qui:
+
+- [Link ai dataset] (da aggiungere)
+
+### Cheatsheets
+
+Stampa e tieni a portata di mano questi cheatsheet:
+
+- [ggplot2 Cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf)
+- [RStudio IDE Cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/rstudio-ide.pdf)
+
+## Problemi Comuni
+
+### Windows: Rtools
+
+Se usi Windows e vedi errori durante l'installazione dei pacchetti, potresti aver bisogno di Rtools:
+
+1. Visita [https://cran.r-project.org/bin/windows/Rtools/](https://cran.r-project.org/bin/windows/Rtools/)
+2. Scarica e installa la versione corrispondente alla tua versione di R
+
+### macOS: XQuartz
+
+Se usi macOS e hai problemi con i grafici, installa XQuartz:
+
+1. Visita [https://www.xquartz.org/](https://www.xquartz.org/)
+2. Scarica e installa XQuartz
+3. Riavvia il computer
+
+### Librerie di Sistema (Linux)
+
+Su Linux, potrebbero essere necessarie alcune librerie di sistema:
+
+```bash
+# Ubuntu/Debian
+sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev
+
+# Fedora/RedHat
+sudo yum install libcurl-devel openssl-devel libxml2-devel
+```
+
+## Supporto
+
+Se hai problemi con l'installazione:
+
+1. Controlla la sezione [Problemi Comuni](#problemi-comuni) sopra
+2. Cerca l'errore su [Stack Overflow](https://stackoverflow.com/questions/tagged/r)
+3. Chiedi aiuto sul canale Slack del corso
+4. Contatta il docente via email
+
+## Checklist Pre-Corso
+
+Prima dell'inizio del corso, assicurati di aver:
+
+- [ ] Installato R (versione ≥ 4.0)
+- [ ] Installato RStudio (versione recente)
+- [ ] Installato i pacchetti essenziali (tidyverse)
+- [ ] Verificato che tutto funzioni con il codice di test
+- [ ] Creato la struttura delle cartelle
+- [ ] Scaricato i dataset del corso
+- [ ] Unito al canale Slack
+- [ ] Stampato i cheatsheet (opzionale ma consigliato)
+
+**Sei pronto! Ci vediamo al corso! 🚀**

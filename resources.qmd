@@ -1,0 +1,213 @@
+---
+title: "Risorse e Riferimenti"
+---
+
+## Documentazione Ufficiale
+
+### ggplot2
+
+- [Sito ufficiale ggplot2](https://ggplot2.tidyverse.org/)
+- [Documentazione delle funzioni](https://ggplot2.tidyverse.org/reference/index.html)
+- [GitHub Repository](https://github.com/tidyverse/ggplot2)
+
+### Tidyverse
+
+- [Tidyverse](https://www.tidyverse.org/)
+- [R for Data Science](https://r4ds.hadley.nz/) - Libro gratuito online
+
+## Libri
+
+### Gratuiti Online
+
+1. **ggplot2: Elegant Graphics for Data Analysis** (3rd edition)
+   - Autore: Hadley Wickham
+   - [Link](https://ggplot2-book.org/)
+   - Il libro di riferimento per ggplot2
+
+2. **R Graphics Cookbook** (2nd edition)
+   - Autore: Winston Chang
+   - [Link](https://r-graphics.org/)
+   - Ricette pratiche per grafici comuni
+
+3. **Fundamentals of Data Visualization**
+   - Autore: Claus O. Wilke
+   - [Link](https://clauswilke.com/dataviz/)
+   - Teoria e principi della visualizzazione dati
+
+4. **Data Visualization: A practical introduction**
+   - Autore: Kieran Healy
+   - [Link](https://socviz.co/)
+   - Approccio pratico con esempi in ggplot2
+
+### A Pagamento (Consigliati)
+
+- **The Visual Display of Quantitative Information** - Edward Tufte
+- **The Functional Art** - Alberto Cairo
+- **Storytelling with Data** - Cole Nussbaumer Knaflic
+
+## Cheatsheets
+
+- [ggplot2 Cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf)
+- [Data Visualization Cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf)
+- [Colors in R](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
+
+## Tutorial e Guide
+
+### Video
+
+- [ggplot2 workshop by Thomas Lin Pedersen](https://www.youtube.com/watch?v=h29g21z0a68)
+- [Plotting Anything with ggplot2](https://www.youtube.com/watch?v=h29g21z0a68)
+
+### Articoli
+
+- [BBC Visual and Data Journalism cookbook for R graphics](https://bbc.github.io/rcookbook/)
+- [Top 50 ggplot2 Visualizations](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)
+- [ggplot2 extensions gallery](https://exts.ggplot2.tidyverse.org/gallery/)
+
+## Dataset per Esercitarsi
+
+### Inclusi in R/Pacchetti
+
+```r
+# Dataset base R
+data(mtcars)
+data(iris)
+data(diamonds)  # da ggplot2
+
+# Da pacchetti
+library(palmerpenguins)
+data(penguins)
+
+library(gapminder)
+data(gapminder)
+
+library(nycflights13)
+data(flights)
+```
+
+### Online
+
+- [Kaggle Datasets](https://www.kaggle.com/datasets)
+- [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php)
+- [Data.gov](https://www.data.gov/)
+- [European Data Portal](https://data.europa.eu/en)
+
+## Pacchetti ggplot2 Extensions
+
+### Temi
+
+- `ggthemes` - Temi aggiuntivi (Economist, FiveThirtyEight, ecc.)
+- `hrbrthemes` - Temi minimalisti e tipografia
+- `tvthemes` - Temi ispirati a serie TV
+
+### Grafici Specializzati
+
+- `ggridges` - Ridge plots (joy plots)
+- `ggalluvial` - Diagrammi alluviali
+- `ggraph` - Grafici di rete
+- `gganimate` - Animazioni
+- `plotly` - Grafici interattivi
+- `ggrepel` - Etichette senza sovrapposizioni
+- `gghighlight` - Evidenziare subset di dati
+
+### Composizione
+
+- `patchwork` - Combinare grafici (consigliato)
+- `cowplot` - Combinare grafici e pubblicazione
+- `gridExtra` - Arrangiare grafici
+
+### Colori
+
+- `viridis` - Palette colorblind-friendly
+- `RColorBrewer` - Palette ColorBrewer
+- `scico` - Scientific colour maps
+- `paletteer` - Meta-pacchetto con tutte le palette
+
+## Comunità e Supporto
+
+### Forum e Q&A
+
+- [RStudio Community](https://community.rstudio.com/)
+- [Stack Overflow - ggplot2 tag](https://stackoverflow.com/questions/tagged/ggplot2)
+- [Reddit - r/rstats](https://www.reddit.com/r/rstats/)
+
+### Social Media
+
+- [#ggplot2 su Twitter/X](https://twitter.com/search?q=%23ggplot2)
+- [#TidyTuesday](https://github.com/rfordatascience/tidytuesday) - Sfida settimanale di data viz
+
+### Newsletter
+
+- [R Weekly](https://rweekly.org/)
+- [Data Visualization Society](https://www.datavisualizationsociety.org/)
+
+## Strumenti Online
+
+### Color Pickers e Palette
+
+- [Coolors](https://coolors.co/) - Generatore di palette
+- [ColorBrewer](https://colorbrewer2.org/) - Palette per mappe
+- [Adobe Color](https://color.adobe.com/) - Ruota dei colori
+
+### Design e Ispirazione
+
+- [Data Viz Project](https://datavizproject.com/) - Catalogo tipi di visualizzazioni
+- [From Data to Viz](https://www.data-to-viz.com/) - Guida alla scelta del grafico
+- [The R Graph Gallery](https://r-graph-gallery.com/) - Esempi e codice
+
+## Best Practices e Linee Guida
+
+- [Principles of Figure Design](https://www.biostat.wisc.edu/~kbroman/presentations/graphs2017.pdf) - Karl Broman
+- [Ten Simple Rules for Better Figures](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003833)
+- [chartmaker directory](https://chartmaker.visualisingdata.com/) - Scegliere il tipo di grafico giusto
+
+## Accessibilità
+
+- [Viz Palette](https://projects.susielu.com/viz-palette) - Test per daltonismo
+- [Coblis](https://www.color-blindness.com/coblis-color-blindness-simulator/) - Simulatore daltonismo
+- [Writing Alt Text for Data Visualization](https://medium.com/nightingale/writing-alt-text-for-data-visualization-2a218ef43f81)
+
+## Blogs e Siti Consigliati
+
+- [Flowing Data](https://flowingdata.com/) - Nathan Yau
+- [Information is Beautiful](https://informationisbeautiful.net/) - David McCandless
+- [The Pudding](https://pudding.cool/) - Visual essays
+- [Makeover Monday](https://www.makeovermonday.co.uk/) - Sfide di data viz
+
+## Conferenze
+
+- [useR!](https://www.r-project.org/conferences/) - Conferenza annuale R
+- [rstudio::conf](https://posit.co/conference/) - Conferenza Posit/RStudio
+- [CSV Conference](https://csvconf.com/) - Community data
+- [IEEE VIS](http://ieeevis.org/) - Visualizzazione scientifica
+
+## Corsi Online
+
+### Gratuiti
+
+- [Data Science Specialization](https://www.coursera.org/specializations/jhu-data-science) - Johns Hopkins (Coursera)
+- [R Programming](https://www.coursera.org/learn/r-programming) - Johns Hopkins (Coursera)
+- [The Carpentries - R for Reproducible Scientific Analysis](https://swcarpentry.github.io/r-novice-gapminder/)
+
+### A Pagamento
+
+- [DataCamp - Data Visualization with ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1)
+- [LinkedIn Learning - R courses](https://www.linkedin.com/learning/topics/r)
+
+## Repository GitHub Interessanti
+
+- [awesome-ggplot2](https://github.com/erikgahner/awesome-ggplot2) - Lista curata di risorse
+- [BBC Visual and Data Journalism](https://github.com/bbc/bbplot) - Stile BBC
+- [TidyTuesday](https://github.com/rfordatascience/tidytuesday) - Dataset e esempi settimanali
+
+## Contact
+
+Per suggerire aggiunte a questa lista di risorse:
+
+- Apri una issue nel [repository del corso](https://github.com/yourusername/dataviz-course)
+- Contatta via email
+- Condividi sul canale Slack
+
+---
+
+*Questa pagina viene aggiornata regolarmente. Ultimo aggiornamento: Ottobre 2025*

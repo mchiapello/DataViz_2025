@@ -1,0 +1,49 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Data Visualization con ggplot2"
+  navbar:
+    background: primary
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "Materiali"
+        menu:
+          - text: "Giorno 1"
+            href: materials/day1.qmd
+          - text: "Giorno 2"
+            href: materials/day2.qmd
+          - text: "Esercizi"
+            href: materials/exercises.qmd
+      - text: "Risorse"
+        href: resources.qmd
+      - text: "Setup"
+        href: setup.qmd
+    right:
+      - icon: github
+        href: https://github.com/yourusername/dataviz-course
+  page-footer:
+    left: |
+      This page was built with ❤️, [R](https://cran.r-project.org/) and [Quarto](https://quarto.org/) by Marco Chiapello.
+    right: |
+      © 2025 REVELO Training
+
+format:
+  html:
+    theme: 
+      light: cosmo
+      dark: darkly
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-fold: false
+    code-tools: true
+    fig-width: 8
+    fig-height: 6
+    fig-dpi: 300
+
+execute:
+  freeze: auto

@@ -1,0 +1,331 @@
+---
+title: "Giorno 1 - Fondamenti di ggplot2"
+---
+
+## Benvenuti! 🎨
+
+Benvenuti al primo giorno del corso di Data Visualization con ggplot2!
+
+## Materiali
+
+### Slides
+
+- [Introduzione al Corso](slides/01_introduction.pdf) (da aggiungere)
+- [Grammar of Graphics](slides/02_grammar_of_graphics.pdf) (da aggiungere)
+- [Geometrie Base](slides/03_basic_geoms.pdf) (da aggiungere)
+- [Estetiche e Mappature](slides/04_aesthetics.pdf) (da aggiungere)
+- [Facets e Coordinate](slides/05_facets_coords.pdf) (da aggiungere)
+
+### Script
+
+- [01_intro.R](scripts/day1/01_intro.R) (da aggiungere)
+- [02_grammar.R](scripts/day1/02_grammar.R) (da aggiungere)
+- [03_geoms.R](scripts/day1/03_geoms.R) (da aggiungere)
+- [04_aesthetics.R](scripts/day1/04_aesthetics.R) (da aggiungere)
+- [05_facets.R](scripts/day1/05_facets.R) (da aggiungere)
+
+## Programma Dettagliato
+
+### 9:30 - 10:00: Introduzione al Corso {#intro}
+
+**Obiettivi:**
+
+- Presentazione del corso e degli obiettivi
+- Panoramica di ggplot2 e della Grammar of Graphics
+- Setup e verifica ambiente di lavoro
+
+**Codice di esempio:**
+
+```{r}
+#| eval: false
+# Verifica installazione
+library(ggplot2)
+
+# Primo grafico
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  labs(title = "Il mio primo ggplot!")
+```
+
+### 10:00 - 10:45: Fondamenti di ggplot2 {#grammar}
+
+**Concetti chiave:**
+
+1. **Grammar of Graphics**: La grammatica layered di ggplot2
+2. **Componenti principali**:
+   - Data
+   - Aesthetics (aes)
+   - Geometries (geom)
+   - Statistics
+   - Scales
+   - Coordinates
+   - Facets
+   - Themes
+
+**Struttura di un grafico ggplot2:**
+
+```{r}
+#| eval: false
+ggplot(data = <DATA>) +
+  <GEOM_FUNCTION>(
+    mapping = aes(<MAPPINGS>),
+    stat = <STAT>,
+    position = <POSITION>
+  ) +
+  <SCALE_FUNCTION>() +
+  <COORD_FUNCTION>() +
+  <FACET_FUNCTION>() +
+  <THEME_FUNCTION>()
+```
+
+**Esempio pratico:**
+
+```{r}
+#| eval: false
+library(ggplot2)
+library(palmerpenguins)
+
+# Carica i dati
+data(penguins)
+
+# Anatomia di un grafico ggplot2
+ggplot(data = penguins, 
+       mapping = aes(x = flipper_length_mm, 
+                     y = body_mass_g)) +
+  geom_point()
+```
+
+### 10:45 - 11:15: ☕ Pausa
+
+### 11:15 - 12:30: Geometrie Base {#geoms}
+
+**Geometrie principali:**
+
+#### geom_point() - Scatterplots
+
+```{r}
+#| eval: false
+# Base scatterplot
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point()
+
+# Con colore
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point(aes(color = species))
+
+# Dimensione e trasparenza
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point(aes(color = species, size = bill_length_mm), alpha = 0.6)
+```
+
+#### geom_line() - Line plots
+
+```{r}
+#| eval: false
+library(dplyr)
+
+# Dati aggregati per anno
+penguins_year <- penguins %>%
+  filter(!is.na(body_mass_g)) %>%
+  group_by(year, species) %>%
+  summarise(mean_mass = mean(body_mass_g), .groups = "drop")
+
+# Line plot
+ggplot(penguins_year, aes(year, mean_mass, color = species)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 3)
+```
+
+#### geom_bar() e geom_col() - Bar charts
+
+```{r}
+#| eval: false
+# Count bar chart
+ggplot(penguins, aes(species)) +
+  geom_bar()
+
+# Bar chart con valori
+species_count <- penguins %>%
+  count(species)
+
+ggplot(species_count, aes(species, n)) +
+  geom_col(fill = "steelblue")
+
+# Stacked bars
+ggplot(penguins, aes(species, fill = island)) +
+  geom_bar()
+
+# Dodged bars
+ggplot(penguins, aes(species, fill = island)) +
+  geom_bar(position = "dodge")
+```
+
+#### geom_histogram() - Histograms
+
+```{r}
+#| eval: false
+# Histogram base
+ggplot(penguins, aes(body_mass_g)) +
+  geom_histogram(bins = 30)
+
+# Con colore per specie
+ggplot(penguins, aes(body_mass_g, fill = species)) +
+  geom_histogram(bins = 30, alpha = 0.6)
+```
+
+#### geom_boxplot() - Box plots
+
+```{r}
+#| eval: false
+# Boxplot base
+ggplot(penguins, aes(species, body_mass_g)) +
+  geom_boxplot()
+
+# Con colore
+ggplot(penguins, aes(species, body_mass_g, fill = species)) +
+  geom_boxplot() +
+  theme(legend.position = "none")
+```
+
+### 12:30 - 13:30: 🍕 Pausa Pranzo
+
+### 13:30 - 15:00: Estetiche e Mappature {#aesthetics}
+
+**Estetiche principali:**
+
+- **Position**: x, y
+- **Color**: colour, fill, alpha
+- **Shape**: shape, size, linewidth
+- **Text**: label
+- **Group**: group
+
+**Mappature vs Impostazioni fisse:**
+
+```{r}
+#| eval: false
+# Mappatura (dentro aes) - varia con i dati
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point(aes(color = species))
+
+# Impostazione fissa (fuori aes) - uguale per tutti
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point(color = "blue", size = 3, alpha = 0.5)
+```
+
+**Scale per le estetiche:**
+
+```{r}
+#| eval: false
+# Scala colori manuale
+ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +
+  geom_point() +
+  scale_color_manual(values = c("darkorange", "purple", "cyan4"))
+
+# Scala dimensioni
+ggplot(penguins, aes(flipper_length_mm, body_mass_g, size = bill_length_mm)) +
+  geom_point(alpha = 0.6) +
+  scale_size_continuous(range = c(1, 8))
+```
+
+### 15:00 - 15:30: ☕ Pausa
+
+### 15:30 - 16:30: Facets e Coordinate {#facets-coords}
+
+#### Facets - Suddividere in pannelli
+
+```{r}
+#| eval: false
+# facet_wrap() - una variabile
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point() +
+  facet_wrap(~species)
+
+# facet_wrap() con controllo layout
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point() +
+  facet_wrap(~species, ncol = 1)
+
+# facet_grid() - due variabili
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point() +
+  facet_grid(species ~ island)
+
+# Scale libere
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point() +
+  facet_wrap(~species, scales = "free")
+```
+
+#### Coordinate
+
+```{r}
+#| eval: false
+# Flip coordinate
+ggplot(penguins, aes(species, body_mass_g)) +
+  geom_boxplot() +
+  coord_flip()
+
+# Zoom (cartesian)
+ggplot(penguins, aes(flipper_length_mm, body_mass_g)) +
+  geom_point() +
+  geom_smooth() +
+  coord_cartesian(xlim = c(180, 230), ylim = c(3500, 5500))
+
+# Fixed ratio
+ggplot(penguins, aes(bill_length_mm, bill_depth_mm)) +
+  geom_point() +
+  coord_fixed(ratio = 1)
+```
+
+### 16:30 - 17:00: Esercitazioni Pratiche {#exercises}
+
+**Esercizio 1**: Creare uno scatterplot che mostri la relazione tra lunghezza del becco e profondità del becco, colorato per specie.
+
+**Esercizio 2**: Creare un bar chart che mostri il conteggio di pinguini per isola, con barre separate per sesso.
+
+**Esercizio 3**: Creare un grafico con facet che mostri la distribuzione della massa corporea per ogni combinazione di specie e sesso.
+
+[Soluzioni disponibili](exercises/day1_solutions.R) (da aggiungere)
+
+## Dataset Utilizzati
+
+### palmerpenguins
+
+Il dataset `penguins` contiene misurazioni di 344 pinguini di 3 specie nell'arcipelago Palmer, Antartide.
+
+```{r}
+#| eval: false
+library(palmerpenguins)
+data(penguins)
+
+# Variabili
+names(penguins)
+# species, island, bill_length_mm, bill_depth_mm, 
+# flipper_length_mm, body_mass_g, sex, year
+```
+
+### mtcars
+
+Dataset classico con dati su automobili.
+
+```{r}
+#| eval: false
+data(mtcars)
+head(mtcars)
+```
+
+## Risorse Aggiuntive
+
+- [ggplot2 Cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf)
+- [ggplot2 documentation](https://ggplot2.tidyverse.org/reference/index.html)
+- [R for Data Science - Data Visualization](https://r4ds.hadley.nz/data-visualize)
+
+## Compiti per Casa 📚
+
+1. Installare i pacchetti per il Giorno 2
+2. Esplorare il dataset `diamonds` con almeno 3 grafici diversi
+3. Leggere il capitolo sulle scale nel libro [ggplot2 book](https://ggplot2-book.org/scales-position)
+
+---
+
+**Domande?** Usa il canale Slack o contatta il docente!
