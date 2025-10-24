@@ -1,0 +1,125 @@
+---
+title: "Scale e Trasformazioni"
+---
+
+## Scale in ggplot2
+
+Le scale controllano come i dati vengono mappati alle proprietà visive.
+
+## Scale continue
+
+### Scale degli assi
+
+```{r}
+#| eval: false
+
+# Impostare limiti
+ggplot(data, aes(x = x, y = y)) +
+  geom_point() +
+  scale_x_continuous(limits = c(0, 100))
+
+# Trasformazione logaritmica
+ggplot(data, aes(x = x, y = y)) +
+  geom_point() +
+  scale_y_log10()
+```
+
+### Etichette personalizzate
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = x, y = y)) +
+  geom_point() +
+  scale_x_continuous(
+    name = "Asse X",
+    breaks = seq(0, 100, 20),
+    labels = c("0", "20", "40", "60", "80", "100")
+  )
+```
+
+## Scale di colore
+
+### Colori continui
+
+```{r}
+#| eval: false
+
+# Gradient
+ggplot(data, aes(x = x, y = y, color = value)) +
+  geom_point() +
+  scale_color_gradient(low = "blue", high = "red")
+
+# Viridis
+ggplot(data, aes(x = x, y = y, color = value)) +
+  geom_point() +
+  scale_color_viridis_c()
+```
+
+### Colori discreti
+
+```{r}
+#| eval: false
+
+# Manuale
+ggplot(data, aes(x = x, y = y, color = category)) +
+  geom_point() +
+  scale_color_manual(values = c("red", "blue", "green"))
+
+# Brewer
+ggplot(data, aes(x = x, y = y, color = category)) +
+  geom_point() +
+  scale_color_brewer(palette = "Set1")
+```
+
+## Scale di dimensione
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = x, y = y, size = value)) +
+  geom_point() +
+  scale_size_continuous(range = c(1, 10))
+```
+
+## Trasformazioni
+
+### Trasformazioni degli assi
+
+```{r}
+#| eval: false
+
+# Log10
+scale_y_log10()
+
+# Sqrt
+scale_y_sqrt()
+
+# Reverse
+scale_y_reverse()
+```
+
+### Formattazione
+
+```{r}
+#| eval: false
+
+library(scales)
+
+ggplot(data, aes(x = date, y = value)) +
+  geom_line() +
+  scale_y_continuous(labels = comma) +  # Formato con virgole
+  scale_x_date(date_labels = "%b %Y")   # Formato data
+```
+
+## Esercizi
+
+1. Crea un grafico con scala logaritmica
+2. Usa una palette di colori personalizzata
+3. Formatta gli assi con etichette personalizzate
+
+## Risorse
+
+- [Scales in ggplot2](https://ggplot2-book.org/scales.html)
+- [ColorBrewer palettes](https://colorbrewer2.org/)
+- [Viridis color scales](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html)

@@ -21,29 +21,29 @@ Il corso si terrà in:
 
 | Orario | Argomento |
 |--------|-----------|
-| 9:30   | Introduzione al Corso |
-| 10:00  | Gestione delle tabelle |
+| 9:30   | [Introduzione al Corso](materials/01_introduzione.qmd) |
+| 10:00  | [Gestione delle tabelle](materials/02_gestione_tabelle.qmd) |
 | 10:45  | Pausa |
-| 11:15  | Fondamenti di ggplot2: Grammar of Graphics |
+| 11:15  | [Fondamenti di ggplot2: Grammar of Graphics](materials/03_grammar_of_graphics.qmd) |
 | 12:30  | Pausa pranzo |
-| 13:35  | Geometrie Base|
+| 13:35  | [Geometrie Base](materials/04_geometrie_base.qmd)|
 | 15:00  | Pausa |
-| 15:30  | Estetiche e Mappature |
+| 15:30  | [Estetiche e Mappature](materials/05_estetiche_mappature.qmd) |
 | 16:30  | Fine giornata |
 
 ### Giorno 2 {#giorno2}
 
 | Orario | Argomento |
 |--------|-----------|
-| 9:30   | Recap Giorno 1 |
-| 10:00  | Facets e Coordinate |
+| 9:30   | [Recap Giorno 1](materials/06_recap_giorno1.qmd) |
+| 10:00  | [Facets e Coordinate](materials/07_facets_coordinate.qmd) |
 | 10:45  | Pausa |
-| 11:15  | Scale e Trasformazioni |
+| 11:15  | [Scale e Trasformazioni](materials/08_scale_trasformazioni.qmd) |
 | 12:30  | Pausa pranzo |
-| 13:30  | Themes e Personalizzazione |
+| 13:30  | [Themes e Personalizzazione](materials/09_themes_personalizzazione.qmd) |
 | 15:00  | Pausa |
-| 15:30  | Visualizzazioni Avanzate |
-| 16:30  | Considerazioni finali e Q&A |
+| 15:30  | [Visualizzazioni Avanzate](materials/10_visualizzazioni_avanzate.qmd) |
+| 16:30  | [Considerazioni finali e Q&A](materials/11_conclusioni_qa.qmd) |
 
 ## Obiettivi del corso {#obiettivi}
 

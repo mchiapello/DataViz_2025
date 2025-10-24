@@ -1,0 +1,57 @@
+---
+title: "Gestione delle Tabelle"
+---
+
+## Obiettivi
+
+- Importare dati in R
+- Manipolare data frames
+- Preparare i dati per la visualizzazione
+
+## Contenuti
+
+### Importazione dati
+
+```{r}
+#| eval: false
+
+# Leggere file CSV
+data <- read.csv("file.csv")
+
+# Con tidyverse
+library(tidyverse)
+data <- read_csv("file.csv")
+```
+
+### Manipolazione dati con dplyr
+
+```{r}
+#| eval: false
+
+library(tidyverse)
+
+# Selezionare colonne
+data %>% select(colonna1, colonna2)
+
+# Filtrare righe
+data %>% filter(valore > 10)
+
+# Creare nuove colonne
+data %>% mutate(nuova_colonna = colonna1 * 2)
+
+# Raggruppare e riassumere
+data %>% 
+  group_by(categoria) %>%
+  summarise(media = mean(valore))
+```
+
+## Esercizi
+
+1. Importa il dataset fornito
+2. Esplora la struttura dei dati
+3. Crea un sommario delle variabili principali
+
+## Risorse
+
+- [dplyr cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf)
+- [tidyr documentation](https://tidyr.tidyverse.org/)

@@ -1,0 +1,163 @@
+---
+title: "Visualizzazioni Avanzate"
+---
+
+## Tecniche avanzate
+
+Approfondiamo tecniche più sofisticate per creare visualizzazioni efficaci.
+
+## Composizione di grafici con patchwork
+
+```{r}
+#| eval: false
+
+library(patchwork)
+
+# Creare più grafici
+p1 <- ggplot(data1, aes(x, y)) + geom_point()
+p2 <- ggplot(data2, aes(x, y)) + geom_line()
+p3 <- ggplot(data3, aes(x)) + geom_histogram()
+
+# Combinare
+p1 + p2           # Affiancati
+p1 / p2           # Uno sopra l'altro
+(p1 + p2) / p3    # Layout complesso
+```
+
+## Annotazioni
+
+```{r}
+#| eval: false
+
+# Testo
+ggplot(data, aes(x, y)) +
+  geom_point() +
+  annotate("text", x = 5, y = 10, label = "Punto importante")
+
+# Forme
+ggplot(data, aes(x, y)) +
+  geom_point() +
+  annotate("rect", xmin = 2, xmax = 4, ymin = 5, ymax = 8, 
+           alpha = 0.2, fill = "red")
+```
+
+## Etichette con ggrepel
+
+```{r}
+#| eval: false
+
+library(ggrepel)
+
+ggplot(data, aes(x, y, label = name)) +
+  geom_point() +
+  geom_text_repel()  # Evita sovrapposizioni
+```
+
+## Grafici interattivi con plotly
+
+```{r}
+#| eval: false
+
+library(plotly)
+
+p <- ggplot(data, aes(x, y)) + geom_point()
+ggplotly(p)  # Rende il grafico interattivo
+```
+
+## Mappe con geom_sf
+
+```{r}
+#| eval: false
+
+library(sf)
+
+ggplot(map_data) +
+  geom_sf(aes(fill = value))
+```
+
+## Visualizzazioni statistiche
+
+### Intervalli di confidenza
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = category, y = value)) +
+  stat_summary(fun.data = mean_se, geom = "errorbar")
+```
+
+### Regressioni
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x, y)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+### Density plots 2D
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x, y)) +
+  geom_density_2d_filled()
+```
+
+## Ridge plots
+
+```{r}
+#| eval: false
+
+library(ggridges)
+
+ggplot(data, aes(x = value, y = category)) +
+  geom_density_ridges()
+```
+
+## Heatmaps
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = x, y = y, fill = value)) +
+  geom_tile() +
+  scale_fill_viridis_c()
+```
+
+## Grafici animati con gganimate
+
+```{r}
+#| eval: false
+
+library(gganimate)
+
+ggplot(data, aes(x, y)) +
+  geom_point() +
+  transition_states(time) +
+  labs(title = "Time: {closest_state}")
+```
+
+## Best practices
+
+1. **Scegli il grafico giusto** per i tuoi dati
+2. **Semplicità**: evita grafici troppo complessi
+3. **Colori**: usa palette accessibili
+4. **Etichette**: sempre chiare e complete
+5. **Contesto**: aggiungi titoli e caption
+6. **Riproducibilità**: salva il codice
+
+## Esercizi
+
+1. Crea una composizione di 3 grafici
+2. Aggiungi annotazioni a un grafico
+3. Crea un grafico con etichette non sovrapposte
+4. Prova a creare un grafico interattivo
+
+## Risorse
+
+- [patchwork](https://patchwork.data-imaginist.com/)
+- [ggrepel](https://ggrepel.slowkow.com/)
+- [plotly for R](https://plotly.com/r/)
+- [gganimate](https://gganimate.com/)

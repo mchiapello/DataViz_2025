@@ -1,0 +1,98 @@
+---
+title: "Estetiche e Mappature"
+---
+
+## Aesthetics (Estetiche)
+
+Le estetiche sono le proprietà visive degli oggetti nel grafico.
+
+## Mappature estetiche
+
+### Posizione
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = var1, y = var2))
+```
+
+### Colore
+
+```{r}
+#| eval: false
+
+# Colore per categoria
+ggplot(data, aes(x = x, y = y, color = category)) +
+  geom_point()
+
+# Fill per aree
+ggplot(data, aes(x = category, fill = category)) +
+  geom_bar()
+```
+
+### Dimensione
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = x, y = y, size = value)) +
+  geom_point()
+```
+
+### Forma
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = x, y = y, shape = category)) +
+  geom_point()
+```
+
+### Trasparenza (alpha)
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = x, y = y, alpha = density)) +
+  geom_point()
+```
+
+## Mapping vs Setting
+
+### Mapping (dentro aes)
+Mappa i dati a proprietà visive:
+```{r}
+#| eval: false
+
+aes(color = category)  # Colore dipende dai dati
+```
+
+### Setting (fuori aes)
+Imposta valori fissi:
+```{r}
+#| eval: false
+
+geom_point(color = "blue")  # Tutti i punti blu
+```
+
+## Differenza tra color e fill
+
+- **color**: Colore del bordo/linea
+- **fill**: Colore di riempimento
+
+```{r}
+#| eval: false
+
+# Per barre
+geom_bar(aes(fill = category), color = "black")
+```
+
+## Esercizi
+
+1. Mappa diverse variabili a colore, dimensione e forma
+2. Sperimenta con la differenza tra mapping e setting
+3. Crea un grafico con color e fill diversi
+
+## Risorse
+
+- [ggplot2 aesthetics](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html)

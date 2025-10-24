@@ -1,0 +1,80 @@
+---
+title: "Geometrie Base"
+---
+
+## Geometrie in ggplot2
+
+Le geometrie (geoms) definiscono il tipo di visualizzazione che vogliamo creare.
+
+## Geometrie principali
+
+### Scatter plots (Diagrammi a dispersione)
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = var1, y = var2)) +
+  geom_point()
+```
+
+### Line plots (Grafici a linee)
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = time, y = value)) +
+  geom_line()
+```
+
+### Bar plots (Grafici a barre)
+
+```{r}
+#| eval: false
+
+# Barre con conteggio
+ggplot(data, aes(x = category)) +
+  geom_bar()
+
+# Barre con valori
+ggplot(data, aes(x = category, y = value)) +
+  geom_col()
+```
+
+### Histograms (Istogrammi)
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = continuous_var)) +
+  geom_histogram()
+```
+
+### Box plots
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = category, y = value)) +
+  geom_boxplot()
+```
+
+## Combinare geometrie
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = x, y = y)) +
+  geom_point() +
+  geom_smooth()
+```
+
+## Esercizi
+
+1. Crea un scatter plot
+2. Crea un grafico a barre
+3. Combina due geometrie diverse
+
+## Risorse
+
+- [ggplot2 geoms reference](https://ggplot2.tidyverse.org/reference/#geoms)
+- [R Graph Gallery](https://r-graph-gallery.com/)

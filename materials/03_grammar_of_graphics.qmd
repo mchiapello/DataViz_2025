@@ -1,0 +1,72 @@
+---
+title: "Fondamenti di ggplot2: Grammar of Graphics"
+---
+
+## La Grammar of Graphics
+
+La Grammar of Graphics è un framework teorico per creare visualizzazioni in modo sistematico.
+
+## Componenti principali
+
+### 1. Data (Dati)
+I dati che vogliamo visualizzare
+
+### 2. Aesthetics (Estetiche)
+Come mappiamo i dati alle proprietà visive:
+- Posizione (x, y)
+- Colore
+- Dimensione
+- Forma
+
+### 3. Geometries (Geometrie)
+Il tipo di grafico:
+- Punti (`geom_point()`)
+- Linee (`geom_line()`)
+- Barre (`geom_bar()`)
+
+### 4. Scales (Scale)
+Come i dati vengono trasformati in valori visivi
+
+### 5. Facets
+Dividere il grafico in sottografici
+
+### 6. Themes (Temi)
+Aspetto generale del grafico
+
+## Primo grafico con ggplot2
+
+```{r}
+#| eval: false
+
+library(ggplot2)
+
+# Template base
+ggplot(data = <DATA>) +
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+```
+
+## Esempio pratico
+
+```{r}
+#| eval: false
+
+library(tidyverse)
+
+# Caricare i dati
+data(mtcars)
+
+# Creare un grafico
+ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = wt, y = mpg))
+```
+
+## Esercizi
+
+1. Crea il tuo primo grafico con i dati forniti
+2. Sperimenta con diverse mappature estetiche
+3. Prova diverse geometrie
+
+## Risorse
+
+- [ggplot2 book](https://ggplot2-book.org/)
+- [Grammar of Graphics paper](https://www.springer.com/gp/book/9780387245447)

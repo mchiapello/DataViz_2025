@@ -11,10 +11,31 @@ website:
         href: index.qmd
       - text: "Materiali"
         menu:
-          - text: "Giorno 1"
-            href: materials/day1.qmd
-          - text: "Giorno 2"
-            href: materials/day2.qmd
+          - text: "---Day 1---"
+          - text: "Introduzione al Corso"
+            href: materials/01_introduzione.qmd
+          - text: "Gestione delle Tabelle"
+            href: materials/02_gestione_tabelle.qmd
+          - text: "Grammar of Graphics"
+            href: materials/03_grammar_of_graphics.qmd
+          - text: "Geometrie Base"
+            href: materials/04_geometrie_base.qmd
+          - text: "Estetiche e Mappature"
+            href: materials/05_estetiche_mappature.qmd
+          - text: "---Day 2---"
+          - text: "Recap Giorno 1"
+            href: materials/06_recap_giorno1.qmd
+          - text: "Facets e Coordinate"
+            href: materials/07_facets_coordinate.qmd
+          - text: "Scale e Trasformazioni"
+            href: materials/08_scale_trasformazioni.qmd
+          - text: "Themes e Personalizzazione"
+            href: materials/09_themes_personalizzazione.qmd
+          - text: "Visualizzazioni Avanzate"
+            href: materials/10_visualizzazioni_avanzate.qmd
+          - text: "Conclusioni e Q&A"
+            href: materials/11_conclusioni_qa.qmd
+          - text: "---"
           - text: "Esercizi"
             href: materials/exercises.qmd
       - text: "Risorse"

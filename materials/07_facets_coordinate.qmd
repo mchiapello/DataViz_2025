@@ -1,0 +1,96 @@
+---
+title: "Facets e Coordinate"
+---
+
+## Facets (Sottografici)
+
+I facets permettono di dividere un grafico in più pannelli basati su variabili categoriali.
+
+## Facet wrap
+
+Crea una griglia di grafici basata su una variabile:
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = x, y = y)) +
+  geom_point() +
+  facet_wrap(~ category)
+```
+
+## Facet grid
+
+Crea una griglia basata su due variabili:
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = x, y = y)) +
+  geom_point() +
+  facet_grid(rows = vars(var1), cols = vars(var2))
+```
+
+## Personalizzare i facets
+
+```{r}
+#| eval: false
+
+# Scale libere
+facet_wrap(~ category, scales = "free")
+
+# Numero di colonne
+facet_wrap(~ category, ncol = 3)
+```
+
+## Sistemi di coordinate
+
+### Cartesiano (default)
+
+Il sistema standard x-y.
+
+### Flip coordinates
+
+Scambia gli assi x e y:
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = category, y = value)) +
+  geom_col() +
+  coord_flip()
+```
+
+### Coordinate polari
+
+Per grafici circolari:
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = "", y = value, fill = category)) +
+  geom_col() +
+  coord_polar("y")
+```
+
+### Coordinate fisse
+
+Mantiene proporzioni 1:1:
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = x, y = y)) +
+  geom_point() +
+  coord_fixed()
+```
+
+## Esercizi
+
+1. Crea facets basati su una variabile categoriale
+2. Usa facet_grid con due variabili
+3. Crea un bar plot orizzontale con coord_flip()
+
+## Risorse
+
+- [Faceting in ggplot2](https://ggplot2-book.org/facet.html)
+- [Coordinate systems](https://ggplot2-book.org/coord.html)

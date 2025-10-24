@@ -1,0 +1,83 @@
+---
+title: "Considerazioni Finali e Q&A"
+---
+
+## Riepilogo del corso
+
+Cosa abbiamo imparato in questi due giorni.
+
+## Concetti chiave
+
+### Giorno 1
+- Grammar of Graphics: framework teorico
+- Geometrie base: punti, linee, barre
+- Estetiche e mappature
+- Gestione dei dati con tidyverse
+
+### Giorno 2
+- Facets per creare sottografici
+- Scale e trasformazioni
+- Themes e personalizzazione
+- Tecniche avanzate (patchwork, annotazioni, interattività)
+
+## Best practices riassuntive
+
+1. **Inizia semplice**: crea prima un grafico base, poi perfeziona
+2. **Dati tidy**: prepara bene i dati prima di visualizzare
+3. **Esplora**: prova diverse geometrie e mappature
+4. **Personalizza**: usa themes per rendere i grafici professionali
+5. **Documenta**: commenta il codice e salva gli script
+
+## Prossimi passi
+
+### Continua a imparare
+- Pratica regolarmente
+- Esplora il [R Graph Gallery](https://r-graph-gallery.com/)
+- Partecipa a [TidyTuesday](https://github.com/rfordatascience/tidytuesday)
+
+### Risorse consigliate
+
+**Libri**:
+- [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/)
+- [R for Data Science](https://r4ds.hadley.nz/)
+- [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/)
+
+**Online**:
+- [ggplot2 documentation](https://ggplot2.tidyverse.org/)
+- [RStudio cheatsheets](https://posit.co/resources/cheatsheets/)
+- [Stack Overflow ggplot2 tag](https://stackoverflow.com/questions/tagged/ggplot2)
+
+**Community**:
+- [RStudio Community](https://community.rstudio.com/)
+- [R4DS Slack](https://www.rfordatasci.com/)
+- Twitter #rstats
+
+## Progetto finale (opzionale)
+
+Crea una visualizzazione completa che incorpori:
+- Import e manipolazione dati
+- Più geometrie
+- Personalizzazione con theme
+- Annotazioni o composizioni
+
+## Feedback
+
+Il tuo feedback è importante! Per favore, compila il questionario di valutazione del corso.
+
+## Q&A
+
+Spazio per domande finali e discussione.
+
+## Contatti
+
+Rimaniamo in contatto:
+
+- Email: chiapello.m@gmail.com
+- Slack: [REVELO Training workspace](https://revelotraining.slack.com/)
+- GitHub: [Course Repository](https://github.com/mchiapello/DataViz_2025)
+
+## Grazie!
+
+Grazie per aver partecipato al corso. Buona visualizzazione! 📊
+
+![](images/ggplot2_logo.jpg){width=200px fig-align="center"}

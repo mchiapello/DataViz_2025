@@ -1,0 +1,45 @@
+---
+title: "Recap Giorno 1"
+---
+
+## Riepilogo del Giorno 1
+
+Ripercorriamo insieme i concetti principali appresi ieri.
+
+## Concetti chiave
+
+### Grammar of Graphics
+- Framework teorico per la visualizzazione
+- Componenti: data, aesthetics, geometries, scales, facets, themes
+
+### Geometrie
+- `geom_point()`, `geom_line()`, `geom_bar()`, `geom_histogram()`
+- Combinazione di più geometrie
+
+### Estetiche
+- Posizione (x, y)
+- Colore, dimensione, forma, trasparenza
+- Differenza tra mapping e setting
+- Color vs fill
+
+## Domande dal Giorno 1
+
+Spazio per domande e chiarimenti
+
+## Preview Giorno 2
+
+Oggi vedremo:
+- Facets e sistemi di coordinate
+- Scale e trasformazioni
+- Themes e personalizzazione
+- Visualizzazioni avanzate
+
+## Esercizio di riscaldamento
+
+Ricrea questo grafico utilizzando i concetti del Giorno 1:
+
+```{r}
+#| eval: false
+
+# Il tuo codice qui
+```

@@ -1,0 +1,167 @@
+---
+title: "Themes e Personalizzazione"
+---
+
+## Temi in ggplot2
+
+I temi controllano l'aspetto non-dati del grafico.
+
+## Temi predefiniti
+
+```{r}
+#| eval: false
+
+# Minimal
+ggplot(data, aes(x = x, y = y)) +
+  geom_point() +
+  theme_minimal()
+
+# Classic
+theme_classic()
+
+# BW (bianco e nero)
+theme_bw()
+
+# Dark
+theme_dark()
+```
+
+## Temi da pacchetti esterni
+
+```{r}
+#| eval: false
+
+library(ggthemes)
+
+# Economist style
+theme_economist()
+
+# FiveThirtyEight style
+theme_fivethirtyeight()
+```
+
+## Personalizzare i temi
+
+### Elementi di testo
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = x, y = y)) +
+  geom_point() +
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14, face = "bold")
+  )
+```
+
+### Elementi di linea
+
+```{r}
+#| eval: false
+
+theme(
+  axis.line = element_line(color = "black", size = 1),
+  panel.grid.major = element_line(color = "gray", linetype = "dashed")
+)
+```
+
+### Elementi di sfondo
+
+```{r}
+#| eval: false
+
+theme(
+  panel.background = element_rect(fill = "white"),
+  plot.background = element_rect(fill = "lightgray"),
+  legend.background = element_rect(fill = "white", color = "black")
+)
+```
+
+### Rimuovere elementi
+
+```{r}
+#| eval: false
+
+theme(
+  panel.grid = element_blank(),  # Rimuove griglia
+  legend.position = "none"       # Rimuove legenda
+)
+```
+
+## Etichette e titoli
+
+```{r}
+#| eval: false
+
+ggplot(data, aes(x = x, y = y)) +
+  geom_point() +
+  labs(
+    title = "Titolo del grafico",
+    subtitle = "Sottotitolo",
+    x = "Asse X",
+    y = "Asse Y",
+    caption = "Fonte: I miei dati"
+  )
+```
+
+## Legenda
+
+```{r}
+#| eval: false
+
+# Posizione
+theme(legend.position = "bottom")  # "top", "left", "right", "none"
+
+# Titolo della legenda
+labs(color = "Categoria", size = "Valore")
+
+# Personalizzare
+theme(
+  legend.title = element_text(face = "bold"),
+  legend.text = element_text(size = 10)
+)
+```
+
+## Salvare il tema personalizzato
+
+```{r}
+#| eval: false
+
+my_theme <- theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    axis.text = element_text(size = 12)
+  )
+
+# Usare il tema
+ggplot(data, aes(x = x, y = y)) +
+  geom_point() +
+  my_theme
+```
+
+## Esportare grafici
+
+```{r}
+#| eval: false
+
+# ggsave
+ggsave("grafico.png", width = 8, height = 6, dpi = 300)
+
+# Specificare il grafico
+p <- ggplot(data, aes(x = x, y = y)) + geom_point()
+ggsave("grafico.pdf", plot = p, width = 10, height = 8)
+```
+
+## Esercizi
+
+1. Applica diversi temi predefiniti
+2. Crea un tema personalizzato
+3. Aggiungi titoli e etichette complete
+4. Salva un grafico in alta risoluzione
+
+## Risorse
+
+- [Themes documentation](https://ggplot2.tidyverse.org/reference/theme.html)
+- [ggthemes package](https://jrnold.github.io/ggthemes/)

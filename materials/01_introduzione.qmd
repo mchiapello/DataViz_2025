@@ -1,0 +1,33 @@
+---
+title: "Introduzione al Corso"
+---
+
+## Benvenuti
+
+Benvenuti al corso di Data Visualization con ggplot2!
+
+## Obiettivi della sessione
+
+- Panoramica del corso
+- Conoscere i partecipanti
+- Verificare l'installazione del software
+- Introduzione agli strumenti che useremo
+
+## Agenda del corso
+
+Nei prossimi due giorni esploreremo:
+
+- I fondamenti della Grammar of Graphics
+- Come creare visualizzazioni efficaci con ggplot2
+- Personalizzazione e temi
+- Best practices per la visualizzazione dei dati
+
+## Materiali
+
+- [Slides](#)
+- [Script R](#)
+
+## Risorse
+
+- [Documentazione ggplot2](https://ggplot2.tidyverse.org/)
+- [R for Data Science](https://r4ds.hadley.nz/)
