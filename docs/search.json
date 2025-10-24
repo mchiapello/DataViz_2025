@@ -714,60 +714,151 @@
     "text": "Grazie!\nGrazie per aver partecipato al corso. Buona visualizzazione! 📊"
   },
   {
-    "objectID": "materials/02_gestione_tabelle.html",
-    "href": "materials/02_gestione_tabelle.html",
-    "title": "Gestione delle Tabelle",
-    "section": "",
-    "text": "Importare dati in R\nManipolare data frames\nPreparare i dati per la visualizzazione"
-  },
-  {
     "objectID": "materials/02_gestione_tabelle.html#obiettivi",
     "href": "materials/02_gestione_tabelle.html#obiettivi",
-    "title": "Gestione delle Tabelle",
-    "section": "",
-    "text": "Importare dati in R\nManipolare data frames\nPreparare i dati per la visualizzazione"
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Obiettivi",
+    "text": "Obiettivi\n\nDescrivere le best practices per l’inserimento e la formattazione dei dati in spreadsheet\nApplicare le best practices per organizzare variabili e osservazioni\nRiconoscere e risolvere problemi comuni di formattazione"
   },
   {
-    "objectID": "materials/02_gestione_tabelle.html#contenuti",
-    "href": "materials/02_gestione_tabelle.html#contenuti",
-    "title": "Gestione delle Tabelle",
-    "section": "Contenuti",
-    "text": "Contenuti\n\nImportazione dati\n\n# Leggere file CSV\ndata &lt;- read.csv(\"file.csv\")\n\n# Con tidyverse\nlibrary(tidyverse)\ndata &lt;- read_csv(\"file.csv\")\n\n\n\nManipolazione dati con dplyr\n\nlibrary(tidyverse)\n\n# Selezionare colonne\ndata %&gt;% select(colonna1, colonna2)\n\n# Filtrare righe\ndata %&gt;% filter(valore &gt; 10)\n\n# Creare nuove colonne\ndata %&gt;% mutate(nuova_colonna = colonna1 * 2)\n\n# Raggruppare e riassumere\ndata %&gt;% \n  group_by(categoria) %&gt;%\n  summarise(media = mean(valore))"
+    "objectID": "materials/02_gestione_tabelle.html#perché-è-importante",
+    "href": "materials/02_gestione_tabelle.html#perché-è-importante",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Perché è importante?",
+    "text": "Perché è importante?\n\nL’organizzazione dei dati è il fondamento del vostro progetto di ricerca\nI computer interpretano i dati in modo letterale\nUna buona formattazione iniziale facilita l’analisi futura\nPermette la collaborazione e la riproducibilità"
   },
   {
-    "objectID": "materials/02_gestione_tabelle.html#esercizi",
-    "href": "materials/02_gestione_tabelle.html#esercizi",
-    "title": "Gestione delle Tabelle",
-    "section": "Esercizi",
-    "text": "Esercizi\n\nImporta il dataset fornito\nEsplora la struttura dei dati\nCrea un sommario delle variabili principali"
+    "objectID": "materials/02_gestione_tabelle.html#il-problema-principale",
+    "href": "materials/02_gestione_tabelle.html#il-problema-principale",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Il problema principale",
+    "text": "Il problema principale\nTrattiamo gli spreadsheet come quaderni di laboratorio:\n\nNote ai margini\nLayout spaziale per trasmettere informazioni\nFormattazione per dare significato ai dati\n\nGli umani capiscono, i computer no!"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#principi-tidy-data",
+    "href": "materials/02_gestione_tabelle.html#principi-tidy-data",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Principi “Tidy Data”",
+    "text": "Principi “Tidy Data”\n\nLe regole cardinali:\n\nColonne = variabili\nRighe = osservazioni\nUna informazione per cella\nNon modificare mai i dati grezzi\nEsportare in formato text-based (CSV)"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#esempio-dati-problematici",
+    "href": "materials/02_gestione_tabelle.html#esempio-dati-problematici",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Esempio: Dati problematici",
+    "text": "Esempio: Dati problematici\nInformazioni multiple nella stessa cella:\n\nProblemi: difficile filtrare per specie o analizzare per sesso"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#esempio-dati-corretti",
+    "href": "materials/02_gestione_tabelle.html#esempio-dati-corretti",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Esempio: Dati corretti",
+    "text": "Esempio: Dati corretti\nSepariamo specie e sesso in colonne diverse:\n\nMolto meglio per l’analisi!"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#tracciare-le-modifiche",
+    "href": "materials/02_gestione_tabelle.html#tracciare-le-modifiche",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Tracciare le modifiche",
+    "text": "Tracciare le modifiche\nBuone pratiche:\n\nCreare un nuovo file per i dati puliti\nTenere traccia di ogni passaggio in un file di testo\nMai modificare il dataset originale\nUsare version control (es. Git)"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#errori-comuni-tabelle-multiple",
+    "href": "materials/02_gestione_tabelle.html#errori-comuni-tabelle-multiple",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Errori comuni: Tabelle multiple",
+    "text": "Errori comuni: Tabelle multiple\n❌ Non create tabelle multiple in un foglio\nIl computer vede ogni riga come un’osservazione unica e si confonde con associazioni false\n✅ Una tabella per foglio, colonne coerenti"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#errori-comuni-tab-multipli",
+    "href": "materials/02_gestione_tabelle.html#errori-comuni-tab-multipli",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Errori comuni: Tab multipli",
+    "text": "Errori comuni: Tab multipli\n❌ Un tab per ogni giorno/condizione\nProblemi:\n\nInconsistenze tra tab\nPassaggio extra per combinare i dati\nDifficile vedere le connessioni\n\n✅ Aggiungere una colonna “data” o “condizione”"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#errori-comuni-zeri-mancanti",
+    "href": "materials/02_gestione_tabelle.html#errori-comuni-zeri-mancanti",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Errori comuni: Zeri mancanti",
+    "text": "Errori comuni: Zeri mancanti\nDifferenza importante:\n\nZero = misurato, valore nullo\nCella vuota = non misurato, valore mancante (NULL)\n\n❌ Lasciare celle vuote per gli zeri\n✅ Scrivere sempre 0 quando il valore è zero"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#errori-comuni-valori-null",
+    "href": "materials/02_gestione_tabelle.html#errori-comuni-valori-null",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Errori comuni: Valori NULL",
+    "text": "Errori comuni: Valori NULL\nValori problematici per dati mancanti:\n❌ -999, 0, “N/A”, “missing”, “-”\nSoluzioni consigliate:\n✅ Celle vuote (migliore per la maggior parte dei software)\n✅ NA (per R)"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#errori-comuni-formattazione",
+    "href": "materials/02_gestione_tabelle.html#errori-comuni-formattazione",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Errori comuni: Formattazione",
+    "text": "Errori comuni: Formattazione\n❌ Usare colori/grassetti per trasmettere informazioni\n❌ Celle unite\n❌ Righe vuote per separare sezioni\n✅ Creare una nuova colonna con l’informazione codificata"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#errori-comuni-commenti-e-unità",
+    "href": "materials/02_gestione_tabelle.html#errori-comuni-commenti-e-unità",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Errori comuni: Commenti e unità",
+    "text": "Errori comuni: Commenti e unità\n❌ Commenti nelle celle dati\n❌ Unità nelle celle (es. “25 kg”)\n✅ Colonna separata per commenti\n✅ Unità nei nomi delle colonne (es. “peso_kg”)"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#nomi-dei-campi",
+    "href": "materials/02_gestione_tabelle.html#nomi-dei-campi",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Nomi dei campi",
+    "text": "Nomi dei campi\nBuone pratiche:\n✅ Descrittivi ma concisi\n✅ Nessuno spazio (usare _)\n✅ Nessun carattere speciale\n✅ Non iniziare con numeri\n✅ Includere unità (es. temp_C, peso_kg)"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#esempi-nomi-campi",
+    "href": "materials/02_gestione_tabelle.html#esempi-nomi-campi",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Esempi nomi campi",
+    "text": "Esempi nomi campi\n\n\n\nBuono\nBuona Alternativa\nDa evitare\n\n\n\n\nMax_temp_C\nMaxTemp\nMaximum Temp (°C)\n\n\nPrecipitation_mm\nPrecipitation\nprecmm\n\n\nMean_year_growth\nMeanYearGrowth\nMean growth/year\n\n\ncell_type\nCellType\nCell Type"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#caratteri-speciali",
+    "href": "materials/02_gestione_tabelle.html#caratteri-speciali",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Caratteri speciali",
+    "text": "Caratteri speciali\n❌ Evitare:\n\nA capo nelle celle\nVirgolette “smart” (da Word)\nTab, caratteri verticali\nEm-dash, caratteri speciali\n\n✅ Trattare le celle come semplici form di testo"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#metadata",
+    "href": "materials/02_gestione_tabelle.html#metadata",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Metadata",
+    "text": "Metadata\nMetadata = dati sui dati\n❌ Non includere legenda/note nel file dati\n✅ File separato (es. README.txt)\n\nDescrizione variabili\nUnità di misura\nCome sono codificati valori NULL\nInformazioni sulla raccolta dati"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#esercizio-pratico",
+    "href": "materials/02_gestione_tabelle.html#esercizio-pratico",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Esercizio pratico",
+    "text": "Esercizio pratico\nScarica i dati:\n\nsurvey_data_spreadsheet_messy.xls\nsurvey_sorting_exercise.xlsx\n\nAttività:\n\nApri il file messy\nIdentifica i problemi (tab 2013 e 2014)\nDiscuti come pulire i dati\nNon modificare l’originale!"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#dataset-portal-project",
+    "href": "materials/02_gestione_tabelle.html#dataset-portal-project",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Dataset Portal Project",
+    "text": "Dataset Portal Project\nDataset reale usato in 100+ pubblicazioni:\n\nOsservazioni di piccoli mammiferi in Arizona\nStudio degli effetti di roditori e formiche sulle piante\nProgetto in corso da quasi 40 anni\n24 plots con manipolazioni sperimentali\n\nDurante il corso useremo un subset semplificato di questo dataset per gli esercizi"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#recap-le-regole-doro",
+    "href": "materials/02_gestione_tabelle.html#recap-le-regole-doro",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Recap: Le regole d’oro",
+    "text": "Recap: Le regole d’oro\n\nMai modificare i dati grezzi\nUna tabella per foglio\nColonne = variabili, Righe = osservazioni\nUna informazione per cella\nUsare valori NULL consistenti\nNomi campi senza spazi o caratteri speciali\nMetadata in file separato\nTracciare ogni modifica"
   },
   {
     "objectID": "materials/02_gestione_tabelle.html#risorse",
     "href": "materials/02_gestione_tabelle.html#risorse",
-    "title": "Gestione delle Tabelle",
+    "title": "Formattare Tabelle in Spreadsheet",
     "section": "Risorse",
-    "text": "Risorse\n\ndplyr cheatsheet\ntidyr documentation"
-  },
-  {
-    "objectID": "materials/01_introduzione.html",
-    "href": "materials/01_introduzione.html",
-    "title": "Introduzione al Corso",
-    "section": "",
-    "text": "Benvenuti al corso di Data Visualization con ggplot2!"
-  },
-  {
-    "objectID": "materials/01_introduzione.html#benvenuti",
-    "href": "materials/01_introduzione.html#benvenuti",
-    "title": "Introduzione al Corso",
-    "section": "Benvenuti",
-    "text": "Benvenuti\nBenvenuti al corso di Data Visualization con ggplot2!"
-  },
-  {
-    "objectID": "materials/01_introduzione.html#obiettivi-della-sessione",
-    "href": "materials/01_introduzione.html#obiettivi-della-sessione",
-    "title": "Data Visualization con ggplot2",
-    "section": "Obiettivi della sessione",
-    "text": "Obiettivi della sessione\n\nPanoramica del corso\nConoscere i partecipanti\nVerificare l’installazione del software\nIntroduzione agli strumenti che useremo"
+    "text": "Risorse\nRiferimenti:\n\nWickham (2014) - Tidy Data\nBroman & Woo (2018) - Data Organization in Spreadsheets\nData Carpentry Spreadsheet Lesson\n\nDati per l’esercizio disponibili nella cartella data/"
   },
   {
     "objectID": "materials/01_introduzione.html#agenda-del-corso",
@@ -777,18 +868,11 @@
     "text": "Agenda del corso\nNei prossimi due giorni esploreremo:\n\nI fondamenti della Grammar of Graphics\nCome creare visualizzazioni efficaci con ggplot2\nPersonalizzazione e temi\nBest practices per la visualizzazione dei dati"
   },
   {
-    "objectID": "materials/01_introduzione.html#materiali",
-    "href": "materials/01_introduzione.html#materiali",
+    "objectID": "materials/01_introduzione.html#obiettivi-della-sessione",
+    "href": "materials/01_introduzione.html#obiettivi-della-sessione",
     "title": "Data Visualization con ggplot2",
-    "section": "Materiali",
-    "text": "Materiali\n\nSlides\nScript R"
-  },
-  {
-    "objectID": "materials/01_introduzione.html#risorse",
-    "href": "materials/01_introduzione.html#risorse",
-    "title": "Data Visualization con ggplot2",
-    "section": "Risorse",
-    "text": "Risorse\n\nDocumentazione ggplot2\nR for Data Science"
+    "section": "Obiettivi della sessione",
+    "text": "Obiettivi della sessione\n\nPanoramica del corso\nConoscere i partecipanti\nVerificare l’installazione del software\nIntroduzione agli strumenti che useremo"
   },
   {
     "objectID": "materials/09_themes_personalizzazione.html",
@@ -1075,14 +1159,14 @@
     "href": "resources.html",
     "title": "Risorse e Riferimenti",
     "section": "",
-    "text": "Sito ufficiale ggplot2\nDocumentazione delle funzioni\nGitHub Repository\n\n\n\n\n\nTidyverse\nR for Data Science - Libro gratuito online"
+    "text": "Capitolo\nFiles\n\n\n\n\nGestione delle Tabelle\nsurvey_data_spreadsheet_messy.xls, survey_sorting_exercise.xlsx\n\n\nGrammar of Graphics\n-\n\n\nGeometrie Base\n-\n\n\nEstetiche e Mappature\n-\n\n\nFacets e Coordinate\n-\n\n\nScale e Trasformazioni\n-\n\n\nThemes e Personalizzazione\n-\n\n\nVisualizzazioni Avanzate\n-"
   },
   {
     "objectID": "resources.html#documentazione-ufficiale",
     "href": "resources.html#documentazione-ufficiale",
     "title": "Risorse e Riferimenti",
-    "section": "",
-    "text": "Sito ufficiale ggplot2\nDocumentazione delle funzioni\nGitHub Repository\n\n\n\n\n\nTidyverse\nR for Data Science - Libro gratuito online"
+    "section": "Documentazione Ufficiale",
+    "text": "Documentazione Ufficiale\n\nggplot2\n\nSito ufficiale ggplot2\nDocumentazione delle funzioni\nGitHub Repository\n\n\n\nTidyverse\n\nTidyverse\nR for Data Science - Libro gratuito online"
   },
   {
     "objectID": "resources.html#libri",
@@ -1183,10 +1267,10 @@
     "text": "Contact\nPer suggerire aggiunte a questa lista di risorse:\n\nApri una issue nel repository del corso\nContatta via email\nCondividi sul canale Slack\n\n\nQuesta pagina viene aggiornata regolarmente. Ultimo aggiornamento: Ottobre 2025"
   },
   {
-    "objectID": "materials/01_introduzione.html#data-visualization-con-ggplot2",
-    "href": "materials/01_introduzione.html#data-visualization-con-ggplot2",
-    "title": "Introduzione al Corso",
-    "section": "Data Visualization con ggplot2",
-    "text": "Data Visualization con ggplot2\nMarco Chiapello"
+    "objectID": "resources.html#used-files",
+    "href": "resources.html#used-files",
+    "title": "Risorse e Riferimenti",
+    "section": "",
+    "text": "Capitolo\nFiles\n\n\n\n\nGestione delle Tabelle\nsurvey_data_spreadsheet_messy.xls, survey_sorting_exercise.xlsx\n\n\nGrammar of Graphics\n-\n\n\nGeometrie Base\n-\n\n\nEstetiche e Mappature\n-\n\n\nFacets e Coordinate\n-\n\n\nScale e Trasformazioni\n-\n\n\nThemes e Personalizzazione\n-\n\n\nVisualizzazioni Avanzate\n-"
   }
 ]

@@ -1,57 +1,225 @@
 ---
-title: "Gestione delle Tabelle"
+title: "Formattare Tabelle in Spreadsheet"
+subtitle: "Gestione delle Tabelle"
+author: "Marco Chiapello"
+format: 
+  revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    chalkboard: true
+    logo: images/ggplot2_logo.jpg
+    footer: "REVELO Training - Data Viz 2025"
+    css: presentation-style.css
+    title-slide-attributes:
+      data-background-image: images/frequency-wave-7776034_1280.jpg
+      data-background-size: cover
+      data-background-opacity: "0.1"
+resources:
+  - images/
+  - presentation-style.css
 ---
 
-## Obiettivi
+## Obiettivi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-- Importare dati in R
-- Manipolare data frames
-- Preparare i dati per la visualizzazione
+- Descrivere le best practices per l'inserimento e la formattazione dei dati in spreadsheet
+- Applicare le best practices per organizzare variabili e osservazioni
+- Riconoscere e risolvere problemi comuni di formattazione
 
-## Contenuti
+## Perché è importante? {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-### Importazione dati
+::: {.incremental}
+- L'organizzazione dei dati è il **fondamento** del vostro progetto di ricerca
+- I computer interpretano i dati in modo **letterale**
+- Una buona formattazione iniziale facilita l'analisi futura
+- Permette la **collaborazione** e la **riproducibilità**
+:::
 
-```{r}
-#| eval: false
+## Il problema principale {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-# Leggere file CSV
-data <- read.csv("file.csv")
+Trattiamo gli spreadsheet come quaderni di laboratorio:
 
-# Con tidyverse
-library(tidyverse)
-data <- read_csv("file.csv")
-```
+- Note ai margini
+- Layout spaziale per trasmettere informazioni
+- Formattazione per dare significato ai dati
 
-### Manipolazione dati con dplyr
+**Gli umani capiscono, i computer no!**
 
-```{r}
-#| eval: false
+## Principi "Tidy Data" {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-library(tidyverse)
+::: {style="font-size: 0.8em;"}
+Le regole cardinali:
 
-# Selezionare colonne
-data %>% select(colonna1, colonna2)
+1. **Colonne** = variabili
+2. **Righe** = osservazioni
+3. **Una** informazione per cella
+4. Non modificare mai i dati grezzi
+5. Esportare in formato text-based (CSV)
+:::
 
-# Filtrare righe
-data %>% filter(valore > 10)
+![](/materials/images/tidy-1.png){width="80%"}
 
-# Creare nuove colonne
-data %>% mutate(nuova_colonna = colonna1 * 2)
+## Dataset Portal Project {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-# Raggruppare e riassumere
-data %>% 
-  group_by(categoria) %>%
-  summarise(media = mean(valore))
-```
+Dataset reale usato in 100+ pubblicazioni:
 
-## Esercizi
+- Osservazioni di piccoli mammiferi in Arizona
+- Studio degli effetti di roditori e formiche sulle piante
+- Progetto in corso da quasi 40 anni
+- 24 plots con manipolazioni sperimentali
 
-1. Importa il dataset fornito
-2. Esplora la struttura dei dati
-3. Crea un sommario delle variabili principali
+**Durante il corso useremo un subset semplificato di questo dataset per gli esercizi**
 
-## Risorse
+## Tracciare le modifiche {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-- [dplyr cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf)
-- [tidyr documentation](https://tidyr.tidyverse.org/)
+**Buone pratiche:**
+
+- Creare un **nuovo file** per i dati puliti
+- Tenere traccia di ogni passaggio in un file di testo
+- Mai modificare il dataset originale
+- Usare version control (es. Git)
+
+## Esercizio pratico {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+**Scarica i dati:**
+
+- [survey_data_spreadsheet_messy.xls](data/survey_data_spreadsheet_messy.xls)
+- [survey_sorting_exercise.xlsx](data/survey_sorting_exercise.xlsx)
+
+**Attività:**
+
+1. Apri il file messy
+2. Identifica i problemi (tab 2013 e 2014)
+3. Discuti come pulire i dati
+4. **Non modificare l'originale!**
+
+## Errori comuni: Tabelle multiple {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+❌ Non create tabelle multiple in un foglio
+
+Il computer vede ogni riga come un'osservazione unica e si confonde con associazioni false
+
+✅ Una tabella per foglio, colonne coerenti
+
+## Errori comuni: Tab multipli {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+❌ Un tab per ogni giorno/condizione
+
+**Problemi:**
+
+- Inconsistenze tra tab
+- Passaggio extra per combinare i dati
+- Difficile vedere le connessioni
+
+✅ Aggiungere una colonna "data" o "condizione"
+
+## Errori comuni: Zeri mancanti {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+**Differenza importante:**
+
+- **Zero** = misurato, valore nullo
+- **Cella vuota** = non misurato, valore mancante (NULL)
+
+❌ Lasciare celle vuote per gli zeri
+
+✅ Scrivere sempre 0 quando il valore è zero
+
+## Errori comuni: Valori NULL {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+**Valori problematici per dati mancanti:**
+
+❌ -999, 0, "N/A", "missing", "-"
+
+**Soluzioni consigliate:**
+
+✅ Celle vuote (migliore per la maggior parte dei software)
+
+✅ `NA` (per R)
+
+## Errori comuni: Formattazione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+❌ Usare colori/grassetti per trasmettere informazioni
+
+❌ Celle unite
+
+❌ Righe vuote per separare sezioni
+
+✅ Creare una nuova colonna con l'informazione codificata
+
+## Errori comuni: Commenti e unità {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+❌ Commenti nelle celle dati
+
+❌ Unità nelle celle (es. "25 kg")
+
+✅ Colonna separata per commenti
+
+✅ Unità nei nomi delle colonne (es. "peso_kg")
+
+## Nomi dei campi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+**Buone pratiche:**
+
+✅ Descrittivi ma concisi
+
+✅ Nessuno spazio (usare `_`)
+
+✅ Nessun carattere speciale
+
+✅ Non iniziare con numeri
+
+✅ Includere unità (es. `temp_C`, `peso_kg`)
+
+## Esempi nomi campi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+| Buono | Buona Alternativa | Da evitare |
+|-------|-------------------|------------|
+| Max_temp_C | MaxTemp | Maximum Temp (°C) |
+| Precipitation_mm | Precipitation | precmm |
+| Mean_year_growth | MeanYearGrowth | Mean growth/year |
+| cell_type | CellType | Cell Type |
+
+## Caratteri speciali {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+❌ Evitare:
+
+- A capo nelle celle
+- Virgolette "smart" (da Word)
+- Tab, caratteri verticali
+- Em-dash, caratteri speciali
+
+✅ Trattare le celle come semplici form di testo
+
+## Metadata {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+**Metadata = dati sui dati**
+
+❌ Non includere legenda/note nel file dati
+
+✅ File separato (es. `README.txt`)
+
+- Descrizione variabili
+- Unità di misura
+- Come sono codificati valori NULL
+- Informazioni sulla raccolta dati
+
+## Recap: Le regole d'oro {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+1. Mai modificare i dati grezzi
+2. Una tabella per foglio
+3. Colonne = variabili, Righe = osservazioni
+4. Una informazione per cella
+5. Usare valori NULL consistenti
+6. Nomi campi senza spazi o caratteri speciali
+7. Metadata in file separato
+8. Tracciare ogni modifica
+
+## Risorse {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+**Riferimenti:**
+
+- Wickham (2014) - [Tidy Data](http://www.jstatsoft.org/v59/i10)
+- Broman & Woo (2018) - [Data Organization in Spreadsheets](https://doi.org/10.1080/00031305.2017.1375989)
+- [Data Carpentry Spreadsheet Lesson](https://datacarpentry.org/spreadsheet-ecology-lesson/)
+
+**Dati per l'esercizio disponibili nella cartella `data/`**

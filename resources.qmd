@@ -2,6 +2,19 @@
 title: "Risorse e Riferimenti"
 ---
 
+## Used Files
+
+| Capitolo | Files |
+|----------|-------|
+| [Gestione delle Tabelle](materials/02_gestione_tabelle.qmd) | [survey_data_spreadsheet_messy.xls](materials/data/survey_data_spreadsheet_messy.xls), [survey_sorting_exercise.xlsx](materials/data/survey_sorting_exercise.xlsx) |
+| [Grammar of Graphics](materials/03_grammar_of_graphics.qmd) | - |
+| [Geometrie Base](materials/04_geometrie_base.qmd) | - |
+| [Estetiche e Mappature](materials/05_estetiche_mappature.qmd) | - |
+| [Facets e Coordinate](materials/07_facets_coordinate.qmd) | - |
+| [Scale e Trasformazioni](materials/08_scale_trasformazioni.qmd) | - |
+| [Themes e Personalizzazione](materials/09_themes_personalizzazione.qmd) | - |
+| [Visualizzazioni Avanzate](materials/10_visualizzazioni_avanzate.qmd) | - |
+
 ## Documentazione Ufficiale
 
 ### ggplot2
