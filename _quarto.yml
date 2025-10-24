@@ -40,7 +40,7 @@ format:
     toc-depth: 3
     code-copy: true
     code-fold: false
-    code-tools: true
+    code-tools: false
     fig-width: 8
     fig-height: 6
     fig-dpi: 300

@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>complete_workshop_summary – Data Visualization con ggplot2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-69c9ff99c67efa88eb04e9ce5679500c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-354e64e0df703e008adbf2938f5ab231.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-69c9ff99c67efa88eb04e9ce5679500c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Data Visualization con ggplot2</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-materiali" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Materiali</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-materiali">    
+        <li>
+    <a class="dropdown-item" href="../materials/day1.html">
+ <span class="dropdown-text">Giorno 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/day2.html">
+ <span class="dropdown-text">Giorno 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/exercises.html">
+ <span class="dropdown-text">Esercizi</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Risorse</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../setup.html"> 
+<span class="menu-text">Setup</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/yourusername/dataviz-course"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#complete-summary-thomas-lin-pedersens-ggplot2-workshop-parts-1-2" id="toc-complete-summary-thomas-lin-pedersens-ggplot2-workshop-parts-1-2" class="nav-link active" data-scroll-target="#complete-summary-thomas-lin-pedersens-ggplot2-workshop-parts-1-2">Complete Summary: Thomas Lin Pedersen’s ggplot2 Workshop (Parts 1 &amp; 2)</a>
+  <ul class="collapse">
+  <li><a href="#workshop-overview" id="toc-workshop-overview" class="nav-link" data-scroll-target="#workshop-overview">Workshop Overview</a>
+  <ul class="collapse">
+  <li><a href="#core-philosophy-across-both-parts" id="toc-core-philosophy-across-both-parts" class="nav-link" data-scroll-target="#core-philosophy-across-both-parts">Core Philosophy Across Both Parts</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#part-1-grammar-of-graphics-core-ggplot2" id="toc-part-1-grammar-of-graphics-core-ggplot2" class="nav-link" data-scroll-target="#part-1-grammar-of-graphics-core-ggplot2">PART 1: Grammar of Graphics &amp; Core ggplot2</a>
+  <ul class="collapse">
+  <li><a href="#the-grammar-of-graphics-theory" id="toc-the-grammar-of-graphics-theory" class="nav-link" data-scroll-target="#the-grammar-of-graphics-theory">1. The Grammar of Graphics (Theory)</a>
+  <ul class="collapse">
+  <li><a href="#foundations" id="toc-foundations" class="nav-link" data-scroll-target="#foundations">1.1 Foundations</a></li>
+  <li><a href="#core-philosophy" id="toc-core-philosophy" class="nav-link" data-scroll-target="#core-philosophy">1.2 Core Philosophy</a></li>
+  <li><a href="#key-concepts" id="toc-key-concepts" class="nav-link" data-scroll-target="#key-concepts">1.3 Key Concepts</a></li>
+  </ul></li>
+  <li><a href="#ggplot2-core-components" id="toc-ggplot2-core-components" class="nav-link" data-scroll-target="#ggplot2-core-components">2. ggplot2 Core Components</a>
+  <ul class="collapse">
+  <li><a href="#layers-and-geometries" id="toc-layers-and-geometries" class="nav-link" data-scroll-target="#layers-and-geometries">2.1 Layers and Geometries</a></li>
+  <li><a href="#aesthetics-mapping" id="toc-aesthetics-mapping" class="nav-link" data-scroll-target="#aesthetics-mapping">2.2 Aesthetics (Mapping)</a></li>
+  <li><a href="#scales" id="toc-scales" class="nav-link" data-scroll-target="#scales">2.3 Scales</a></li>
+  <li><a href="#statistical-transformations" id="toc-statistical-transformations" class="nav-link" data-scroll-target="#statistical-transformations">2.4 Statistical Transformations</a></li>
+  <li><a href="#facets-small-multiples" id="toc-facets-small-multiples" class="nav-link" data-scroll-target="#facets-small-multiples">2.5 Facets (Small Multiples)</a></li>
+  <li><a href="#coordinates" id="toc-coordinates" class="nav-link" data-scroll-target="#coordinates">2.6 Coordinates</a></li>
+  <li><a href="#position-adjustments" id="toc-position-adjustments" class="nav-link" data-scroll-target="#position-adjustments">2.7 Position Adjustments</a></li>
+  <li><a href="#theming-system" id="toc-theming-system" class="nav-link" data-scroll-target="#theming-system">2.8 Theming System</a></li>
+  </ul></li>
+  <li><a href="#key-learning-principles-from-part-1" id="toc-key-learning-principles-from-part-1" class="nav-link" data-scroll-target="#key-learning-principles-from-part-1">3. Key Learning Principles from Part 1</a>
+  <ul class="collapse">
+  <li><a href="#logic-over-memorization" id="toc-logic-over-memorization" class="nav-link" data-scroll-target="#logic-over-memorization">3.1 Logic Over Memorization</a></li>
+  <li><a href="#composability" id="toc-composability" class="nav-link" data-scroll-target="#composability">3.2 Composability</a></li>
+  <li><a href="#theoretical-foundation-benefits" id="toc-theoretical-foundation-benefits" class="nav-link" data-scroll-target="#theoretical-foundation-benefits">3.3 Theoretical Foundation Benefits</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#part-2-extensions-advanced-techniques" id="toc-part-2-extensions-advanced-techniques" class="nav-link" data-scroll-target="#part-2-extensions-advanced-techniques">PART 2: Extensions &amp; Advanced Techniques</a>
+  <ul class="collapse">
+  <li><a href="#plot-composition-with-patchwork" id="toc-plot-composition-with-patchwork" class="nav-link" data-scroll-target="#plot-composition-with-patchwork">4. Plot Composition with Patchwork</a>
+  <ul class="collapse">
+  <li><a href="#why-plot-composition" id="toc-why-plot-composition" class="nav-link" data-scroll-target="#why-plot-composition">4.1 Why Plot Composition?</a></li>
+  <li><a href="#historical-solutions" id="toc-historical-solutions" class="nav-link" data-scroll-target="#historical-solutions">4.2 Historical Solutions</a></li>
+  <li><a href="#patchwork-package" id="toc-patchwork-package" class="nav-link" data-scroll-target="#patchwork-package">4.3 Patchwork Package</a></li>
+  <li><a href="#advanced-layout-control" id="toc-advanced-layout-control" class="nav-link" data-scroll-target="#advanced-layout-control">4.4 Advanced Layout Control</a></li>
+  <li><a href="#fine-tuning" id="toc-fine-tuning" class="nav-link" data-scroll-target="#fine-tuning">4.5 Fine-tuning</a></li>
+  <li><a href="#reproducibility-focus" id="toc-reproducibility-focus" class="nav-link" data-scroll-target="#reproducibility-focus">4.6 Reproducibility Focus</a></li>
+  </ul></li>
+  <li><a href="#animation-with-gganimate" id="toc-animation-with-gganimate" class="nav-link" data-scroll-target="#animation-with-gganimate">5. Animation with gganimate</a>
+  <ul class="collapse">
+  <li><a href="#why-animation" id="toc-why-animation" class="nav-link" data-scroll-target="#why-animation">5.1 Why Animation?</a></li>
+  <li><a href="#gganimate-philosophy" id="toc-gganimate-philosophy" class="nav-link" data-scroll-target="#gganimate-philosophy">5.2 gganimate Philosophy</a></li>
+  <li><a href="#core-animation-concepts" id="toc-core-animation-concepts" class="nav-link" data-scroll-target="#core-animation-concepts">5.3 Core Animation Concepts</a></li>
+  <li><a href="#practical-applications" id="toc-practical-applications" class="nav-link" data-scroll-target="#practical-applications">5.4 Practical Applications</a></li>
+  <li><a href="#rendering-options" id="toc-rendering-options" class="nav-link" data-scroll-target="#rendering-options">5.5 Rendering Options</a></li>
+  </ul></li>
+  <li><a href="#text-annotations-with-ggrepel" id="toc-text-annotations-with-ggrepel" class="nav-link" data-scroll-target="#text-annotations-with-ggrepel">6. Text Annotations with ggrepel</a>
+  <ul class="collapse">
+  <li><a href="#the-annotation-problem" id="toc-the-annotation-problem" class="nav-link" data-scroll-target="#the-annotation-problem">6.1 The Annotation Problem</a></li>
+  <li><a href="#ggrepel-package-solution" id="toc-ggrepel-package-solution" class="nav-link" data-scroll-target="#ggrepel-package-solution">6.2 ggrepel Package Solution</a></li>
+  <li><a href="#customization" id="toc-customization" class="nav-link" data-scroll-target="#customization">6.3 Customization</a></li>
+  <li><a href="#best-practices" id="toc-best-practices" class="nav-link" data-scroll-target="#best-practices">6.4 Best Practices</a></li>
+  </ul></li>
+  <li><a href="#network-visualization-with-ggraph" id="toc-network-visualization-with-ggraph" class="nav-link" data-scroll-target="#network-visualization-with-ggraph">7. Network Visualization with ggraph</a>
+  <ul class="collapse">
+  <li><a href="#specialized-plot-types" id="toc-specialized-plot-types" class="nav-link" data-scroll-target="#specialized-plot-types">7.1 Specialized Plot Types</a></li>
+  <li><a href="#alternative-packages" id="toc-alternative-packages" class="nav-link" data-scroll-target="#alternative-packages">7.2 Alternative Packages</a></li>
+  <li><a href="#ggraph-tidygraph-workflow" id="toc-ggraph-tidygraph-workflow" class="nav-link" data-scroll-target="#ggraph-tidygraph-workflow">7.3 ggraph + tidygraph Workflow</a></li>
+  <li><a href="#key-network-concepts" id="toc-key-network-concepts" class="nav-link" data-scroll-target="#key-network-concepts">7.4 Key Network Concepts</a></li>
+  <li><a href="#integration-with-ggplot2" id="toc-integration-with-ggplot2" class="nav-link" data-scroll-target="#integration-with-ggplot2">7.5 Integration with ggplot2</a></li>
+  <li><a href="#example-applications" id="toc-example-applications" class="nav-link" data-scroll-target="#example-applications">7.6 Example Applications</a></li>
+  </ul></li>
+  <li><a href="#additional-tools-ggforce" id="toc-additional-tools-ggforce" class="nav-link" data-scroll-target="#additional-tools-ggforce">8. Additional Tools: ggforce</a>
+  <ul class="collapse">
+  <li><a href="#ggforce-overview" id="toc-ggforce-overview" class="nav-link" data-scroll-target="#ggforce-overview">8.1 ggforce Overview</a></li>
+  <li><a href="#highlighting-with-hulls" id="toc-highlighting-with-hulls" class="nav-link" data-scroll-target="#highlighting-with-hulls">8.2 Highlighting with Hulls</a></li>
+  <li><a href="#additional-geometries" id="toc-additional-geometries" class="nav-link" data-scroll-target="#additional-geometries">8.3 Additional Geometries</a></li>
+  </ul></li>
+  <li><a href="#the-extension-ecosystem" id="toc-the-extension-ecosystem" class="nav-link" data-scroll-target="#the-extension-ecosystem">9. The Extension Ecosystem</a>
+  <ul class="collapse">
+  <li><a href="#ggplot2-extensions-gallery" id="toc-ggplot2-extensions-gallery" class="nav-link" data-scroll-target="#ggplot2-extensions-gallery">9.1 ggplot2 Extensions Gallery</a></li>
+  <li><a href="#extension-categories" id="toc-extension-categories" class="nav-link" data-scroll-target="#extension-categories">9.2 Extension Categories</a></li>
+  <li><a href="#extension-philosophy" id="toc-extension-philosophy" class="nav-link" data-scroll-target="#extension-philosophy">9.3 Extension Philosophy</a></li>
+  </ul></li>
+  <li><a href="#learning-resources" id="toc-learning-resources" class="nav-link" data-scroll-target="#learning-resources">10. Learning Resources</a>
+  <ul class="collapse">
+  <li><a href="#official-documentation" id="toc-official-documentation" class="nav-link" data-scroll-target="#official-documentation">10.1 Official Documentation</a></li>
+  <li><a href="#recommended-books" id="toc-recommended-books" class="nav-link" data-scroll-target="#recommended-books">10.2 Recommended Books</a></li>
+  <li><a href="#community-resources" id="toc-community-resources" class="nav-link" data-scroll-target="#community-resources">10.3 Community Resources</a></li>
+  </ul></li>
+  <li><a href="#key-takeaways-from-complete-workshop" id="toc-key-takeaways-from-complete-workshop" class="nav-link" data-scroll-target="#key-takeaways-from-complete-workshop">11. Key Takeaways from Complete Workshop</a>
+  <ul class="collapse">
+  <li><a href="#foundational-principles" id="toc-foundational-principles" class="nav-link" data-scroll-target="#foundational-principles">11.1 Foundational Principles</a></li>
+  <li><a href="#essential-skills" id="toc-essential-skills" class="nav-link" data-scroll-target="#essential-skills">11.2 Essential Skills</a></li>
+  <li><a href="#advanced-techniques" id="toc-advanced-techniques" class="nav-link" data-scroll-target="#advanced-techniques">11.3 Advanced Techniques</a></li>
+  <li><a href="#professional-workflow" id="toc-professional-workflow" class="nav-link" data-scroll-target="#professional-workflow">11.4 Professional Workflow</a></li>
+  </ul></li>
+  <li><a href="#integration-into-dataviz-course" id="toc-integration-into-dataviz-course" class="nav-link" data-scroll-target="#integration-into-dataviz-course">12. Integration into DataViz Course</a>
+  <ul class="collapse">
+  <li><a href="#topics-already-covered-in-your-curriculum" id="toc-topics-already-covered-in-your-curriculum" class="nav-link" data-scroll-target="#topics-already-covered-in-your-curriculum">12.1 Topics Already Covered in Your Curriculum</a></li>
+  <li><a href="#additional-topics-to-consider" id="toc-additional-topics-to-consider" class="nav-link" data-scroll-target="#additional-topics-to-consider">12.2 Additional Topics to Consider</a></li>
+  <li><a href="#video-recommendations-for-students" id="toc-video-recommendations-for-students" class="nav-link" data-scroll-target="#video-recommendations-for-students">12.3 Video Recommendations for Students</a></li>
+  <li><a href="#key-messages-for-students" id="toc-key-messages-for-students" class="nav-link" data-scroll-target="#key-messages-for-students">12.4 Key Messages for Students</a></li>
+  </ul></li>
+  <li><a href="#teaching-approach-from-thomas" id="toc-teaching-approach-from-thomas" class="nav-link" data-scroll-target="#teaching-approach-from-thomas">13. Teaching Approach (from Thomas)</a>
+  <ul class="collapse">
+  <li><a href="#pedagogical-strategy" id="toc-pedagogical-strategy" class="nav-link" data-scroll-target="#pedagogical-strategy">13.1 Pedagogical Strategy</a></li>
+  <li><a href="#workshop-structure" id="toc-workshop-structure" class="nav-link" data-scroll-target="#workshop-structure">13.2 Workshop Structure</a></li>
+  <li><a href="#thomass-teaching-style" id="toc-thomass-teaching-style" class="nav-link" data-scroll-target="#thomass-teaching-style">13.3 Thomas’s Teaching Style</a></li>
+  </ul></li>
+  <li><a href="#context-background" id="toc-context-background" class="nav-link" data-scroll-target="#context-background">14. Context &amp; Background</a>
+  <ul class="collapse">
+  <li><a href="#instructor-credentials" id="toc-instructor-credentials" class="nav-link" data-scroll-target="#instructor-credentials">14.1 Instructor Credentials</a></li>
+  <li><a href="#workshop-context" id="toc-workshop-context" class="nav-link" data-scroll-target="#workshop-context">14.2 Workshop Context</a></li>
+  <li><a href="#datasets-used" id="toc-datasets-used" class="nav-link" data-scroll-target="#datasets-used">14.3 Datasets Used</a></li>
+  </ul></li>
+  <li><a href="#summary-checklist-for-instructors" id="toc-summary-checklist-for-instructors" class="nav-link" data-scroll-target="#summary-checklist-for-instructors">15. Summary Checklist for Instructors</a>
+  <ul class="collapse">
+  <li><a href="#essential-concepts-to-cover" id="toc-essential-concepts-to-cover" class="nav-link" data-scroll-target="#essential-concepts-to-cover">Essential Concepts to Cover</a></li>
+  <li><a href="#advanced-topics-time-permitting" id="toc-advanced-topics-time-permitting" class="nav-link" data-scroll-target="#advanced-topics-time-permitting">Advanced Topics (time permitting)</a></li>
+  <li><a href="#key-skills-to-develop" id="toc-key-skills-to-develop" class="nav-link" data-scroll-target="#key-skills-to-develop">Key Skills to Develop</a></li>
+  <li><a href="#resources-to-share" id="toc-resources-to-share" class="nav-link" data-scroll-target="#resources-to-share">Resources to Share</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+
+<section id="complete-summary-thomas-lin-pedersens-ggplot2-workshop-parts-1-2" class="level1">
+<h1>Complete Summary: Thomas Lin Pedersen’s ggplot2 Workshop (Parts 1 &amp; 2)</h1>
+<p><strong>Instructor</strong>: Thomas Lin Pedersen (ggplot2 maintainer at RStudio/Posit)<br>
+<strong>Total Duration</strong>: ~4.5 hours<br>
+<strong>Date</strong>: April 2020 (Celebration R Conference - Corona Edition)</p>
+<p><strong>Videos</strong>: - Part 1: <a href="https://www.youtube.com/watch?v=h29g21z0a68">Plotting Anything with ggplot2</a> (~2.5 hours) - Part 2: <a href="https://www.youtube.com/watch?v=0m4yywqNPVY">ggplot2 Extensions</a> (~2 hours)</p>
+<hr>
+<section id="workshop-overview" class="level2">
+<h2 class="anchored" data-anchor-id="workshop-overview">Workshop Overview</h2>
+<p>This comprehensive two-part workshop provides an in-depth exploration of ggplot2, taught by one of its main maintainers. The approach emphasizes <strong>theoretical foundations first</strong> (Grammar of Graphics), then practical implementation, and finally the rich <strong>extension ecosystem</strong>.</p>
+<section id="core-philosophy-across-both-parts" class="level3">
+<h3 class="anchored" data-anchor-id="core-philosophy-across-both-parts">Core Philosophy Across Both Parts</h3>
+<ul>
+<li><strong>Theory first</strong>: Understanding the grammar makes everything intuitive</li>
+<li><strong>Logic over memorization</strong>: Learn the system, not individual functions</li>
+<li><strong>Reproducibility</strong>: Keep everything in code</li>
+<li><strong>Composability</strong>: Components work together seamlessly</li>
+<li><strong>Extensions</strong>: ggplot2 is a platform, not just a package</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="part-1-grammar-of-graphics-core-ggplot2" class="level1">
+<h1>PART 1: Grammar of Graphics &amp; Core ggplot2</h1>
+<section id="the-grammar-of-graphics-theory" class="level2">
+<h2 class="anchored" data-anchor-id="the-grammar-of-graphics-theory">1. The Grammar of Graphics (Theory)</h2>
+<section id="foundations" class="level3">
+<h3 class="anchored" data-anchor-id="foundations">1.1 Foundations</h3>
+<ul>
+<li><strong>Grammar of Graphics</strong> - theoretical framework by Leland Wilkinson (1999)</li>
+<li>Not about WHY (best practices) or beauty or algorithms</li>
+<li><strong>Focus</strong>: How to design a system that can create any visualization</li>
+</ul>
+</section>
+<section id="core-philosophy" class="level3">
+<h3 class="anchored" data-anchor-id="core-philosophy">1.2 Core Philosophy</h3>
+<ul>
+<li>The “gg” in ggplot2 stands for Grammar of Graphics</li>
+<li>Foundation for: ggplot2, Tableau (originally Polaris), Vega-lite</li>
+<li>Provides systematic way to think about plot construction</li>
+</ul>
+</section>
+<section id="key-concepts" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts">1.3 Key Concepts</h3>
+<ul>
+<li><strong>Deconstruction of graphics</strong> into reusable components</li>
+<li>All charts (bar, line, scatter) share common elements</li>
+<li>Elements: scales, coordinates, statistical transformations</li>
+<li>Components can be mixed and matched to create any visualization</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="ggplot2-core-components" class="level2">
+<h2 class="anchored" data-anchor-id="ggplot2-core-components">2. ggplot2 Core Components</h2>
+<section id="layers-and-geometries" class="level3">
+<h3 class="anchored" data-anchor-id="layers-and-geometries">2.1 Layers and Geometries</h3>
+<p><strong>Geoms (geometries)</strong>: Visual marks that represent data - <code>geom_histogram()</code>, <code>geom_bar()</code>, <code>geom_line()</code>, <code>geom_point()</code>, etc. - Multiple layers can be combined - Each layer can have different geometries</p>
+</section>
+<section id="aesthetics-mapping" class="level3">
+<h3 class="anchored" data-anchor-id="aesthetics-mapping">2.2 Aesthetics (Mapping)</h3>
+<p><strong>Aesthetics</strong>: Visual properties that can represent data - Position (x, y) - Color and fill - Size, shape, line type - Alpha (transparency)</p>
+<p><strong>Critical Distinction - Mapping vs Setting</strong>: - <strong>Mapping</strong>: <code>aes(color = variable)</code> - maps data to aesthetic - <strong>Setting</strong>: <code>color = "blue"</code> - fixed value</p>
+<p><strong>Common Beginner Confusion - color vs fill</strong>: - <code>color</code>: stroke/outline color - <code>fill</code>: interior color - Histograms, bars → use <code>fill</code> - Lines, points → use <code>color</code></p>
+</section>
+<section id="scales" class="level3">
+<h3 class="anchored" data-anchor-id="scales">2.3 Scales</h3>
+<p><strong>Scale functions</strong>: Control how data values map to visual values</p>
+<p>Pattern: <code>scale_[aesthetic]_[type]()</code> - <code>scale_color_continuous()</code> - <code>scale_fill_discrete()</code> - <code>scale_x_log10()</code></p>
+<p><strong>ColorBrewer integration</strong>: <code>scale_color_brewer()</code> - Qualitative palettes (categorical data) - Diverging palettes - Sequential palettes - Named palettes: “Set1”, “Set2”, etc.</p>
+</section>
+<section id="statistical-transformations" class="level3">
+<h3 class="anchored" data-anchor-id="statistical-transformations">2.4 Statistical Transformations</h3>
+<p>Data transformations before plotting: - Histograms: bin data and count - Bar charts: count observations - Smoothing lines: fit statistical models - Most geoms have default stats - Can be customized or bypassed</p>
+</section>
+<section id="facets-small-multiples" class="level3">
+<h3 class="anchored" data-anchor-id="facets-small-multiples">2.5 Facets (Small Multiples)</h3>
+<p><strong>Faceting</strong>: Split data into multiple subplots</p>
+<p>Powerful for: - Decluttering complex visualizations - Comparing subgroups - Plot-driven data investigation - Brain reuses visual patterns across panels - Panel layout can carry meaning</p>
+</section>
+<section id="coordinates" class="level3">
+<h3 class="anchored" data-anchor-id="coordinates">2.6 Coordinates</h3>
+<p><strong>Coordinate system</strong>: Physical mapping of aesthetics to display - Different from scales - Operates after scaling, before final rendering - Types: Cartesian (default), Polar, Map projections - The “fabric” you’re plotting into</p>
+</section>
+<section id="position-adjustments" class="level3">
+<h3 class="anchored" data-anchor-id="position-adjustments">2.7 Position Adjustments</h3>
+<p>Modify position of elements within layer: - <code>position = "stack"</code> (default for histograms/bars) - <code>position = "identity"</code> (no adjustment) - <code>position = "dodge"</code> (side-by-side) - <code>position = "jitter"</code> (add random noise) - Critical for overlapping data</p>
+</section>
+<section id="theming-system" class="level3">
+<h3 class="anchored" data-anchor-id="theming-system">2.8 Theming System</h3>
+<p>Complete control over non-data elements: - <code>theme()</code> function for customization - Built-in themes: <code>theme_minimal()</code>, <code>theme_classic()</code>, <code>theme_dark()</code></p>
+<p><strong>Element functions</strong>: - <code>element_text()</code> - text properties - <code>element_line()</code> - line properties - <code>element_rect()</code> - rectangle/background properties - <code>element_blank()</code> - remove element</p>
+<p>Can create completely custom looks and panel configurations.</p>
+<hr>
+</section>
+</section>
+<section id="key-learning-principles-from-part-1" class="level2">
+<h2 class="anchored" data-anchor-id="key-learning-principles-from-part-1">3. Key Learning Principles from Part 1</h2>
+<section id="logic-over-memorization" class="level3">
+<h3 class="anchored" data-anchor-id="logic-over-memorization">3.1 Logic Over Memorization</h3>
+<p>Don’t memorize every function - understand the <strong>logic</strong>: - Want to change how data looks? → Look at <strong>geoms</strong> - Want to change colors/sizes/scales? → Look at <strong>scales</strong> - Want to change non-data elements? → Look at <strong>themes</strong> - Want to split into subplots? → Look at <strong>facets</strong></p>
+</section>
+<section id="composability" class="level3">
+<h3 class="anchored" data-anchor-id="composability">3.2 Composability</h3>
+<ul>
+<li>Components are designed to work together</li>
+<li>Grammar allows systematic exploration</li>
+<li>Same principles apply across different visualization types</li>
+</ul>
+</section>
+<section id="theoretical-foundation-benefits" class="level3">
+<h3 class="anchored" data-anchor-id="theoretical-foundation-benefits">3.3 Theoretical Foundation Benefits</h3>
+<ul>
+<li>Makes ggplot2 intuitive once you understand the logic</li>
+<li>Enables creation of novel visualizations</li>
+<li>Reduces cognitive load - understand the “why” behind the API</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="part-2-extensions-advanced-techniques" class="level1">
+<h1>PART 2: Extensions &amp; Advanced Techniques</h1>
+<section id="plot-composition-with-patchwork" class="level2">
+<h2 class="anchored" data-anchor-id="plot-composition-with-patchwork">4. Plot Composition with Patchwork</h2>
+<section id="why-plot-composition" class="level3">
+<h3 class="anchored" data-anchor-id="why-plot-composition">4.1 Why Plot Composition?</h3>
+<ul>
+<li><strong>Storytelling</strong>: Single plots rarely tell the complete story</li>
+<li><strong>Multiple perspectives</strong>: Show data from different angles</li>
+<li><strong>Coordinated views</strong>: Related visualizations work together</li>
+</ul>
+</section>
+<section id="historical-solutions" class="level3">
+<h3 class="anchored" data-anchor-id="historical-solutions">4.2 Historical Solutions</h3>
+<ul>
+<li><code>grid.arrange()</code> from gridExtra</li>
+<li><code>plot_grid()</code> from cowplot</li>
+<li><code>ggarrange()</code> from ggpubr</li>
+<li>Faceting (hacky approach, not ideal)</li>
+</ul>
+</section>
+<section id="patchwork-package" class="level3">
+<h3 class="anchored" data-anchor-id="patchwork-package">4.3 Patchwork Package</h3>
+<p><strong>Thomas’s recommendation</strong> for modern plot composition: - Most recent and intuitive solution - Designed specifically for ggplot2</p>
+<p><strong>Basic Syntax</strong>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2           <span class="co"># Side by side</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">/</span> p2           <span class="co"># Stacked vertically</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3      <span class="co"># Multiple plots</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">/</span> p3    <span class="co"># Nested layouts</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="advanced-layout-control" class="level3">
+<h3 class="anchored" data-anchor-id="advanced-layout-control">4.4 Advanced Layout Control</h3>
+<p><strong>Textual design specification</strong>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>layout <span class="ot">&lt;-</span> <span class="st">"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">AAB</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">AAC</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">DDC</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">design =</span> layout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Letters/numbers define plot placement</li>
+<li>Matrix-like specification</li>
+<li>Extremely flexible for complex layouts</li>
+</ul>
+</section>
+<section id="fine-tuning" class="level3">
+<h3 class="anchored" data-anchor-id="fine-tuning">4.5 Fine-tuning</h3>
+<ul>
+<li><code>plot_layout()</code> controls overall composition</li>
+<li>Axis alignment options</li>
+<li>Manual scale matching: <code>scale_*_continuous(limits = ...)</code></li>
+<li>Unified titles across multiple plots</li>
+<li>Subplot labeling (A, B, C, etc.)</li>
+<li>Legend management: collect, remove, or keep separate</li>
+</ul>
+</section>
+<section id="reproducibility-focus" class="level3">
+<h3 class="anchored" data-anchor-id="reproducibility-focus">4.6 Reproducibility Focus</h3>
+<ul>
+<li><strong>Don’t export to Illustrator</strong> for composition</li>
+<li>Keep everything in code</li>
+<li>Fully reproducible workflows</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="animation-with-gganimate" class="level2">
+<h2 class="anchored" data-anchor-id="animation-with-gganimate">5. Animation with gganimate</h2>
+<section id="why-animation" class="level3">
+<h3 class="anchored" data-anchor-id="why-animation">5.1 Why Animation?</h3>
+<ul>
+<li><strong>Presentations</strong>: Reveal information gradually</li>
+<li><strong>Exploring patterns</strong>: Show change over time/states</li>
+<li><strong>Engagement</strong>: More impactful than static plots</li>
+<li><strong>Understanding</strong>: Transitions help comprehension</li>
+</ul>
+</section>
+<section id="gganimate-philosophy" class="level3">
+<h3 class="anchored" data-anchor-id="gganimate-philosophy">5.2 gganimate Philosophy</h3>
+<ul>
+<li>Grammar-based approach (like ggplot2)</li>
+<li>Start with static ggplot</li>
+<li>Add animation layers</li>
+<li>Renders to GIF or video</li>
+</ul>
+</section>
+<section id="core-animation-concepts" class="level3">
+<h3 class="anchored" data-anchor-id="core-animation-concepts">5.3 Core Animation Concepts</h3>
+<p><strong>Transitions</strong> - How data changes between states: - <code>transition_states()</code> - discrete states - <code>transition_time()</code> - continuous time - <code>transition_reveal()</code> - progressive reveal - <code>transition_filter()</code> - conditional display</p>
+<p><strong>Views</strong> - How plot window changes: - Follow data transformations - Zoom effects</p>
+<p><strong>Shadows</strong> - Show data history/future: - Wake effects - Trails</p>
+<p><strong>Ease</strong> - Control animation smoothness: - Easing functions for natural motion</p>
+</section>
+<section id="practical-applications" class="level3">
+<h3 class="anchored" data-anchor-id="practical-applications">5.4 Practical Applications</h3>
+<ul>
+<li>Time series: temporal evolution</li>
+<li>Presentations: build plots layer by layer</li>
+<li>Categorical changes: transition between groups</li>
+<li>Gradual reveals for storytelling</li>
+</ul>
+</section>
+<section id="rendering-options" class="level3">
+<h3 class="anchored" data-anchor-id="rendering-options">5.5 Rendering Options</h3>
+<ul>
+<li>Outputs: GIF, MP4, other formats</li>
+<li>Control frame rate and resolution</li>
+<li>Embeddable in R Markdown/Quarto</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="text-annotations-with-ggrepel" class="level2">
+<h2 class="anchored" data-anchor-id="text-annotations-with-ggrepel">6. Text Annotations with ggrepel</h2>
+<section id="the-annotation-problem" class="level3">
+<h3 class="anchored" data-anchor-id="the-annotation-problem">6.1 The Annotation Problem</h3>
+<ul>
+<li><strong>Overlapping labels</strong>: Common issue with geom_text</li>
+<li><strong>Manual positioning</strong>: Tedious and non-reproducible</li>
+<li><strong>Illustrator dependence</strong>: Want to avoid external tools</li>
+</ul>
+</section>
+<section id="ggrepel-package-solution" class="level3">
+<h3 class="anchored" data-anchor-id="ggrepel-package-solution">6.2 ggrepel Package Solution</h3>
+<p><strong>Key features</strong>: - <code>geom_text_repel()</code>: Automatic label positioning - <code>geom_label_repel()</code>: Labels with backgrounds - <strong>Algorithm</strong>: Pushes labels away from each other and points - Connecting lines to original positions - Constraints: keep within plot bounds</p>
+</section>
+<section id="customization" class="level3">
+<h3 class="anchored" data-anchor-id="customization">6.3 Customization</h3>
+<ul>
+<li>Customizable repulsion force</li>
+<li>Bounding boxes</li>
+<li>Direction constraints (x-only, y-only)</li>
+<li>Segment styling (connecting lines)</li>
+</ul>
+</section>
+<section id="best-practices" class="level3">
+<h3 class="anchored" data-anchor-id="best-practices">6.4 Best Practices</h3>
+<ul>
+<li>Start with ggrepel for automatic positioning</li>
+<li>Fine-tune with parameters if needed</li>
+<li><strong>Keep everything in code</strong> for reproducibility</li>
+<li>Avoid manual Illustrator adjustments</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="network-visualization-with-ggraph" class="level2">
+<h2 class="anchored" data-anchor-id="network-visualization-with-ggraph">7. Network Visualization with ggraph</h2>
+<section id="specialized-plot-types" class="level3">
+<h3 class="anchored" data-anchor-id="specialized-plot-types">7.1 Specialized Plot Types</h3>
+<p><strong>Beyond standard plots</strong>: - Trees and dendrograms - Network/graph diagrams - Hierarchical data - Relational structures</p>
+</section>
+<section id="alternative-packages" class="level3">
+<h3 class="anchored" data-anchor-id="alternative-packages">7.2 Alternative Packages</h3>
+<ul>
+<li><strong>ggtree</strong>: Phylogenetic trees (biology focus)</li>
+<li><strong>ggdag</strong>: Directed Acyclic Graphs</li>
+<li><strong>ggraph</strong>: General-purpose networks (Thomas’s package)</li>
+</ul>
+</section>
+<section id="ggraph-tidygraph-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="ggraph-tidygraph-workflow">7.3 ggraph + tidygraph Workflow</h3>
+<p><strong>tidygraph</strong>: Tidy manipulation of network data - Works like dplyr but for graphs - <code>mutate()</code>, <code>filter()</code> for networks - Node and edge operations</p>
+<p><strong>ggraph</strong>: Visualization layer - Built on ggplot2 principles - Specialized geoms for networks</p>
+<p><strong>Basic syntax</strong>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(graph_object) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span>      <span class="co"># Draw edges</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>() <span class="sc">+</span>     <span class="co"># Draw nodes</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_text</span>()        <span class="co"># Label nodes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="key-network-concepts" class="level3">
+<h3 class="anchored" data-anchor-id="key-network-concepts">7.4 Key Network Concepts</h3>
+<p><strong>Layouts</strong> - How to position nodes: - Force-directed - Circular - Tree layouts - Manual positioning</p>
+<p><strong>Edges</strong> - Connection types: - Straight links - Arcs, diagonals - Fan spreads (multiple edges)</p>
+<p><strong>Nodes</strong> - Point representations: - Standard point geoms - Custom shapes - Labels and annotations</p>
+</section>
+<section id="integration-with-ggplot2" class="level3">
+<h3 class="anchored" data-anchor-id="integration-with-ggplot2">7.5 Integration with ggplot2</h3>
+<ul>
+<li>ggraph creates ggplot2 objects</li>
+<li>Can use standard ggplot2 geoms</li>
+<li>Can use ggforce geoms (like <code>geom_mark_hull()</code>)</li>
+<li>Full theming and scale support</li>
+</ul>
+</section>
+<section id="example-applications" class="level3">
+<h3 class="anchored" data-anchor-id="example-applications">7.6 Example Applications</h3>
+<ul>
+<li>Social networks (Zachary’s Karate Club)</li>
+<li>Community detection coloring</li>
+<li>Group highlighting</li>
+<li>Edge weighting</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="additional-tools-ggforce" class="level2">
+<h2 class="anchored" data-anchor-id="additional-tools-ggforce">8. Additional Tools: ggforce</h2>
+<section id="ggforce-overview" class="level3">
+<h3 class="anchored" data-anchor-id="ggforce-overview">8.1 ggforce Overview</h3>
+<p>“Grab bag” of useful extensions - not just one focus</p>
+</section>
+<section id="highlighting-with-hulls" class="level3">
+<h3 class="anchored" data-anchor-id="highlighting-with-hulls">8.2 Highlighting with Hulls</h3>
+<ul>
+<li><code>geom_mark_hull()</code>: Draw convex hulls around groups</li>
+<li><code>geom_mark_circle()</code>: Circles around groups</li>
+<li><code>geom_mark_ellipse()</code>: Ellipses around groups</li>
+<li>Automatic label placement</li>
+<li>Background highlighting</li>
+</ul>
+</section>
+<section id="additional-geometries" class="level3">
+<h3 class="anchored" data-anchor-id="additional-geometries">8.3 Additional Geometries</h3>
+<p>Various specialized geoms for specific visualization needs</p>
+<hr>
+</section>
+</section>
+<section id="the-extension-ecosystem" class="level2">
+<h2 class="anchored" data-anchor-id="the-extension-ecosystem">9. The Extension Ecosystem</h2>
+<section id="ggplot2-extensions-gallery" class="level3">
+<h3 class="anchored" data-anchor-id="ggplot2-extensions-gallery">9.1 ggplot2 Extensions Gallery</h3>
+<ul>
+<li><strong>URL</strong>: https://exts.ggplot2.tidyverse.org/gallery/</li>
+<li>Curated list of extensions</li>
+<li>Categorized by function</li>
+<li>Not comprehensive but covers major packages</li>
+</ul>
+</section>
+<section id="extension-categories" class="level3">
+<h3 class="anchored" data-anchor-id="extension-categories">9.2 Extension Categories</h3>
+<p><strong>Themes &amp; Aesthetics</strong>: - ggthemes, hrbrthemes, tvthemes</p>
+<p><strong>Color Scales</strong>: - viridis, scico, paletteer</p>
+<p><strong>New Geometries</strong>: - ggridges, ggbeeswarm</p>
+<p><strong>Specialized Plots</strong>: - ggalluvial, treemapify</p>
+<p><strong>Interactivity</strong>: - plotly, ggiraph</p>
+<p><strong>Composition</strong>: - patchwork, cowplot</p>
+<p><strong>Annotation</strong>: - ggrepel, ggforce</p>
+<p><strong>Animation</strong>: - gganimate</p>
+<p><strong>Networks &amp; Trees</strong>: - ggraph, ggtree, ggdag</p>
+<p><strong>Spatial</strong>: - sf integration</p>
+<p><strong>And many more…</strong></p>
+</section>
+<section id="extension-philosophy" class="level3">
+<h3 class="anchored" data-anchor-id="extension-philosophy">9.3 Extension Philosophy</h3>
+<ul>
+<li>ggplot2 is a <strong>platform</strong>, not just a package</li>
+<li>Grammar enables consistent extension development</li>
+<li>Extensions integrate seamlessly</li>
+<li>Mix and match multiple extensions</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="learning-resources" class="level2">
+<h2 class="anchored" data-anchor-id="learning-resources">10. Learning Resources</h2>
+<section id="official-documentation" class="level3">
+<h3 class="anchored" data-anchor-id="official-documentation">10.1 Official Documentation</h3>
+<p><strong>ggplot2 book</strong> (3rd edition) - Author: Hadley Wickham - Free online: https://ggplot2-book.org/ - Will include extension development guide</p>
+</section>
+<section id="recommended-books" class="level3">
+<h3 class="anchored" data-anchor-id="recommended-books">10.2 Recommended Books</h3>
+<p><strong>1. “Data Visualization: A Practical Introduction”</strong> - Author: Kieran Healy - Free: https://socviz.co/ - Focus: Using ggplot2 for daily work - Practical examples</p>
+<p><strong>2. “Fundamentals of Data Visualization”</strong> - Author: Claus Wilke (ggplot2 core team) - Free: https://clauswilke.com/dataviz/ - Focus: Theory and design principles - Language-agnostic (examples use ggplot2)</p>
+<p><strong>3. “R Graphics Cookbook”</strong> - Author: Winston Chang - Practical recipes for common plots</p>
+<p><strong>4. “R for Data Science”</strong> - Authors: Hadley Wickham &amp; Garrett Grolemund - Free: https://r4ds.hadley.nz/ - Comprehensive tidyverse introduction</p>
+</section>
+<section id="community-resources" class="level3">
+<h3 class="anchored" data-anchor-id="community-resources">10.3 Community Resources</h3>
+<ul>
+<li>Extension package websites (vignettes and documentation)</li>
+<li>RStudio Community forums</li>
+<li>#rstats Twitter community</li>
+<li>Stack Overflow ggplot2 tag</li>
+<li>GitHub repositories</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="key-takeaways-from-complete-workshop" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways-from-complete-workshop">11. Key Takeaways from Complete Workshop</h2>
+<section id="foundational-principles" class="level3">
+<h3 class="anchored" data-anchor-id="foundational-principles">11.1 Foundational Principles</h3>
+<ol type="1">
+<li><strong>Grammar provides structure</strong>: Understanding theory makes practice intuitive</li>
+<li><strong>Logic over memorization</strong>: Learn the system, not individual functions</li>
+<li><strong>Composability</strong>: Components work together seamlessly</li>
+<li><strong>Reproducibility</strong>: Everything in code, version-controlled</li>
+</ol>
+</section>
+<section id="essential-skills" class="level3">
+<h3 class="anchored" data-anchor-id="essential-skills">11.2 Essential Skills</h3>
+<ol type="1">
+<li><strong>Aesthetic mapping</strong>: Distinguish mapping from setting values</li>
+<li><strong>Color vs fill</strong>: Common pain point - address explicitly</li>
+<li><strong>Position adjustments</strong>: Critical for overlapping data</li>
+<li><strong>Faceting</strong>: Powerful for data exploration</li>
+<li><strong>Theming</strong>: Customize beyond defaults</li>
+<li><strong>Composition</strong>: Tell stories with multiple plots</li>
+</ol>
+</section>
+<section id="advanced-techniques" class="level3">
+<h3 class="anchored" data-anchor-id="advanced-techniques">11.3 Advanced Techniques</h3>
+<ol type="1">
+<li><strong>Patchwork</strong>: Modern plot composition</li>
+<li><strong>ggrepel</strong>: Solve annotation challenges</li>
+<li><strong>gganimate</strong>: Add temporal dimension</li>
+<li><strong>ggraph</strong>: Visualize networks and relationships</li>
+<li><strong>Extensions</strong>: Explore ecosystem for specialized needs</li>
+</ol>
+</section>
+<section id="professional-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="professional-workflow">11.4 Professional Workflow</h3>
+<ol type="1">
+<li>Keep everything in code (avoid Illustrator)</li>
+<li>Use version control</li>
+<li>Document your visualizations</li>
+<li>Share reproducible examples</li>
+<li>Explore extensions before reinventing</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="integration-into-dataviz-course" class="level2">
+<h2 class="anchored" data-anchor-id="integration-into-dataviz-course">12. Integration into DataViz Course</h2>
+<section id="topics-already-covered-in-your-curriculum" class="level3">
+<h3 class="anchored" data-anchor-id="topics-already-covered-in-your-curriculum">12.1 Topics Already Covered in Your Curriculum</h3>
+<p>✅ <strong>Day 1</strong>: - Grammar of Graphics (9:30-10:45) - Basic geoms (11:15-12:30) - Aesthetics (13:30-15:00) - Facets (15:30-16:30)</p>
+<p>✅ <strong>Day 2</strong>: - Scales (10:00-10:45) - Themes (11:15-12:30) - Advanced visualizations (13:30-15:00)</p>
+</section>
+<section id="additional-topics-to-consider" class="level3">
+<h3 class="anchored" data-anchor-id="additional-topics-to-consider">12.2 Additional Topics to Consider</h3>
+<p><strong>High Priority</strong>: - <strong>Patchwork</strong> for plot composition - Essential for final projects - Professional skill - Add to Day 2 Advanced section</p>
+<ul>
+<li><strong>ggrepel</strong> for text annotations
+<ul>
+<li>Common pain point</li>
+<li>Quick win for better plots</li>
+<li>Include in Day 2 morning</li>
+</ul></li>
+<li><strong>Position adjustments</strong>
+<ul>
+<li>Often overlooked</li>
+<li>Important for clarity</li>
+<li>Add to Day 1 geoms section</li>
+</ul></li>
+</ul>
+<p><strong>Medium Priority</strong>: - <strong>Extension gallery</strong> as resource - Help students discover tools - Encourage exploration - Include in resources page</p>
+<ul>
+<li><strong>Color vs fill distinction</strong>
+<ul>
+<li>Dedicate explicit time</li>
+<li>Common beginner confusion</li>
+<li>Emphasize in Day 1</li>
+</ul></li>
+</ul>
+<p><strong>Optional/Advanced</strong>: - <strong>gganimate</strong> if time permits - Exciting for presentations - Optional final project component - Self-study resource</p>
+<ul>
+<li><strong>ggraph</strong> for networks
+<ul>
+<li>Specialized use case</li>
+<li>Optional advanced topic</li>
+<li>Mention in extensions overview</li>
+</ul></li>
+</ul>
+</section>
+<section id="video-recommendations-for-students" class="level3">
+<h3 class="anchored" data-anchor-id="video-recommendations-for-students">12.3 Video Recommendations for Students</h3>
+<p><strong>Pre-course preparation</strong>: - Watch Part 1 for theoretical foundation - Aligns with Day 1 content</p>
+<p><strong>Post-course review</strong>: - Part 1: Reinforce core concepts - Part 2: Explore extensions</p>
+<p><strong>Final project support</strong>: - Part 2 for advanced techniques - Composition strategies - Professional workflows</p>
+</section>
+<section id="key-messages-for-students" class="level3">
+<h3 class="anchored" data-anchor-id="key-messages-for-students">12.4 Key Messages for Students</h3>
+<ol type="1">
+<li>Don’t recreate what exists - explore extensions first</li>
+<li>Understand the grammar - memorization becomes unnecessary</li>
+<li>Keep workflows reproducible - avoid manual editing</li>
+<li>Composition is key for storytelling with data</li>
+<li>The ggplot2 ecosystem is vast and growing</li>
+<li>Focus on logic over memorization</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="teaching-approach-from-thomas" class="level2">
+<h2 class="anchored" data-anchor-id="teaching-approach-from-thomas">13. Teaching Approach (from Thomas)</h2>
+<section id="pedagogical-strategy" class="level3">
+<h3 class="anchored" data-anchor-id="pedagogical-strategy">13.1 Pedagogical Strategy</h3>
+<ol type="1">
+<li><strong>Theory first</strong>: Grammar of Graphics provides mental model</li>
+<li><strong>Live coding</strong>: Show real implementation</li>
+<li><strong>Exercises interspersed</strong>: Practice reinforces learning</li>
+<li><strong>Solutions provided</strong>: Learn from examples</li>
+<li><strong>Real datasets</strong>: Use familiar, accessible data</li>
+<li><strong>Build complexity gradually</strong>: Layer concepts systematically</li>
+</ol>
+</section>
+<section id="workshop-structure" class="level3">
+<h3 class="anchored" data-anchor-id="workshop-structure">13.2 Workshop Structure</h3>
+<ul>
+<li>Part 1: Theory + Core API (~2.5 hours)</li>
+<li>Part 2: Extensions + Advanced (~2 hours)</li>
+<li>Total: ~4.5 hours (demonstrates need for adequate time)</li>
+</ul>
+</section>
+<section id="thomass-teaching-style" class="level3">
+<h3 class="anchored" data-anchor-id="thomass-teaching-style">13.3 Thomas’s Teaching Style</h3>
+<ul>
+<li>Emphasizes understanding over memorization</li>
+<li>Acknowledges alternatives but recommends best tools</li>
+<li>Live coding with explanations</li>
+<li>Theoretical backbone throughout</li>
+<li>Former bioinformatician - understands scientific needs</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="context-background" class="level2">
+<h2 class="anchored" data-anchor-id="context-background">14. Context &amp; Background</h2>
+<section id="instructor-credentials" class="level3">
+<h3 class="anchored" data-anchor-id="instructor-credentials">14.1 Instructor Credentials</h3>
+<p><strong>Thomas Lin Pedersen</strong>: - Main maintainer of ggplot2 at RStudio (now Posit) - Developer of: patchwork, ggraph, gganimate, ggforce - Former bioinformatician - Active in R community (Twitter: <span class="citation" data-cites="thomasp85">@thomasp85</span>, GitHub: thomasp85) - Data Imaginist blog: https://www.data-imaginist.com/</p>
+</section>
+<section id="workshop-context" class="level3">
+<h3 class="anchored" data-anchor-id="workshop-context">14.2 Workshop Context</h3>
+<ul>
+<li>April 2020 “Corona Edition”</li>
+<li>Thomas’s first screencast/webinar</li>
+<li>Originally in-person at Celebration R Conference</li>
+<li>Adapted during COVID-19 lockdown</li>
+<li>Community learning initiative</li>
+</ul>
+</section>
+<section id="datasets-used" class="level3">
+<h3 class="anchored" data-anchor-id="datasets-used">14.3 Datasets Used</h3>
+<ul>
+<li><code>faithful</code> - Old Faithful geyser data</li>
+<li><code>mpg</code> - Fuel economy data</li>
+<li><code>msleep</code> - Mammal sleep data</li>
+<li>Zachary’s Karate Club (networks)</li>
+<li>Various ggplot2 built-in datasets</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="summary-checklist-for-instructors" class="level2">
+<h2 class="anchored" data-anchor-id="summary-checklist-for-instructors">15. Summary Checklist for Instructors</h2>
+<section id="essential-concepts-to-cover" class="level3">
+<h3 class="anchored" data-anchor-id="essential-concepts-to-cover">Essential Concepts to Cover</h3>
+<ul class="task-list">
+<li><label><input type="checkbox">Grammar of Graphics theory</label></li>
+<li><label><input type="checkbox">Aesthetics: mapping vs setting</label></li>
+<li><label><input type="checkbox">Color vs fill distinction</label></li>
+<li><label><input type="checkbox">Geoms and layers</label></li>
+<li><label><input type="checkbox">Scales (continuous and discrete)</label></li>
+<li><label><input type="checkbox">Faceting for small multiples</label></li>
+<li><label><input type="checkbox">Position adjustments</label></li>
+<li><label><input type="checkbox">Theming system</label></li>
+<li><label><input type="checkbox">Plot composition with patchwork</label></li>
+<li><label><input type="checkbox">Text annotations with ggrepel</label></li>
+</ul>
+</section>
+<section id="advanced-topics-time-permitting" class="level3">
+<h3 class="anchored" data-anchor-id="advanced-topics-time-permitting">Advanced Topics (time permitting)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox">Statistical transformations</label></li>
+<li><label><input type="checkbox">Coordinate systems</label></li>
+<li><label><input type="checkbox">Animation with gganimate</label></li>
+<li><label><input type="checkbox">Network plots with ggraph</label></li>
+<li><label><input type="checkbox">Extension ecosystem overview</label></li>
+</ul>
+</section>
+<section id="key-skills-to-develop" class="level3">
+<h3 class="anchored" data-anchor-id="key-skills-to-develop">Key Skills to Develop</h3>
+<ul class="task-list">
+<li><label><input type="checkbox">Read ggplot2 code and understand structure</label></li>
+<li><label><input type="checkbox">Compose multiple plots for storytelling</label></li>
+<li><label><input type="checkbox">Customize themes for publication</label></li>
+<li><label><input type="checkbox">Solve label overlap problems</label></li>
+<li><label><input type="checkbox">Navigate extension ecosystem</label></li>
+<li><label><input type="checkbox">Write reproducible visualization code</label></li>
+</ul>
+</section>
+<section id="resources-to-share" class="level3">
+<h3 class="anchored" data-anchor-id="resources-to-share">Resources to Share</h3>
+<ul class="task-list">
+<li><label><input type="checkbox">Both workshop videos</label></li>
+<li><label><input type="checkbox">ggplot2 book (online)</label></li>
+<li><label><input type="checkbox">Extension gallery</label></li>
+<li><label><input type="checkbox">Recommended books (Healy, Wilke)</label></li>
+<li><label><input type="checkbox">Cheatsheets</label></li>
+<li><label><input type="checkbox">Package documentation</label></li>
+</ul>
+<hr>
+<p><strong>Document Information</strong><br>
+<strong>Generated</strong>: October 2025<br>
+<strong>Sources</strong>: - YouTube video h29g21z0a68 (Part 1) - YouTube video 0m4yywqNPVY (Part 2) - Auto-generated transcripts processed and analyzed</p>
+<p><strong>For</strong>: DataViz_2025 Course<br>
+<strong>Repository</strong>: github.com/mchiapello/DataViz_2025<br>
+<strong>Instructor</strong>: Marco Chiapello</p>
+<hr>
+<p><em>This comprehensive summary combines both parts of Thomas Lin Pedersen’s ggplot2 workshop into a single reference document for course planning and student resources.</em></p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>This page was built with ❤️, <a href="https://cran.r-project.org/">R</a> and <a href="https://quarto.org/">Quarto</a> by Marco Chiapello.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>© 2025 REVELO Training</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

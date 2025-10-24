@@ -3,17 +3,17 @@ title: "Corso di Data Visualization con ggplot2"
 author: "Marco Chiapello"
 ---
 
-![](materials/images/ggplot2_logo.png){width=300px fig-align="center"}
+![](materials/images/ggplot2_logo.jpg){width=150px fig-align="center"}
 
 ## Location {#location}
 
 Il corso si terrà in:
 
-**Dipartimento di [Your Department]**  
-**Università di [Your University]**  
-**[Building/Room Details]**  
-**[Address]**  
-**[City, Postal Code]**
+**Dipartimento di Biomedicina e Prevenzione**  
+**Università di Roma Tor Vergata**  
+**Edificio E Nord 2 piano aula 290**  
+**Via Montpellier 1**  
+**00133 Rome**
 
 ## Programma del corso {#programma}
 
@@ -22,27 +22,27 @@ Il corso si terrà in:
 | Orario | Argomento |
 |--------|-----------|
 | 9:30   | Introduzione al Corso |
-| 10:00  | Fondamenti di ggplot2: Grammar of Graphics |
+| 10:00  | Gestione delle tabelle |
 | 10:45  | Pausa |
-| 11:15  | Geometrie Base: punti, linee e barre |
+| 11:15  | Fondamenti di ggplot2: Grammar of Graphics |
 | 12:30  | Pausa pranzo |
-| 13:30  | Estetiche e Mappature |
+| 13:35  | Geometrie Base|
 | 15:00  | Pausa |
-| 15:30  | Facets e Coordinate |
-| 16:30  | Esercitazioni pratiche |
+| 15:30  | Estetiche e Mappature |
+| 16:30  | Fine giornata |
 
 ### Giorno 2 {#giorno2}
 
 | Orario | Argomento |
 |--------|-----------|
 | 9:30   | Recap Giorno 1 |
-| 10:00  | Scale e Trasformazioni |
+| 10:00  | Facets e Coordinate |
 | 10:45  | Pausa |
-| 11:15  | Themes e Personalizzazione |
+| 11:15  | Scale e Trasformazioni |
 | 12:30  | Pausa pranzo |
-| 13:30  | Visualizzazioni Avanzate |
+| 13:30  | Themes e Personalizzazione |
 | 15:00  | Pausa |
-| 15:30  | Progetto Finale |
+| 15:30  | Visualizzazioni Avanzate |
 | 16:30  | Considerazioni finali e Q&A |
 
 ## Obiettivi del corso {#obiettivi}
@@ -80,10 +80,8 @@ Installare i seguenti pacchetti prima dell'inizio del corso:
 ```r
 # Pacchetti principali
 install.packages("tidyverse")
-install.packages("ggplot2")
 
 # Pacchetti aggiuntivi per esempi
-install.packages("scales")
 install.packages("patchwork")
 install.packages("ggthemes")
 install.packages("palmerpenguins")
@@ -105,6 +103,6 @@ Tutti i materiali del corso (slides, script, datasets) saranno disponibili nella
 
 Per domande o informazioni sul corso:
 
-- Email: [your.email@example.com]
+- Email: [Marco Chiapello](chiapello.m@gmail.com)
 - Slack: [REVELO Training workspace](https://revelotraining.slack.com/)
-- GitHub: [Course Repository](https://github.com/yourusername/dataviz-course)
+- GitHub: [Course Repository](https://github.com/mchiapello/DataViz_2025)
