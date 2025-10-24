@@ -1,0 +1,15 @@
+{
+  "hash": "85878ffe61186b68b97a6ed9747bd194",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Geometrie Base\"\n---\n\n## Geometrie in ggplot2\n\nLe geometrie (geoms) definiscono il tipo di visualizzazione che vogliamo creare.\n\n## Geometrie principali\n\n### Scatter plots (Diagrammi a dispersione)\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = var1, y = var2)) +\n  geom_point()\n```\n:::\n\n\n### Line plots (Grafici a linee)\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = time, y = value)) +\n  geom_line()\n```\n:::\n\n\n### Bar plots (Grafici a barre)\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Barre con conteggio\nggplot(data, aes(x = category)) +\n  geom_bar()\n\n# Barre con valori\nggplot(data, aes(x = category, y = value)) +\n  geom_col()\n```\n:::\n\n\n### Histograms (Istogrammi)\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = continuous_var)) +\n  geom_histogram()\n```\n:::\n\n\n### Box plots\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = category, y = value)) +\n  geom_boxplot()\n```\n:::\n\n\n## Combinare geometrie\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  geom_smooth()\n```\n:::\n\n\n## Esercizi\n\n1. Crea un scatter plot\n2. Crea un grafico a barre\n3. Combina due geometrie diverse\n\n## Risorse\n\n- [ggplot2 geoms reference](https://ggplot2.tidyverse.org/reference/#geoms)\n- [R Graph Gallery](https://r-graph-gallery.com/)\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

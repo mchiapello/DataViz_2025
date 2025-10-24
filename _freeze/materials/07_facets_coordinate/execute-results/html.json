@@ -1,0 +1,15 @@
+{
+  "hash": "fff904b06097b81fdf177f15e45adabf",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Facets e Coordinate\"\n---\n\n## Facets (Sottografici)\n\nI facets permettono di dividere un grafico in più pannelli basati su variabili categoriali.\n\n## Facet wrap\n\nCrea una griglia di grafici basata su una variabile:\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  facet_wrap(~ category)\n```\n:::\n\n\n## Facet grid\n\nCrea una griglia basata su due variabili:\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  facet_grid(rows = vars(var1), cols = vars(var2))\n```\n:::\n\n\n## Personalizzare i facets\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Scale libere\nfacet_wrap(~ category, scales = \"free\")\n\n# Numero di colonne\nfacet_wrap(~ category, ncol = 3)\n```\n:::\n\n\n## Sistemi di coordinate\n\n### Cartesiano (default)\n\nIl sistema standard x-y.\n\n### Flip coordinates\n\nScambia gli assi x e y:\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = category, y = value)) +\n  geom_col() +\n  coord_flip()\n```\n:::\n\n\n### Coordinate polari\n\nPer grafici circolari:\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = \"\", y = value, fill = category)) +\n  geom_col() +\n  coord_polar(\"y\")\n```\n:::\n\n\n### Coordinate fisse\n\nMantiene proporzioni 1:1:\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  coord_fixed()\n```\n:::\n\n\n## Esercizi\n\n1. Crea facets basati su una variabile categoriale\n2. Usa facet_grid con due variabili\n3. Crea un bar plot orizzontale con coord_flip()\n\n## Risorse\n\n- [Faceting in ggplot2](https://ggplot2-book.org/facet.html)\n- [Coordinate systems](https://ggplot2-book.org/coord.html)\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

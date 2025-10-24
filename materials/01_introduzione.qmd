@@ -1,19 +1,26 @@
 ---
-title: "Introduzione al Corso"
+title: "Data Visualization con ggplot2"
+subtitle: "Introduzione al Corso"
+author: "Marco Chiapello"
+format: 
+  revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    chalkboard: true
+    logo: images/ggplot2_logo.jpg
+    footer: "REVELO Training - Data Viz 2025"
+    css: presentation-style.css
+    title-slide-attributes:
+      data-background-image: images/frequency-wave-7776034_1280.jpg
+      data-background-size: cover
+      data-background-opacity: "0.1"
+resources:
+  - images/
+  - presentation-style.css
 ---
 
-## Benvenuti
-
-Benvenuti al corso di Data Visualization con ggplot2!
-
-## Obiettivi della sessione
-
-- Panoramica del corso
-- Conoscere i partecipanti
-- Verificare l'installazione del software
-- Introduzione agli strumenti che useremo
-
-## Agenda del corso
+## Agenda del corso {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 Nei prossimi due giorni esploreremo:
 
@@ -22,12 +29,9 @@ Nei prossimi due giorni esploreremo:
 - Personalizzazione e temi
 - Best practices per la visualizzazione dei dati
 
-## Materiali
+## Obiettivi della sessione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-- [Slides](#)
-- [Script R](#)
-
-## Risorse
-
-- [Documentazione ggplot2](https://ggplot2.tidyverse.org/)
-- [R for Data Science](https://r4ds.hadley.nz/)
+- Panoramica del corso
+- Conoscere i partecipanti
+- Verificare l'installazione del software
+- Introduzione agli strumenti che useremo

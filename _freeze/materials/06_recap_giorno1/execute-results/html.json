@@ -1,0 +1,15 @@
+{
+  "hash": "4a6e6950b60d147f1edf248bdf967997",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Recap Giorno 1\"\n---\n\n## Riepilogo del Giorno 1\n\nRipercorriamo insieme i concetti principali appresi ieri.\n\n## Concetti chiave\n\n### Grammar of Graphics\n- Framework teorico per la visualizzazione\n- Componenti: data, aesthetics, geometries, scales, facets, themes\n\n### Geometrie\n- `geom_point()`, `geom_line()`, `geom_bar()`, `geom_histogram()`\n- Combinazione di più geometrie\n\n### Estetiche\n- Posizione (x, y)\n- Colore, dimensione, forma, trasparenza\n- Differenza tra mapping e setting\n- Color vs fill\n\n## Domande dal Giorno 1\n\nSpazio per domande e chiarimenti\n\n## Preview Giorno 2\n\nOggi vedremo:\n- Facets e sistemi di coordinate\n- Scale e trasformazioni\n- Themes e personalizzazione\n- Visualizzazioni avanzate\n\n## Esercizio di riscaldamento\n\nRicrea questo grafico utilizzando i concetti del Giorno 1:\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Il tuo codice qui\n```\n:::\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

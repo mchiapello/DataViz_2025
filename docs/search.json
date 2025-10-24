@@ -147,46 +147,382 @@
     "text": "Il sito è completamente funzionale e pronto per: 1. Preview locale 2. Personalizzazione contenuti 3. Deploy su GitHub Pages 4. Uso nel corso\nHai tutto il necessario per un corso professionale di Data Visualization! 🚀"
   },
   {
-    "objectID": "materials/day2.html",
-    "href": "materials/day2.html",
-    "title": "Giorno 2 - Visualizzazioni Avanzate",
+    "objectID": "materials/05_estetiche_mappature.html",
+    "href": "materials/05_estetiche_mappature.html",
+    "title": "Estetiche e Mappature",
     "section": "",
-    "text": "Oggi ci concentreremo su tecniche avanzate di visualizzazione e personalizzazione."
+    "text": "Le estetiche sono le proprietà visive degli oggetti nel grafico."
   },
   {
-    "objectID": "materials/day2.html#benvenuti-al-giorno-2",
-    "href": "materials/day2.html#benvenuti-al-giorno-2",
-    "title": "Giorno 2 - Visualizzazioni Avanzate",
+    "objectID": "materials/05_estetiche_mappature.html#aesthetics-estetiche",
+    "href": "materials/05_estetiche_mappature.html#aesthetics-estetiche",
+    "title": "Estetiche e Mappature",
     "section": "",
-    "text": "Oggi ci concentreremo su tecniche avanzate di visualizzazione e personalizzazione."
+    "text": "Le estetiche sono le proprietà visive degli oggetti nel grafico."
   },
   {
-    "objectID": "materials/day2.html#materiali",
-    "href": "materials/day2.html#materiali",
-    "title": "Giorno 2 - Visualizzazioni Avanzate",
-    "section": "Materiali",
-    "text": "Materiali\n\nSlides\n\nScale e Trasformazioni (da aggiungere)\nThemes e Personalizzazione (da aggiungere)\nVisualizzazioni Avanzate (da aggiungere)\nBest Practices (da aggiungere)\n\n\n\nScript\n\n06_scales.R (da aggiungere)\n07_themes.R (da aggiungere)\n08_advanced.R (da aggiungere)"
+    "objectID": "materials/05_estetiche_mappature.html#mappature-estetiche",
+    "href": "materials/05_estetiche_mappature.html#mappature-estetiche",
+    "title": "Estetiche e Mappature",
+    "section": "Mappature estetiche",
+    "text": "Mappature estetiche\n\nPosizione\n\nggplot(data, aes(x = var1, y = var2))\n\n\n\nColore\n\n# Colore per categoria\nggplot(data, aes(x = x, y = y, color = category)) +\n  geom_point()\n\n# Fill per aree\nggplot(data, aes(x = category, fill = category)) +\n  geom_bar()\n\n\n\nDimensione\n\nggplot(data, aes(x = x, y = y, size = value)) +\n  geom_point()\n\n\n\nForma\n\nggplot(data, aes(x = x, y = y, shape = category)) +\n  geom_point()\n\n\n\nTrasparenza (alpha)\n\nggplot(data, aes(x = x, y = y, alpha = density)) +\n  geom_point()"
   },
   {
-    "objectID": "materials/day2.html#programma-dettagliato",
-    "href": "materials/day2.html#programma-dettagliato",
-    "title": "Giorno 2 - Visualizzazioni Avanzate",
-    "section": "Programma Dettagliato",
-    "text": "Programma Dettagliato\n\n9:30 - 10:00: Recap Giorno 1\nRipasso veloce:\n\nlibrary(ggplot2)\nlibrary(palmerpenguins)\n\n# I 3 componenti essenziali\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +  # data + aes\n  geom_point(aes(color = species)) +                      # geometry\n  facet_wrap(~island)                                     # facet\n\n# Quiz interattivo e domande\n\n\n\n10:00 - 10:45: Scale e Trasformazioni\nScale: controllare la mappatura tra dati e estetiche\n\nScale per Posizione\n\n# Limiti e breaks\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point() +\n  scale_x_continuous(\n    limits = c(170, 235),\n    breaks = seq(170, 235, by = 10)\n  ) +\n  scale_y_continuous(\n    limits = c(2500, 6500),\n    breaks = seq(2500, 6500, by = 1000)\n  )\n\n# Trasformazioni\nggplot(diamonds, aes(carat, price)) +\n  geom_point(alpha = 0.1) +\n  scale_x_log10() +\n  scale_y_log10()\n\n# Espansione\nggplot(penguins, aes(species, body_mass_g)) +\n  geom_boxplot() +\n  scale_y_continuous(expand = expansion(mult = c(0, 0.1)))\n\n\n\nScale per Colore\n\n# Scale continue\nggplot(penguins, aes(flipper_length_mm, body_mass_g, \n                     color = bill_length_mm)) +\n  geom_point(size = 3) +\n  scale_color_viridis_c()\n\n# Scale discrete - manual\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3) +\n  scale_color_manual(\n    values = c(\"Adelie\" = \"#FF6B35\",\n               \"Chinstrap\" = \"#004E89\", \n               \"Gentoo\" = \"#8AC926\")\n  )\n\n# ColorBrewer\nggplot(penguins, aes(species, fill = species)) +\n  geom_bar() +\n  scale_fill_brewer(palette = \"Set2\")\n\n# Viridis (colorblind-friendly)\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3) +\n  scale_color_viridis_d()\n\n\n\nScale per Dimensione e Forma\n\n# Dimensione\nggplot(penguins, aes(flipper_length_mm, body_mass_g, \n                     size = bill_length_mm)) +\n  geom_point(alpha = 0.6) +\n  scale_size_continuous(range = c(0.5, 8))\n\n# Forma\nggplot(penguins, aes(flipper_length_mm, body_mass_g, \n                     shape = species)) +\n  geom_point(size = 3) +\n  scale_shape_manual(values = c(16, 17, 18))\n\n\n\n\n10:45 - 11:15: ☕ Pausa\n\n\n11:15 - 12:30: Themes e Personalizzazione\n\nThemes Built-in\n\np &lt;- ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3)\n\n# Themes predefiniti\np + theme_gray()      # default\np + theme_bw()\np + theme_minimal()\np + theme_classic()\np + theme_dark()\np + theme_void()\n\n\n\nPersonalizzazione Themes\n\n# Modificare elementi del theme\nggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_boxplot() +\n  labs(\n    title = \"Massa Corporea dei Pinguini\",\n    subtitle = \"Per specie\",\n    x = \"Specie\",\n    y = \"Massa Corporea (g)\"\n  ) +\n  theme_minimal() +\n  theme(\n    # Testo\n    plot.title = element_text(size = 20, face = \"bold\"),\n    plot.subtitle = element_text(size = 14, color = \"gray40\"),\n    axis.title = element_text(size = 12, face = \"bold\"),\n    axis.text = element_text(size = 10),\n    \n    # Leggenda\n    legend.position = \"bottom\",\n    legend.title = element_text(face = \"bold\"),\n    \n    # Panel\n    panel.grid.major = element_line(color = \"gray90\"),\n    panel.grid.minor = element_blank(),\n    \n    # Background\n    plot.background = element_rect(fill = \"white\"),\n    panel.background = element_rect(fill = \"gray98\")\n  )\n\n\n\nTheme Personalizzato Riutilizzabile\n\n# Creare un theme personalizzato\ntheme_custom &lt;- function() {\n  theme_minimal() +\n    theme(\n      text = element_text(family = \"sans\"),\n      plot.title = element_text(size = 18, face = \"bold\", hjust = 0.5),\n      plot.subtitle = element_text(size = 12, hjust = 0.5),\n      axis.title = element_text(size = 12, face = \"bold\"),\n      legend.position = \"bottom\",\n      panel.grid.minor = element_blank(),\n      panel.background = element_rect(fill = \"gray98\", color = NA)\n    )\n}\n\n# Usare il theme\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3) +\n  labs(title = \"Pinguini dell'Antartide\") +\n  theme_custom()\n\n\n\nPacchetto ggthemes\n\nlibrary(ggthemes)\n\np + theme_economist()\np + theme_fivethirtyeight()\np + theme_wsj()\np + theme_tufte()\n\n\n\n\n12:30 - 13:30: 🍕 Pausa Pranzo\n\n\n13:30 - 15:00: Visualizzazioni Avanzate\n\nSmoothing e Modelli\n\n# geom_smooth() - default loess\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(alpha = 0.5) +\n  geom_smooth()\n\n# Linear model\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(alpha = 0.5) +\n  geom_smooth(method = \"lm\", se = TRUE)\n\n# Per gruppi\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(alpha = 0.5) +\n  geom_smooth(method = \"lm\", se = FALSE)\n\n\n\nDensity Plots\n\n# 1D density\nggplot(penguins, aes(body_mass_g, fill = species)) +\n  geom_density(alpha = 0.6)\n\n# 2D density contours\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(alpha = 0.3) +\n  geom_density_2d()\n\n# 2D density filled\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  stat_density_2d(aes(fill = after_stat(level)), geom = \"polygon\") +\n  scale_fill_viridis_c()\n\n\n\nViolin Plots e Beeswarm\n\n# Violin plot\nggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_violin() +\n  theme(legend.position = \"none\")\n\n# Combinazione: violin + boxplot + points\nggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_violin(alpha = 0.5) +\n  geom_boxplot(width = 0.2, alpha = 0.7) +\n  geom_jitter(width = 0.1, alpha = 0.3, size = 1) +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\n\n\nHeatmaps\n\nlibrary(tidyr)\nlibrary(dplyr)\n\n# Preparare dati\npenguins_summary &lt;- penguins %&gt;%\n  filter(!is.na(sex)) %&gt;%\n  group_by(species, island) %&gt;%\n  summarise(mean_mass = mean(body_mass_g, na.rm = TRUE), .groups = \"drop\")\n\n# Heatmap\nggplot(penguins_summary, aes(island, species, fill = mean_mass)) +\n  geom_tile() +\n  geom_text(aes(label = round(mean_mass)), color = \"white\", size = 5) +\n  scale_fill_viridis_c() +\n  theme_minimal() +\n  labs(title = \"Massa Media per Specie e Isola\", fill = \"Massa (g)\")\n\n\n\nText e Labels\n\nlibrary(ggrepel)\n\n# Etichette con ggrepel (evita sovrapposizioni)\npenguins_labeled &lt;- penguins %&gt;%\n  group_by(species) %&gt;%\n  slice_max(body_mass_g, n = 1)\n\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(aes(color = species), alpha = 0.6) +\n  geom_label_repel(\n    data = penguins_labeled,\n    aes(label = paste(species, body_mass_g, \"g\")),\n    size = 3,\n    box.padding = 1\n  )\n\n\n\nCombinare Grafici con patchwork\n\nlibrary(patchwork)\n\n# Creare grafici individuali\np1 &lt;- ggplot(penguins, aes(species, fill = species)) +\n  geom_bar() +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\np2 &lt;- ggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_boxplot() +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\np3 &lt;- ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point() +\n  theme_minimal()\n\n# Combinare\n(p1 | p2) / p3 + \n  plot_annotation(\n    title = \"Analisi Multi-pannello dei Pinguini\",\n    tag_levels = \"A\"\n  )\n\n\n\n\n15:00 - 15:30: ☕ Pausa\n\n\n15:30 - 16:30: Progetto Finale\nTraccia del progetto:\nUtilizzare il dataset diamonds o un dataset a scelta per creare una presentazione visiva che includa:\n\nOverview: Grafici esplorativi dei dati\nRelazioni: Analisi delle relazioni tra variabili\nComparazioni: Confronti tra gruppi\nConclusioni: Visualizzazioni riassuntive\n\nRequisiti:\n\nAlmeno 4 grafici diversi\nUso appropriato di colori e themes\nTitoli e labels informativi\nAlmeno un grafico con facets\nAlmeno un grafico combinato (patchwork)\n\nEsempio struttura:\n\nlibrary(tidyverse)\nlibrary(patchwork)\n\n# 1. Overview\noverview &lt;- ggplot(diamonds, aes(carat)) +\n  geom_histogram(bins = 50, fill = \"steelblue\") +\n  labs(title = \"Distribuzione Carati\")\n\n# 2. Relazione prezzo-carati\nrelationship &lt;- ggplot(diamonds, aes(carat, price)) +\n  geom_point(alpha = 0.1) +\n  geom_smooth(method = \"lm\") +\n  scale_y_log10() +\n  labs(title = \"Prezzo vs Carati\")\n\n# 3. Comparazione per taglio\ncomparison &lt;- ggplot(diamonds, aes(cut, price, fill = cut)) +\n  geom_boxplot() +\n  theme_minimal() +\n  theme(legend.position = \"none\") +\n  labs(title = \"Prezzo per Qualità del Taglio\")\n\n# 4. Analisi multi-dimensionale\nmultidim &lt;- ggplot(diamonds, aes(carat, price, color = clarity)) +\n  geom_point(alpha = 0.3) +\n  facet_wrap(~cut) +\n  scale_y_log10() +\n  scale_color_viridis_d() +\n  labs(title = \"Analisi Multi-dimensionale\")\n\n# Combinare tutto\n(overview | relationship) / (comparison | multidim) +\n  plot_annotation(\n    title = \"Analisi Completa Dataset Diamonds\",\n    subtitle = \"Progetto Finale - Data Visualization con ggplot2\",\n    theme = theme(plot.title = element_text(size = 20, face = \"bold\"))\n  )\n\n\n\n16:30 - 17:00: Considerazioni Finali e Q&A\nBest Practices Recap:\n\n✅ Iniziare sempre con una domanda chiara\n✅ Scegliere il tipo di grafico appropriato\n✅ Usare colori con significato e accessibili\n✅ Includere titoli, labels e caption informativi\n✅ Mantenere i grafici semplici e leggibili\n✅ Documentare il codice\n✅ Salvare i grafici in alta risoluzione\n\nSalvare i grafici:\n\n# ggsave() - metodo consigliato\nggsave(\n  filename = \"my_plot.png\",\n  plot = last_plot(),\n  width = 10,\n  height = 6,\n  dpi = 300,\n  bg = \"white\"\n)\n\n# Diversi formati\nggsave(\"my_plot.pdf\", width = 10, height = 6)\nggsave(\"my_plot.svg\", width = 10, height = 6)"
+    "objectID": "materials/05_estetiche_mappature.html#mapping-vs-setting",
+    "href": "materials/05_estetiche_mappature.html#mapping-vs-setting",
+    "title": "Estetiche e Mappature",
+    "section": "Mapping vs Setting",
+    "text": "Mapping vs Setting\n\nMapping (dentro aes)\nMappa i dati a proprietà visive:\n\naes(color = category)  # Colore dipende dai dati\n\n\n\nSetting (fuori aes)\nImposta valori fissi:\n\ngeom_point(color = \"blue\")  # Tutti i punti blu"
   },
   {
-    "objectID": "materials/day2.html#risorse-per-continuare",
-    "href": "materials/day2.html#risorse-per-continuare",
-    "title": "Giorno 2 - Visualizzazioni Avanzate",
-    "section": "Risorse per Continuare",
-    "text": "Risorse per Continuare\n\nProssimi Passi\n\nEsplorare ggplot2 extensions\nPartecipare a #TidyTuesday\nLeggere Fundamentals of Data Visualization\nPraticare, praticare, praticare!\n\n\n\nPacchetti da Esplorare\n\ngganimate - Animazioni\nplotly - Grafici interattivi\nggraph - Network graphs\nggridges - Ridge plots\ngghighlight - Evidenziare dati"
+    "objectID": "materials/05_estetiche_mappature.html#differenza-tra-color-e-fill",
+    "href": "materials/05_estetiche_mappature.html#differenza-tra-color-e-fill",
+    "title": "Estetiche e Mappature",
+    "section": "Differenza tra color e fill",
+    "text": "Differenza tra color e fill\n\ncolor: Colore del bordo/linea\nfill: Colore di riempimento\n\n\n# Per barre\ngeom_bar(aes(fill = category), color = \"black\")"
   },
   {
-    "objectID": "materials/day2.html#feedback",
-    "href": "materials/day2.html#feedback",
-    "title": "Giorno 2 - Visualizzazioni Avanzate",
-    "section": "Feedback",
-    "text": "Feedback\nPer favore, compila il questionario di feedback (da aggiungere)!\n\nGrazie per aver partecipato! 🎉\nContinua a visualizzare dati e a creare bellissimi grafici con ggplot2!"
+    "objectID": "materials/05_estetiche_mappature.html#esercizi",
+    "href": "materials/05_estetiche_mappature.html#esercizi",
+    "title": "Estetiche e Mappature",
+    "section": "Esercizi",
+    "text": "Esercizi\n\nMappa diverse variabili a colore, dimensione e forma\nSperimenta con la differenza tra mapping e setting\nCrea un grafico con color e fill diversi"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#risorse",
+    "href": "materials/05_estetiche_mappature.html#risorse",
+    "title": "Estetiche e Mappature",
+    "section": "Risorse",
+    "text": "Risorse\n\nggplot2 aesthetics"
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html",
+    "href": "materials/06_recap_giorno1.html",
+    "title": "Recap Giorno 1",
+    "section": "",
+    "text": "Ripercorriamo insieme i concetti principali appresi ieri."
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#riepilogo-del-giorno-1",
+    "href": "materials/06_recap_giorno1.html#riepilogo-del-giorno-1",
+    "title": "Recap Giorno 1",
+    "section": "",
+    "text": "Ripercorriamo insieme i concetti principali appresi ieri."
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#concetti-chiave",
+    "href": "materials/06_recap_giorno1.html#concetti-chiave",
+    "title": "Recap Giorno 1",
+    "section": "Concetti chiave",
+    "text": "Concetti chiave\n\nGrammar of Graphics\n\nFramework teorico per la visualizzazione\nComponenti: data, aesthetics, geometries, scales, facets, themes\n\n\n\nGeometrie\n\ngeom_point(), geom_line(), geom_bar(), geom_histogram()\nCombinazione di più geometrie\n\n\n\nEstetiche\n\nPosizione (x, y)\nColore, dimensione, forma, trasparenza\nDifferenza tra mapping e setting\nColor vs fill"
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#domande-dal-giorno-1",
+    "href": "materials/06_recap_giorno1.html#domande-dal-giorno-1",
+    "title": "Recap Giorno 1",
+    "section": "Domande dal Giorno 1",
+    "text": "Domande dal Giorno 1\nSpazio per domande e chiarimenti"
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#preview-giorno-2",
+    "href": "materials/06_recap_giorno1.html#preview-giorno-2",
+    "title": "Recap Giorno 1",
+    "section": "Preview Giorno 2",
+    "text": "Preview Giorno 2\nOggi vedremo: - Facets e sistemi di coordinate - Scale e trasformazioni - Themes e personalizzazione - Visualizzazioni avanzate"
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#esercizio-di-riscaldamento",
+    "href": "materials/06_recap_giorno1.html#esercizio-di-riscaldamento",
+    "title": "Recap Giorno 1",
+    "section": "Esercizio di riscaldamento",
+    "text": "Esercizio di riscaldamento\nRicrea questo grafico utilizzando i concetti del Giorno 1:\n\n# Il tuo codice qui"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html",
+    "href": "materials/03_grammar_of_graphics.html",
+    "title": "Fondamenti di ggplot2: Grammar of Graphics",
+    "section": "",
+    "text": "La Grammar of Graphics è un framework teorico per creare visualizzazioni in modo sistematico."
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#la-grammar-of-graphics",
+    "href": "materials/03_grammar_of_graphics.html#la-grammar-of-graphics",
+    "title": "Fondamenti di ggplot2: Grammar of Graphics",
+    "section": "",
+    "text": "La Grammar of Graphics è un framework teorico per creare visualizzazioni in modo sistematico."
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#componenti-principali",
+    "href": "materials/03_grammar_of_graphics.html#componenti-principali",
+    "title": "Fondamenti di ggplot2: Grammar of Graphics",
+    "section": "Componenti principali",
+    "text": "Componenti principali\n\n1. Data (Dati)\nI dati che vogliamo visualizzare\n\n\n2. Aesthetics (Estetiche)\nCome mappiamo i dati alle proprietà visive: - Posizione (x, y) - Colore - Dimensione - Forma\n\n\n3. Geometries (Geometrie)\nIl tipo di grafico: - Punti (geom_point()) - Linee (geom_line()) - Barre (geom_bar())\n\n\n4. Scales (Scale)\nCome i dati vengono trasformati in valori visivi\n\n\n5. Facets\nDividere il grafico in sottografici\n\n\n6. Themes (Temi)\nAspetto generale del grafico"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#primo-grafico-con-ggplot2",
+    "href": "materials/03_grammar_of_graphics.html#primo-grafico-con-ggplot2",
+    "title": "Fondamenti di ggplot2: Grammar of Graphics",
+    "section": "Primo grafico con ggplot2",
+    "text": "Primo grafico con ggplot2\n\nlibrary(ggplot2)\n\n# Template base\nggplot(data = &lt;DATA&gt;) +\n  &lt;GEOM_FUNCTION&gt;(mapping = aes(&lt;MAPPINGS&gt;))"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#esempio-pratico",
+    "href": "materials/03_grammar_of_graphics.html#esempio-pratico",
+    "title": "Fondamenti di ggplot2: Grammar of Graphics",
+    "section": "Esempio pratico",
+    "text": "Esempio pratico\n\nlibrary(tidyverse)\n\n# Caricare i dati\ndata(mtcars)\n\n# Creare un grafico\nggplot(data = mtcars) +\n  geom_point(mapping = aes(x = wt, y = mpg))"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#esercizi",
+    "href": "materials/03_grammar_of_graphics.html#esercizi",
+    "title": "Fondamenti di ggplot2: Grammar of Graphics",
+    "section": "Esercizi",
+    "text": "Esercizi\n\nCrea il tuo primo grafico con i dati forniti\nSperimenta con diverse mappature estetiche\nProva diverse geometrie"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#risorse",
+    "href": "materials/03_grammar_of_graphics.html#risorse",
+    "title": "Fondamenti di ggplot2: Grammar of Graphics",
+    "section": "Risorse",
+    "text": "Risorse\n\nggplot2 book\nGrammar of Graphics paper"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html",
+    "href": "materials/07_facets_coordinate.html",
+    "title": "Facets e Coordinate",
+    "section": "",
+    "text": "I facets permettono di dividere un grafico in più pannelli basati su variabili categoriali."
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#facets-sottografici",
+    "href": "materials/07_facets_coordinate.html#facets-sottografici",
+    "title": "Facets e Coordinate",
+    "section": "",
+    "text": "I facets permettono di dividere un grafico in più pannelli basati su variabili categoriali."
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#facet-wrap",
+    "href": "materials/07_facets_coordinate.html#facet-wrap",
+    "title": "Facets e Coordinate",
+    "section": "Facet wrap",
+    "text": "Facet wrap\nCrea una griglia di grafici basata su una variabile:\n\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  facet_wrap(~ category)"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#facet-grid",
+    "href": "materials/07_facets_coordinate.html#facet-grid",
+    "title": "Facets e Coordinate",
+    "section": "Facet grid",
+    "text": "Facet grid\nCrea una griglia basata su due variabili:\n\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  facet_grid(rows = vars(var1), cols = vars(var2))"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#personalizzare-i-facets",
+    "href": "materials/07_facets_coordinate.html#personalizzare-i-facets",
+    "title": "Facets e Coordinate",
+    "section": "Personalizzare i facets",
+    "text": "Personalizzare i facets\n\n# Scale libere\nfacet_wrap(~ category, scales = \"free\")\n\n# Numero di colonne\nfacet_wrap(~ category, ncol = 3)"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#sistemi-di-coordinate",
+    "href": "materials/07_facets_coordinate.html#sistemi-di-coordinate",
+    "title": "Facets e Coordinate",
+    "section": "Sistemi di coordinate",
+    "text": "Sistemi di coordinate\n\nCartesiano (default)\nIl sistema standard x-y.\n\n\nFlip coordinates\nScambia gli assi x e y:\n\nggplot(data, aes(x = category, y = value)) +\n  geom_col() +\n  coord_flip()\n\n\n\nCoordinate polari\nPer grafici circolari:\n\nggplot(data, aes(x = \"\", y = value, fill = category)) +\n  geom_col() +\n  coord_polar(\"y\")\n\n\n\nCoordinate fisse\nMantiene proporzioni 1:1:\n\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  coord_fixed()"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#esercizi",
+    "href": "materials/07_facets_coordinate.html#esercizi",
+    "title": "Facets e Coordinate",
+    "section": "Esercizi",
+    "text": "Esercizi\n\nCrea facets basati su una variabile categoriale\nUsa facet_grid con due variabili\nCrea un bar plot orizzontale con coord_flip()"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#risorse",
+    "href": "materials/07_facets_coordinate.html#risorse",
+    "title": "Facets e Coordinate",
+    "section": "Risorse",
+    "text": "Risorse\n\nFaceting in ggplot2\nCoordinate systems"
+  },
+  {
+    "objectID": "materials/exercises.html",
+    "href": "materials/exercises.html",
+    "title": "Esercizi",
+    "section": "",
+    "text": "Usa il dataset penguins per creare uno scatterplot che mostri:\n\nX axis: flipper_length_mm\nY axis: body_mass_g\nColor: species\nAdd appropriate labels\n\n\nlibrary(ggplot2)\nlibrary(palmerpenguins)\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3, alpha = 0.7) +\n  labs(\n    title = \"Relazione tra Lunghezza Pinne e Massa Corporea\",\n    x = \"Lunghezza Pinne (mm)\",\n    y = \"Massa Corporea (g)\",\n    color = \"Specie\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea un bar chart che mostri:\n\nIl conteggio di pinguini per island\nDiviso per species usando facets\nColora le barre per sex\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(island, fill = sex)) +\n  geom_bar(position = \"dodge\") +\n  facet_wrap(~species) +\n  labs(\n    title = \"Distribuzione Pinguini per Isola, Specie e Sesso\",\n    x = \"Isola\",\n    y = \"Conteggio\",\n    fill = \"Sesso\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea due grafici della distribuzione di body_mass_g:\n\nUn histogram con 30 bins\nUn density plot colorato per specie\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\n# Histogram\nggplot(penguins, aes(body_mass_g)) +\n  geom_histogram(bins = 30, fill = \"steelblue\", color = \"white\") +\n  labs(\n    title = \"Distribuzione Massa Corporea\",\n    x = \"Massa Corporea (g)\",\n    y = \"Conteggio\"\n  ) +\n  theme_minimal()\n\n# Density plot\nggplot(penguins, aes(body_mass_g, fill = species)) +\n  geom_density(alpha = 0.6) +\n  labs(\n    title = \"Distribuzione Massa Corporea per Specie\",\n    x = \"Massa Corporea (g)\",\n    y = \"Densità\",\n    fill = \"Specie\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea un boxplot che mostri:\n\nY axis: bill_length_mm\nX axis: species\nFill color: island\nUsa position = \"dodge\" per separare i boxplot\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(species, bill_length_mm, fill = island)) +\n  geom_boxplot(position = \"dodge\") +\n  labs(\n    title = \"Lunghezza Becco per Specie e Isola\",\n    x = \"Specie\",\n    y = \"Lunghezza Becco (mm)\",\n    fill = \"Isola\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "materials/exercises.html#esercizi-giorno-1",
+    "href": "materials/exercises.html#esercizi-giorno-1",
+    "title": "Esercizi",
+    "section": "",
+    "text": "Usa il dataset penguins per creare uno scatterplot che mostri:\n\nX axis: flipper_length_mm\nY axis: body_mass_g\nColor: species\nAdd appropriate labels\n\n\nlibrary(ggplot2)\nlibrary(palmerpenguins)\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3, alpha = 0.7) +\n  labs(\n    title = \"Relazione tra Lunghezza Pinne e Massa Corporea\",\n    x = \"Lunghezza Pinne (mm)\",\n    y = \"Massa Corporea (g)\",\n    color = \"Specie\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea un bar chart che mostri:\n\nIl conteggio di pinguini per island\nDiviso per species usando facets\nColora le barre per sex\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(island, fill = sex)) +\n  geom_bar(position = \"dodge\") +\n  facet_wrap(~species) +\n  labs(\n    title = \"Distribuzione Pinguini per Isola, Specie e Sesso\",\n    x = \"Isola\",\n    y = \"Conteggio\",\n    fill = \"Sesso\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea due grafici della distribuzione di body_mass_g:\n\nUn histogram con 30 bins\nUn density plot colorato per specie\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\n# Histogram\nggplot(penguins, aes(body_mass_g)) +\n  geom_histogram(bins = 30, fill = \"steelblue\", color = \"white\") +\n  labs(\n    title = \"Distribuzione Massa Corporea\",\n    x = \"Massa Corporea (g)\",\n    y = \"Conteggio\"\n  ) +\n  theme_minimal()\n\n# Density plot\nggplot(penguins, aes(body_mass_g, fill = species)) +\n  geom_density(alpha = 0.6) +\n  labs(\n    title = \"Distribuzione Massa Corporea per Specie\",\n    x = \"Massa Corporea (g)\",\n    y = \"Densità\",\n    fill = \"Specie\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea un boxplot che mostri:\n\nY axis: bill_length_mm\nX axis: species\nFill color: island\nUsa position = \"dodge\" per separare i boxplot\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(species, bill_length_mm, fill = island)) +\n  geom_boxplot(position = \"dodge\") +\n  labs(\n    title = \"Lunghezza Becco per Specie e Isola\",\n    x = \"Specie\",\n    y = \"Lunghezza Becco (mm)\",\n    fill = \"Isola\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "materials/exercises.html#esercizi-giorno-2",
+    "href": "materials/exercises.html#esercizi-giorno-2",
+    "title": "Esercizi",
+    "section": "Esercizi Giorno 2",
+    "text": "Esercizi Giorno 2\n\nEsercizio 2.1: Scale e Trasformazioni\nUsando il dataset diamonds, crea uno scatterplot di carat vs price:\n\nUsa trasformazione logaritmica per entrambi gli assi\nColora i punti per cut\nUsa una palette viridis\nAggiungi trasparenza ai punti\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(diamonds, aes(carat, price, color = cut)) +\n  geom_point(alpha = 0.3, size = 1) +\n  scale_x_log10() +\n  scale_y_log10() +\n  scale_color_viridis_d() +\n  labs(\n    title = \"Prezzo vs Carati (scala logaritmica)\",\n    x = \"Carati (log scale)\",\n    y = \"Prezzo (log scale)\",\n    color = \"Taglio\"\n  ) +\n  theme_minimal()\n\n\n\n\n\nEsercizio 2.2: Theme Personalizzato\nCrea un theme personalizzato chiamato theme_my_style() che:\n\nUsa theme_minimal() come base\nHa sfondo grigio chiaro\nTitolo centrato e in grassetto\nLegenda in basso\nRimuove le linee di griglia minori\n\nApplicalo a un grafico a tua scelta.\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\ntheme_my_style &lt;- function() {\n  theme_minimal() +\n    theme(\n      plot.title = element_text(hjust = 0.5, face = \"bold\", size = 16),\n      panel.background = element_rect(fill = \"gray95\", color = NA),\n      legend.position = \"bottom\",\n      panel.grid.minor = element_blank(),\n      axis.title = element_text(face = \"bold\")\n    )\n}\n\n# Applicarlo\nggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_boxplot() +\n  labs(title = \"Distribuzione Massa Corporea per Specie\") +\n  theme_my_style() +\n  theme(legend.position = \"none\")\n\n\n\n\n\nEsercizio 2.3: Grafici Combinati\nUsando il dataset penguins, crea 4 grafici e combinali con patchwork:\n\nBar chart del conteggio per specie\nBoxplot di body_mass_g per specie\nScatterplot flipper_length vs body_mass_g colorato per specie\nDensity plot di bill_length_mm per specie\n\nDisponi i grafici in un layout 2x2 con un titolo generale.\n\nlibrary(patchwork)\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nlibrary(patchwork)\n\np1 &lt;- ggplot(penguins, aes(species, fill = species)) +\n  geom_bar() +\n  labs(title = \"Conteggio\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\np2 &lt;- ggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_boxplot() +\n  labs(title = \"Massa Corporea\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\np3 &lt;- ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(alpha = 0.6) +\n  labs(title = \"Pinne vs Massa\") +\n  theme_minimal()\n\np4 &lt;- ggplot(penguins, aes(bill_length_mm, fill = species)) +\n  geom_density(alpha = 0.6) +\n  labs(title = \"Lunghezza Becco\") +\n  theme_minimal()\n\n(p1 | p2) / (p3 | p4) +\n  plot_annotation(\n    title = \"Analisi Multi-pannello Pinguini Palmer\",\n    tag_levels = \"A\"\n  )\n\n\n\n\n\nEsercizio 2.4: Visualizzazione Pubblicazione\nCrea un grafico publication-ready con:\n\nDataset: mpg\nScatterplot di displ vs hwy\nSmooth line per ogni class di auto\nScala colori ColorBrewer “Set2”\nTheme pulito e professionale\nTitolo, sottotitolo e caption\nDimensioni appropriate per pubblicazione (width=10, height=6)\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nplot_publication &lt;- ggplot(mpg, aes(displ, hwy, color = class)) +\n  geom_point(alpha = 0.6, size = 2) +\n  geom_smooth(method = \"lm\", se = FALSE, linewidth = 1) +\n  scale_color_brewer(palette = \"Set2\") +\n  labs(\n    title = \"Fuel Economy vs Engine Displacement\",\n    subtitle = \"Analysis by vehicle class\",\n    x = \"Engine Displacement (liters)\",\n    y = \"Highway Miles per Gallon\",\n    color = \"Vehicle Class\",\n    caption = \"Data source: EPA (1999-2008)\"\n  ) +\n  theme_minimal(base_size = 12) +\n  theme(\n    plot.title = element_text(face = \"bold\", size = 16),\n    plot.subtitle = element_text(color = \"gray40\", size = 12),\n    plot.caption = element_text(color = \"gray60\", hjust = 0),\n    legend.position = \"bottom\",\n    panel.grid.minor = element_blank(),\n    panel.border = element_rect(color = \"gray80\", fill = NA)\n  )\n\n# Salvare\nggsave(\n  \"fuel_economy_publication.png\",\n  plot = plot_publication,\n  width = 10,\n  height = 6,\n  dpi = 300,\n  bg = \"white\"\n)"
+  },
+  {
+    "objectID": "materials/exercises.html#progetti-challenge",
+    "href": "materials/exercises.html#progetti-challenge",
+    "title": "Esercizi",
+    "section": "Progetti Challenge 🏆",
+    "text": "Progetti Challenge 🏆\n\nChallenge 1: Explorer\nEsplora il dataset diamonds e crea almeno 5 visualizzazioni diverse che rivelino insights interessanti sui dati.\n\n\nChallenge 2: Storyteller\nUsando i dataset gapminder (pacchetto gapminder), crea una storia visiva che mostri l’evoluzione della vita nel mondo negli ultimi decenni.\n\n# install.packages(\"gapminder\")\nlibrary(gapminder)\ndata(gapminder)\n\n\n\nChallenge 3: Designer\nRicrea il tuo grafico preferito da un giornale/pubblicazione usando ggplot2 e dati pubblici."
+  },
+  {
+    "objectID": "materials/exercises.html#risorse-aggiuntive",
+    "href": "materials/exercises.html#risorse-aggiuntive",
+    "title": "Esercizi",
+    "section": "Risorse Aggiuntive",
+    "text": "Risorse Aggiuntive\n\nR Graph Gallery - Esempi e codice\nTidyTuesday - Dataset settimanali\nStack Overflow - ggplot2"
+  },
+  {
+    "objectID": "materials/exercises.html#condividi-il-tuo-lavoro",
+    "href": "materials/exercises.html#condividi-il-tuo-lavoro",
+    "title": "Esercizi",
+    "section": "Condividi il Tuo Lavoro!",
+    "text": "Condividi il Tuo Lavoro!\nCondividi i tuoi grafici sul canale Slack del corso! 🎨"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html",
+    "href": "materials/04_geometrie_base.html",
+    "title": "Geometrie Base",
+    "section": "",
+    "text": "Le geometrie (geoms) definiscono il tipo di visualizzazione che vogliamo creare."
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geometrie-in-ggplot2",
+    "href": "materials/04_geometrie_base.html#geometrie-in-ggplot2",
+    "title": "Geometrie Base",
+    "section": "",
+    "text": "Le geometrie (geoms) definiscono il tipo di visualizzazione che vogliamo creare."
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geometrie-principali",
+    "href": "materials/04_geometrie_base.html#geometrie-principali",
+    "title": "Geometrie Base",
+    "section": "Geometrie principali",
+    "text": "Geometrie principali\n\nScatter plots (Diagrammi a dispersione)\n\nggplot(data, aes(x = var1, y = var2)) +\n  geom_point()\n\n\n\nLine plots (Grafici a linee)\n\nggplot(data, aes(x = time, y = value)) +\n  geom_line()\n\n\n\nBar plots (Grafici a barre)\n\n# Barre con conteggio\nggplot(data, aes(x = category)) +\n  geom_bar()\n\n# Barre con valori\nggplot(data, aes(x = category, y = value)) +\n  geom_col()\n\n\n\nHistograms (Istogrammi)\n\nggplot(data, aes(x = continuous_var)) +\n  geom_histogram()\n\n\n\nBox plots\n\nggplot(data, aes(x = category, y = value)) +\n  geom_boxplot()"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#combinare-geometrie",
+    "href": "materials/04_geometrie_base.html#combinare-geometrie",
+    "title": "Geometrie Base",
+    "section": "Combinare geometrie",
+    "text": "Combinare geometrie\n\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  geom_smooth()"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#esercizi",
+    "href": "materials/04_geometrie_base.html#esercizi",
+    "title": "Geometrie Base",
+    "section": "Esercizi",
+    "text": "Esercizi\n\nCrea un scatter plot\nCrea un grafico a barre\nCombina due geometrie diverse"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#risorse",
+    "href": "materials/04_geometrie_base.html#risorse",
+    "title": "Geometrie Base",
+    "section": "Risorse",
+    "text": "Risorse\n\nggplot2 geoms reference\nR Graph Gallery"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html",
+    "href": "materials/10_visualizzazioni_avanzate.html",
+    "title": "Visualizzazioni Avanzate",
+    "section": "",
+    "text": "Approfondiamo tecniche più sofisticate per creare visualizzazioni efficaci."
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#tecniche-avanzate",
+    "href": "materials/10_visualizzazioni_avanzate.html#tecniche-avanzate",
+    "title": "Visualizzazioni Avanzate",
+    "section": "",
+    "text": "Approfondiamo tecniche più sofisticate per creare visualizzazioni efficaci."
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#composizione-di-grafici-con-patchwork",
+    "href": "materials/10_visualizzazioni_avanzate.html#composizione-di-grafici-con-patchwork",
+    "title": "Visualizzazioni Avanzate",
+    "section": "Composizione di grafici con patchwork",
+    "text": "Composizione di grafici con patchwork\n\nlibrary(patchwork)\n\n# Creare più grafici\np1 &lt;- ggplot(data1, aes(x, y)) + geom_point()\np2 &lt;- ggplot(data2, aes(x, y)) + geom_line()\np3 &lt;- ggplot(data3, aes(x)) + geom_histogram()\n\n# Combinare\np1 + p2           # Affiancati\np1 / p2           # Uno sopra l'altro\n(p1 + p2) / p3    # Layout complesso"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#annotazioni",
+    "href": "materials/10_visualizzazioni_avanzate.html#annotazioni",
+    "title": "Visualizzazioni Avanzate",
+    "section": "Annotazioni",
+    "text": "Annotazioni\n\n# Testo\nggplot(data, aes(x, y)) +\n  geom_point() +\n  annotate(\"text\", x = 5, y = 10, label = \"Punto importante\")\n\n# Forme\nggplot(data, aes(x, y)) +\n  geom_point() +\n  annotate(\"rect\", xmin = 2, xmax = 4, ymin = 5, ymax = 8, \n           alpha = 0.2, fill = \"red\")"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#etichette-con-ggrepel",
+    "href": "materials/10_visualizzazioni_avanzate.html#etichette-con-ggrepel",
+    "title": "Visualizzazioni Avanzate",
+    "section": "Etichette con ggrepel",
+    "text": "Etichette con ggrepel\n\nlibrary(ggrepel)\n\nggplot(data, aes(x, y, label = name)) +\n  geom_point() +\n  geom_text_repel()  # Evita sovrapposizioni"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#grafici-interattivi-con-plotly",
+    "href": "materials/10_visualizzazioni_avanzate.html#grafici-interattivi-con-plotly",
+    "title": "Visualizzazioni Avanzate",
+    "section": "Grafici interattivi con plotly",
+    "text": "Grafici interattivi con plotly\n\nlibrary(plotly)\n\np &lt;- ggplot(data, aes(x, y)) + geom_point()\nggplotly(p)  # Rende il grafico interattivo"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#mappe-con-geom_sf",
+    "href": "materials/10_visualizzazioni_avanzate.html#mappe-con-geom_sf",
+    "title": "Visualizzazioni Avanzate",
+    "section": "Mappe con geom_sf",
+    "text": "Mappe con geom_sf\n\nlibrary(sf)\n\nggplot(map_data) +\n  geom_sf(aes(fill = value))"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#visualizzazioni-statistiche",
+    "href": "materials/10_visualizzazioni_avanzate.html#visualizzazioni-statistiche",
+    "title": "Visualizzazioni Avanzate",
+    "section": "Visualizzazioni statistiche",
+    "text": "Visualizzazioni statistiche\n\nIntervalli di confidenza\n\nggplot(data, aes(x = category, y = value)) +\n  stat_summary(fun.data = mean_se, geom = \"errorbar\")\n\n\n\nRegressioni\n\nggplot(data, aes(x, y)) +\n  geom_point() +\n  geom_smooth(method = \"lm\")\n\n\n\nDensity plots 2D\n\nggplot(data, aes(x, y)) +\n  geom_density_2d_filled()"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#ridge-plots",
+    "href": "materials/10_visualizzazioni_avanzate.html#ridge-plots",
+    "title": "Visualizzazioni Avanzate",
+    "section": "Ridge plots",
+    "text": "Ridge plots\n\nlibrary(ggridges)\n\nggplot(data, aes(x = value, y = category)) +\n  geom_density_ridges()"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#heatmaps",
+    "href": "materials/10_visualizzazioni_avanzate.html#heatmaps",
+    "title": "Visualizzazioni Avanzate",
+    "section": "Heatmaps",
+    "text": "Heatmaps\n\nggplot(data, aes(x = x, y = y, fill = value)) +\n  geom_tile() +\n  scale_fill_viridis_c()"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#grafici-animati-con-gganimate",
+    "href": "materials/10_visualizzazioni_avanzate.html#grafici-animati-con-gganimate",
+    "title": "Visualizzazioni Avanzate",
+    "section": "Grafici animati con gganimate",
+    "text": "Grafici animati con gganimate\n\nlibrary(gganimate)\n\nggplot(data, aes(x, y)) +\n  geom_point() +\n  transition_states(time) +\n  labs(title = \"Time: {closest_state}\")"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#best-practices",
+    "href": "materials/10_visualizzazioni_avanzate.html#best-practices",
+    "title": "Visualizzazioni Avanzate",
+    "section": "Best practices",
+    "text": "Best practices\n\nScegli il grafico giusto per i tuoi dati\nSemplicità: evita grafici troppo complessi\nColori: usa palette accessibili\nEtichette: sempre chiare e complete\nContesto: aggiungi titoli e caption\nRiproducibilità: salva il codice"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#esercizi",
+    "href": "materials/10_visualizzazioni_avanzate.html#esercizi",
+    "title": "Visualizzazioni Avanzate",
+    "section": "Esercizi",
+    "text": "Esercizi\n\nCrea una composizione di 3 grafici\nAggiungi annotazioni a un grafico\nCrea un grafico con etichette non sovrapposte\nProva a creare un grafico interattivo"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#risorse",
+    "href": "materials/10_visualizzazioni_avanzate.html#risorse",
+    "title": "Visualizzazioni Avanzate",
+    "section": "Risorse",
+    "text": "Risorse\n\npatchwork\nggrepel\nplotly for R\ngganimate"
   },
   {
     "objectID": "transcripts/COMPLETE_WORKSHOP_SUMMARY.html",
@@ -308,46 +644,326 @@
     "text": "15. Summary Checklist for Instructors\n\nEssential Concepts to Cover\n\nGrammar of Graphics theory\nAesthetics: mapping vs setting\nColor vs fill distinction\nGeoms and layers\nScales (continuous and discrete)\nFaceting for small multiples\nPosition adjustments\nTheming system\nPlot composition with patchwork\nText annotations with ggrepel\n\n\n\nAdvanced Topics (time permitting)\n\nStatistical transformations\nCoordinate systems\nAnimation with gganimate\nNetwork plots with ggraph\nExtension ecosystem overview\n\n\n\nKey Skills to Develop\n\nRead ggplot2 code and understand structure\nCompose multiple plots for storytelling\nCustomize themes for publication\nSolve label overlap problems\nNavigate extension ecosystem\nWrite reproducible visualization code\n\n\n\nResources to Share\n\nBoth workshop videos\nggplot2 book (online)\nExtension gallery\nRecommended books (Healy, Wilke)\nCheatsheets\nPackage documentation\n\n\nDocument Information\nGenerated: October 2025\nSources: - YouTube video h29g21z0a68 (Part 1) - YouTube video 0m4yywqNPVY (Part 2) - Auto-generated transcripts processed and analyzed\nFor: DataViz_2025 Course\nRepository: github.com/mchiapello/DataViz_2025\nInstructor: Marco Chiapello\n\nThis comprehensive summary combines both parts of Thomas Lin Pedersen’s ggplot2 workshop into a single reference document for course planning and student resources."
   },
   {
-    "objectID": "materials/exercises.html",
-    "href": "materials/exercises.html",
-    "title": "Esercizi",
+    "objectID": "materials/11_conclusioni_qa.html",
+    "href": "materials/11_conclusioni_qa.html",
+    "title": "Considerazioni Finali e Q&A",
     "section": "",
-    "text": "Usa il dataset penguins per creare uno scatterplot che mostri:\n\nX axis: flipper_length_mm\nY axis: body_mass_g\nColor: species\nAdd appropriate labels\n\n\nlibrary(ggplot2)\nlibrary(palmerpenguins)\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3, alpha = 0.7) +\n  labs(\n    title = \"Relazione tra Lunghezza Pinne e Massa Corporea\",\n    x = \"Lunghezza Pinne (mm)\",\n    y = \"Massa Corporea (g)\",\n    color = \"Specie\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea un bar chart che mostri:\n\nIl conteggio di pinguini per island\nDiviso per species usando facets\nColora le barre per sex\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(island, fill = sex)) +\n  geom_bar(position = \"dodge\") +\n  facet_wrap(~species) +\n  labs(\n    title = \"Distribuzione Pinguini per Isola, Specie e Sesso\",\n    x = \"Isola\",\n    y = \"Conteggio\",\n    fill = \"Sesso\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea due grafici della distribuzione di body_mass_g:\n\nUn histogram con 30 bins\nUn density plot colorato per specie\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\n# Histogram\nggplot(penguins, aes(body_mass_g)) +\n  geom_histogram(bins = 30, fill = \"steelblue\", color = \"white\") +\n  labs(\n    title = \"Distribuzione Massa Corporea\",\n    x = \"Massa Corporea (g)\",\n    y = \"Conteggio\"\n  ) +\n  theme_minimal()\n\n# Density plot\nggplot(penguins, aes(body_mass_g, fill = species)) +\n  geom_density(alpha = 0.6) +\n  labs(\n    title = \"Distribuzione Massa Corporea per Specie\",\n    x = \"Massa Corporea (g)\",\n    y = \"Densità\",\n    fill = \"Specie\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea un boxplot che mostri:\n\nY axis: bill_length_mm\nX axis: species\nFill color: island\nUsa position = \"dodge\" per separare i boxplot\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(species, bill_length_mm, fill = island)) +\n  geom_boxplot(position = \"dodge\") +\n  labs(\n    title = \"Lunghezza Becco per Specie e Isola\",\n    x = \"Specie\",\n    y = \"Lunghezza Becco (mm)\",\n    fill = \"Isola\"\n  ) +\n  theme_minimal()"
+    "text": "Cosa abbiamo imparato in questi due giorni."
   },
   {
-    "objectID": "materials/exercises.html#esercizi-giorno-1",
-    "href": "materials/exercises.html#esercizi-giorno-1",
-    "title": "Esercizi",
+    "objectID": "materials/11_conclusioni_qa.html#riepilogo-del-corso",
+    "href": "materials/11_conclusioni_qa.html#riepilogo-del-corso",
+    "title": "Considerazioni Finali e Q&A",
     "section": "",
-    "text": "Usa il dataset penguins per creare uno scatterplot che mostri:\n\nX axis: flipper_length_mm\nY axis: body_mass_g\nColor: species\nAdd appropriate labels\n\n\nlibrary(ggplot2)\nlibrary(palmerpenguins)\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3, alpha = 0.7) +\n  labs(\n    title = \"Relazione tra Lunghezza Pinne e Massa Corporea\",\n    x = \"Lunghezza Pinne (mm)\",\n    y = \"Massa Corporea (g)\",\n    color = \"Specie\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea un bar chart che mostri:\n\nIl conteggio di pinguini per island\nDiviso per species usando facets\nColora le barre per sex\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(island, fill = sex)) +\n  geom_bar(position = \"dodge\") +\n  facet_wrap(~species) +\n  labs(\n    title = \"Distribuzione Pinguini per Isola, Specie e Sesso\",\n    x = \"Isola\",\n    y = \"Conteggio\",\n    fill = \"Sesso\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea due grafici della distribuzione di body_mass_g:\n\nUn histogram con 30 bins\nUn density plot colorato per specie\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\n# Histogram\nggplot(penguins, aes(body_mass_g)) +\n  geom_histogram(bins = 30, fill = \"steelblue\", color = \"white\") +\n  labs(\n    title = \"Distribuzione Massa Corporea\",\n    x = \"Massa Corporea (g)\",\n    y = \"Conteggio\"\n  ) +\n  theme_minimal()\n\n# Density plot\nggplot(penguins, aes(body_mass_g, fill = species)) +\n  geom_density(alpha = 0.6) +\n  labs(\n    title = \"Distribuzione Massa Corporea per Specie\",\n    x = \"Massa Corporea (g)\",\n    y = \"Densità\",\n    fill = \"Specie\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea un boxplot che mostri:\n\nY axis: bill_length_mm\nX axis: species\nFill color: island\nUsa position = \"dodge\" per separare i boxplot\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(species, bill_length_mm, fill = island)) +\n  geom_boxplot(position = \"dodge\") +\n  labs(\n    title = \"Lunghezza Becco per Specie e Isola\",\n    x = \"Specie\",\n    y = \"Lunghezza Becco (mm)\",\n    fill = \"Isola\"\n  ) +\n  theme_minimal()"
+    "text": "Cosa abbiamo imparato in questi due giorni."
   },
   {
-    "objectID": "materials/exercises.html#esercizi-giorno-2",
-    "href": "materials/exercises.html#esercizi-giorno-2",
-    "title": "Esercizi",
-    "section": "Esercizi Giorno 2",
-    "text": "Esercizi Giorno 2\n\nEsercizio 2.1: Scale e Trasformazioni\nUsando il dataset diamonds, crea uno scatterplot di carat vs price:\n\nUsa trasformazione logaritmica per entrambi gli assi\nColora i punti per cut\nUsa una palette viridis\nAggiungi trasparenza ai punti\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(diamonds, aes(carat, price, color = cut)) +\n  geom_point(alpha = 0.3, size = 1) +\n  scale_x_log10() +\n  scale_y_log10() +\n  scale_color_viridis_d() +\n  labs(\n    title = \"Prezzo vs Carati (scala logaritmica)\",\n    x = \"Carati (log scale)\",\n    y = \"Prezzo (log scale)\",\n    color = \"Taglio\"\n  ) +\n  theme_minimal()\n\n\n\n\n\nEsercizio 2.2: Theme Personalizzato\nCrea un theme personalizzato chiamato theme_my_style() che:\n\nUsa theme_minimal() come base\nHa sfondo grigio chiaro\nTitolo centrato e in grassetto\nLegenda in basso\nRimuove le linee di griglia minori\n\nApplicalo a un grafico a tua scelta.\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\ntheme_my_style &lt;- function() {\n  theme_minimal() +\n    theme(\n      plot.title = element_text(hjust = 0.5, face = \"bold\", size = 16),\n      panel.background = element_rect(fill = \"gray95\", color = NA),\n      legend.position = \"bottom\",\n      panel.grid.minor = element_blank(),\n      axis.title = element_text(face = \"bold\")\n    )\n}\n\n# Applicarlo\nggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_boxplot() +\n  labs(title = \"Distribuzione Massa Corporea per Specie\") +\n  theme_my_style() +\n  theme(legend.position = \"none\")\n\n\n\n\n\nEsercizio 2.3: Grafici Combinati\nUsando il dataset penguins, crea 4 grafici e combinali con patchwork:\n\nBar chart del conteggio per specie\nBoxplot di body_mass_g per specie\nScatterplot flipper_length vs body_mass_g colorato per specie\nDensity plot di bill_length_mm per specie\n\nDisponi i grafici in un layout 2x2 con un titolo generale.\n\nlibrary(patchwork)\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nlibrary(patchwork)\n\np1 &lt;- ggplot(penguins, aes(species, fill = species)) +\n  geom_bar() +\n  labs(title = \"Conteggio\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\np2 &lt;- ggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_boxplot() +\n  labs(title = \"Massa Corporea\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\np3 &lt;- ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(alpha = 0.6) +\n  labs(title = \"Pinne vs Massa\") +\n  theme_minimal()\n\np4 &lt;- ggplot(penguins, aes(bill_length_mm, fill = species)) +\n  geom_density(alpha = 0.6) +\n  labs(title = \"Lunghezza Becco\") +\n  theme_minimal()\n\n(p1 | p2) / (p3 | p4) +\n  plot_annotation(\n    title = \"Analisi Multi-pannello Pinguini Palmer\",\n    tag_levels = \"A\"\n  )\n\n\n\n\n\nEsercizio 2.4: Visualizzazione Pubblicazione\nCrea un grafico publication-ready con:\n\nDataset: mpg\nScatterplot di displ vs hwy\nSmooth line per ogni class di auto\nScala colori ColorBrewer “Set2”\nTheme pulito e professionale\nTitolo, sottotitolo e caption\nDimensioni appropriate per pubblicazione (width=10, height=6)\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nplot_publication &lt;- ggplot(mpg, aes(displ, hwy, color = class)) +\n  geom_point(alpha = 0.6, size = 2) +\n  geom_smooth(method = \"lm\", se = FALSE, linewidth = 1) +\n  scale_color_brewer(palette = \"Set2\") +\n  labs(\n    title = \"Fuel Economy vs Engine Displacement\",\n    subtitle = \"Analysis by vehicle class\",\n    x = \"Engine Displacement (liters)\",\n    y = \"Highway Miles per Gallon\",\n    color = \"Vehicle Class\",\n    caption = \"Data source: EPA (1999-2008)\"\n  ) +\n  theme_minimal(base_size = 12) +\n  theme(\n    plot.title = element_text(face = \"bold\", size = 16),\n    plot.subtitle = element_text(color = \"gray40\", size = 12),\n    plot.caption = element_text(color = \"gray60\", hjust = 0),\n    legend.position = \"bottom\",\n    panel.grid.minor = element_blank(),\n    panel.border = element_rect(color = \"gray80\", fill = NA)\n  )\n\n# Salvare\nggsave(\n  \"fuel_economy_publication.png\",\n  plot = plot_publication,\n  width = 10,\n  height = 6,\n  dpi = 300,\n  bg = \"white\"\n)"
+    "objectID": "materials/11_conclusioni_qa.html#concetti-chiave",
+    "href": "materials/11_conclusioni_qa.html#concetti-chiave",
+    "title": "Considerazioni Finali e Q&A",
+    "section": "Concetti chiave",
+    "text": "Concetti chiave\n\nGiorno 1\n\nGrammar of Graphics: framework teorico\nGeometrie base: punti, linee, barre\nEstetiche e mappature\nGestione dei dati con tidyverse\n\n\n\nGiorno 2\n\nFacets per creare sottografici\nScale e trasformazioni\nThemes e personalizzazione\nTecniche avanzate (patchwork, annotazioni, interattività)"
   },
   {
-    "objectID": "materials/exercises.html#progetti-challenge",
-    "href": "materials/exercises.html#progetti-challenge",
-    "title": "Esercizi",
-    "section": "Progetti Challenge 🏆",
-    "text": "Progetti Challenge 🏆\n\nChallenge 1: Explorer\nEsplora il dataset diamonds e crea almeno 5 visualizzazioni diverse che rivelino insights interessanti sui dati.\n\n\nChallenge 2: Storyteller\nUsando i dataset gapminder (pacchetto gapminder), crea una storia visiva che mostri l’evoluzione della vita nel mondo negli ultimi decenni.\n\n# install.packages(\"gapminder\")\nlibrary(gapminder)\ndata(gapminder)\n\n\n\nChallenge 3: Designer\nRicrea il tuo grafico preferito da un giornale/pubblicazione usando ggplot2 e dati pubblici."
+    "objectID": "materials/11_conclusioni_qa.html#best-practices-riassuntive",
+    "href": "materials/11_conclusioni_qa.html#best-practices-riassuntive",
+    "title": "Considerazioni Finali e Q&A",
+    "section": "Best practices riassuntive",
+    "text": "Best practices riassuntive\n\nInizia semplice: crea prima un grafico base, poi perfeziona\nDati tidy: prepara bene i dati prima di visualizzare\nEsplora: prova diverse geometrie e mappature\nPersonalizza: usa themes per rendere i grafici professionali\nDocumenta: commenta il codice e salva gli script"
   },
   {
-    "objectID": "materials/exercises.html#risorse-aggiuntive",
-    "href": "materials/exercises.html#risorse-aggiuntive",
-    "title": "Esercizi",
-    "section": "Risorse Aggiuntive",
-    "text": "Risorse Aggiuntive\n\nR Graph Gallery - Esempi e codice\nTidyTuesday - Dataset settimanali\nStack Overflow - ggplot2"
+    "objectID": "materials/11_conclusioni_qa.html#prossimi-passi",
+    "href": "materials/11_conclusioni_qa.html#prossimi-passi",
+    "title": "Considerazioni Finali e Q&A",
+    "section": "Prossimi passi",
+    "text": "Prossimi passi\n\nContinua a imparare\n\nPratica regolarmente\nEsplora il R Graph Gallery\nPartecipa a TidyTuesday\n\n\n\nRisorse consigliate\nLibri: - ggplot2: Elegant Graphics for Data Analysis - R for Data Science - Fundamentals of Data Visualization\nOnline: - ggplot2 documentation - RStudio cheatsheets - Stack Overflow ggplot2 tag\nCommunity: - RStudio Community - R4DS Slack - Twitter #rstats"
   },
   {
-    "objectID": "materials/exercises.html#condividi-il-tuo-lavoro",
-    "href": "materials/exercises.html#condividi-il-tuo-lavoro",
-    "title": "Esercizi",
-    "section": "Condividi il Tuo Lavoro!",
-    "text": "Condividi il Tuo Lavoro!\nCondividi i tuoi grafici sul canale Slack del corso! 🎨"
+    "objectID": "materials/11_conclusioni_qa.html#progetto-finale-opzionale",
+    "href": "materials/11_conclusioni_qa.html#progetto-finale-opzionale",
+    "title": "Considerazioni Finali e Q&A",
+    "section": "Progetto finale (opzionale)",
+    "text": "Progetto finale (opzionale)\nCrea una visualizzazione completa che incorpori: - Import e manipolazione dati - Più geometrie - Personalizzazione con theme - Annotazioni o composizioni"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#feedback",
+    "href": "materials/11_conclusioni_qa.html#feedback",
+    "title": "Considerazioni Finali e Q&A",
+    "section": "Feedback",
+    "text": "Feedback\nIl tuo feedback è importante! Per favore, compila il questionario di valutazione del corso."
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#qa",
+    "href": "materials/11_conclusioni_qa.html#qa",
+    "title": "Considerazioni Finali e Q&A",
+    "section": "Q&A",
+    "text": "Q&A\nSpazio per domande finali e discussione."
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#contatti",
+    "href": "materials/11_conclusioni_qa.html#contatti",
+    "title": "Considerazioni Finali e Q&A",
+    "section": "Contatti",
+    "text": "Contatti\nRimaniamo in contatto:\n\nEmail: chiapello.m@gmail.com\nSlack: REVELO Training workspace\nGitHub: Course Repository"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#grazie",
+    "href": "materials/11_conclusioni_qa.html#grazie",
+    "title": "Considerazioni Finali e Q&A",
+    "section": "Grazie!",
+    "text": "Grazie!\nGrazie per aver partecipato al corso. Buona visualizzazione! 📊"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html",
+    "href": "materials/02_gestione_tabelle.html",
+    "title": "Gestione delle Tabelle",
+    "section": "",
+    "text": "Importare dati in R\nManipolare data frames\nPreparare i dati per la visualizzazione"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#obiettivi",
+    "href": "materials/02_gestione_tabelle.html#obiettivi",
+    "title": "Gestione delle Tabelle",
+    "section": "",
+    "text": "Importare dati in R\nManipolare data frames\nPreparare i dati per la visualizzazione"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#contenuti",
+    "href": "materials/02_gestione_tabelle.html#contenuti",
+    "title": "Gestione delle Tabelle",
+    "section": "Contenuti",
+    "text": "Contenuti\n\nImportazione dati\n\n# Leggere file CSV\ndata &lt;- read.csv(\"file.csv\")\n\n# Con tidyverse\nlibrary(tidyverse)\ndata &lt;- read_csv(\"file.csv\")\n\n\n\nManipolazione dati con dplyr\n\nlibrary(tidyverse)\n\n# Selezionare colonne\ndata %&gt;% select(colonna1, colonna2)\n\n# Filtrare righe\ndata %&gt;% filter(valore &gt; 10)\n\n# Creare nuove colonne\ndata %&gt;% mutate(nuova_colonna = colonna1 * 2)\n\n# Raggruppare e riassumere\ndata %&gt;% \n  group_by(categoria) %&gt;%\n  summarise(media = mean(valore))"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#esercizi",
+    "href": "materials/02_gestione_tabelle.html#esercizi",
+    "title": "Gestione delle Tabelle",
+    "section": "Esercizi",
+    "text": "Esercizi\n\nImporta il dataset fornito\nEsplora la struttura dei dati\nCrea un sommario delle variabili principali"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#risorse",
+    "href": "materials/02_gestione_tabelle.html#risorse",
+    "title": "Gestione delle Tabelle",
+    "section": "Risorse",
+    "text": "Risorse\n\ndplyr cheatsheet\ntidyr documentation"
+  },
+  {
+    "objectID": "materials/01_introduzione.html",
+    "href": "materials/01_introduzione.html",
+    "title": "Introduzione al Corso",
+    "section": "",
+    "text": "Benvenuti al corso di Data Visualization con ggplot2!"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#benvenuti",
+    "href": "materials/01_introduzione.html#benvenuti",
+    "title": "Introduzione al Corso",
+    "section": "Benvenuti",
+    "text": "Benvenuti\nBenvenuti al corso di Data Visualization con ggplot2!"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#obiettivi-della-sessione",
+    "href": "materials/01_introduzione.html#obiettivi-della-sessione",
+    "title": "Data Visualization con ggplot2",
+    "section": "Obiettivi della sessione",
+    "text": "Obiettivi della sessione\n\nPanoramica del corso\nConoscere i partecipanti\nVerificare l’installazione del software\nIntroduzione agli strumenti che useremo"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#agenda-del-corso",
+    "href": "materials/01_introduzione.html#agenda-del-corso",
+    "title": "Data Visualization con ggplot2",
+    "section": "Agenda del corso",
+    "text": "Agenda del corso\nNei prossimi due giorni esploreremo:\n\nI fondamenti della Grammar of Graphics\nCome creare visualizzazioni efficaci con ggplot2\nPersonalizzazione e temi\nBest practices per la visualizzazione dei dati"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#materiali",
+    "href": "materials/01_introduzione.html#materiali",
+    "title": "Data Visualization con ggplot2",
+    "section": "Materiali",
+    "text": "Materiali\n\nSlides\nScript R"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#risorse",
+    "href": "materials/01_introduzione.html#risorse",
+    "title": "Data Visualization con ggplot2",
+    "section": "Risorse",
+    "text": "Risorse\n\nDocumentazione ggplot2\nR for Data Science"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html",
+    "href": "materials/09_themes_personalizzazione.html",
+    "title": "Themes e Personalizzazione",
+    "section": "",
+    "text": "I temi controllano l’aspetto non-dati del grafico."
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#temi-in-ggplot2",
+    "href": "materials/09_themes_personalizzazione.html#temi-in-ggplot2",
+    "title": "Themes e Personalizzazione",
+    "section": "",
+    "text": "I temi controllano l’aspetto non-dati del grafico."
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#temi-predefiniti",
+    "href": "materials/09_themes_personalizzazione.html#temi-predefiniti",
+    "title": "Themes e Personalizzazione",
+    "section": "Temi predefiniti",
+    "text": "Temi predefiniti\n\n# Minimal\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  theme_minimal()\n\n# Classic\ntheme_classic()\n\n# BW (bianco e nero)\ntheme_bw()\n\n# Dark\ntheme_dark()"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#temi-da-pacchetti-esterni",
+    "href": "materials/09_themes_personalizzazione.html#temi-da-pacchetti-esterni",
+    "title": "Themes e Personalizzazione",
+    "section": "Temi da pacchetti esterni",
+    "text": "Temi da pacchetti esterni\n\nlibrary(ggthemes)\n\n# Economist style\ntheme_economist()\n\n# FiveThirtyEight style\ntheme_fivethirtyeight()"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#personalizzare-i-temi",
+    "href": "materials/09_themes_personalizzazione.html#personalizzare-i-temi",
+    "title": "Themes e Personalizzazione",
+    "section": "Personalizzare i temi",
+    "text": "Personalizzare i temi\n\nElementi di testo\n\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  theme(\n    plot.title = element_text(size = 16, face = \"bold\"),\n    axis.text = element_text(size = 12),\n    axis.title = element_text(size = 14, face = \"bold\")\n  )\n\n\n\nElementi di linea\n\ntheme(\n  axis.line = element_line(color = \"black\", size = 1),\n  panel.grid.major = element_line(color = \"gray\", linetype = \"dashed\")\n)\n\n\n\nElementi di sfondo\n\ntheme(\n  panel.background = element_rect(fill = \"white\"),\n  plot.background = element_rect(fill = \"lightgray\"),\n  legend.background = element_rect(fill = \"white\", color = \"black\")\n)\n\n\n\nRimuovere elementi\n\ntheme(\n  panel.grid = element_blank(),  # Rimuove griglia\n  legend.position = \"none\"       # Rimuove legenda\n)"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#etichette-e-titoli",
+    "href": "materials/09_themes_personalizzazione.html#etichette-e-titoli",
+    "title": "Themes e Personalizzazione",
+    "section": "Etichette e titoli",
+    "text": "Etichette e titoli\n\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  labs(\n    title = \"Titolo del grafico\",\n    subtitle = \"Sottotitolo\",\n    x = \"Asse X\",\n    y = \"Asse Y\",\n    caption = \"Fonte: I miei dati\"\n  )"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#legenda",
+    "href": "materials/09_themes_personalizzazione.html#legenda",
+    "title": "Themes e Personalizzazione",
+    "section": "Legenda",
+    "text": "Legenda\n\n# Posizione\ntheme(legend.position = \"bottom\")  # \"top\", \"left\", \"right\", \"none\"\n\n# Titolo della legenda\nlabs(color = \"Categoria\", size = \"Valore\")\n\n# Personalizzare\ntheme(\n  legend.title = element_text(face = \"bold\"),\n  legend.text = element_text(size = 10)\n)"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#salvare-il-tema-personalizzato",
+    "href": "materials/09_themes_personalizzazione.html#salvare-il-tema-personalizzato",
+    "title": "Themes e Personalizzazione",
+    "section": "Salvare il tema personalizzato",
+    "text": "Salvare il tema personalizzato\n\nmy_theme &lt;- theme_minimal() +\n  theme(\n    plot.title = element_text(size = 16, face = \"bold\"),\n    axis.text = element_text(size = 12)\n  )\n\n# Usare il tema\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  my_theme"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#esportare-grafici",
+    "href": "materials/09_themes_personalizzazione.html#esportare-grafici",
+    "title": "Themes e Personalizzazione",
+    "section": "Esportare grafici",
+    "text": "Esportare grafici\n\n# ggsave\nggsave(\"grafico.png\", width = 8, height = 6, dpi = 300)\n\n# Specificare il grafico\np &lt;- ggplot(data, aes(x = x, y = y)) + geom_point()\nggsave(\"grafico.pdf\", plot = p, width = 10, height = 8)"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#esercizi",
+    "href": "materials/09_themes_personalizzazione.html#esercizi",
+    "title": "Themes e Personalizzazione",
+    "section": "Esercizi",
+    "text": "Esercizi\n\nApplica diversi temi predefiniti\nCrea un tema personalizzato\nAggiungi titoli e etichette complete\nSalva un grafico in alta risoluzione"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#risorse",
+    "href": "materials/09_themes_personalizzazione.html#risorse",
+    "title": "Themes e Personalizzazione",
+    "section": "Risorse",
+    "text": "Risorse\n\nThemes documentation\nggthemes package"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html",
+    "href": "materials/08_scale_trasformazioni.html",
+    "title": "Scale e Trasformazioni",
+    "section": "",
+    "text": "Le scale controllano come i dati vengono mappati alle proprietà visive."
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#scale-in-ggplot2",
+    "href": "materials/08_scale_trasformazioni.html#scale-in-ggplot2",
+    "title": "Scale e Trasformazioni",
+    "section": "",
+    "text": "Le scale controllano come i dati vengono mappati alle proprietà visive."
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#scale-continue",
+    "href": "materials/08_scale_trasformazioni.html#scale-continue",
+    "title": "Scale e Trasformazioni",
+    "section": "Scale continue",
+    "text": "Scale continue\n\nScale degli assi\n\n# Impostare limiti\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  scale_x_continuous(limits = c(0, 100))\n\n# Trasformazione logaritmica\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  scale_y_log10()\n\n\n\nEtichette personalizzate\n\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  scale_x_continuous(\n    name = \"Asse X\",\n    breaks = seq(0, 100, 20),\n    labels = c(\"0\", \"20\", \"40\", \"60\", \"80\", \"100\")\n  )"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#scale-di-colore",
+    "href": "materials/08_scale_trasformazioni.html#scale-di-colore",
+    "title": "Scale e Trasformazioni",
+    "section": "Scale di colore",
+    "text": "Scale di colore\n\nColori continui\n\n# Gradient\nggplot(data, aes(x = x, y = y, color = value)) +\n  geom_point() +\n  scale_color_gradient(low = \"blue\", high = \"red\")\n\n# Viridis\nggplot(data, aes(x = x, y = y, color = value)) +\n  geom_point() +\n  scale_color_viridis_c()\n\n\n\nColori discreti\n\n# Manuale\nggplot(data, aes(x = x, y = y, color = category)) +\n  geom_point() +\n  scale_color_manual(values = c(\"red\", \"blue\", \"green\"))\n\n# Brewer\nggplot(data, aes(x = x, y = y, color = category)) +\n  geom_point() +\n  scale_color_brewer(palette = \"Set1\")"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#scale-di-dimensione",
+    "href": "materials/08_scale_trasformazioni.html#scale-di-dimensione",
+    "title": "Scale e Trasformazioni",
+    "section": "Scale di dimensione",
+    "text": "Scale di dimensione\n\nggplot(data, aes(x = x, y = y, size = value)) +\n  geom_point() +\n  scale_size_continuous(range = c(1, 10))"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#trasformazioni",
+    "href": "materials/08_scale_trasformazioni.html#trasformazioni",
+    "title": "Scale e Trasformazioni",
+    "section": "Trasformazioni",
+    "text": "Trasformazioni\n\nTrasformazioni degli assi\n\n# Log10\nscale_y_log10()\n\n# Sqrt\nscale_y_sqrt()\n\n# Reverse\nscale_y_reverse()\n\n\n\nFormattazione\n\nlibrary(scales)\n\nggplot(data, aes(x = date, y = value)) +\n  geom_line() +\n  scale_y_continuous(labels = comma) +  # Formato con virgole\n  scale_x_date(date_labels = \"%b %Y\")   # Formato data"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#esercizi",
+    "href": "materials/08_scale_trasformazioni.html#esercizi",
+    "title": "Scale e Trasformazioni",
+    "section": "Esercizi",
+    "text": "Esercizi\n\nCrea un grafico con scala logaritmica\nUsa una palette di colori personalizzata\nFormatta gli assi con etichette personalizzate"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#risorse",
+    "href": "materials/08_scale_trasformazioni.html#risorse",
+    "title": "Scale e Trasformazioni",
+    "section": "Risorse",
+    "text": "Risorse\n\nScales in ggplot2\nColorBrewer palettes\nViridis color scales"
+  },
+  {
+    "objectID": "materials/day2.html",
+    "href": "materials/day2.html",
+    "title": "Giorno 2 - Visualizzazioni Avanzate",
+    "section": "",
+    "text": "Oggi ci concentreremo su tecniche avanzate di visualizzazione e personalizzazione."
+  },
+  {
+    "objectID": "materials/day2.html#benvenuti-al-giorno-2",
+    "href": "materials/day2.html#benvenuti-al-giorno-2",
+    "title": "Giorno 2 - Visualizzazioni Avanzate",
+    "section": "",
+    "text": "Oggi ci concentreremo su tecniche avanzate di visualizzazione e personalizzazione."
+  },
+  {
+    "objectID": "materials/day2.html#materiali",
+    "href": "materials/day2.html#materiali",
+    "title": "Giorno 2 - Visualizzazioni Avanzate",
+    "section": "Materiali",
+    "text": "Materiali\n\nSlides\n\nScale e Trasformazioni (da aggiungere)\nThemes e Personalizzazione (da aggiungere)\nVisualizzazioni Avanzate (da aggiungere)\nBest Practices (da aggiungere)\n\n\n\nScript\n\n06_scales.R (da aggiungere)\n07_themes.R (da aggiungere)\n08_advanced.R (da aggiungere)"
+  },
+  {
+    "objectID": "materials/day2.html#programma-dettagliato",
+    "href": "materials/day2.html#programma-dettagliato",
+    "title": "Giorno 2 - Visualizzazioni Avanzate",
+    "section": "Programma Dettagliato",
+    "text": "Programma Dettagliato\n\n9:30 - 10:00: Recap Giorno 1\nRipasso veloce:\n\nlibrary(ggplot2)\nlibrary(palmerpenguins)\n\n# I 3 componenti essenziali\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +  # data + aes\n  geom_point(aes(color = species)) +                      # geometry\n  facet_wrap(~island)                                     # facet\n\n# Quiz interattivo e domande\n\n\n\n10:00 - 10:45: Scale e Trasformazioni\nScale: controllare la mappatura tra dati e estetiche\n\nScale per Posizione\n\n# Limiti e breaks\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point() +\n  scale_x_continuous(\n    limits = c(170, 235),\n    breaks = seq(170, 235, by = 10)\n  ) +\n  scale_y_continuous(\n    limits = c(2500, 6500),\n    breaks = seq(2500, 6500, by = 1000)\n  )\n\n# Trasformazioni\nggplot(diamonds, aes(carat, price)) +\n  geom_point(alpha = 0.1) +\n  scale_x_log10() +\n  scale_y_log10()\n\n# Espansione\nggplot(penguins, aes(species, body_mass_g)) +\n  geom_boxplot() +\n  scale_y_continuous(expand = expansion(mult = c(0, 0.1)))\n\n\n\nScale per Colore\n\n# Scale continue\nggplot(penguins, aes(flipper_length_mm, body_mass_g, \n                     color = bill_length_mm)) +\n  geom_point(size = 3) +\n  scale_color_viridis_c()\n\n# Scale discrete - manual\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3) +\n  scale_color_manual(\n    values = c(\"Adelie\" = \"#FF6B35\",\n               \"Chinstrap\" = \"#004E89\", \n               \"Gentoo\" = \"#8AC926\")\n  )\n\n# ColorBrewer\nggplot(penguins, aes(species, fill = species)) +\n  geom_bar() +\n  scale_fill_brewer(palette = \"Set2\")\n\n# Viridis (colorblind-friendly)\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3) +\n  scale_color_viridis_d()\n\n\n\nScale per Dimensione e Forma\n\n# Dimensione\nggplot(penguins, aes(flipper_length_mm, body_mass_g, \n                     size = bill_length_mm)) +\n  geom_point(alpha = 0.6) +\n  scale_size_continuous(range = c(0.5, 8))\n\n# Forma\nggplot(penguins, aes(flipper_length_mm, body_mass_g, \n                     shape = species)) +\n  geom_point(size = 3) +\n  scale_shape_manual(values = c(16, 17, 18))\n\n\n\n\n10:45 - 11:15: ☕ Pausa\n\n\n11:15 - 12:30: Themes e Personalizzazione\n\nThemes Built-in\n\np &lt;- ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3)\n\n# Themes predefiniti\np + theme_gray()      # default\np + theme_bw()\np + theme_minimal()\np + theme_classic()\np + theme_dark()\np + theme_void()\n\n\n\nPersonalizzazione Themes\n\n# Modificare elementi del theme\nggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_boxplot() +\n  labs(\n    title = \"Massa Corporea dei Pinguini\",\n    subtitle = \"Per specie\",\n    x = \"Specie\",\n    y = \"Massa Corporea (g)\"\n  ) +\n  theme_minimal() +\n  theme(\n    # Testo\n    plot.title = element_text(size = 20, face = \"bold\"),\n    plot.subtitle = element_text(size = 14, color = \"gray40\"),\n    axis.title = element_text(size = 12, face = \"bold\"),\n    axis.text = element_text(size = 10),\n    \n    # Leggenda\n    legend.position = \"bottom\",\n    legend.title = element_text(face = \"bold\"),\n    \n    # Panel\n    panel.grid.major = element_line(color = \"gray90\"),\n    panel.grid.minor = element_blank(),\n    \n    # Background\n    plot.background = element_rect(fill = \"white\"),\n    panel.background = element_rect(fill = \"gray98\")\n  )\n\n\n\nTheme Personalizzato Riutilizzabile\n\n# Creare un theme personalizzato\ntheme_custom &lt;- function() {\n  theme_minimal() +\n    theme(\n      text = element_text(family = \"sans\"),\n      plot.title = element_text(size = 18, face = \"bold\", hjust = 0.5),\n      plot.subtitle = element_text(size = 12, hjust = 0.5),\n      axis.title = element_text(size = 12, face = \"bold\"),\n      legend.position = \"bottom\",\n      panel.grid.minor = element_blank(),\n      panel.background = element_rect(fill = \"gray98\", color = NA)\n    )\n}\n\n# Usare il theme\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3) +\n  labs(title = \"Pinguini dell'Antartide\") +\n  theme_custom()\n\n\n\nPacchetto ggthemes\n\nlibrary(ggthemes)\n\np + theme_economist()\np + theme_fivethirtyeight()\np + theme_wsj()\np + theme_tufte()\n\n\n\n\n12:30 - 13:30: 🍕 Pausa Pranzo\n\n\n13:30 - 15:00: Visualizzazioni Avanzate\n\nSmoothing e Modelli\n\n# geom_smooth() - default loess\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(alpha = 0.5) +\n  geom_smooth()\n\n# Linear model\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(alpha = 0.5) +\n  geom_smooth(method = \"lm\", se = TRUE)\n\n# Per gruppi\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(alpha = 0.5) +\n  geom_smooth(method = \"lm\", se = FALSE)\n\n\n\nDensity Plots\n\n# 1D density\nggplot(penguins, aes(body_mass_g, fill = species)) +\n  geom_density(alpha = 0.6)\n\n# 2D density contours\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(alpha = 0.3) +\n  geom_density_2d()\n\n# 2D density filled\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  stat_density_2d(aes(fill = after_stat(level)), geom = \"polygon\") +\n  scale_fill_viridis_c()\n\n\n\nViolin Plots e Beeswarm\n\n# Violin plot\nggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_violin() +\n  theme(legend.position = \"none\")\n\n# Combinazione: violin + boxplot + points\nggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_violin(alpha = 0.5) +\n  geom_boxplot(width = 0.2, alpha = 0.7) +\n  geom_jitter(width = 0.1, alpha = 0.3, size = 1) +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\n\n\nHeatmaps\n\nlibrary(tidyr)\nlibrary(dplyr)\n\n# Preparare dati\npenguins_summary &lt;- penguins %&gt;%\n  filter(!is.na(sex)) %&gt;%\n  group_by(species, island) %&gt;%\n  summarise(mean_mass = mean(body_mass_g, na.rm = TRUE), .groups = \"drop\")\n\n# Heatmap\nggplot(penguins_summary, aes(island, species, fill = mean_mass)) +\n  geom_tile() +\n  geom_text(aes(label = round(mean_mass)), color = \"white\", size = 5) +\n  scale_fill_viridis_c() +\n  theme_minimal() +\n  labs(title = \"Massa Media per Specie e Isola\", fill = \"Massa (g)\")\n\n\n\nText e Labels\n\nlibrary(ggrepel)\n\n# Etichette con ggrepel (evita sovrapposizioni)\npenguins_labeled &lt;- penguins %&gt;%\n  group_by(species) %&gt;%\n  slice_max(body_mass_g, n = 1)\n\nggplot(penguins, aes(flipper_length_mm, body_mass_g)) +\n  geom_point(aes(color = species), alpha = 0.6) +\n  geom_label_repel(\n    data = penguins_labeled,\n    aes(label = paste(species, body_mass_g, \"g\")),\n    size = 3,\n    box.padding = 1\n  )\n\n\n\nCombinare Grafici con patchwork\n\nlibrary(patchwork)\n\n# Creare grafici individuali\np1 &lt;- ggplot(penguins, aes(species, fill = species)) +\n  geom_bar() +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\np2 &lt;- ggplot(penguins, aes(species, body_mass_g, fill = species)) +\n  geom_boxplot() +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\np3 &lt;- ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point() +\n  theme_minimal()\n\n# Combinare\n(p1 | p2) / p3 + \n  plot_annotation(\n    title = \"Analisi Multi-pannello dei Pinguini\",\n    tag_levels = \"A\"\n  )\n\n\n\n\n15:00 - 15:30: ☕ Pausa\n\n\n15:30 - 16:30: Progetto Finale\nTraccia del progetto:\nUtilizzare il dataset diamonds o un dataset a scelta per creare una presentazione visiva che includa:\n\nOverview: Grafici esplorativi dei dati\nRelazioni: Analisi delle relazioni tra variabili\nComparazioni: Confronti tra gruppi\nConclusioni: Visualizzazioni riassuntive\n\nRequisiti:\n\nAlmeno 4 grafici diversi\nUso appropriato di colori e themes\nTitoli e labels informativi\nAlmeno un grafico con facets\nAlmeno un grafico combinato (patchwork)\n\nEsempio struttura:\n\nlibrary(tidyverse)\nlibrary(patchwork)\n\n# 1. Overview\noverview &lt;- ggplot(diamonds, aes(carat)) +\n  geom_histogram(bins = 50, fill = \"steelblue\") +\n  labs(title = \"Distribuzione Carati\")\n\n# 2. Relazione prezzo-carati\nrelationship &lt;- ggplot(diamonds, aes(carat, price)) +\n  geom_point(alpha = 0.1) +\n  geom_smooth(method = \"lm\") +\n  scale_y_log10() +\n  labs(title = \"Prezzo vs Carati\")\n\n# 3. Comparazione per taglio\ncomparison &lt;- ggplot(diamonds, aes(cut, price, fill = cut)) +\n  geom_boxplot() +\n  theme_minimal() +\n  theme(legend.position = \"none\") +\n  labs(title = \"Prezzo per Qualità del Taglio\")\n\n# 4. Analisi multi-dimensionale\nmultidim &lt;- ggplot(diamonds, aes(carat, price, color = clarity)) +\n  geom_point(alpha = 0.3) +\n  facet_wrap(~cut) +\n  scale_y_log10() +\n  scale_color_viridis_d() +\n  labs(title = \"Analisi Multi-dimensionale\")\n\n# Combinare tutto\n(overview | relationship) / (comparison | multidim) +\n  plot_annotation(\n    title = \"Analisi Completa Dataset Diamonds\",\n    subtitle = \"Progetto Finale - Data Visualization con ggplot2\",\n    theme = theme(plot.title = element_text(size = 20, face = \"bold\"))\n  )\n\n\n\n16:30 - 17:00: Considerazioni Finali e Q&A\nBest Practices Recap:\n\n✅ Iniziare sempre con una domanda chiara\n✅ Scegliere il tipo di grafico appropriato\n✅ Usare colori con significato e accessibili\n✅ Includere titoli, labels e caption informativi\n✅ Mantenere i grafici semplici e leggibili\n✅ Documentare il codice\n✅ Salvare i grafici in alta risoluzione\n\nSalvare i grafici:\n\n# ggsave() - metodo consigliato\nggsave(\n  filename = \"my_plot.png\",\n  plot = last_plot(),\n  width = 10,\n  height = 6,\n  dpi = 300,\n  bg = \"white\"\n)\n\n# Diversi formati\nggsave(\"my_plot.pdf\", width = 10, height = 6)\nggsave(\"my_plot.svg\", width = 10, height = 6)"
+  },
+  {
+    "objectID": "materials/day2.html#risorse-per-continuare",
+    "href": "materials/day2.html#risorse-per-continuare",
+    "title": "Giorno 2 - Visualizzazioni Avanzate",
+    "section": "Risorse per Continuare",
+    "text": "Risorse per Continuare\n\nProssimi Passi\n\nEsplorare ggplot2 extensions\nPartecipare a #TidyTuesday\nLeggere Fundamentals of Data Visualization\nPraticare, praticare, praticare!\n\n\n\nPacchetti da Esplorare\n\ngganimate - Animazioni\nplotly - Grafici interattivi\nggraph - Network graphs\nggridges - Ridge plots\ngghighlight - Evidenziare dati"
+  },
+  {
+    "objectID": "materials/day2.html#feedback",
+    "href": "materials/day2.html#feedback",
+    "title": "Giorno 2 - Visualizzazioni Avanzate",
+    "section": "Feedback",
+    "text": "Feedback\nPer favore, compila il questionario di feedback (da aggiungere)!\n\nGrazie per aver partecipato! 🎉\nContinua a visualizzare dati e a creare bellissimi grafici con ggplot2!"
   },
   {
     "objectID": "materials/day1.html",
@@ -565,5 +1181,12 @@
     "title": "Risorse e Riferimenti",
     "section": "Contact",
     "text": "Contact\nPer suggerire aggiunte a questa lista di risorse:\n\nApri una issue nel repository del corso\nContatta via email\nCondividi sul canale Slack\n\n\nQuesta pagina viene aggiornata regolarmente. Ultimo aggiornamento: Ottobre 2025"
+  },
+  {
+    "objectID": "materials/01_introduzione.html#data-visualization-con-ggplot2",
+    "href": "materials/01_introduzione.html#data-visualization-con-ggplot2",
+    "title": "Introduzione al Corso",
+    "section": "Data Visualization con ggplot2",
+    "text": "Data Visualization con ggplot2\nMarco Chiapello"
   }
 ]

@@ -1,0 +1,15 @@
+{
+  "hash": "fa8b4895da5894b0d18903fb11d3dead",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Estetiche e Mappature\"\n---\n\n## Aesthetics (Estetiche)\n\nLe estetiche sono le proprietà visive degli oggetti nel grafico.\n\n## Mappature estetiche\n\n### Posizione\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = var1, y = var2))\n```\n:::\n\n\n### Colore\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Colore per categoria\nggplot(data, aes(x = x, y = y, color = category)) +\n  geom_point()\n\n# Fill per aree\nggplot(data, aes(x = category, fill = category)) +\n  geom_bar()\n```\n:::\n\n\n### Dimensione\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = x, y = y, size = value)) +\n  geom_point()\n```\n:::\n\n\n### Forma\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = x, y = y, shape = category)) +\n  geom_point()\n```\n:::\n\n\n### Trasparenza (alpha)\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = x, y = y, alpha = density)) +\n  geom_point()\n```\n:::\n\n\n## Mapping vs Setting\n\n### Mapping (dentro aes)\nMappa i dati a proprietà visive:\n\n::: {.cell}\n\n```{.r .cell-code}\naes(color = category)  # Colore dipende dai dati\n```\n:::\n\n\n### Setting (fuori aes)\nImposta valori fissi:\n\n::: {.cell}\n\n```{.r .cell-code}\ngeom_point(color = \"blue\")  # Tutti i punti blu\n```\n:::\n\n\n## Differenza tra color e fill\n\n- **color**: Colore del bordo/linea\n- **fill**: Colore di riempimento\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Per barre\ngeom_bar(aes(fill = category), color = \"black\")\n```\n:::\n\n\n## Esercizi\n\n1. Mappa diverse variabili a colore, dimensione e forma\n2. Sperimenta con la differenza tra mapping e setting\n3. Crea un grafico con color e fill diversi\n\n## Risorse\n\n- [ggplot2 aesthetics](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html)\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

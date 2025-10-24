@@ -1,0 +1,15 @@
+{
+  "hash": "996a0f56e10bbd09cff94d8442cc65b8",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Scale e Trasformazioni\"\n---\n\n## Scale in ggplot2\n\nLe scale controllano come i dati vengono mappati alle proprietà visive.\n\n## Scale continue\n\n### Scale degli assi\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Impostare limiti\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  scale_x_continuous(limits = c(0, 100))\n\n# Trasformazione logaritmica\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  scale_y_log10()\n```\n:::\n\n\n### Etichette personalizzate\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  scale_x_continuous(\n    name = \"Asse X\",\n    breaks = seq(0, 100, 20),\n    labels = c(\"0\", \"20\", \"40\", \"60\", \"80\", \"100\")\n  )\n```\n:::\n\n\n## Scale di colore\n\n### Colori continui\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Gradient\nggplot(data, aes(x = x, y = y, color = value)) +\n  geom_point() +\n  scale_color_gradient(low = \"blue\", high = \"red\")\n\n# Viridis\nggplot(data, aes(x = x, y = y, color = value)) +\n  geom_point() +\n  scale_color_viridis_c()\n```\n:::\n\n\n### Colori discreti\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Manuale\nggplot(data, aes(x = x, y = y, color = category)) +\n  geom_point() +\n  scale_color_manual(values = c(\"red\", \"blue\", \"green\"))\n\n# Brewer\nggplot(data, aes(x = x, y = y, color = category)) +\n  geom_point() +\n  scale_color_brewer(palette = \"Set1\")\n```\n:::\n\n\n## Scale di dimensione\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data, aes(x = x, y = y, size = value)) +\n  geom_point() +\n  scale_size_continuous(range = c(1, 10))\n```\n:::\n\n\n## Trasformazioni\n\n### Trasformazioni degli assi\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Log10\nscale_y_log10()\n\n# Sqrt\nscale_y_sqrt()\n\n# Reverse\nscale_y_reverse()\n```\n:::\n\n\n### Formattazione\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(scales)\n\nggplot(data, aes(x = date, y = value)) +\n  geom_line() +\n  scale_y_continuous(labels = comma) +  # Formato con virgole\n  scale_x_date(date_labels = \"%b %Y\")   # Formato data\n```\n:::\n\n\n## Esercizi\n\n1. Crea un grafico con scala logaritmica\n2. Usa una palette di colori personalizzata\n3. Formatta gli assi con etichette personalizzate\n\n## Risorse\n\n- [Scales in ggplot2](https://ggplot2-book.org/scales.html)\n- [ColorBrewer palettes](https://colorbrewer2.org/)\n- [Viridis color scales](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html)\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

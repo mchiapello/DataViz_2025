@@ -1,0 +1,15 @@
+{
+  "hash": "1d0a283c7d0d50b9f9042ad91c677db8",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Gestione delle Tabelle\"\n---\n\n## Obiettivi\n\n- Importare dati in R\n- Manipolare data frames\n- Preparare i dati per la visualizzazione\n\n## Contenuti\n\n### Importazione dati\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Leggere file CSV\ndata <- read.csv(\"file.csv\")\n\n# Con tidyverse\nlibrary(tidyverse)\ndata <- read_csv(\"file.csv\")\n```\n:::\n\n\n### Manipolazione dati con dplyr\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n\n# Selezionare colonne\ndata %>% select(colonna1, colonna2)\n\n# Filtrare righe\ndata %>% filter(valore > 10)\n\n# Creare nuove colonne\ndata %>% mutate(nuova_colonna = colonna1 * 2)\n\n# Raggruppare e riassumere\ndata %>% \n  group_by(categoria) %>%\n  summarise(media = mean(valore))\n```\n:::\n\n\n## Esercizi\n\n1. Importa il dataset fornito\n2. Esplora la struttura dei dati\n3. Crea un sommario delle variabili principali\n\n## Risorse\n\n- [dplyr cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf)\n- [tidyr documentation](https://tidyr.tidyverse.org/)\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

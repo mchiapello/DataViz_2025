@@ -1,0 +1,59 @@
+/* Custom styles for Data Visualization presentations */
+
+/* Import Google Font - Quicksand */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+/* Make all text black and apply Quicksand font */
+.reveal {
+  color: black;
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Make all headings black */
+.reveal h1, 
+.reveal h2, 
+.reveal h3, 
+.reveal h4, 
+.reveal h5, 
+.reveal h6 {
+  color: black !important;
+  font-family: 'Quicksand', sans-serif !important;
+}
+
+/* Title slide specific styling */
+.reveal .title, 
+.reveal .subtitle, 
+.reveal .author,
+.reveal .date {
+  color: black !important;
+}
+
+/* Make links dark blue for visibility */
+.reveal a {
+  color: #0066cc;
+}
+
+.reveal a:hover {
+  color: #0044aa;
+}
+
+/* Style lists */
+.reveal ul, 
+.reveal ol {
+  color: black;
+}
+
+/* Style code blocks */
+.reveal code {
+  color: #f8f8f2;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.reveal pre code {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Footer styling */
+.reveal .footer {
+  color: white;
+}

@@ -1,0 +1,15 @@
+{
+  "hash": "586d07ec76c2a7a03aece5f1e585d36e",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Fondamenti di ggplot2: Grammar of Graphics\"\n---\n\n## La Grammar of Graphics\n\nLa Grammar of Graphics è un framework teorico per creare visualizzazioni in modo sistematico.\n\n## Componenti principali\n\n### 1. Data (Dati)\nI dati che vogliamo visualizzare\n\n### 2. Aesthetics (Estetiche)\nCome mappiamo i dati alle proprietà visive:\n- Posizione (x, y)\n- Colore\n- Dimensione\n- Forma\n\n### 3. Geometries (Geometrie)\nIl tipo di grafico:\n- Punti (`geom_point()`)\n- Linee (`geom_line()`)\n- Barre (`geom_bar()`)\n\n### 4. Scales (Scale)\nCome i dati vengono trasformati in valori visivi\n\n### 5. Facets\nDividere il grafico in sottografici\n\n### 6. Themes (Temi)\nAspetto generale del grafico\n\n## Primo grafico con ggplot2\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(ggplot2)\n\n# Template base\nggplot(data = <DATA>) +\n  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))\n```\n:::\n\n\n## Esempio pratico\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n\n# Caricare i dati\ndata(mtcars)\n\n# Creare un grafico\nggplot(data = mtcars) +\n  geom_point(mapping = aes(x = wt, y = mpg))\n```\n:::\n\n\n## Esercizi\n\n1. Crea il tuo primo grafico con i dati forniti\n2. Sperimenta con diverse mappature estetiche\n3. Prova diverse geometrie\n\n## Risorse\n\n- [ggplot2 book](https://ggplot2-book.org/)\n- [Grammar of Graphics paper](https://www.springer.com/gp/book/9780387245447)\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
