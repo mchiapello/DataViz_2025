@@ -20,6 +20,261 @@ resources:
   - presentation-style.css
 ---
 
+## Best Practices per Pubblicazioni Scientifiche {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.85em;"}
+**Perché le visualizzazioni contano nella scienza?**
+
+- I grafici sono **strumenti di scoperta** e **comunicazione**
+- Permettono di esplorare pattern nei dati
+- Comunicano risultati in modo più efficace del testo
+- Devono essere **accurati**, **onesti** e **chiari**
+
+**Principio fondamentale**: Un grafico deve **rispettare i dati** e aiutare il lettore a comprenderli
+:::
+
+## Percezione Visiva: Come Leggiamo i Grafici {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Gerarchia percettiva** (dal più al meno accurato):
+
+1. **Posizione** lungo scala comune (scatter plot, bar chart)
+2. **Posizione** lungo scale non allineate (small multiples)
+3. **Lunghezza**, **direzione**, **angolo** (slope charts)
+4. **Area** (bubble charts) - più difficile da giudicare
+5. **Volume**, **curvatura** (3D charts) - evitare!
+6. **Colore** - saturazione, tonalità
+
+**Implicazione pratica**: Usa posizione quando possibile, evita 3D e pie charts complessi
+
+**Riferimento**: Cleveland & McGill (1984), Ware (2008)
+:::
+
+## Principio dell'Inchiostro Proporzionale {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.6em;"}
+**The Principle of Proportional Ink** (Wilke, 2019)
+
+> La quantità di "inchiostro" usata per rappresentare un valore deve essere proporzionale al valore stesso
+
+**Esempi comuni di violazione:**
+
+- **Bar chart con asse y che non parte da zero** → esagera differenze
+- **Bubble chart con raggio (non area) proporzionale al valore** → distorce percezione
+- **Pie chart in 3D** → prospettiva distorce proporzioni
+
+**Best practice**: 
+
+- Bar chart → sempre asse y da zero
+- Bubble chart → area ∝ valore, non raggio
+- Evita 3D decorativo
+:::
+
+## Onestà e Integrità dei Dati {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+**Errori comuni che distorcono la verità:**
+
+**1. Assi manipolati** - EVITA - asse y troncato senza indicazione chiara
+
+**2. Cherry-picking** - Mostrare solo subset favorevole
+
+**3. Dual y-axes** - Scale diverse creano correlazioni spurie → **Evitare**
+
+**4. Binning arbitrario** - Bin width cambia la storia → mostra più versioni
+:::
+
+## Uso Efficace del Colore {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Principi per l'uso del colore:**
+
+**1. Accessibilità    
+- Color blindness** ~8% uomini, ~0.5% donne hanno daltonismo   
+- **Soluzione**: palette colorblind-safe (viridis, ColorBrewer)
+
+```r
+scale_color_viridis_d()           # discreto
+scale_color_viridis_c()           # continuo
+scale_color_brewer(palette = "Set2")  # ColorBrewer
+```
+
+**2. Tipi di scale cromatiche**    
+- **Qualitativa**: categorie non ordinate (Set1, Set2, Dark2)    
+- **Sequenziale**: valori ordinati (Blues, Greens, Viridis)    
+- **Divergente**: dati con punto medio (RdBu, BrBG) - es. correlazioni
+
+**3. Evita semaforo (rosso-giallo-verde)** - non accessibile
+:::
+
+## Codifica Ridondante {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Redundant Coding** (Wilke, Ch. 20)
+
+Codifica la **stessa informazione** in modi multipli per robustezza:
+
+**Vantaggi**: 
+
+- Leggibile anche in stampa B/N
+- Accessibile per daltonici
+- Più facile da interpretare
+:::
+
+## Figure Multi-Panel {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Best practices per figure composite:**
+
+**1. Small multiples** (faceting) - stessi assi
+
+**2. Composizione con `patchwork`**
+
+**Regole:**
+
+- **Etichette consistenti**: (A), (B), (C) o a), b), c)
+- **Font size**: devono essere leggibili alla dimensione finale
+- **Aspect ratio**: mantieni proporzioni ragionevoli
+- **Caption completo**: ogni panel deve essere comprensibile
+:::
+
+## Titoli, Didascalie e Annotazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Anatomia di una figura pubblicabile:**
+
+```r
+    title = "Breve e informativo",         # opzionale per paper
+    subtitle = "Dettagli aggiuntivi",      # opzionale
+    x = "Variabile esplicativa [unità]",   # SEMPRE con unità
+    y = "Variabile risposta [unità]",      # SEMPRE con unità
+    color = "Gruppo",                       # etichetta legenda
+    caption = "Fonte: Studio XYZ (2024)"   # fonte dati
+```
+
+**Per pubblicazioni scientifiche:**
+
+- **Caption nella rivista**, non nel grafico stesso
+- **Asse labels**: chiari, con unità di misura
+- **Legend**: auto-esplicativa
+- **Font size**: 8-12pt nella versione finale (usa `theme(text = element_text(size = 12))`)
+:::
+
+## Bilanciare Dati e Contesto {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Data-ink ratio** (Tufte, 1983)
+
+> Massimizza la proporzione di "inchiostro" dedicato ai dati
+
+**Rimuovi elementi non essenziali:** Ma non esagerare!
+
+- Griglia maggiore: utile per leggere valori
+- Assi: necessari per interpretazione
+- Legend: essenziale per categorie
+
+**Obiettivo**: Chiarezza, non minimalismo estremo
+:::
+
+## Gestione dell'Overlapping {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Soluzioni per punti sovrapposti:**
+
+**1. Trasparenza (alpha)**
+
+**2. Jittering**
+
+**3. 2D density / Heatmap**
+
+**4. Contour plots**
+
+
+**Scegli in base a**: numero punti, messaggio da comunicare, audience
+:::
+
+## Dimensione degli Assi e Leggibilità {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**"Use Larger Axis Labels"** (Wilke, Ch. 24)
+
+**Problema comune**: Font troppo piccoli nella versione finale
+
+
+**Test pratico**: 
+
+- Salva a dimensione finale (es. 6×4 pollici per column width)
+- Stampa o visualizza al 100%
+- Deve essere leggibile senza sforzo
+:::
+
+## Salvare Grafici per Pubblicazione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+
+**Formati e parametri corretti:**
+
+**Linee guida:**
+
+- **Journal**: PDF/EPS (vettoriale) o TIFF 600dpi
+- **Presentazioni**: PNG 300dpi
+- **Dimensioni**: verifica Author Guidelines 
+:::
+
+## Checklist Finale per Figure Scientifiche {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.5em;"}
+**Prima di sottomettere, verifica:**
+
+::: {.columns}
+::: {.column width="50%"}
+✅ **Accuratezza**
+
+- [ ] Assi partono da zero (bar chart) o range giustificato (scatter)
+- [ ] Tutti i dati rappresentati (no cherry-picking)
+- [ ] Unità di misura specificate
+- [ ] Errori/incertezza visualizzati quando appropriato
+
+✅ **Chiarezza**
+
+- [ ] Font leggibili (≥8pt)
+- [ ] Legenda auto-esplicativa
+- [ ] Colori distinguibili e colorblind-safe
+- [ ] Overlapping gestito
+:::
+
+::: {.column width="50%"}
+✅ **Professionalità**
+
+- [ ] Formato corretto (PDF/TIFF secondo journal)
+- [ ] Risoluzione adeguata (300-600 dpi)
+- [ ] Caption completa (fuori dal grafico)
+- [ ] Consistenza con altre figure del paper
+:::
+:::
+:::
+
+## Risorse Fondamentali {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.5em;"}
+**Libri essenziali:**
+
+- **Wilke (2019)**: [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/) - Principi generali, online gratis
+- **Healy (2018)**: [Data Visualization: A Practical Introduction](https://socviz.co/) - Con R e ggplot2
+- **Tufte (1983)**: The Visual Display of Quantitative Information - Classico sull'estetica
+- **Cairo (2013)**: The Functional Art - Infographic e giornalismo dati
+
+**Articoli scientifici:**
+
+- Cleveland & McGill (1984) - Percezione grafica
+- Rougier et al. (2014) - "Ten Simple Rules for Better Figures"
+
+**Online:**
+
+- [ColorBrewer](https://colorbrewer2.org/) - Palette colori
+- [R Graph Gallery](https://r-graph-gallery.com/) - Esempi codice
+:::
+
 ## Cosa significa "gg" in ggplot2? {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 **Grammar of Graphics**
@@ -65,14 +320,12 @@ I layer si sovrappongono dal basso verso l'alto
 ::: {.column width="50%"}
 Il dataset che vogliamo visualizzare
 
-```r
-library(ggplot2)
 
-# I dati vanno sempre per primi
-ggplot(data = mpg)
-```
 
-**Importante**: ggplot2 lavora meglio con dati "tidy"!
+::: {.callout-important}
+## Importante
+**ggplot2 lavora meglio con dati "tidy"!**
+:::
 :::
 
 ::: {.column width="50%"}
@@ -80,25 +333,48 @@ ggplot(data = mpg)
 :::
 :::
 
-## Layer 1: Data {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Dati NON-Tidy: Esempio da evitare {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ::: {style="font-size: 0.65em;"}
-**Esempio di tabella Tidy per ggplot2:**
+**Dati in formato "wide" (NON funziona con ggplot2):**
 
-| country     | year | cases | population |
-|-------------|------|-------|------------|
-| Afghanistan | 1999 | 745   | 19987071   |
-| Afghanistan | 2000 | 2666  | 20595360   |
-| Brazil      | 1999 | 37737 | 172006362  |
-| Brazil      | 2000 | 80488 | 174504898  |
-| China       | 1999 | 212258| 1272915272 |
-| China       | 2000 | 213766| 1280428583 |
+| country     | 1999_cases | 1999_pop | 2000_cases | 2000_pop |
+|-------------|------------|----------|------------|----------|
+| Afghanistan | 745        | 19987071 | 2666       | 20595360 |
+| Brazil      | 37737      | 172006362| 80488      | 174504898|
+| China       | 212258     | 1272915272| 213766    | 1280428583|
+
+**Problemi:**
+
+- ❌ Le colonne contengono **valori** (anni), non variabili
+- ❌ Più variabili per riga (cases e pop mescolati)
+- ❌ Impossibile mappare direttamente
+
+**Soluzione**: Trasformare in formato "long" 
 :::
 
-- **Ogni riga** = un'osservazione
-- **Ogni colonna** = una variabile
-- **Ogni cella** = un singolo valore
+## Dati Tidy: Versione corretta {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
+::: {style="font-size: 0.65em;"}
+**Stessi dati in formato "long" (✅ funziona con ggplot2):**
+
+| country     | year | cases  | population |
+|-------------|------|--------|------------|
+| Afghanistan | 1999 | 745    | 19987071   |
+| Afghanistan | 2000 | 2666   | 20595360   |
+| Brazil      | 1999 | 37737  | 172006362  |
+| Brazil      | 2000 | 80488  | 174504898  |
+| China       | 1999 | 212258 | 1272915272 |
+| China       | 2000 | 213766 | 1280428583 |
+
+**Vantaggi:**
+
+- ✅ Ogni colonna = una **variabile** (country, year, cases, population)
+- ✅ Ogni riga = una **osservazione** (paese-anno)
+- ✅ Ogni cella = un singolo valore
+
+:::
 
 ## Layer 2: Aesthetics (Estetiche) {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
