@@ -305,7 +305,7 @@
     "href": "materials/03_grammar_of_graphics.html#layer-4-facets",
     "title": "Grammar of Graphics",
     "section": "Layer 4: Facets",
-    "text": "Layer 4: Facets\n\n\n\nSuddividi i dati in sottografici multipli (piccoli multipli):\n# Una variabile - layout automatico\nfacet_wrap(~ class, ncol = 3)\n\n# Due variabili - griglia\nfacet_grid(drv ~ cyl)\nfacet_grid(rows = vars(drv), \n           cols = vars(cyl))\nPotente per:\n\nConfrontare sottogruppi\nEvitare sovrapposizione (decluttering)\nIl cervello riusa i pattern visivi tra panel\nEsplorare interazioni tra variabili"
+    "text": "Layer 4: Facets\n\n\n\nSuddividi i dati in sottografici multipli (piccoli multipli)\nPotente per:\n\nConfrontare sottogruppi\nEvitare sovrapposizione (decluttering)\nIl cervello riusa i pattern visivi tra panel\nEsplorare interazioni tra variabili"
   },
   {
     "objectID": "materials/03_grammar_of_graphics.html#layer-5-stats-trasformazioni",
@@ -361,7 +361,7 @@
     "href": "materials/03_grammar_of_graphics.html#layer-multipli",
     "title": "Grammar of Graphics",
     "section": "Layer multipli",
-    "text": "Layer multipli\nggplot2 è compositivo - somma layer!\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(aes(color = class)) +      # Layer 1\n  geom_smooth(color = \"black\") +         # Layer 2\n  geom_rug(sides = \"bl\")                 # Layer 3\nOgni layer può avere: - Proprie estetiche - Propri dati - Proprie geometrie"
+    "text": "Layer multipli\nggplot2 è compositivo - somma layer!\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(aes(color = class)) +      # Layer 1\n  geom_smooth(color = \"black\") +         # Layer 2\n  geom_rug(sides = \"bl\")                 # Layer 3\nOgni layer può avere:\n- Proprie estetiche\n- Propri dati\n- Proprie geometrie"
   },
   {
     "objectID": "materials/03_grammar_of_graphics.html#principio-chiave-logica-memorizzazione",
@@ -1411,7 +1411,7 @@
     "href": "materials/03_grammar_of_graphics.html#layer-5-stats",
     "title": "Grammar of Graphics",
     "section": "Layer 5: Stats",
-    "text": "Layer 5: Stats\n\nUsare stats direttamente (invece di geoms):\n# Equivalenti\ngeom_bar(stat = \"count\")\nstat_count(geom = \"bar\")\n\n# Cambio di stat\ngeom_bar(stat = \"identity\")  # usa valori y così come sono\n\n# Summary personalizzate\nstat_summary(fun = mean, geom = \"point\", size = 4)\nstat_summary(fun.data = mean_se, geom = \"errorbar\")\nVariabili calcolate: Gli stats creano nuove variabili accessibili con after_stat():\n# Istogramma con densità invece di conteggi\ngeom_histogram(aes(y = after_stat(density)))"
+    "text": "Layer 5: Stats\n\nUsare stats direttamente (invece di geoms):\n# Equivalenti\ngeom_bar(stat = \"count\")\nstat_count(geom = \"bar\")\n\n# Cambio di stat\ngeom_bar(stat = \"identity\")  # usa valori y così come sono\n\n# Summary personalizzate\nstat_summary(fun = mean, geom = \"point\", size = 4)\nstat_summary(fun.data = mean_se, geom = \"errorbar\")\nVariabili calcolate: Gli stats creano nuove variabili accessibili con after_stat():\n# Istogramma con densità invece di conteggi\ngeom_histogram(aes(y = after_stat(density)))\n\n\n\n\n\n\nScoprire le variabili calcolate\n\n\nPer vedere quali variabili sono disponibili con after_stat(), consulta la sezione Computed variables nella documentazione di ogni stat: ?stat_bin, ?stat_count, ?stat_smooth, etc."
   },
   {
     "objectID": "materials/03_grammar_of_graphics.html#layer-6-coordinates-1",
@@ -1566,5 +1566,89 @@
     "title": "Grammar of Graphics",
     "section": "Dati Tidy: Versione corretta",
     "text": "Dati Tidy: Versione corretta\n\nStessi dati in formato “long” (✅ funziona con ggplot2):\n\n\n\ncountry\nyear\ncases\npopulation\n\n\n\n\nAfghanistan\n1999\n745\n19987071\n\n\nAfghanistan\n2000\n2666\n20595360\n\n\nBrazil\n1999\n37737\n172006362\n\n\nBrazil\n2000\n80488\n174504898\n\n\nChina\n1999\n212258\n1272915272\n\n\nChina\n2000\n213766\n1280428583\n\n\n\nVantaggi:\n\n✅ Ogni colonna = una variabile (country, year, cases, population)\n✅ Ogni riga = una osservazione (paese-anno)\n✅ Ogni cella = un singolo valore"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#layer-2-aesthetics---il-ponte-tra-dati-e-visual",
+    "href": "materials/03_grammar_of_graphics.html#layer-2-aesthetics---il-ponte-tra-dati-e-visual",
+    "title": "Grammar of Graphics",
+    "section": "Layer 2: Aesthetics - Il Ponte tra Dati e Visual",
+    "text": "Layer 2: Aesthetics - Il Ponte tra Dati e Visual\n\nDefinizione formale di “Aesthetic”:\n\nUn’estetica è qualsiasi proprietà visuale degli oggetti in un plot che può essere controllata per trasmettere informazione\n\nIl concetto chiave: Un grafico statistico è una mappatura (mapping) da variabili dei dati ad attributi estetici di oggetti geometrici\n\n\nAesthetics fondamentali:\n\n\nx, y - Posizione nello spazio 2D\ncolor - Colore di bordi/linee/punti\nfill - Colore di riempimento\nsize - Dimensione (area punti)\nshape - Forma dei punti\nalpha - Trasparenza/opacità\nlinetype - Tipo di linea\n\n\n\n\nLa funzione aes():\nIl “motore” delle mappature estetiche\naes(x = displ, \n    y = hwy, \n    color = class)\nCrea il link esplicito tra colonne del dataset e proprietà visive"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#aesthetics-mapping-vs-setting---la-regola-doro",
+    "href": "materials/03_grammar_of_graphics.html#aesthetics-mapping-vs-setting---la-regola-doro",
+    "title": "Grammar of Graphics",
+    "section": "Aesthetics: Mapping vs Setting - La Regola d’Oro",
+    "text": "Aesthetics: Mapping vs Setting - La Regola d’Oro\n\nLa dicotomia fondamentale di ggplot2:\n\n\nMAPPING (dentro aes())\nProprietà visiva dipende dai dati\nggplot(mpg, aes(x = displ, \n                y = hwy, \n                color = class)) +\n  geom_point()\n✅ Risultato:\n\nColore varia per ogni punto\nLegenda creata automaticamente\nScala colori applicata automaticamente\nRappresenta dati\n\nQuando usare: Per visualizzare una variabile del dataset\n\nSETTING (fuori aes())\nProprietà visiva costante\nggplot(mpg, aes(x = displ, \n                y = hwy)) +\n  geom_point(color = \"blue\", \n             size = 3, \n             alpha = 0.6)\n✅ Risultato:\n\nTutti i punti blu, stessa dimensione\nNessuna legenda\nNessuna scala\nScelta stilistica\n\nQuando usare: Per impostare uno stile fisso"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#aesthetics-lerrore-comune---aescolor-blue",
+    "href": "materials/03_grammar_of_graphics.html#aesthetics-lerrore-comune---aescolor-blue",
+    "title": "Grammar of Graphics",
+    "section": "Aesthetics: L’Errore Comune - aes(color = \"blue\")",
+    "text": "Aesthetics: L’Errore Comune - aes(color = \"blue\")\n\nPerché aes(color = \"blue\") NON produce punti blu?\n# ❌ ERRORE COMUNE - Non produce punti blu!\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(aes(color = \"blue\"))\nLa logica formale dietro questo comportamento:\n\n\nInterpretazione: aes() interpreta tutto come dati, non come istruzioni di stile\nCreazione pseudo-variabile: \"blue\" diventa una variabile temporanea con valore costante \"blue\" per ogni riga\nTrattamento categorico: Questa “variabile” ha un solo livello: la stringa \"blue\"\nInvocazione scala: scale_color_discrete() viene applicata automaticamente\nMappatura colore: La scala assegna il primo colore della palette (tipicamente rosso) al livello \"blue\"\nLegenda: Viene generata una legenda che mostra: livello dati = \"blue\" → colore = rosso\n\n\n\n\n\n\n\n\nPrincipio chiave\n\n\naes() è uno spazio sacro riservato esclusivamente al mapping dati-visual. Qualsiasi valore al suo interno viene interpretato come parte dello spazio dati, non dello spazio stilistico."
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#aesthetics-guida-completa-alle-proprietà-visive",
+    "href": "materials/03_grammar_of_graphics.html#aesthetics-guida-completa-alle-proprietà-visive",
+    "title": "Grammar of Graphics",
+    "section": "Aesthetics: Guida Completa alle Proprietà Visive",
+    "text": "Aesthetics: Guida Completa alle Proprietà Visive\n\n\n\n\n\n\n\n\n\n\n\nAesthetic\nProprietà Controllata\nTipo Dati\nGeoms Comuni\nNote Importanti\n\n\n\n\nx, y\nPosizione sugli assi\nContinuo, Discreto\nTutti\nLe estetiche più fondamentali\n\n\ncolor\nColore bordi/linee/punti\nContinuo, Discreto\ngeom_point, geom_line\nPer shape 21-25: controlla il bordo\n\n\nfill\nColore riempimento\nContinuo, Discreto\ngeom_bar, geom_boxplot\nSolo per geom con area interna\n\n\nsize\nArea punti, dimensione testo\nContinuo\ngeom_point, geom_text\nScala l’area, non il raggio. Evitare per variabili discrete\n\n\nlinewidth\nSpessore linee\nContinuo\ngeom_line, geom_smooth\nIntrodotto in ggplot2 3.4.0 per controllo esplicito\n\n\nshape\nForma punti\nDiscreto\ngeom_point\nMax 6 categorie. Shapes 0-20: solidi; 21-25: con bordo+fill\n\n\nalpha\nTrasparenza (0-1)\nContinuo\nTutti\nStrumento primario per overplotting\n\n\nlinetype\nPattern linea\nDiscreto\ngeom_line, geom_path\nMax 6 categorie (solid, dashed, dotted, etc.)\n\n\ngroup\nRaggruppamento dati\nDiscreto\ngeom_line, geom_smooth\nCruciale per aggregazione corretta (es. time series)\n\n\nlabel\nContenuto testo\nCharacter\ngeom_text, geom_label\nSpecifica il testo da visualizzare\n\n\n\n\n\n\n\n\n\nPercezione visiva\n\n\nPosizione &gt; Lunghezza &gt; Angolo &gt; Area &gt; Colore. Usa x/y per variabili più importanti, color/size per secondarie."
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#aesthetics-mapping-vs-setting",
+    "href": "materials/03_grammar_of_graphics.html#aesthetics-mapping-vs-setting",
+    "title": "Grammar of Graphics",
+    "section": "Aesthetics: Mapping vs Setting",
+    "text": "Aesthetics: Mapping vs Setting\n\nLa dicotomia fondamentale di ggplot2:\n\n\nMAPPING (dentro aes())\nProprietà visiva dipende dai dati\nggplot(mpg, aes(x = displ, \n                y = hwy, \n                color = class)) +\n  geom_point()\n✅ Risultato:\n\nColore varia per ogni punto\nLegenda creata automaticamente\nScala colori applicata automaticamente\nRappresenta dati\n\nQuando usare: Per visualizzare una variabile del dataset\n\nSETTING (fuori aes())\nProprietà visiva costante\nggplot(mpg, aes(x = displ, \n                y = hwy)) +\n  geom_point(color = \"blue\", \n             size = 3, \n             alpha = 0.6)\n✅ Risultato:\n\nTutti i punti blu, stessa dimensione\nNessuna legenda\nNessuna scala\nScelta stilistica\n\nQuando usare: Per impostare uno stile fisso"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#aesthetics-lerrore-comune",
+    "href": "materials/03_grammar_of_graphics.html#aesthetics-lerrore-comune",
+    "title": "Grammar of Graphics",
+    "section": "Aesthetics: L’Errore Comune",
+    "text": "Aesthetics: L’Errore Comune\n\nPerché aes(color = \"blue\") NON produce punti blu?\n# ❌ ERRORE COMUNE - Non produce punti blu!\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(aes(color = \"blue\"))\nLa logica formale dietro questo comportamento:\n\n\nInterpretazione: aes() interpreta tutto come dati, non come istruzioni di stile\nCreazione pseudo-variabile: \"blue\" diventa una variabile temporanea con valore costante \"blue\" per ogni riga\nTrattamento categorico: Questa “variabile” ha un solo livello: la stringa \"blue\"\nInvocazione scala: scale_color_discrete() viene applicata automaticamente\nMappatura colore: La scala assegna il primo colore della palette (tipicamente rosso) al livello \"blue\"\nLegenda: Viene generata una legenda che mostra: livello dati = \"blue\" → colore = rosso\n\n\n\n\n\n\n\n\nPrincipio chiave\n\n\naes() è uno spazio sacro riservato esclusivamente al mapping dati-visual. Qualsiasi valore al suo interno viene interpretato come parte dello spazio dati, non dello spazio stilistico."
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#template-base-di-ggplot2-1",
+    "href": "materials/03_grammar_of_graphics.html#template-base-di-ggplot2-1",
+    "title": "Grammar of Graphics",
+    "section": "Template base di ggplot2",
+    "text": "Template base di ggplot2\n\nStruttura completa di un plot ggplot2:\nggplot(data = &lt;DATA&gt;, mapping = aes(&lt;MAPPINGS&gt;)) + \n  &lt;GEOM_FUNCTION&gt;(\n     mapping = aes(&lt;MAPPINGS&gt;),\n     stat = &lt;STAT&gt;, \n     position = &lt;POSITION&gt;\n  ) +\n  &lt;COORDINATE_FUNCTION&gt; +\n  &lt;FACET_FUNCTION&gt; +\n  &lt;SCALE_FUNCTION&gt; +\n  &lt;THEME_FUNCTION&gt;\nIn pratica (esempio reale):\nggplot(mpg, aes(x = displ, y = hwy)) +       # Data + Aesthetics\n  geom_point(aes(color = class)) +            # Geometries\n  facet_wrap(~ year) +                        # Facets\n  scale_color_brewer(palette = \"Set1\") +      # Scales\n  coord_cartesian(ylim = c(10, 45)) +         # Coordinates\n  theme_minimal()                             # Theme"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#scales-il-traduttore-bidirezionale",
+    "href": "materials/03_grammar_of_graphics.html#scales-il-traduttore-bidirezionale",
+    "title": "Grammar of Graphics",
+    "section": "Scales: Il Traduttore Bidirezionale",
+    "text": "Scales: Il Traduttore Bidirezionale\n\nLe scale traducono BIDIREZIONALMENTE tra dati e proprietà visive\n\n\nIl problema fondamentale:\nI tuoi dati raramente rappresentano direttamente proprietà grafiche:\n\ngender → quale forma?\ntemperature (15-35°C) → quale colore?\ndate (2020-01-01) → quale posizione?\ncategory (A, B, C) → quale colore?\n\n\nOgni aesthetics ha la sua scala:\nggplot(data, aes(x = date, \n                 y = temp,\n                 color = city)) +\n  geom_line()\n  \n# ggplot2 applica AUTOMATICAMENTE:\n# scale_x_date()       # per x\n# scale_y_continuous() # per y\n# scale_color_discrete() # per color\n\n\n\n\n\n\nAutomatiche ma personalizzabili\n\n\nLe scale vengono sempre applicate, anche se non le specifichi. Specificarle esplicitamente ti dà controllo totale."
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#scales-anatomia-e-pattern",
+    "href": "materials/03_grammar_of_graphics.html#scales-anatomia-e-pattern",
+    "title": "Grammar of Graphics",
+    "section": "Scales: Anatomia e Pattern",
+    "text": "Scales: Anatomia e Pattern\n\nPattern di nomenclatura sistematico:\nscale_&lt;aesthetic&gt;_&lt;type&gt;()\n\n\nPer POSIZIONI (x, y):\n# Continuous\nscale_x_continuous()\nscale_y_continuous()\n\n# Trasformazioni\nscale_x_log10()      # scala logaritmica\nscale_y_sqrt()       # radice quadrata\nscale_x_reverse()    # inverte direzione\n\n# Tipi speciali\nscale_x_date()       # date/datetime\nscale_x_discrete()   # categorie\nscale_x_binned()     # bins per continuous\nPer COLORE (color/fill):\n# Continuous\nscale_color_gradient(low = \"blue\", high = \"red\")\nscale_color_gradient2(mid = \"white\")  # divergente\nscale_color_viridis_c()  # perceptually uniform\n\n# Discrete\nscale_color_brewer(palette = \"Set1\")\nscale_color_manual(values = c(\"red\", \"blue\"))\nscale_fill_grey()    # scala di grigi\n\nPer ALTRE AESTHETICS:\n# Size\nscale_size_continuous(range = c(1, 10))\nscale_size_area()  # area proporzionale al valore\n\n# Shape\nscale_shape_manual(values = c(16, 17, 18))\nscale_shape_discrete()\n\n# Alpha (trasparenza)\nscale_alpha_continuous(range = c(0.1, 1))\n\n# Linetype\nscale_linetype_manual(values = c(\"solid\", \"dashed\"))\nSuffissi importanti:\n\n_manual → valori completamente custom\n_identity → usa valore letterale dai dati"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#scales-personalizzazione-completa",
+    "href": "materials/03_grammar_of_graphics.html#scales-personalizzazione-completa",
+    "title": "Grammar of Graphics",
+    "section": "Scales: Personalizzazione Completa",
+    "text": "Scales: Personalizzazione Completa\n\nComponenti comuni a tutte le scale (tutti opzionali):\n\n\nscale_color_gradient(\n  name = \"Temperatura (°C)\",  # Titolo legenda/asse\n  limits = c(0, 100),         # Range dei dati\n  breaks = seq(0, 100, 25),   # Tick marks\n  labels = c(\"0°\", \"25°\", \"50°\", \"75°\", \"100°\"),\n  trans = \"log10\",            # Trasformazione\n  guide = guide_colorbar(     # Tipo di guida\n    barwidth = 15,\n    barheight = 0.5\n  )\n)\nControllo delle legende/assi:\n# Rimuovi legenda per una aesthetic\nscale_color_continuous(guide = \"none\")\n\n# Multiple guide types\nguide_legend()     # legenda discreta\nguide_colorbar()   # barra continua\nguide_bins()       # bins\nguide_axis()       # assi personalizzati\n\nTrasformazioni comuni:\n# Coordinate vs Scale transforms\nscale_x_log10()  # trasforma DATI (prima stats)\ncoord_trans(x = \"log10\")  # trasforma VISUAL\n\n# Differenza cruciale:\nggplot(data, aes(x, y)) +\n  geom_smooth() +\n  scale_x_log10()  # smooth su dati log-transformed\n\nggplot(data, aes(x, y)) +\n  geom_smooth() +\n  coord_trans(x = \"log10\")  # smooth su dati originali\n\n\n\n\n\n\nScale types riconoscono automaticamente i dati\n\n\nggplot2 sceglie intelligentemente: - factor/character → _discrete() - numeric/integer → _continuous()\n- Date/POSIXct → _date()/_datetime()\nMa puoi sempre sovrascrivere manualmente!"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#plogica-memorizzazione",
+    "href": "materials/03_grammar_of_graphics.html#plogica-memorizzazione",
+    "title": "Grammar of Graphics",
+    "section": "PLogica > Memorizzazione",
+    "text": "PLogica &gt; Memorizzazione\nNon memorizzare ogni funzione!\nCapisci la logica:\n\nCambiare aspetto dati? → geoms\nCambiare colori/scale? → scales\nCambiare elementi non-data? → theme\nDividere in sottografici? → facets\n\nIl sistema è consistente e prevedibile"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#logica-memorizzazione",
+    "href": "materials/03_grammar_of_graphics.html#logica-memorizzazione",
+    "title": "Grammar of Graphics",
+    "section": "Logica > Memorizzazione",
+    "text": "Logica &gt; Memorizzazione\nNon memorizzare ogni funzione!\nCapisci la logica:\n\nCambiare aspetto dati? → geoms\nCambiare colori/scale? → scales\nCambiare elementi non-data? → theme\nDividere in sottografici? → facets\n\nIl sistema è consistente e prevedibile"
   }
 ]

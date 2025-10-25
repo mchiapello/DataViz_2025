@@ -314,6 +314,35 @@ Tutti i grafici (barre, linee, scatter) condividono elementi comuni:
 
 I layer si sovrappongono dal basso verso l'alto
 
+## Template base di ggplot2 {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Struttura completa di un plot ggplot2:**
+
+```r
+ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>
+  ) +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION> +
+  <SCALE_FUNCTION> +
+  <THEME_FUNCTION>
+```
+
+**In pratica** (esempio reale):
+```r
+ggplot(mpg, aes(x = displ, y = hwy)) +       # Data + Aesthetics
+  geom_point(aes(color = class)) +            # Geometries
+  facet_wrap(~ year) +                        # Facets
+  scale_color_brewer(palette = "Set1") +      # Scales
+  coord_cartesian(ylim = c(10, 45)) +         # Coordinates
+  theme_minimal()                             # Theme
+```
+:::
+
 ## Layer 1: Data {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ::: {.columns}
@@ -376,63 +405,149 @@ Il dataset che vogliamo visualizzare
 
 :::
 
-## Layer 2: Aesthetics (Estetiche) {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Layer 2: Aesthetics - Il Ponte tra Dati e Visual {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Definizione formale di "Aesthetic":**
+
+> Un'**estetica** è qualsiasi proprietà visuale degli oggetti in un plot che può essere controllata per trasmettere informazione
+
+**Il concetto chiave**: Un grafico statistico è una **mappatura** (mapping) da variabili dei dati ad attributi estetici di oggetti geometrici
 
 ::: {.columns}
 ::: {.column width="50%"}
-**Mappature** tra variabili e proprietà visive:
+**Aesthetics fondamentali:**
 
-::: {style="font-size: 0.65em;"}
-- **Posizione**: x, y
-- **Colore**: color, fill
-- **Dimensione**: size
-- **Forma**: shape
-- **Trasparenza**: alpha
-- **Tipo di linea**: linetype
-::: 
-
-```r
-aes(x = displ, y = hwy)
-```
-
-<br>
-
-```r
-aes(x = displ, y = hwy, 
-    color = class, 
-    size = cyl)
-```
+::: {style="font-size: 0.6em;"}
+- `x`, `y` - Posizione nello spazio 2D
+- `color` - Colore di bordi/linee/punti
+- `fill` - Colore di riempimento
+- `size` - Dimensione (area punti)
+- `shape` - Forma dei punti
+- `alpha` - Trasparenza/opacità
+- `linetype` - Tipo di linea
+:::
 :::
 
 ::: {.column width="50%"}
-![](images/ggplot2_layers.png){width="100%"}
-:::
-:::
+::: {style="font-size: 0.7em;"}
+**La funzione `aes()`:**
 
-## Mapping vs Setting {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+Il "motore" delle mappature estetiche
 
-::: {style="font-size: 0.8em;"}
-**Due modi di assegnare aesthetics:**
-
-**Mapping (`aes()`)** - Basato sui **dati** (dentro `aes()`):
 ```r
-# Colore dipende dalla variabile 'class'
-ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+aes(x = displ, 
+    y = hwy, 
+    color = class)
+```
+
+Crea il **link esplicito** tra colonne del dataset e proprietà visive
+:::
+:::
+:::
+:::
+
+## Aesthetics: Mapping vs Setting  {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.65em;"}
+**La dicotomia fondamentale di ggplot2:**
+
+::: {.columns}
+::: {.column width="50%"}
+**MAPPING (dentro `aes()`)** 
+
+Proprietà visiva **dipende dai dati**
+
+```r
+ggplot(mpg, aes(x = displ, 
+                y = hwy, 
+                color = class)) +
   geom_point()
 ```
-- Crea automaticamente una **legenda**
-- Scala applicata automaticamente
 
-**Setting (fisso)** - Valore **costante** (fuori `aes()`):
+✅ **Risultato:**
+
+- Colore varia per ogni punto
+- Legenda creata automaticamente
+- Scala colori applicata automaticamente
+- Rappresenta **dati**
+
+**Quando usare:** Per visualizzare una **variabile** del dataset
+:::
+
+::: {.column width="50%"}
+**SETTING (fuori `aes()`)**
+
+Proprietà visiva **costante**
+
 ```r
-# Tutti i punti blu
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(color = "blue", size = 3)
+ggplot(mpg, aes(x = displ, 
+                y = hwy)) +
+  geom_point(color = "blue", 
+             size = 3, 
+             alpha = 0.6)
 ```
+
+✅ **Risultato:**
+
+- Tutti i punti blu, stessa dimensione
 - Nessuna legenda
 - Nessuna scala
+- Scelta **stilistica**
 
-**Errore comune**: `aes(color = "blue")` → crea variabile costante "blue"!
+**Quando usare:** Per impostare uno **stile fisso**
+:::
+:::
+:::
+
+## Aesthetics: L'Errore Comune {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+**Perché `aes(color = "blue")` NON produce punti blu?**
+
+```r
+# ❌ ERRORE COMUNE - Non produce punti blu!
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = "blue"))
+```
+
+**La logica formale dietro questo comportamento:**
+
+::: {style="font-size: 0.75em;"}
+1. **Interpretazione**: `aes()` interpreta tutto come **dati**, non come istruzioni di stile
+2. **Creazione pseudo-variabile**: `"blue"` diventa una variabile temporanea con valore costante `"blue"` per ogni riga
+3. **Trattamento categorico**: Questa "variabile" ha un solo livello: la stringa `"blue"`
+4. **Invocazione scala**: `scale_color_discrete()` viene applicata automaticamente
+5. **Mappatura colore**: La scala assegna il **primo colore della palette** (tipicamente rosso) al livello `"blue"`
+6. **Legenda**: Viene generata una legenda che mostra: livello dati = `"blue"` → colore = rosso
+:::
+
+::: {.callout-important}
+## Principio chiave
+`aes()` è uno spazio sacro riservato **esclusivamente** al mapping dati-visual. Qualsiasi valore al suo interno viene interpretato come parte dello **spazio dati**, non dello spazio stilistico.
+:::
+:::
+
+## Aesthetics: Guida Completa alle Proprietà Visive {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.38em;"}
+| Aesthetic | Proprietà Controllata | Tipo Dati | Geoms Comuni | Note Importanti |
+|-----------|----------------------|-----------|--------------|-----------------|
+| `x`, `y` | Posizione sugli assi | Continuo, Discreto | Tutti | Le estetiche più fondamentali |
+| `color` | Colore bordi/linee/punti | Continuo, Discreto | `geom_point`, `geom_line` | Per shape 21-25: controlla il bordo |
+| `fill` | Colore riempimento | Continuo, Discreto | `geom_bar`, `geom_boxplot` | Solo per geom con area interna |
+| `size` | Area punti, dimensione testo | **Continuo** | `geom_point`, `geom_text` | Scala l'**area**, non il raggio. Evitare per variabili discrete |
+| `linewidth` | Spessore linee | Continuo | `geom_line`, `geom_smooth` | Introdotto in ggplot2 3.4.0 per controllo esplicito |
+| `shape` | Forma punti | **Discreto** | `geom_point` | Max 6 categorie. Shapes 0-20: solidi; 21-25: con bordo+fill |
+| `alpha` | Trasparenza (0-1) | Continuo | Tutti | Strumento primario per overplotting |
+| `linetype` | Pattern linea | **Discreto** | `geom_line`, `geom_path` | Max 6 categorie (solid, dashed, dotted, etc.) |
+| `group` | Raggruppamento dati | Discreto | `geom_line`, `geom_smooth` | **Cruciale** per aggregazione corretta (es. time series) |
+| `label` | Contenuto testo | Character | `geom_text`, `geom_label` | Specifica il testo da visualizzare |
+
+::: {.callout-tip}
+## Percezione visiva
+Posizione > Lunghezza > Angolo > Area > Colore. Usa `x`/`y` per variabili più importanti, `color`/`size` per secondarie.
+:::
 :::
 
 ## Color vs Fill {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
@@ -467,7 +582,7 @@ geom_bar(fill = "steelblue", color = "black", linewidth = 1)
 
 ::: {.columns}
 ::: {.column width="50%"}
-::: {style="font-size: 0.8em;"}
+::: {style="font-size: 0.6em;"}
 **Forme visive** che rappresentano i dati:
 
 **1D (una variabile):**
@@ -519,51 +634,13 @@ ggplot(mpg, aes(x = displ, y = hwy)) +  # aesthetics globali
 ```
 :::
 
-## Template base di ggplot2 {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Struttura completa di un plot ggplot2:**
-
-```r
-ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) + 
-  <GEOM_FUNCTION>(
-     mapping = aes(<MAPPINGS>),
-     stat = <STAT>, 
-     position = <POSITION>
-  ) +
-  <COORDINATE_FUNCTION> +
-  <FACET_FUNCTION> +
-  <SCALE_FUNCTION> +
-  <THEME_FUNCTION>
-```
-
-**In pratica** (esempio reale):
-```r
-ggplot(mpg, aes(x = displ, y = hwy)) +       # Data + Aesthetics
-  geom_point(aes(color = class)) +            # Geometries
-  facet_wrap(~ year) +                        # Facets
-  scale_color_brewer(palette = "Set1") +      # Scales
-  coord_cartesian(ylim = c(10, 45)) +         # Coordinates
-  theme_minimal()                             # Theme
-```
-:::
-
 ## Layer 4: Facets {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ::: {.columns}
 ::: {.column width="50%"}
 ::: {style="font-size: 0.8em;"}
-**Suddividi** i dati in sottografici multipli (piccoli multipli):
+**Suddividi** i dati in sottografici multipli (piccoli multipli)
 
-```r
-# Una variabile - layout automatico
-facet_wrap(~ class, ncol = 3)
-
-# Due variabili - griglia
-facet_grid(drv ~ cyl)
-facet_grid(rows = vars(drv), 
-           cols = vars(cyl))
-```
 
 **Potente per**:
 
@@ -604,7 +681,7 @@ facet_grid(drv ~ cyl, margins = TRUE)  # aggiunge totali marginali
 
 ::: {.columns}
 ::: {.column width="50%"}
-::: {style="font-size: 0.8em;"}
+::: {style="font-size: 0.6em;"}
 Trasformazioni sui dati **prima** di plottare:
 
 **Stats comuni:**
@@ -654,13 +731,18 @@ stat_summary(fun.data = mean_se, geom = "errorbar")
 # Istogramma con densità invece di conteggi
 geom_histogram(aes(y = after_stat(density)))
 ```
+
+::: {.callout-tip}
+## Scoprire le variabili calcolate
+Per vedere quali variabili sono disponibili con `after_stat()`, consulta la sezione **Computed variables** nella documentazione di ogni stat: `?stat_bin`, `?stat_count`, `?stat_smooth`, etc.
+:::
 :::
 
 ## Layer 6: Coordinates {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ::: {.columns}
 ::: {.column width="50%"}
-::: {style="font-size: 0.8em;"}
+::: {style="font-size: 0.65em;"}
 Il "tessuto" su cui plottiamo - operano **dopo** scale:
 
 **Tipi principali:**
@@ -686,30 +768,184 @@ coord_cartesian(xlim = c(2, 5),
 :::
 :::
 
-## Layer 6: Coordinates {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.75em;"}
-**Esempi pratici:**
+
+## Scales: Il Traduttore Bidirezionale {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+**Le scale traducono BIDIREZIONALMENTE tra dati e proprietà visive**
+
+::: {.columns}
+::: {.column width="50%"}
+**Il problema fondamentale:**
+
+I tuoi dati raramente rappresentano direttamente proprietà grafiche:
+
+- `gender` → quale forma?
+- `temperature` (15-35°C) → quale colore?
+- `date` (2020-01-01) → quale posizione?
+- `category` (A, B, C) → quale colore?
+
+
+:::
+
+::: {.column width="50%"}
+**Ogni aesthetics ha la sua scala:**
 
 ```r
-# Barplot orizzontale (alternativa: coord_flip())
-ggplot(mpg, aes(y = class)) + geom_bar()
-
-# Ratio fisso per aspect ratio 1:1
-ggplot(faithful, aes(eruptions, waiting)) +
-  geom_point() +
-  coord_fixed(ratio = 1)
-
-# Pie chart (discouraged!)
-ggplot(mpg, aes(x = "", fill = class)) +
-  geom_bar(width = 1) +
-  coord_polar(theta = "y")
+ggplot(data, aes(x = date, 
+                 y = temp,
+                 color = city)) +
+  geom_line()
+  
+# ggplot2 applica AUTOMATICAMENTE:
+# scale_x_date()       # per x
+# scale_y_continuous() # per y
+# scale_color_discrete() # per color
 ```
 
-**Differenza chiave**: `coord_cartesian()` vs `scale_*_continuous(limits = ...)`
+::: {.callout-important}
+## Automatiche ma personalizzabili
+Le scale vengono **sempre** applicate, anche se non le specifichi. 
+Specificarle esplicitamente ti dà controllo totale.
+:::
+:::
+:::
+:::
 
-- **coord**: zoom visuale, mantiene tutti i dati
-- **scale**: rimuove dati fuori range (influenza stats!)
+## Scales: Anatomia e Pattern {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.6em;"}
+**Pattern di nomenclatura sistematico:**
+
+`scale_<aesthetic>_<type>()`
+
+::: {.columns}
+::: {.column width="50%"}
+**Per POSIZIONI (x, y):**
+
+```r
+# Continuous
+scale_x_continuous()
+scale_y_continuous()
+
+# Trasformazioni
+scale_x_log10()      # scala logaritmica
+scale_y_sqrt()       # radice quadrata
+scale_x_reverse()    # inverte direzione
+
+# Tipi speciali
+scale_x_date()       # date/datetime
+scale_x_discrete()   # categorie
+scale_x_binned()     # bins per continuous
+```
+
+**Per COLORE (color/fill):**
+
+```r
+# Continuous
+scale_color_gradient(low = "blue", high = "red")
+scale_color_gradient2(mid = "white")  # divergente
+scale_color_viridis_c()  # perceptually uniform
+
+# Discrete
+scale_color_brewer(palette = "Set1")
+scale_color_manual(values = c("red", "blue"))
+scale_fill_grey()    # scala di grigi
+```
+:::
+
+::: {.column width="50%"}
+**Per ALTRE AESTHETICS:**
+
+```r
+# Size
+scale_size_continuous(range = c(1, 10))
+scale_size_area()  # area proporzionale al valore
+
+# Shape
+scale_shape_manual(values = c(16, 17, 18))
+scale_shape_discrete()
+
+# Alpha (trasparenza)
+scale_alpha_continuous(range = c(0.1, 1))
+
+# Linetype
+scale_linetype_manual(values = c("solid", "dashed"))
+```
+
+**Suffissi importanti:**
+
+- `_manual` → valori completamente custom
+- `_identity` → usa valore letterale dai dati
+:::
+:::
+:::
+
+## Scales: Personalizzazione Completa {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.6em;"}
+**Componenti comuni a tutte le scale** (tutti opzionali):
+
+::: {.columns}
+::: {.column width="50%"}
+```r
+scale_color_gradient(
+  name = "Temperatura (°C)",  # Titolo legenda/asse
+  limits = c(0, 100),         # Range dei dati
+  breaks = seq(0, 100, 25),   # Tick marks
+  labels = c("0°", "25°", "50°", "75°", "100°"),
+  trans = "log10",            # Trasformazione
+  guide = guide_colorbar(     # Tipo di guida
+    barwidth = 15,
+    barheight = 0.5
+  )
+)
+```
+
+**Controllo delle legende/assi:**
+
+```r
+# Rimuovi legenda per una aesthetic
+scale_color_continuous(guide = "none")
+
+# Multiple guide types
+guide_legend()     # legenda discreta
+guide_colorbar()   # barra continua
+guide_bins()       # bins
+guide_axis()       # assi personalizzati
+```
+:::
+
+::: {.column width="50%"}
+**Trasformazioni comuni:**
+
+```r
+# Coordinate vs Scale transforms
+scale_x_log10()  # trasforma DATI (prima stats)
+coord_trans(x = "log10")  # trasforma VISUAL
+
+# Differenza cruciale:
+ggplot(data, aes(x, y)) +
+  geom_smooth() +
+  scale_x_log10()  # smooth su dati log-transformed
+
+ggplot(data, aes(x, y)) +
+  geom_smooth() +
+  coord_trans(x = "log10")  # smooth su dati originali
+```
+
+::: {.callout-tip}
+## Scale types riconoscono automaticamente i dati
+ggplot2 sceglie intelligentemente:
+- `factor/character` → `_discrete()`
+- `numeric/integer` → `_continuous()`  
+- `Date/POSIXct` → `_date()/_datetime()`
+
+Ma puoi sempre sovrascrivere manualmente!
+:::
+:::
+:::
 :::
 
 ## Layer 7: Theme {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
@@ -770,83 +1006,6 @@ theme(
 ```
 :::
 
-## Bonus: Scales {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-Controllano **come** i dati diventano valori visivi
-
-**Pattern**: `scale_[aesthetic]_[type]()`
-
-**Tipi di scale:**
-
-```r
-# Colore - continuo
-scale_color_continuous()
-scale_color_gradient(low = "blue", high = "red")
-scale_color_viridis_c()  # colorblind-friendly
-
-# Colore - discreto
-scale_color_discrete()
-scale_color_brewer(palette = "Set1")
-scale_color_manual(values = c("red", "blue", "green"))
-
-# Posizione
-scale_x_log10()      # scala logaritmica
-scale_y_reverse()    # inverte asse y
-scale_x_date()       # per date
-```
-:::
-
-## Bonus: Scales {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.75em;"}
-**Componenti di una scale** (tutti opzionali):
-
-```r
-scale_color_continuous(
-  name = "Titolo Legenda",        # nome nella legenda
-  breaks = c(2, 4, 6),            # tick marks
-  labels = c("Low", "Med", "High"), # etichette custom
-  limits = c(0, 10),              # range
-  trans = "log10",                # trasformazione
-  guide = guide_colorbar()        # tipo di guida
-)
-```
-
-**Scale per size, shape, alpha, etc.** seguono la stessa logica:
-
-```r
-scale_size_continuous(range = c(1, 10))
-scale_shape_manual(values = c(16, 17, 18))
-scale_alpha_continuous(range = c(0.1, 1))
-```
-:::
-
-## Position adjustments {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-Modifica posizione elementi **dentro** un layer (risolve overlapping):
-
-```r
-# Identity - nessun aggiustamento (dati sovrapposti)
-geom_bar(position = "identity", alpha = 0.5)
-
-# Stack - impilati (default per barre)
-geom_bar(position = "stack")
-
-# Dodge - affiancati (gruppi side-by-side)
-geom_bar(position = "dodge")
-
-# Fill - impilati a 100%
-geom_bar(position = "fill")
-
-# Jitter - rumore casuale (scatter plot con sovrapposizione)
-geom_point(position = "jitter")
-geom_point(position = position_jitter(width = 0.2, height = 0))
-```
-
-**Fondamentale** per visualizzare correttamente dati sovrapposti!
-:::
 
 ## Theme elements {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -912,23 +1071,33 @@ theme_set(my_theme)
 ```
 :::
 
-## Primo esempio completo {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Position adjustments {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+Modifica posizione elementi **dentro** un layer (risolve overlapping):
 
 ```r
-library(tidyverse)
+# Identity - nessun aggiustamento (dati sovrapposti)
+geom_bar(position = "identity", alpha = 0.5)
 
-ggplot(data = mpg, 
-       mapping = aes(x = displ, y = hwy, color = class)) +
-  geom_point(size = 3, alpha = 0.7) +
-  geom_smooth(method = "lm", se = FALSE) +
-  scale_color_brewer(palette = "Set1") +
-  labs(
-    title = "Efficienza vs Cilindrata",
-    x = "Cilindrata (litri)",
-    y = "Miglia per gallone (autostrada)"
-  ) +
-  theme_minimal()
+# Stack - impilati (default per barre)
+geom_bar(position = "stack")
+
+# Dodge - affiancati (gruppi side-by-side)
+geom_bar(position = "dodge")
+
+# Fill - impilati a 100%
+geom_bar(position = "fill")
+
+# Jitter - rumore casuale (scatter plot con sovrapposizione)
+geom_point(position = "jitter")
+geom_point(position = position_jitter(width = 0.2, height = 0))
 ```
+
+**Fondamentale** per visualizzare correttamente dati sovrapposti!
+:::
+
+
 
 ## Layer multipli {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -941,12 +1110,12 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_rug(sides = "bl")                 # Layer 3
 ```
 
-Ogni layer può avere:
-- Proprie estetiche
-- Propri dati
-- Proprie geometrie
+Ogni layer può avere:    
+- Proprie estetiche   
+- Propri dati    
+- Proprie geometrie   
 
-## Principio chiave: Logica > Memorizzazione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Logica > Memorizzazione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 **Non memorizzare** ogni funzione!
 
@@ -972,14 +1141,13 @@ I componenti sono progettati per **lavorare insieme**:
 
 ## Vantaggi del framework {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {.incremental}
+
 1. **Consistenza**: Stesso approccio per tutti i grafici
 2. **Flessibilità**: Mix & match componenti
 3. **Espandibilità**: Facile creare nuove geometrie
 4. **Leggibilità**: Codice dichiarativo e chiaro
 5. **Riproducibilità**: Tutto nel codice, no click
 6. **Potenza**: Da semplici a complessi con stessa logica
-:::
 
 ## Ecosistema di estensioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -996,19 +1164,6 @@ ggplot2 è una **piattaforma**, non solo un package!
 
 [Gallery completa](https://exts.ggplot2.tidyverse.org/gallery/)
 
-## Esercizio pratico {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-**Crea il tuo primo grafico!**
-
-Usa il dataset `mpg` (incluso in ggplot2):
-
-1. Esplora i dati con `View(mpg)` o `glimpse(mpg)`
-2. Scegli 2 variabili per x e y
-3. Aggiungi una terza variabile per il colore
-4. Prova almeno 2 geometrie diverse
-5. Personalizza con scale e theme
-
-**Tempo**: 15 minuti
 
 ## Recap: I 7 layer {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
