@@ -1,72 +1,764 @@
 ---
-title: "Fondamenti di ggplot2: Grammar of Graphics"
+title: "Grammar of Graphics"
+subtitle: "Fondamenti di ggplot2"
+author: "Marco Chiapello"
+format: 
+  revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    chalkboard: true
+    logo: images/ggplot2_logo.jpg
+    footer: "REVELO Training - Data Viz 2025"
+    css: presentation-style.css
+    title-slide-attributes:
+      data-background-image: images/frequency-wave-7776034_1280.jpg
+      data-background-size: cover
+      data-background-opacity: "0.1"
+resources:
+  - images/
+  - presentation-style.css
 ---
 
-## La Grammar of Graphics
+## Cosa significa "gg" in ggplot2? {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-La Grammar of Graphics è un framework teorico per creare visualizzazioni in modo sistematico.
+**Grammar of Graphics**
 
-## Componenti principali
+Framework teorico di Leland Wilkinson (1999)
 
-### 1. Data (Dati)
-I dati che vogliamo visualizzare
+::: {.incremental}
+- Sistema per **progettare** visualizzazioni
+- Non su cosa è bello o best practices
+- Focus: **come costruire qualsiasi visualizzazione**
+- Base per: ggplot2, Tableau, Vega-lite
+:::
 
-### 2. Aesthetics (Estetiche)
-Come mappiamo i dati alle proprietà visive:
-- Posizione (x, y)
-- Colore
-- Dimensione
-- Forma
+## La filosofia {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-### 3. Geometries (Geometrie)
-Il tipo di grafico:
-- Punti (`geom_point()`)
-- Linee (`geom_line()`)
-- Barre (`geom_bar()`)
+**Decostruire i grafici** in componenti riutilizzabili
 
-### 4. Scales (Scale)
-Come i dati vengono trasformati in valori visivi
+Tutti i grafici (barre, linee, scatter) condividono elementi comuni:
 
-### 5. Facets
-Dividere il grafico in sottografici
+::: {.incremental}
+- Scale
+- Coordinate
+- Trasformazioni statistiche
+- Posizioni
+- Geometrie
+:::
 
-### 6. Themes (Temi)
-Aspetto generale del grafico
+::: {style="font-size: 0.6em;"}
+**Mix & Match**: Combina i componenti per creare qualsiasi visualizzazione!
+:::
 
-## Primo grafico con ggplot2
+## I 7 componenti principali {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-```{r}
-#| eval: false
+::: {style="text-align: center;"}
+![](images/ggplot2_layers.png){width="60%"}
+:::
 
+I layer si sovrappongono dal basso verso l'alto
+
+## Layer 1: Data {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+Il dataset che vogliamo visualizzare
+
+```r
 library(ggplot2)
 
-# Template base
-ggplot(data = <DATA>) +
-  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+# I dati vanno sempre per primi
+ggplot(data = mpg)
 ```
 
-## Esempio pratico
+**Importante**: ggplot2 lavora meglio con dati "tidy"!
+:::
 
-```{r}
-#| eval: false
+::: {.column width="50%"}
+![](images/ggplot2_layers.png){width="100%"}
+:::
+:::
 
+## Layer 1: Data {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.65em;"}
+**Esempio di tabella Tidy per ggplot2:**
+
+| country     | year | cases | population |
+|-------------|------|-------|------------|
+| Afghanistan | 1999 | 745   | 19987071   |
+| Afghanistan | 2000 | 2666  | 20595360   |
+| Brazil      | 1999 | 37737 | 172006362  |
+| Brazil      | 2000 | 80488 | 174504898  |
+| China       | 1999 | 212258| 1272915272 |
+| China       | 2000 | 213766| 1280428583 |
+:::
+
+- **Ogni riga** = un'osservazione
+- **Ogni colonna** = una variabile
+- **Ogni cella** = un singolo valore
+
+
+## Layer 2: Aesthetics (Estetiche) {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+**Mappature** tra variabili e proprietà visive:
+
+::: {style="font-size: 0.65em;"}
+- **Posizione**: x, y
+- **Colore**: color, fill
+- **Dimensione**: size
+- **Forma**: shape
+- **Trasparenza**: alpha
+- **Tipo di linea**: linetype
+::: 
+
+```r
+aes(x = displ, y = hwy)
+```
+
+<br>
+
+```r
+aes(x = displ, y = hwy, 
+    color = class, 
+    size = cyl)
+```
+:::
+
+::: {.column width="50%"}
+![](images/ggplot2_layers.png){width="100%"}
+:::
+:::
+
+## Mapping vs Setting {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Due modi di assegnare aesthetics:**
+
+**Mapping (`aes()`)** - Basato sui **dati** (dentro `aes()`):
+```r
+# Colore dipende dalla variabile 'class'
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point()
+```
+- Crea automaticamente una **legenda**
+- Scala applicata automaticamente
+
+**Setting (fisso)** - Valore **costante** (fuori `aes()`):
+```r
+# Tutti i punti blu
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(color = "blue", size = 3)
+```
+- Nessuna legenda
+- Nessuna scala
+
+**Errore comune**: `aes(color = "blue")` → crea variabile costante "blue"!
+:::
+
+## Color vs Fill {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Due aesthetic per il colore:**
+
+**`color`** - Bordi, linee, punti (contorni):
+```r
+geom_point(color = "red")      # punti rossi
+geom_line(color = "blue")      # linea blu
+geom_bar(color = "black")      # bordo barre nero
+```
+
+**`fill`** - Riempimento interno (aree):
+```r
+geom_bar(fill = "steelblue")           # barre riempite
+geom_boxplot(fill = "lightgreen")      # box riempiti
+geom_violin(fill = "orange")           # violin riempiti
+```
+
+**Entrambi insieme**:
+```r
+geom_bar(fill = "steelblue", color = "black", linewidth = 1)
+# → Barre blu con bordo nero
+```
+
+**Regola pratica**: Geoms con area interna usano `fill`, geoms 1D usano `color`
+:::
+
+## Layer 3: Geometries (Geometrie) {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.8em;"}
+**Forme visive** che rappresentano i dati:
+
+**1D (una variabile):**
+
+- `geom_histogram()`, `geom_density()`, `geom_dotplot()`
+
+**2D (due variabili):**
+
+- `geom_point()` - Scatter plot
+- `geom_line()` - Linee connesse
+- `geom_smooth()` - Linea di tendenza
+- `geom_boxplot()`, `geom_violin()` - Distribuzioni
+
+**Conteggi:**
+
+- `geom_bar()`, `geom_col()` - Barre
+
+**Multipli layer**: Combina più geometrie nello stesso grafico!
+:::
+:::
+
+::: {.column width="50%"}
+![](images/ggplot2_layers.png){width="100%"}
+:::
+:::
+
+## Layer 3: Geometries {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Ogni geom ha parametri specifici:**
+
+```r
+# Point: shape, size, alpha
+geom_point(shape = 16, size = 3, alpha = 0.7)
+
+# Line: linetype, linewidth
+geom_line(linetype = "dashed", linewidth = 1)
+
+# Smooth: method, se (standard error)
+geom_smooth(method = "lm", se = TRUE)
+```
+
+**I geom ereditano le aesthetics da `ggplot()`** ma possono avere le proprie:
+
+```r
+ggplot(mpg, aes(x = displ, y = hwy)) +  # aesthetics globali
+  geom_point(aes(color = class)) +       # solo per i punti
+  geom_smooth()                           # usa solo x e y
+```
+:::
+
+## Template base di ggplot2 {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Struttura completa di un plot ggplot2:**
+
+```r
+ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>
+  ) +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION> +
+  <SCALE_FUNCTION> +
+  <THEME_FUNCTION>
+```
+
+**In pratica** (esempio reale):
+```r
+ggplot(mpg, aes(x = displ, y = hwy)) +       # Data + Aesthetics
+  geom_point(aes(color = class)) +            # Geometries
+  facet_wrap(~ year) +                        # Facets
+  scale_color_brewer(palette = "Set1") +      # Scales
+  coord_cartesian(ylim = c(10, 45)) +         # Coordinates
+  theme_minimal()                             # Theme
+```
+:::
+
+## Layer 4: Facets {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.8em;"}
+**Suddividi** i dati in sottografici multipli (piccoli multipli):
+
+```r
+# Una variabile - layout automatico
+facet_wrap(~ class, ncol = 3)
+
+# Due variabili - griglia
+facet_grid(drv ~ cyl)
+facet_grid(rows = vars(drv), 
+           cols = vars(cyl))
+```
+
+**Potente per**:
+
+- Confrontare sottogruppi
+- Evitare sovrapposizione (decluttering)
+- Il cervello riusa i pattern visivi tra panel
+- Esplorare interazioni tra variabili
+:::
+:::
+
+::: {.column width="50%"}
+![](images/ggplot2_layers.png){width="100%"}
+:::
+:::
+
+## Layer 4: Facets {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Opzioni di personalizzazione:**
+
+```r
+# Scale libere per ogni panel
+facet_wrap(~ class, scales = "free")     # entrambi liberi
+facet_wrap(~ class, scales = "free_x")   # solo x libero
+facet_wrap(~ class, scales = "free_y")   # solo y libero
+
+# Etichette personalizzate
+facet_wrap(~ class, labeller = label_both)  # mostra "class: suv"
+
+# Margini
+facet_grid(drv ~ cyl, margins = TRUE)  # aggiunge totali marginali
+```
+
+**Best practice**: Mantieni scale fisse quando possibile per facilitare confronti!
+:::
+
+## Layer 5: Stats (Trasformazioni) {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.8em;"}
+Trasformazioni sui dati **prima** di plottare:
+
+**Stats comuni:**
+
+- `stat_bin()` - Istogrammi (conta in bin)
+- `stat_count()` - Bar chart (conta osservazioni)
+- `stat_smooth()` - Modelli (lm, loess, gam)
+- `stat_boxplot()` - Quartili e outlier
+- `stat_summary()` - Funzioni custom (media, mediana, etc.)
+
+Ogni geom ha uno **stat di default**:
+
+```r
+geom_histogram()  # stat = "bin"
+geom_bar()        # stat = "count"
+geom_smooth()     # stat = "smooth"
+```
+:::
+:::
+
+::: {.column width="50%"}
+![](images/ggplot2_layers.png){width="100%"}
+:::
+:::
+
+## Layer 5: Stats {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Usare stats direttamente** (invece di geoms):
+
+```r
+# Equivalenti
+geom_bar(stat = "count")
+stat_count(geom = "bar")
+
+# Cambio di stat
+geom_bar(stat = "identity")  # usa valori y così come sono
+
+# Summary personalizzate
+stat_summary(fun = mean, geom = "point", size = 4)
+stat_summary(fun.data = mean_se, geom = "errorbar")
+```
+
+**Variabili calcolate**: Gli stats creano nuove variabili accessibili con `after_stat()`:
+
+```r
+# Istogramma con densità invece di conteggi
+geom_histogram(aes(y = after_stat(density)))
+```
+:::
+
+## Layer 6: Coordinates {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.8em;"}
+Il "tessuto" su cui plottiamo - operano **dopo** scale:
+
+**Tipi principali:**
+
+- `coord_cartesian()` - Default (x, y piano)
+- `coord_flip()` - Scambia x ↔ y
+- `coord_fixed()` - Ratio fisso (utile per mappe)
+- `coord_polar()` - Coordinate polari (pie chart)
+- `coord_map()` - Proiezioni geografiche
+- `coord_trans()` - Trasformazioni non-lineari
+
+**Zoom senza rimuovere dati:**
+
+```r
+coord_cartesian(xlim = c(2, 5),
+                ylim = c(10, 30))
+```
+:::
+:::
+
+::: {.column width="50%"}
+![](images/ggplot2_layers.png){width="100%"}
+:::
+:::
+
+## Layer 6: Coordinates {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Esempi pratici:**
+
+```r
+# Barplot orizzontale (alternativa: coord_flip())
+ggplot(mpg, aes(y = class)) + geom_bar()
+
+# Ratio fisso per aspect ratio 1:1
+ggplot(faithful, aes(eruptions, waiting)) +
+  geom_point() +
+  coord_fixed(ratio = 1)
+
+# Pie chart (discouraged!)
+ggplot(mpg, aes(x = "", fill = class)) +
+  geom_bar(width = 1) +
+  coord_polar(theta = "y")
+```
+
+**Differenza chiave**: `coord_cartesian()` vs `scale_*_continuous(limits = ...)`
+
+- **coord**: zoom visuale, mantiene tutti i dati
+- **scale**: rimuove dati fuori range (influenza stats!)
+:::
+
+## Layer 7: Theme {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.75em;"}
+Controllo completo su elementi **non-data** (tutto ciò che non rappresenta dati):
+
+**Temi built-in**:
+```r
+theme_gray()      # default
+theme_minimal()   # minimalista
+theme_classic()   # assi classici
+theme_bw()        # bianco e nero
+theme_dark()      # sfondo scuro
+theme_void()      # vuoto (solo dati)
+```
+
+**Pacchetti con temi extra:**
+
+- `ggthemes`: Economist, FiveThirtyEight, Tufte
+- `hrbrthemes`: Typography-focused
+- `tvthemes`: Simpsons, Game of Thrones...
+:::
+:::
+
+::: {.column width="50%"}
+![](images/ggplot2_layers.png){width="100%"}
+:::
+:::
+
+## Layer 7: Theme {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+**Personalizzazione con `theme()`** - Categorie principali:
+
+```r
+theme(
+  # Testo
+  plot.title = element_text(size = 16, face = "bold"),
+  axis.text = element_text(size = 10),
+  axis.title.x = element_text(margin = margin(t = 10)),
+  
+  # Linee
+  axis.line = element_line(color = "black", linewidth = 0.5),
+  panel.grid.major = element_line(color = "gray90"),
+  panel.grid.minor = element_blank(),  # rimuovi
+  
+  # Rettangoli/Sfondi
+  panel.background = element_rect(fill = "white"),
+  plot.background = element_rect(fill = "gray95"),
+  
+  # Legend
+  legend.position = "bottom",  # "none", "left", "right", "top"
+  legend.title = element_blank()
+)
+```
+:::
+
+## Bonus: Scales {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+Controllano **come** i dati diventano valori visivi
+
+**Pattern**: `scale_[aesthetic]_[type]()`
+
+**Tipi di scale:**
+
+```r
+# Colore - continuo
+scale_color_continuous()
+scale_color_gradient(low = "blue", high = "red")
+scale_color_viridis_c()  # colorblind-friendly
+
+# Colore - discreto
+scale_color_discrete()
+scale_color_brewer(palette = "Set1")
+scale_color_manual(values = c("red", "blue", "green"))
+
+# Posizione
+scale_x_log10()      # scala logaritmica
+scale_y_reverse()    # inverte asse y
+scale_x_date()       # per date
+```
+:::
+
+## Bonus: Scales {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Componenti di una scale** (tutti opzionali):
+
+```r
+scale_color_continuous(
+  name = "Titolo Legenda",        # nome nella legenda
+  breaks = c(2, 4, 6),            # tick marks
+  labels = c("Low", "Med", "High"), # etichette custom
+  limits = c(0, 10),              # range
+  trans = "log10",                # trasformazione
+  guide = guide_colorbar()        # tipo di guida
+)
+```
+
+**Scale per size, shape, alpha, etc.** seguono la stessa logica:
+
+```r
+scale_size_continuous(range = c(1, 10))
+scale_shape_manual(values = c(16, 17, 18))
+scale_alpha_continuous(range = c(0.1, 1))
+```
+:::
+
+## Position adjustments {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+Modifica posizione elementi **dentro** un layer (risolve overlapping):
+
+```r
+# Identity - nessun aggiustamento (dati sovrapposti)
+geom_bar(position = "identity", alpha = 0.5)
+
+# Stack - impilati (default per barre)
+geom_bar(position = "stack")
+
+# Dodge - affiancati (gruppi side-by-side)
+geom_bar(position = "dodge")
+
+# Fill - impilati a 100%
+geom_bar(position = "fill")
+
+# Jitter - rumore casuale (scatter plot con sovrapposizione)
+geom_point(position = "jitter")
+geom_point(position = position_jitter(width = 0.2, height = 0))
+```
+
+**Fondamentale** per visualizzare correttamente dati sovrapposti!
+:::
+
+## Theme elements {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+**Quattro tipi di elementi** per personalizzazione completa:
+
+**1. `element_text()`** - Testo (titoli, labels, caption):
+```r
+plot.title = element_text(
+  family = "Helvetica", face = "bold", size = 16, 
+  color = "steelblue", hjust = 0.5, margin = margin(b = 10)
+)
+```
+
+**2. `element_line()`** - Linee (assi, griglie):
+```r
+axis.line = element_line(color = "black", linewidth = 1, linetype = "solid")
+panel.grid = element_line(color = "gray90", linewidth = 0.5)
+```
+
+**3. `element_rect()`** - Rettangoli (sfondi, bordi):
+```r
+panel.background = element_rect(fill = "white", color = "black", linewidth = 1)
+legend.background = element_rect(fill = "gray95", color = NA)
+```
+
+**4. `element_blank()`** - Rimuove elemento:
+```r
+panel.grid.minor = element_blank()  # rimuove griglia secondaria
+axis.text.y = element_blank()       # rimuove etichette y
+```
+:::
+
+## Theme elements - Gerarchia {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+**Gerarchia degli elementi** - Da generale a specifico:
+
+```r
+theme(
+  # Livello 1: Globale
+  text = element_text(family = "Arial", size = 12),
+  line = element_line(color = "gray30"),
+  
+  # Livello 2: Categoria
+  axis.text = element_text(size = 10),  # eredita family da text
+  
+  # Livello 3: Specifico (override)
+  axis.text.x = element_text(angle = 45, hjust = 1),
+  axis.text.y = element_text(color = "red")
+)
+```
+
+**Tip**: Modifica elementi più generali possibile per consistenza!
+
+**Salvare tema custom**:
+```r
+my_theme <- theme_minimal() + 
+  theme(text = element_text(family = "Roboto"))
+
+# Applica a tutti i plot della sessione
+theme_set(my_theme)
+```
+:::
+
+## Primo esempio completo {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+```r
 library(tidyverse)
 
-# Caricare i dati
-data(mtcars)
-
-# Creare un grafico
-ggplot(data = mtcars) +
-  geom_point(mapping = aes(x = wt, y = mpg))
+ggplot(data = mpg, 
+       mapping = aes(x = displ, y = hwy, color = class)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_brewer(palette = "Set1") +
+  labs(
+    title = "Efficienza vs Cilindrata",
+    x = "Cilindrata (litri)",
+    y = "Miglia per gallone (autostrada)"
+  ) +
+  theme_minimal()
 ```
 
-## Esercizi
+## Layer multipli {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-1. Crea il tuo primo grafico con i dati forniti
-2. Sperimenta con diverse mappature estetiche
-3. Prova diverse geometrie
+ggplot2 è **compositivo** - somma layer!
 
-## Risorse
+```r
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = class)) +      # Layer 1
+  geom_smooth(color = "black") +         # Layer 2
+  geom_rug(sides = "bl")                 # Layer 3
+```
 
-- [ggplot2 book](https://ggplot2-book.org/)
-- [Grammar of Graphics paper](https://www.springer.com/gp/book/9780387245447)
+Ogni layer può avere:
+- Proprie estetiche
+- Propri dati
+- Proprie geometrie
+
+## Principio chiave: Logica > Memorizzazione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+**Non memorizzare** ogni funzione!
+
+Capisci la **logica**:
+
+- Cambiare aspetto dati? → **geoms**
+- Cambiare colori/scale? → **scales**
+- Cambiare elementi non-data? → **theme**
+- Dividere in sottografici? → **facets**
+
+Il sistema è **consistente** e **prevedibile**
+
+## Componibilità {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+I componenti sono progettati per **lavorare insieme**:
+
+- Stessi principi per tutti i tipi di grafici
+- Esplorazione sistematica
+- Creazione di visualizzazioni originali
+- Riduce carico cognitivo
+
+**La grammatica rende ggplot2 intuitivo** una volta capito il sistema!
+
+## Vantaggi del framework {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.incremental}
+1. **Consistenza**: Stesso approccio per tutti i grafici
+2. **Flessibilità**: Mix & match componenti
+3. **Espandibilità**: Facile creare nuove geometrie
+4. **Leggibilità**: Codice dichiarativo e chiaro
+5. **Riproducibilità**: Tutto nel codice, no click
+6. **Potenza**: Da semplici a complessi con stessa logica
+:::
+
+## Ecosistema di estensioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+ggplot2 è una **piattaforma**, non solo un package!
+
+**200+ estensioni** disponibili:
+
+- `patchwork` - Composizione grafici
+- `gganimate` - Animazioni
+- `ggrepel` - Etichette intelligenti
+- `ggraph` - Network/grafi
+- `ggridges` - Ridge plots
+- ... molte altre!
+
+[Gallery completa](https://exts.ggplot2.tidyverse.org/gallery/)
+
+## Esercizio pratico {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+**Crea il tuo primo grafico!**
+
+Usa il dataset `mpg` (incluso in ggplot2):
+
+1. Esplora i dati con `View(mpg)` o `glimpse(mpg)`
+2. Scegli 2 variabili per x e y
+3. Aggiungi una terza variabile per il colore
+4. Prova almeno 2 geometrie diverse
+5. Personalizza con scale e theme
+
+**Tempo**: 15 minuti
+
+## Recap: I 7 layer {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.85em;"}
+1. **Data** - Dataset (`data = mpg`)
+2. **Aesthetics** - Mappature (`aes(x, y, color)`)
+3. **Geometries** - Forme visive (`geom_point()`)
+4. **Stats** - Trasformazioni (`stat_bin()`)
+5. **Scales** - Controllo mappature (`scale_color_*()`)
+6. **Coordinate** - Sistema coordinate (`coord_flip()`)
+7. **Facets** - Sottografici (`facet_wrap()`)
+
+**+ Theme** per aspetto generale!
+:::
+
+## Risorse {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+**Libri**:
+
+- [ggplot2 Book](https://ggplot2-book.org/) - Wickham et al.
+- [R for Data Science](https://r4ds.hadley.nz/) - Capitoli su ggplot2
+
+**Online**:
+
+- [ggplot2 Cheatsheet](https://github.com/rstudio/cheatsheets)
+- [Extension Gallery](https://exts.ggplot2.tidyverse.org/gallery/)
+- [R Graph Gallery](https://r-graph-gallery.com/)
+
+**Video**: Thomas Lin Pedersen's workshop (4.5h)

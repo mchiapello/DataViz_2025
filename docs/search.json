@@ -238,53 +238,179 @@
     "text": "Esercizio di riscaldamento\nRicrea questo grafico utilizzando i concetti del Giorno 1:\n\n# Il tuo codice qui"
   },
   {
-    "objectID": "materials/03_grammar_of_graphics.html",
-    "href": "materials/03_grammar_of_graphics.html",
-    "title": "Fondamenti di ggplot2: Grammar of Graphics",
-    "section": "",
-    "text": "La Grammar of Graphics è un framework teorico per creare visualizzazioni in modo sistematico."
+    "objectID": "materials/03_grammar_of_graphics.html#cosa-significa-gg-in-ggplot2",
+    "href": "materials/03_grammar_of_graphics.html#cosa-significa-gg-in-ggplot2",
+    "title": "Grammar of Graphics",
+    "section": "Cosa significa “gg” in ggplot2?",
+    "text": "Cosa significa “gg” in ggplot2?\nGrammar of Graphics\nFramework teorico di Leland Wilkinson (1999)\n\nSistema per progettare visualizzazioni\nNon su cosa è bello o best practices\nFocus: come costruire qualsiasi visualizzazione\nBase per: ggplot2, Tableau, Vega-lite"
   },
   {
-    "objectID": "materials/03_grammar_of_graphics.html#la-grammar-of-graphics",
-    "href": "materials/03_grammar_of_graphics.html#la-grammar-of-graphics",
-    "title": "Fondamenti di ggplot2: Grammar of Graphics",
-    "section": "",
-    "text": "La Grammar of Graphics è un framework teorico per creare visualizzazioni in modo sistematico."
+    "objectID": "materials/03_grammar_of_graphics.html#la-filosofia",
+    "href": "materials/03_grammar_of_graphics.html#la-filosofia",
+    "title": "Grammar of Graphics",
+    "section": "La filosofia",
+    "text": "La filosofia\nDecostruire i grafici in componenti riutilizzabili\nTutti i grafici (barre, linee, scatter) condividono elementi comuni:\n\nScale\nCoordinate\nTrasformazioni statistiche\nPosizioni\nGeometrie\n\n\nMix & Match: Combina i componenti per creare qualsiasi visualizzazione!"
   },
   {
-    "objectID": "materials/03_grammar_of_graphics.html#componenti-principali",
-    "href": "materials/03_grammar_of_graphics.html#componenti-principali",
-    "title": "Fondamenti di ggplot2: Grammar of Graphics",
-    "section": "Componenti principali",
-    "text": "Componenti principali\n\n1. Data (Dati)\nI dati che vogliamo visualizzare\n\n\n2. Aesthetics (Estetiche)\nCome mappiamo i dati alle proprietà visive: - Posizione (x, y) - Colore - Dimensione - Forma\n\n\n3. Geometries (Geometrie)\nIl tipo di grafico: - Punti (geom_point()) - Linee (geom_line()) - Barre (geom_bar())\n\n\n4. Scales (Scale)\nCome i dati vengono trasformati in valori visivi\n\n\n5. Facets\nDividere il grafico in sottografici\n\n\n6. Themes (Temi)\nAspetto generale del grafico"
+    "objectID": "materials/03_grammar_of_graphics.html#i-7-componenti-principali",
+    "href": "materials/03_grammar_of_graphics.html#i-7-componenti-principali",
+    "title": "Grammar of Graphics",
+    "section": "I 7 componenti principali",
+    "text": "I 7 componenti principali\n\n\n\nI layer si sovrappongono dal basso verso l’alto"
   },
   {
-    "objectID": "materials/03_grammar_of_graphics.html#primo-grafico-con-ggplot2",
-    "href": "materials/03_grammar_of_graphics.html#primo-grafico-con-ggplot2",
-    "title": "Fondamenti di ggplot2: Grammar of Graphics",
-    "section": "Primo grafico con ggplot2",
-    "text": "Primo grafico con ggplot2\n\nlibrary(ggplot2)\n\n# Template base\nggplot(data = &lt;DATA&gt;) +\n  &lt;GEOM_FUNCTION&gt;(mapping = aes(&lt;MAPPINGS&gt;))"
+    "objectID": "materials/03_grammar_of_graphics.html#layer-1-data",
+    "href": "materials/03_grammar_of_graphics.html#layer-1-data",
+    "title": "Grammar of Graphics",
+    "section": "Layer 1: Data",
+    "text": "Layer 1: Data\n\n\nIl dataset che vogliamo visualizzare\nlibrary(ggplot2)\n\n# I dati vanno sempre per primi\nggplot(data = mpg)\nImportante: ggplot2 lavora meglio con dati “tidy”!"
   },
   {
-    "objectID": "materials/03_grammar_of_graphics.html#esempio-pratico",
-    "href": "materials/03_grammar_of_graphics.html#esempio-pratico",
-    "title": "Fondamenti di ggplot2: Grammar of Graphics",
-    "section": "Esempio pratico",
-    "text": "Esempio pratico\n\nlibrary(tidyverse)\n\n# Caricare i dati\ndata(mtcars)\n\n# Creare un grafico\nggplot(data = mtcars) +\n  geom_point(mapping = aes(x = wt, y = mpg))"
+    "objectID": "materials/03_grammar_of_graphics.html#layer-2-aesthetics-estetiche",
+    "href": "materials/03_grammar_of_graphics.html#layer-2-aesthetics-estetiche",
+    "title": "Grammar of Graphics",
+    "section": "Layer 2: Aesthetics (Estetiche)",
+    "text": "Layer 2: Aesthetics (Estetiche)\n\n\nMappature tra variabili e proprietà visive:\n\n\nPosizione: x, y\nColore: color, fill\nDimensione: size\nForma: shape\nTrasparenza: alpha\nTipo di linea: linetype\n\n\naes(x = displ, y = hwy)\n\naes(x = displ, y = hwy, \n    color = class, \n    size = cyl)"
   },
   {
-    "objectID": "materials/03_grammar_of_graphics.html#esercizi",
-    "href": "materials/03_grammar_of_graphics.html#esercizi",
-    "title": "Fondamenti di ggplot2: Grammar of Graphics",
-    "section": "Esercizi",
-    "text": "Esercizi\n\nCrea il tuo primo grafico con i dati forniti\nSperimenta con diverse mappature estetiche\nProva diverse geometrie"
+    "objectID": "materials/03_grammar_of_graphics.html#mapping-vs-setting",
+    "href": "materials/03_grammar_of_graphics.html#mapping-vs-setting",
+    "title": "Grammar of Graphics",
+    "section": "Mapping vs Setting",
+    "text": "Mapping vs Setting\n\nDue modi di assegnare aesthetics:\nMapping (aes()) - Basato sui dati (dentro aes()):\n# Colore dipende dalla variabile 'class'\nggplot(mpg, aes(x = displ, y = hwy, color = class)) +\n  geom_point()\n\nCrea automaticamente una legenda\nScala applicata automaticamente\n\nSetting (fisso) - Valore costante (fuori aes()):\n# Tutti i punti blu\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(color = \"blue\", size = 3)\n\nNessuna legenda\nNessuna scala\n\nErrore comune: aes(color = \"blue\") → crea variabile costante “blue”!"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#color-vs-fill",
+    "href": "materials/03_grammar_of_graphics.html#color-vs-fill",
+    "title": "Grammar of Graphics",
+    "section": "Color vs Fill",
+    "text": "Color vs Fill\n\nDue aesthetic per il colore:\ncolor - Bordi, linee, punti (contorni):\ngeom_point(color = \"red\")      # punti rossi\ngeom_line(color = \"blue\")      # linea blu\ngeom_bar(color = \"black\")      # bordo barre nero\nfill - Riempimento interno (aree):\ngeom_bar(fill = \"steelblue\")           # barre riempite\ngeom_boxplot(fill = \"lightgreen\")      # box riempiti\ngeom_violin(fill = \"orange\")           # violin riempiti\nEntrambi insieme:\ngeom_bar(fill = \"steelblue\", color = \"black\", linewidth = 1)\n# → Barre blu con bordo nero\nRegola pratica: Geoms con area interna usano fill, geoms 1D usano color"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#layer-3-geometries-geometrie",
+    "href": "materials/03_grammar_of_graphics.html#layer-3-geometries-geometrie",
+    "title": "Grammar of Graphics",
+    "section": "Layer 3: Geometries (Geometrie)",
+    "text": "Layer 3: Geometries (Geometrie)\n\n\n\nForme visive che rappresentano i dati:\n1D (una variabile):\n\ngeom_histogram(), geom_density(), geom_dotplot()\n\n2D (due variabili):\n\ngeom_point() - Scatter plot\ngeom_line() - Linee connesse\ngeom_smooth() - Linea di tendenza\ngeom_boxplot(), geom_violin() - Distribuzioni\n\nConteggi:\n\ngeom_bar(), geom_col() - Barre\n\nMultipli layer: Combina più geometrie nello stesso grafico!"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#template-base-di-ggplot2",
+    "href": "materials/03_grammar_of_graphics.html#template-base-di-ggplot2",
+    "title": "Grammar of Graphics",
+    "section": "Template base di ggplot2",
+    "text": "Template base di ggplot2\n\nStruttura completa di un plot ggplot2:\nggplot(data = &lt;DATA&gt;, mapping = aes(&lt;MAPPINGS&gt;)) + \n  &lt;GEOM_FUNCTION&gt;(\n     mapping = aes(&lt;MAPPINGS&gt;),\n     stat = &lt;STAT&gt;, \n     position = &lt;POSITION&gt;\n  ) +\n  &lt;COORDINATE_FUNCTION&gt; +\n  &lt;FACET_FUNCTION&gt; +\n  &lt;SCALE_FUNCTION&gt; +\n  &lt;THEME_FUNCTION&gt;\nIn pratica (esempio reale):\nggplot(mpg, aes(x = displ, y = hwy)) +       # Data + Aesthetics\n  geom_point(aes(color = class)) +            # Geometries\n  facet_wrap(~ year) +                        # Facets\n  scale_color_brewer(palette = \"Set1\") +      # Scales\n  coord_cartesian(ylim = c(10, 45)) +         # Coordinates\n  theme_minimal()                             # Theme"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#layer-4-facets",
+    "href": "materials/03_grammar_of_graphics.html#layer-4-facets",
+    "title": "Grammar of Graphics",
+    "section": "Layer 4: Facets",
+    "text": "Layer 4: Facets\n\n\n\nSuddividi i dati in sottografici multipli (piccoli multipli):\n# Una variabile - layout automatico\nfacet_wrap(~ class, ncol = 3)\n\n# Due variabili - griglia\nfacet_grid(drv ~ cyl)\nfacet_grid(rows = vars(drv), \n           cols = vars(cyl))\nPotente per:\n\nConfrontare sottogruppi\nEvitare sovrapposizione (decluttering)\nIl cervello riusa i pattern visivi tra panel\nEsplorare interazioni tra variabili"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#layer-5-stats-trasformazioni",
+    "href": "materials/03_grammar_of_graphics.html#layer-5-stats-trasformazioni",
+    "title": "Grammar of Graphics",
+    "section": "Layer 5: Stats (Trasformazioni)",
+    "text": "Layer 5: Stats (Trasformazioni)\n\n\n\nTrasformazioni sui dati prima di plottare:\nStats comuni:\n\nstat_bin() - Istogrammi (conta in bin)\nstat_count() - Bar chart (conta osservazioni)\nstat_smooth() - Modelli (lm, loess, gam)\nstat_boxplot() - Quartili e outlier\nstat_summary() - Funzioni custom (media, mediana, etc.)\n\nOgni geom ha uno stat di default:\ngeom_histogram()  # stat = \"bin\"\ngeom_bar()        # stat = \"count\"\ngeom_smooth()     # stat = \"smooth\""
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#layer-6-coordinates",
+    "href": "materials/03_grammar_of_graphics.html#layer-6-coordinates",
+    "title": "Grammar of Graphics",
+    "section": "Layer 6: Coordinates",
+    "text": "Layer 6: Coordinates\n\n\n\nIl “tessuto” su cui plottiamo - operano dopo scale:\nTipi principali:\n\ncoord_cartesian() - Default (x, y piano)\ncoord_flip() - Scambia x ↔︎ y\ncoord_fixed() - Ratio fisso (utile per mappe)\ncoord_polar() - Coordinate polari (pie chart)\ncoord_map() - Proiezioni geografiche\ncoord_trans() - Trasformazioni non-lineari\n\nZoom senza rimuovere dati:\ncoord_cartesian(xlim = c(2, 5),\n                ylim = c(10, 30))"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#layer-7-theme",
+    "href": "materials/03_grammar_of_graphics.html#layer-7-theme",
+    "title": "Grammar of Graphics",
+    "section": "Layer 7: Theme",
+    "text": "Layer 7: Theme\n\n\n\nControllo completo su elementi non-data (tutto ciò che non rappresenta dati):\nTemi built-in:\ntheme_gray()      # default\ntheme_minimal()   # minimalista\ntheme_classic()   # assi classici\ntheme_bw()        # bianco e nero\ntheme_dark()      # sfondo scuro\ntheme_void()      # vuoto (solo dati)\nPacchetti con temi extra:\n\nggthemes: Economist, FiveThirtyEight, Tufte\nhrbrthemes: Typography-focused\ntvthemes: Simpsons, Game of Thrones…"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#bonus-scales",
+    "href": "materials/03_grammar_of_graphics.html#bonus-scales",
+    "title": "Grammar of Graphics",
+    "section": "Bonus: Scales",
+    "text": "Bonus: Scales\n\nControllano come i dati diventano valori visivi\nPattern: scale_[aesthetic]_[type]()\nTipi di scale:\n# Colore - continuo\nscale_color_continuous()\nscale_color_gradient(low = \"blue\", high = \"red\")\nscale_color_viridis_c()  # colorblind-friendly\n\n# Colore - discreto\nscale_color_discrete()\nscale_color_brewer(palette = \"Set1\")\nscale_color_manual(values = c(\"red\", \"blue\", \"green\"))\n\n# Posizione\nscale_x_log10()      # scala logaritmica\nscale_y_reverse()    # inverte asse y\nscale_x_date()       # per date"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#position-adjustments",
+    "href": "materials/03_grammar_of_graphics.html#position-adjustments",
+    "title": "Grammar of Graphics",
+    "section": "Position adjustments",
+    "text": "Position adjustments\n\nModifica posizione elementi dentro un layer (risolve overlapping):\n# Identity - nessun aggiustamento (dati sovrapposti)\ngeom_bar(position = \"identity\", alpha = 0.5)\n\n# Stack - impilati (default per barre)\ngeom_bar(position = \"stack\")\n\n# Dodge - affiancati (gruppi side-by-side)\ngeom_bar(position = \"dodge\")\n\n# Fill - impilati a 100%\ngeom_bar(position = \"fill\")\n\n# Jitter - rumore casuale (scatter plot con sovrapposizione)\ngeom_point(position = \"jitter\")\ngeom_point(position = position_jitter(width = 0.2, height = 0))\nFondamentale per visualizzare correttamente dati sovrapposti!"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#elementi-del-theme",
+    "href": "materials/03_grammar_of_graphics.html#elementi-del-theme",
+    "title": "Grammar of Graphics",
+    "section": "Elementi del theme",
+    "text": "Elementi del theme\nFunzioni helper per customizzare:\n\nelement_text() - Proprietà testo\nelement_line() - Proprietà linee\nelement_rect() - Sfondi/rettangoli\nelement_blank() - Rimuovi elemento\n\ntheme(\n  axis.text.x = element_text(angle = 45),\n  legend.position = \"bottom\",\n  panel.grid = element_blank()\n)"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#primo-esempio-completo",
+    "href": "materials/03_grammar_of_graphics.html#primo-esempio-completo",
+    "title": "Grammar of Graphics",
+    "section": "Primo esempio completo",
+    "text": "Primo esempio completo\nlibrary(tidyverse)\n\nggplot(data = mpg, \n       mapping = aes(x = displ, y = hwy, color = class)) +\n  geom_point(size = 3, alpha = 0.7) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  scale_color_brewer(palette = \"Set1\") +\n  labs(\n    title = \"Efficienza vs Cilindrata\",\n    x = \"Cilindrata (litri)\",\n    y = \"Miglia per gallone (autostrada)\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#layer-multipli",
+    "href": "materials/03_grammar_of_graphics.html#layer-multipli",
+    "title": "Grammar of Graphics",
+    "section": "Layer multipli",
+    "text": "Layer multipli\nggplot2 è compositivo - somma layer!\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(aes(color = class)) +      # Layer 1\n  geom_smooth(color = \"black\") +         # Layer 2\n  geom_rug(sides = \"bl\")                 # Layer 3\nOgni layer può avere: - Proprie estetiche - Propri dati - Proprie geometrie"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#principio-chiave-logica-memorizzazione",
+    "href": "materials/03_grammar_of_graphics.html#principio-chiave-logica-memorizzazione",
+    "title": "Grammar of Graphics",
+    "section": "Principio chiave: Logica > Memorizzazione",
+    "text": "Principio chiave: Logica &gt; Memorizzazione\nNon memorizzare ogni funzione!\nCapisci la logica:\n\nCambiare aspetto dati? → geoms\nCambiare colori/scale? → scales\nCambiare elementi non-data? → theme\nDividere in sottografici? → facets\n\nIl sistema è consistente e prevedibile"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#componibilità",
+    "href": "materials/03_grammar_of_graphics.html#componibilità",
+    "title": "Grammar of Graphics",
+    "section": "Componibilità",
+    "text": "Componibilità\nI componenti sono progettati per lavorare insieme:\n\nStessi principi per tutti i tipi di grafici\nEsplorazione sistematica\nCreazione di visualizzazioni originali\nRiduce carico cognitivo\n\nLa grammatica rende ggplot2 intuitivo una volta capito il sistema!"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#vantaggi-del-framework",
+    "href": "materials/03_grammar_of_graphics.html#vantaggi-del-framework",
+    "title": "Grammar of Graphics",
+    "section": "Vantaggi del framework",
+    "text": "Vantaggi del framework\n\nConsistenza: Stesso approccio per tutti i grafici\nFlessibilità: Mix & match componenti\nEspandibilità: Facile creare nuove geometrie\nLeggibilità: Codice dichiarativo e chiaro\nRiproducibilità: Tutto nel codice, no click\nPotenza: Da semplici a complessi con stessa logica"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#ecosistema-di-estensioni",
+    "href": "materials/03_grammar_of_graphics.html#ecosistema-di-estensioni",
+    "title": "Grammar of Graphics",
+    "section": "Ecosistema di estensioni",
+    "text": "Ecosistema di estensioni\nggplot2 è una piattaforma, non solo un package!\n200+ estensioni disponibili:\n\npatchwork - Composizione grafici\ngganimate - Animazioni\nggrepel - Etichette intelligenti\nggraph - Network/grafi\nggridges - Ridge plots\n… molte altre!\n\nGallery completa"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#esercizio-pratico",
+    "href": "materials/03_grammar_of_graphics.html#esercizio-pratico",
+    "title": "Grammar of Graphics",
+    "section": "Esercizio pratico",
+    "text": "Esercizio pratico\nCrea il tuo primo grafico!\nUsa il dataset mpg (incluso in ggplot2):\n\nEsplora i dati con View(mpg) o glimpse(mpg)\nScegli 2 variabili per x e y\nAggiungi una terza variabile per il colore\nProva almeno 2 geometrie diverse\nPersonalizza con scale e theme\n\nTempo: 15 minuti"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#recap-i-7-layer",
+    "href": "materials/03_grammar_of_graphics.html#recap-i-7-layer",
+    "title": "Grammar of Graphics",
+    "section": "Recap: I 7 layer",
+    "text": "Recap: I 7 layer\n\n\nData - Dataset (data = mpg)\nAesthetics - Mappature (aes(x, y, color))\nGeometries - Forme visive (geom_point())\nStats - Trasformazioni (stat_bin())\nScales - Controllo mappature (scale_color_*())\nCoordinate - Sistema coordinate (coord_flip())\nFacets - Sottografici (facet_wrap())\n\n+ Theme per aspetto generale!"
   },
   {
     "objectID": "materials/03_grammar_of_graphics.html#risorse",
     "href": "materials/03_grammar_of_graphics.html#risorse",
-    "title": "Fondamenti di ggplot2: Grammar of Graphics",
+    "title": "Grammar of Graphics",
     "section": "Risorse",
-    "text": "Risorse\n\nggplot2 book\nGrammar of Graphics paper"
+    "text": "Risorse\nLibri:\n\nggplot2 Book - Wickham et al.\nR for Data Science - Capitoli su ggplot2\n\nOnline:\n\nggplot2 Cheatsheet\nExtension Gallery\nR Graph Gallery\n\nVideo: Thomas Lin Pedersen’s workshop (4.5h)"
   },
   {
     "objectID": "materials/07_facets_coordinate.html",
@@ -742,18 +868,11 @@
     "text": "Principi “Tidy Data”\n\nLe regole cardinali:\n\nColonne = variabili\nRighe = osservazioni\nUna informazione per cella\nNon modificare mai i dati grezzi\nEsportare in formato text-based (CSV)"
   },
   {
-    "objectID": "materials/02_gestione_tabelle.html#esempio-dati-problematici",
-    "href": "materials/02_gestione_tabelle.html#esempio-dati-problematici",
+    "objectID": "materials/02_gestione_tabelle.html#dataset-portal-project",
+    "href": "materials/02_gestione_tabelle.html#dataset-portal-project",
     "title": "Formattare Tabelle in Spreadsheet",
-    "section": "Esempio: Dati problematici",
-    "text": "Esempio: Dati problematici\nInformazioni multiple nella stessa cella:\n\nProblemi: difficile filtrare per specie o analizzare per sesso"
-  },
-  {
-    "objectID": "materials/02_gestione_tabelle.html#esempio-dati-corretti",
-    "href": "materials/02_gestione_tabelle.html#esempio-dati-corretti",
-    "title": "Formattare Tabelle in Spreadsheet",
-    "section": "Esempio: Dati corretti",
-    "text": "Esempio: Dati corretti\nSepariamo specie e sesso in colonne diverse:\n\nMolto meglio per l’analisi!"
+    "section": "Dataset Portal Project",
+    "text": "Dataset Portal Project\nDataset reale usato in 100+ pubblicazioni:\n\nOsservazioni di piccoli mammiferi in Arizona\nStudio degli effetti di roditori e formiche sulle piante\nProgetto in corso da quasi 40 anni\n24 plots con manipolazioni sperimentali\n\nDurante il corso useremo un subset semplificato di questo dataset per gli esercizi"
   },
   {
     "objectID": "materials/02_gestione_tabelle.html#tracciare-le-modifiche",
@@ -761,6 +880,13 @@
     "title": "Formattare Tabelle in Spreadsheet",
     "section": "Tracciare le modifiche",
     "text": "Tracciare le modifiche\nBuone pratiche:\n\nCreare un nuovo file per i dati puliti\nTenere traccia di ogni passaggio in un file di testo\nMai modificare il dataset originale\nUsare version control (es. Git)"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html#esercizio-pratico",
+    "href": "materials/02_gestione_tabelle.html#esercizio-pratico",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "Esercizio pratico",
+    "text": "Esercizio pratico\nScarica i dati:\n\nsurvey_data_spreadsheet_messy.xls\nsurvey_sorting_exercise.xlsx\n\nAttività:\n\nApri il file messy\nIdentifica i problemi (tab 2013 e 2014)\nDiscuti come pulire i dati\nNon modificare l’originale!"
   },
   {
     "objectID": "materials/02_gestione_tabelle.html#errori-comuni-tabelle-multiple",
@@ -831,20 +957,6 @@
     "title": "Formattare Tabelle in Spreadsheet",
     "section": "Metadata",
     "text": "Metadata\nMetadata = dati sui dati\n❌ Non includere legenda/note nel file dati\n✅ File separato (es. README.txt)\n\nDescrizione variabili\nUnità di misura\nCome sono codificati valori NULL\nInformazioni sulla raccolta dati"
-  },
-  {
-    "objectID": "materials/02_gestione_tabelle.html#esercizio-pratico",
-    "href": "materials/02_gestione_tabelle.html#esercizio-pratico",
-    "title": "Formattare Tabelle in Spreadsheet",
-    "section": "Esercizio pratico",
-    "text": "Esercizio pratico\nScarica i dati:\n\nsurvey_data_spreadsheet_messy.xls\nsurvey_sorting_exercise.xlsx\n\nAttività:\n\nApri il file messy\nIdentifica i problemi (tab 2013 e 2014)\nDiscuti come pulire i dati\nNon modificare l’originale!"
-  },
-  {
-    "objectID": "materials/02_gestione_tabelle.html#dataset-portal-project",
-    "href": "materials/02_gestione_tabelle.html#dataset-portal-project",
-    "title": "Formattare Tabelle in Spreadsheet",
-    "section": "Dataset Portal Project",
-    "text": "Dataset Portal Project\nDataset reale usato in 100+ pubblicazioni:\n\nOsservazioni di piccoli mammiferi in Arizona\nStudio degli effetti di roditori e formiche sulle piante\nProgetto in corso da quasi 40 anni\n24 plots con manipolazioni sperimentali\n\nDurante il corso useremo un subset semplificato di questo dataset per gli esercizi"
   },
   {
     "objectID": "materials/02_gestione_tabelle.html#recap-le-regole-doro",
@@ -1162,6 +1274,13 @@
     "text": "Capitolo\nFiles\n\n\n\n\nGestione delle Tabelle\nsurvey_data_spreadsheet_messy.xls, survey_sorting_exercise.xlsx\n\n\nGrammar of Graphics\n-\n\n\nGeometrie Base\n-\n\n\nEstetiche e Mappature\n-\n\n\nFacets e Coordinate\n-\n\n\nScale e Trasformazioni\n-\n\n\nThemes e Personalizzazione\n-\n\n\nVisualizzazioni Avanzate\n-"
   },
   {
+    "objectID": "resources.html#used-files",
+    "href": "resources.html#used-files",
+    "title": "Risorse e Riferimenti",
+    "section": "",
+    "text": "Capitolo\nFiles\n\n\n\n\nGestione delle Tabelle\nsurvey_data_spreadsheet_messy.xls, survey_sorting_exercise.xlsx\n\n\nGrammar of Graphics\n-\n\n\nGeometrie Base\n-\n\n\nEstetiche e Mappature\n-\n\n\nFacets e Coordinate\n-\n\n\nScale e Trasformazioni\n-\n\n\nThemes e Personalizzazione\n-\n\n\nVisualizzazioni Avanzate\n-"
+  },
+  {
     "objectID": "resources.html#documentazione-ufficiale",
     "href": "resources.html#documentazione-ufficiale",
     "title": "Risorse e Riferimenti",
@@ -1267,10 +1386,66 @@
     "text": "Contact\nPer suggerire aggiunte a questa lista di risorse:\n\nApri una issue nel repository del corso\nContatta via email\nCondividi sul canale Slack\n\n\nQuesta pagina viene aggiornata regolarmente. Ultimo aggiornamento: Ottobre 2025"
   },
   {
-    "objectID": "resources.html#used-files",
-    "href": "resources.html#used-files",
-    "title": "Risorse e Riferimenti",
-    "section": "",
-    "text": "Capitolo\nFiles\n\n\n\n\nGestione delle Tabelle\nsurvey_data_spreadsheet_messy.xls, survey_sorting_exercise.xlsx\n\n\nGrammar of Graphics\n-\n\n\nGeometrie Base\n-\n\n\nEstetiche e Mappature\n-\n\n\nFacets e Coordinate\n-\n\n\nScale e Trasformazioni\n-\n\n\nThemes e Personalizzazione\n-\n\n\nVisualizzazioni Avanzate\n-"
+    "objectID": "materials/03_grammar_of_graphics.html#layer-1-data-1",
+    "href": "materials/03_grammar_of_graphics.html#layer-1-data-1",
+    "title": "Grammar of Graphics",
+    "section": "Layer 1: Data",
+    "text": "Layer 1: Data\n\nEsempio di tabella Tidy per ggplot2:\n\n\n\ncountry\nyear\ncases\npopulation\n\n\n\n\nAfghanistan\n1999\n745\n19987071\n\n\nAfghanistan\n2000\n2666\n20595360\n\n\nBrazil\n1999\n37737\n172006362\n\n\nBrazil\n2000\n80488\n174504898\n\n\nChina\n1999\n212258\n1272915272\n\n\nChina\n2000\n213766\n1280428583\n\n\n\n\n\nOgni riga = un’osservazione\nOgni colonna = una variabile\nOgni cella = un singolo valore"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#layer-3-geometries",
+    "href": "materials/03_grammar_of_graphics.html#layer-3-geometries",
+    "title": "Grammar of Graphics",
+    "section": "Layer 3: Geometries",
+    "text": "Layer 3: Geometries\n\nOgni geom ha parametri specifici:\n# Point: shape, size, alpha\ngeom_point(shape = 16, size = 3, alpha = 0.7)\n\n# Line: linetype, linewidth\ngeom_line(linetype = \"dashed\", linewidth = 1)\n\n# Smooth: method, se (standard error)\ngeom_smooth(method = \"lm\", se = TRUE)\nI geom ereditano le aesthetics da ggplot() ma possono avere le proprie:\nggplot(mpg, aes(x = displ, y = hwy)) +  # aesthetics globali\n  geom_point(aes(color = class)) +       # solo per i punti\n  geom_smooth()                           # usa solo x e y"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#layer-4-facets-1",
+    "href": "materials/03_grammar_of_graphics.html#layer-4-facets-1",
+    "title": "Grammar of Graphics",
+    "section": "Layer 4: Facets",
+    "text": "Layer 4: Facets\n\nOpzioni di personalizzazione:\n# Scale libere per ogni panel\nfacet_wrap(~ class, scales = \"free\")     # entrambi liberi\nfacet_wrap(~ class, scales = \"free_x\")   # solo x libero\nfacet_wrap(~ class, scales = \"free_y\")   # solo y libero\n\n# Etichette personalizzate\nfacet_wrap(~ class, labeller = label_both)  # mostra \"class: suv\"\n\n# Margini\nfacet_grid(drv ~ cyl, margins = TRUE)  # aggiunge totali marginali\nBest practice: Mantieni scale fisse quando possibile per facilitare confronti!"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#layer-5-stats",
+    "href": "materials/03_grammar_of_graphics.html#layer-5-stats",
+    "title": "Grammar of Graphics",
+    "section": "Layer 5: Stats",
+    "text": "Layer 5: Stats\n\nUsare stats direttamente (invece di geoms):\n# Equivalenti\ngeom_bar(stat = \"count\")\nstat_count(geom = \"bar\")\n\n# Cambio di stat\ngeom_bar(stat = \"identity\")  # usa valori y così come sono\n\n# Summary personalizzate\nstat_summary(fun = mean, geom = \"point\", size = 4)\nstat_summary(fun.data = mean_se, geom = \"errorbar\")\nVariabili calcolate: Gli stats creano nuove variabili accessibili con after_stat():\n# Istogramma con densità invece di conteggi\ngeom_histogram(aes(y = after_stat(density)))"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#layer-6-coordinates-1",
+    "href": "materials/03_grammar_of_graphics.html#layer-6-coordinates-1",
+    "title": "Grammar of Graphics",
+    "section": "Layer 6: Coordinates",
+    "text": "Layer 6: Coordinates\n\nEsempi pratici:\n# Barplot orizzontale (alternativa: coord_flip())\nggplot(mpg, aes(y = class)) + geom_bar()\n\n# Ratio fisso per aspect ratio 1:1\nggplot(faithful, aes(eruptions, waiting)) +\n  geom_point() +\n  coord_fixed(ratio = 1)\n\n# Pie chart (discouraged!)\nggplot(mpg, aes(x = \"\", fill = class)) +\n  geom_bar(width = 1) +\n  coord_polar(theta = \"y\")\nDifferenza chiave: coord_cartesian() vs scale_*_continuous(limits = ...)\n\ncoord: zoom visuale, mantiene tutti i dati\nscale: rimuove dati fuori range (influenza stats!)"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#layer-7-theme-1",
+    "href": "materials/03_grammar_of_graphics.html#layer-7-theme-1",
+    "title": "Grammar of Graphics",
+    "section": "Layer 7: Theme",
+    "text": "Layer 7: Theme\n\nPersonalizzazione con theme() - Categorie principali:\ntheme(\n  # Testo\n  plot.title = element_text(size = 16, face = \"bold\"),\n  axis.text = element_text(size = 10),\n  axis.title.x = element_text(margin = margin(t = 10)),\n  \n  # Linee\n  axis.line = element_line(color = \"black\", linewidth = 0.5),\n  panel.grid.major = element_line(color = \"gray90\"),\n  panel.grid.minor = element_blank(),  # rimuovi\n  \n  # Rettangoli/Sfondi\n  panel.background = element_rect(fill = \"white\"),\n  plot.background = element_rect(fill = \"gray95\"),\n  \n  # Legend\n  legend.position = \"bottom\",  # \"none\", \"left\", \"right\", \"top\"\n  legend.title = element_blank()\n)"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#bonus-scales-1",
+    "href": "materials/03_grammar_of_graphics.html#bonus-scales-1",
+    "title": "Grammar of Graphics",
+    "section": "Bonus: Scales",
+    "text": "Bonus: Scales\n\nComponenti di una scale (tutti opzionali):\nscale_color_continuous(\n  name = \"Titolo Legenda\",        # nome nella legenda\n  breaks = c(2, 4, 6),            # tick marks\n  labels = c(\"Low\", \"Med\", \"High\"), # etichette custom\n  limits = c(0, 10),              # range\n  trans = \"log10\",                # trasformazione\n  guide = guide_colorbar()        # tipo di guida\n)\nScale per size, shape, alpha, etc. seguono la stessa logica:\nscale_size_continuous(range = c(1, 10))\nscale_shape_manual(values = c(16, 17, 18))\nscale_alpha_continuous(range = c(0.1, 1))"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#theme-elements",
+    "href": "materials/03_grammar_of_graphics.html#theme-elements",
+    "title": "Grammar of Graphics",
+    "section": "Theme elements",
+    "text": "Theme elements\n\nQuattro tipi di elementi per personalizzazione completa:\n1. element_text() - Testo (titoli, labels, caption):\nplot.title = element_text(\n  family = \"Helvetica\", face = \"bold\", size = 16, \n  color = \"steelblue\", hjust = 0.5, margin = margin(b = 10)\n)\n2. element_line() - Linee (assi, griglie):\naxis.line = element_line(color = \"black\", linewidth = 1, linetype = \"solid\")\npanel.grid = element_line(color = \"gray90\", linewidth = 0.5)\n3. element_rect() - Rettangoli (sfondi, bordi):\npanel.background = element_rect(fill = \"white\", color = \"black\", linewidth = 1)\nlegend.background = element_rect(fill = \"gray95\", color = NA)\n4. element_blank() - Rimuove elemento:\npanel.grid.minor = element_blank()  # rimuove griglia secondaria\naxis.text.y = element_blank()       # rimuove etichette y"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#theme-elements---gerarchia",
+    "href": "materials/03_grammar_of_graphics.html#theme-elements---gerarchia",
+    "title": "Grammar of Graphics",
+    "section": "Theme elements - Gerarchia",
+    "text": "Theme elements - Gerarchia\n\nGerarchia degli elementi - Da generale a specifico:\ntheme(\n  # Livello 1: Globale\n  text = element_text(family = \"Arial\", size = 12),\n  line = element_line(color = \"gray30\"),\n  \n  # Livello 2: Categoria\n  axis.text = element_text(size = 10),  # eredita family da text\n  \n  # Livello 3: Specifico (override)\n  axis.text.x = element_text(angle = 45, hjust = 1),\n  axis.text.y = element_text(color = \"red\")\n)\nTip: Modifica elementi più generali possibile per consistenza!\nSalvare tema custom:\nmy_theme &lt;- theme_minimal() + \n  theme(text = element_text(family = \"Roboto\"))\n\n# Applica a tutti i plot della sessione\ntheme_set(my_theme)"
   }
 ]

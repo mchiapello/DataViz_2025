@@ -3,7 +3,7 @@ title: "Corso di Data Visualization con ggplot2"
 author: "Marco Chiapello"
 ---
 
-![](materials/images/ggplot2_logo.jpg){width=150px fig-align="center"}
+![](materials/images/ggplot2_blank.png){width=550px fig-align="center"}
 
 ## Location {#location}
 
