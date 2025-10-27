@@ -104,6 +104,7 @@ Color, size, shape, etc. → prossime sessioni.
 :::
 :::
 
+
 # Geoms per Relazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ## geom_point(): Scatter Plot {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
@@ -282,6 +283,12 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 :::
 :::
 
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
 # Distribuzioni: 1 Variabile {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ## geom_histogram(): Istogrammi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
@@ -436,6 +443,12 @@ ggplot(faithful, aes(x = waiting)) +
 :::
 :::
 
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
 # Distribuzioni: 2 Variabili {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ## geom_bin2d() & geom_hex() {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
@@ -526,6 +539,12 @@ ggplot(faithful, aes(x = eruptions, y = waiting)) +
 :::
 :::
 :::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
 :::
 
 # Statistiche Riassuntive {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
@@ -636,6 +655,12 @@ ggplot(summary_data, aes(x = class, y = mean_hwy)) +
 :::
 :::
 
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
 # Incertezza {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ## geom_errorbar() & geom_pointrange() {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
@@ -726,6 +751,12 @@ geom_ribbon(
 :::
 :::
 
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
 # Combinazioni Avanzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ## Combinare Geometrie {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
@@ -754,6 +785,12 @@ ggplot(mpg, aes(x = class, y = hwy)) +
   geom_boxplot(width = 0.2, fill = "white") +
   geom_jitter(alpha = 0.1, width = 0.1)
 ```
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
 :::
 
 ## Risorse & Prossimi Passi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}

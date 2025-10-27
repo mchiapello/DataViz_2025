@@ -1825,5 +1825,54 @@
     "title": "Geometrie Base in ggplot2",
     "section": "Esercizi Pratici",
     "text": "Esercizi Pratici\n\nScarica il file esercizi: 04_geometrie_base_exercises.R\n30 esercizi organizzati in 6 parti:\n\nRelazioni (6 esercizi): point, smooth, line, path\nDistribuzioni 1D (6 esercizi): histogram, density, freqpoly, dotplot\nDistribuzioni 2D (4 esercizi): bin2d, hex, density2d\nStatistiche (5 esercizi): boxplot, violin, bar, col\nIncertezza (3 esercizi): errorbar, pointrange, ribbon\nCombinazioni (6 esercizi): multi-layer plots\n\nApproccio suggerito:\n\nLavora su ogni parte in sequenza\nConfronta con soluzioni solo dopo aver provato\nSperimenta con parametri diversi"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#section",
+    "href": "materials/04_geometrie_base.html#section",
+    "title": "Geometrie Base in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#section-1",
+    "href": "materials/04_geometrie_base.html#section-1",
+    "title": "Geometrie Base in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#section-2",
+    "href": "materials/04_geometrie_base.html#section-2",
+    "title": "Geometrie Base in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#section-3",
+    "href": "materials/04_geometrie_base.html#section-3",
+    "title": "Geometrie Base in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#section-4",
+    "href": "materials/04_geometrie_base.html#section-4",
+    "title": "Geometrie Base in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#section-5",
+    "href": "materials/04_geometrie_base.html#section-5",
+    "title": "Geometrie Base in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#section-6",
+    "href": "materials/04_geometrie_base.html#section-6",
+    "title": "Geometrie Base in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
   }
 ]
