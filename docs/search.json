@@ -534,21 +534,21 @@
   {
     "objectID": "materials/04_geometrie_base.html#combinare-geometrie",
     "href": "materials/04_geometrie_base.html#combinare-geometrie",
-    "title": "Geometrie Base",
-    "section": "Combinare geometrie",
-    "text": "Combinare geometrie\n\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  geom_smooth()"
+    "title": "Geometrie Base in ggplot2",
+    "section": "Combinare Geometrie",
+    "text": "Combinare Geometrie\n\nLayering multiplo:\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(alpha = 0.3) +            # scatter\n  geom_smooth(method = \"lm\") +         # trend lineare\n  geom_rug(alpha = 0.2)                # distribuzioni marginali\nBest practices:\n\nLayer più importanti in alto (disegnati per ultimi)\nUsa alpha per trasparenza quando sovrapponi\nOrdine logico: base → summaries → annotations\n\nEsempio complesso:\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_violin(fill = \"lightblue\", alpha = 0.5) +\n  geom_boxplot(width = 0.2, fill = \"white\") +\n  geom_jitter(alpha = 0.1, width = 0.1)"
   },
   {
     "objectID": "materials/04_geometrie_base.html#esercizi",
     "href": "materials/04_geometrie_base.html#esercizi",
-    "title": "Geometrie Base",
+    "title": "Geometrie Base in ggplot2",
     "section": "Esercizi",
     "text": "Esercizi\n\nCrea un scatter plot\nCrea un grafico a barre\nCombina due geometrie diverse"
   },
   {
     "objectID": "materials/04_geometrie_base.html#risorse",
     "href": "materials/04_geometrie_base.html#risorse",
-    "title": "Geometrie Base",
+    "title": "Geometrie Base in ggplot2",
     "section": "Risorse",
     "text": "Risorse\n\nggplot2 geoms reference\nR Graph Gallery"
   },
@@ -1650,5 +1650,180 @@
     "title": "Grammar of Graphics",
     "section": "Logica > Memorizzazione",
     "text": "Logica &gt; Memorizzazione\nNon memorizzare ogni funzione!\nCapisci la logica:\n\nCambiare aspetto dati? → geoms\nCambiare colori/scale? → scales\nCambiare elementi non-data? → theme\nDividere in sottografici? → facets\n\nIl sistema è consistente e prevedibile"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#obiettivi-della-sessione",
+    "href": "materials/04_geometrie_base.html#obiettivi-della-sessione",
+    "title": "Geometrie Base in ggplot2",
+    "section": "Obiettivi della Sessione",
+    "text": "Obiettivi della Sessione\n\nCosa impareremo oggi:\n\nEsplorare le geometrie fondamentali di ggplot2\nComprendere quando usare ogni tipo di geom\nPraticare con pesercizi su dati reali\nFocus su aesthetics x e y (altri aesthetics: sessioni successive)\n\nApproccio:\n\nTeoria per ogni categoria di geom\nEsempi pratici\nEsercizi guidati"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#cosè-una-geometria",
+    "href": "materials/04_geometrie_base.html#cosè-una-geometria",
+    "title": "Geometrie Base in ggplot2",
+    "section": "Cos’è una Geometria?",
+    "text": "Cos’è una Geometria?\n\n\n\nDefinizione:\nLe geometrie (geom_*) sono gli oggetti geometrici che rappresentano i dati nel grafico.\nOgni geom:\n\nInterpreta i dati in modo specifico\nHa parametri personalizzabili\nPuò essere combinato con altri geom\nEredita mapping da ggplot() o definisce i propri\n\nStruttura base:\nggplot(data, aes(x = var1, y = var2)) +\n  geom_TIPO()\n\n\n\nCategorie principali:\n\nRelazioni (scatter, line, smooth)\nDistribuzioni 1D (histogram, density, dotplot)\nDistribuzioni 2D (bin2d, hex, density2d)\nStatistiche riassuntive (boxplot, violin, bar)\nIncertezza (errorbar, linerange, ribbon)\nCombinazioni (multipli geom insieme)\n\n\n\n\n\n\n\nOggi: solo x e y\n\n\nFocus esclusivo su mappature x e y. Color, size, shape, etc. → prossime sessioni."
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_point-scatter-plot",
+    "href": "materials/04_geometrie_base.html#geom_point-scatter-plot",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_point(): Scatter Plot",
+    "text": "geom_point(): Scatter Plot\n\n\n\nQuando usarlo:\n\nRelazione tra due variabili continue\nIdentificare correlazioni, cluster, outlier\nOgni punto = una osservazione\n\nParametri principali:\ngeom_point(\n  size = 2,        # dimensione punti\n  alpha = 0.5,     # trasparenza (0-1)\n  shape = 16       # forma (0-25)\n)\nEsempio:\nlibrary(ggplot2)\n\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point()\n\n\n\nSituazioni ideali:\n\n✅ Correlazioni continue\n✅ Dataset con centinaia/migliaia di punti\n✅ Esplorare pattern generali\n\nProblemi comuni:\n\n⚠️ Overplotting: troppi punti sovrapposti\n\nSoluzione: alpha basso\n\n⚠️ Punti identici nascosti\n\nSoluzione: geom_jitter()\n\n\nVarianti:\n# Aggiunge jitter (piccolo rumore casuale)\ngeom_jitter(width = 0.1, height = 0.1)\n\n# Conta punti sovrapposti\ngeom_count()"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_line-geom_path",
+    "href": "materials/04_geometrie_base.html#geom_line-geom_path",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_line() & geom_path()",
+    "text": "geom_line() & geom_path()\n\n\n\ngeom_line():\nConnette punti ordinati per x\nggplot(economics, aes(x = date, y = unemploy)) +\n  geom_line()\nQuando usarlo:\n\nTime series\nTrend temporali\nDati ordinati naturalmente\n\nParametri:\ngeom_line(\n  linewidth = 1,\n  linetype = \"solid\"  # \"dashed\", \"dotted\"\n)\n\n\n\ngeom_path():\nConnette punti nell’ordine dei dati\nggplot(data, aes(x = x, y = y)) +\n  geom_path()\nQuando usarlo:\n\nTraiettorie\nPercorsi non ordinati per x\nDati spaziali\n\n\n\n\n\n\n\nline vs path\n\n\n\ngeom_line(): ordina per x\ngeom_path(): rispetta ordine righe"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_smooth-trend-lines",
+    "href": "materials/04_geometrie_base.html#geom_smooth-trend-lines",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_smooth(): Trend Lines",
+    "text": "geom_smooth(): Trend Lines\n\nAggiunge linea di trend con intervallo di confidenza\n\n\nMetodi disponibili:\n# LOESS - default per n &lt; 1000 (smooth locale)\ngeom_smooth(method = \"loess\")\n\n# Lineare\ngeom_smooth(method = \"lm\")\n\n# GAM - General Additive Model\ngeom_smooth(method = \"gam\")\n\n# GLM - Generalized Linear Model\ngeom_smooth(method = \"glm\")\nParametri:\ngeom_smooth(\n  method = \"lm\",\n  se = TRUE,      # mostra intervallo confidenza\n  level = 0.95,   # livello confidenza\n  formula = y ~ x # formula personalizzata\n)\n\nEsempio completo:\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(alpha = 0.3) +\n  geom_smooth(method = \"lm\", se = TRUE)\nQuando usarlo:\n\nIdentificare trend generali\nConfrontare relazioni lineari/non-lineari\nAggiungere a scatter plot\n\n\n\n\n\n\n\nAttenzione\n\n\ngeom_smooth() non sostituisce analisi statistica formale. È uno strumento esplorativo!"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_histogram-istogrammi",
+    "href": "materials/04_geometrie_base.html#geom_histogram-istogrammi",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_histogram(): Istogrammi",
+    "text": "geom_histogram(): Istogrammi\n\n\n\nQuando usarlo:\n\nDistribuzione di 1 variabile continua\nVedere forma, centro, spread\nIdentificare skewness, modalità\n\nSolo aesthetic x:\nggplot(mpg, aes(x = hwy)) +\n  geom_histogram()\nParametri critici:\ngeom_histogram(\n  bins = 30,        # numero bin\n  binwidth = 2,     # larghezza bin\n  fill = \"blue\",\n  color = \"black\"\n)\n\n\n\nScelta dei bins:\n\nTroppo pochi: informazione persa\nTroppi: troppo rumore\nDefault: bins = 30\nAlternativa: Sturges rule (automatico)\n\nEsempio:\n# Sperimentare con bins\nggplot(diamonds, aes(x = carat)) +\n  geom_histogram(bins = 50)\n\n\n\n\n\n\nBins vs Binwidth\n\n\nUsa bins (numero) O binwidth (larghezza), mai entrambi!"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_density-curve-di-densità",
+    "href": "materials/04_geometrie_base.html#geom_density-curve-di-densità",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_density(): Curve di Densità",
+    "text": "geom_density(): Curve di Densità\n\n\n\nQuando usarlo:\n\nAlternativa smooth agli istogrammi\nConfrontare distribuzioni sovrapposte\nEnfatizzare forma distribuzione\n\nEsempio base:\nggplot(mpg, aes(x = hwy)) +\n  geom_density()\nParametri:\ngeom_density(\n  adjust = 1,      # smoothness (default 1)\n  fill = \"blue\",\n  alpha = 0.3\n)\n\n\n\nCombinare histogram + density:\nggplot(mpg, aes(x = hwy)) +\n  geom_histogram(aes(y = after_stat(density)), \n                 alpha = 0.5) +\n  geom_density(color = \"red\", linewidth = 1)\nQuando NON usarlo:\n\nDataset molto piccoli (&lt; 20 obs)\nBisogno di conteggi esatti\nDati discreti\n\n\n\n\n\n\n\nadjust parameter\n\n\nadjust &lt; 1: più dettaglio\nadjust &gt; 1: più smooth"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_freqpoly-geom_dotplot",
+    "href": "materials/04_geometrie_base.html#geom_freqpoly-geom_dotplot",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_freqpoly() & geom_dotplot()",
+    "text": "geom_freqpoly() & geom_dotplot()\n\n\n\ngeom_freqpoly():\nHistogram come linea (utile per sovrapposizioni)\nggplot(diamonds, aes(x = price)) +\n  geom_freqpoly(bins = 50)\nVantaggi:\n\nConfrontare gruppi senza occlusione\nPiù pulito di histogram sovrapposti\nStessi parametri di geom_histogram()\n\n\ngeom_dotplot():\nOgni punto = osservazione (dataset piccoli)\nggplot(faithful, aes(x = waiting)) +\n  geom_dotplot(binwidth = 1)\nQuando usarlo:\n\nDataset &lt; 100 osservazioni\nVedere ogni singolo dato\nAlternative: strip plot, beeswarm"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_bin2d-geom_hex",
+    "href": "materials/04_geometrie_base.html#geom_bin2d-geom_hex",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_bin2d() & geom_hex()",
+    "text": "geom_bin2d() & geom_hex()\n\n\n\ngeom_bin2d():\nHeatmap rettangolare per big data\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_bin2d(bins = 50)\nQuando usarlo:\n\nDataset &gt; 10,000 punti\nOverplotting severo\nIdentificare densità\n\n\ngeom_hex():\nHeatmap esagonale (più efficiente)\nlibrary(hexbin)  # richiesto!\n\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_hex(bins = 50)\nVantaggi hex:\n\nBins più uniformi\nTessellazione migliore\nPiù accurato per densità\n\n\n\n\n\n\n\nWarning\n\n\nRichiede install.packages(\"hexbin\")"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_density2d-geom_density2d_filled",
+    "href": "materials/04_geometrie_base.html#geom_density2d-geom_density2d_filled",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_density2d() & geom_density2d_filled()",
+    "text": "geom_density2d() & geom_density2d_filled()\n\nCurve di contorno per densità 2D\n\n\ngeom_density2d():\nSolo linee di contorno\nggplot(faithful, aes(x = eruptions, y = waiting)) +\n  geom_point(alpha = 0.3) +\n  geom_density2d()\nParametri:\ngeom_density2d(\n  bins = 10,     # numero contorni\n  h = NULL,      # bandwidth (come density)\n  contour_var = \"density\"\n)\n\ngeom_density2d_filled():\nAree riempite tra contorni\nggplot(faithful, aes(x = eruptions, y = waiting)) +\n  geom_density2d_filled()\nQuando usarli:\n\nVedere cluster in 2D\nDistribuzioni bivariate\nAlternativa smooth a bin2d/hex\n\nCombinazione potente:\nggplot(data, aes(x, y)) +\n  geom_density2d_filled(alpha = 0.5) +\n  geom_point(size = 0.5)"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_boxplot-box-plot",
+    "href": "materials/04_geometrie_base.html#geom_boxplot-box-plot",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_boxplot(): Box Plot",
+    "text": "geom_boxplot(): Box Plot\n\n\n\nRiassunto visivo con 5 numeri:\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_boxplot()\nAnatomia boxplot:\n\nLinea centrale: mediana (Q2)\nBox: IQR (Q1 - Q3)\nWhiskers: 1.5 × IQR\nPunti: outliers\n\nCon 1 variabile:\n# x deve essere categorica o \"\"\nggplot(mpg, aes(x = \"\", y = hwy)) +\n  geom_boxplot()\n\n\n\nParametri:\ngeom_boxplot(\n  outlier.shape = 16,\n  outlier.size = 2,\n  notch = FALSE,        # notched boxplot\n  varwidth = FALSE      # larghezza ∝ n\n)\nVantaggi:\n\nCompatto\nMostra outliers\nConfronto tra gruppi\n\nLimitazioni:\n\nNon mostra distribuzione completa\nNasconde multimodalità\n\n\n\n\n\n\n\nAlternativa\n\n\nPer distribuzioni complete: geom_violin()"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_violin-violin-plot",
+    "href": "materials/04_geometrie_base.html#geom_violin-violin-plot",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_violin(): Violin Plot",
+    "text": "geom_violin(): Violin Plot\n\n\n\nDensity plot ruotato e speculare\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_violin()\nQuando usarlo:\n\nDistribuzione completa per gruppi\nVedere multimodalità\nAlternativa a boxplot\n\nParametri:\ngeom_violin(\n  scale = \"area\",   # \"count\", \"width\"\n  trim = TRUE,      # taglia code\n  draw_quantiles = c(0.25, 0.5, 0.75)\n)\n\n\n\nCombinazione potente:\n# Violin + boxplot interno\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_violin() +\n  geom_boxplot(width = 0.1)\nscale parameter:\n\n\"area\": aree uguali (default)\n\"count\": larghezza ∝ n osservazioni\n\"width\": larghezza massima uguale\n\nVantaggi vs boxplot:\n\nMostra forma distribuzione\nRivela bimodalità\nPiù informativo"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_bar-geom_col",
+    "href": "materials/04_geometrie_base.html#geom_bar-geom_col",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_bar() & geom_col()",
+    "text": "geom_bar() & geom_col()\n\n\n\ngeom_bar():\nConta automaticamente (solo x)\nggplot(mpg, aes(x = class)) +\n  geom_bar()\nDefault stat:\ngeom_bar(stat = \"count\")  # default\nQuando usarlo:\n\nContare osservazioni per categoria\nSolo variabile categorica\n\n\n\n\ngeom_col():\nUsa valori y esistenti\n# Dati aggregati\nsummary_data &lt;- mpg %&gt;%\n  group_by(class) %&gt;%\n  summarise(mean_hwy = mean(hwy))\n\nggplot(summary_data, aes(x = class, y = mean_hwy)) +\n  geom_col()\n\n\n\n\n\n\nbar vs col\n\n\n\ngeom_bar(): conta dati raw\ngeom_col(): usa valori pre-calcolati"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_errorbar-geom_linerange-geom_pointrange",
+    "href": "materials/04_geometrie_base.html#geom_errorbar-geom_linerange-geom_pointrange",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_errorbar(), geom_linerange(), geom_pointrange()",
+    "text": "geom_errorbar(), geom_linerange(), geom_pointrange()\n\nVisualizzare intervalli di confidenza, SD, SE, range\n\n\ngeom_errorbar():\n# Richiede ymin e ymax\nggplot(data, aes(x = group, y = mean)) +\n  geom_point() +\n  geom_errorbar(aes(ymin = mean - sd, \n                     ymax = mean + sd),\n                width = 0.2)\ngeom_linerange():\nErrorbar senza estremità orizzontali\nggplot(data, aes(x = group, y = mean)) +\n  geom_linerange(aes(ymin = lower, ymax = upper))\n\ngeom_pointrange():\nPunto + intervallo in un geom\nggplot(data, aes(x = group, y = mean)) +\n  geom_pointrange(aes(ymin = lower, ymax = upper))\ngeom_crossbar():\nBarra orizzontale alla media\nggplot(data, aes(x = group, y = mean)) +\n  geom_crossbar(aes(ymin = lower, ymax = upper),\n                width = 0.5)\n\n\n\n\n\n\nPer x e y\n\n\nTutti hanno versioni *h: geom_errorbarh(), geom_linerangeh() per intervalli orizzontali"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_ribbon-bande-di-confidenza",
+    "href": "materials/04_geometrie_base.html#geom_ribbon-bande-di-confidenza",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_ribbon(): Bande di Confidenza",
+    "text": "geom_ribbon(): Bande di Confidenza\n\n\n\nPer time series con intervalli:\n# Simula dati con CI\nts_data &lt;- economics %&gt;%\n  mutate(\n    lower = unemploy - 500,\n    upper = unemploy + 500\n  )\n\nggplot(ts_data, aes(x = date, y = unemploy)) +\n  geom_ribbon(aes(ymin = lower, ymax = upper),\n              alpha = 0.3) +\n  geom_line()\n\n\n\nQuando usarlo:\n\nIntervalli di previsione\nConfidence/credible intervals\nIncertezza su time series\n\nParametri:\ngeom_ribbon(\n  fill = \"blue\",\n  alpha = 0.3,      # trasparenza importante!\n  color = NA        # no bordo (default)\n)"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#strategie-di-combinazione",
+    "href": "materials/04_geometrie_base.html#strategie-di-combinazione",
+    "title": "Geometrie Base in ggplot2",
+    "section": "Strategie di Combinazione",
+    "text": "Strategie di Combinazione\n\nPrincipio: ogni geom_*() è un layer\n\n\nMapping condiviso:\n# aes() in ggplot → ereditato da tutti i geom\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  geom_smooth()\nMapping specifico:\n# aes() in geom → solo per quel layer\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(aes(y = cty)) +  # usa cty\n  geom_smooth()                # usa hwy\nOverride data:\nggplot(data1, aes(x, y)) +\n  geom_point() +\n  geom_line(data = data2)  # dati diversi!\n\nCombinazioni comuni:\n# 1. Scatter + smooth\ngeom_point() + geom_smooth()\n\n# 2. Violin + boxplot\ngeom_violin() + geom_boxplot(width = 0.1)\n\n# 3. Histogram + density\ngeom_histogram(aes(y = after_stat(density))) +\n  geom_density(color = \"red\")\n\n# 4. Line + ribbon\ngeom_ribbon() + geom_line()\n\n# 5. Bar + errorbar\ngeom_col() + \n  geom_errorbar(aes(ymin = y - se, ymax = y + se))\n\n\n\n\n\n\nOrdine dei layer\n\n\nI layer si sovrappongono: ultimo = in alto!"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#riepilogo-geoms",
+    "href": "materials/04_geometrie_base.html#riepilogo-geoms",
+    "title": "Geometrie Base in ggplot2",
+    "section": "Riepilogo Geoms",
+    "text": "Riepilogo Geoms\n\n\n\n\n\n\n\n\n\n\n\nCategoria\nGeom\nX\nY\nQuando usare\n\n\n\n\nRelazioni\ngeom_point()\ncontinuo\ncontinuo\nCorrelazioni, scatter\n\n\n\ngeom_line()\nordinato\ncontinuo\nTime series, trend\n\n\n\ngeom_path()\ncontinuo\ncontinuo\nTraiettorie, non ordinato\n\n\n\ngeom_smooth()\ncontinuo\ncontinuo\nTrend + CI\n\n\nDistribuzione 1D\ngeom_histogram()\ncontinuo\n-\nFrequenze binned\n\n\n\ngeom_density()\ncontinuo\n-\nDistribuzione smooth\n\n\n\ngeom_freqpoly()\ncontinuo\n-\nFrequenze come linea\n\n\n\ngeom_dotplot()\ncontinuo\n-\nOgni punto visibile\n\n\nDistribuzione 2D\ngeom_bin2d()\ncontinuo\ncontinuo\nHeatmap rettangolare\n\n\n\ngeom_hex()\ncontinuo\ncontinuo\nHeatmap esagonale\n\n\n\ngeom_density2d()\ncontinuo\ncontinuo\nContorni densità\n\n\nRiassuntive\ngeom_boxplot()\ncategorico\ncontinuo\n5-number summary\n\n\n\ngeom_violin()\ncategorico\ncontinuo\nDistribuzione completa\n\n\n\ngeom_bar()\ncategorico\n-\nConta frequenze\n\n\n\ngeom_col()\ncategorico\ncontinuo\nValori pre-calcolati\n\n\nIncertezza\ngeom_errorbar()\ncategorico\nymin/ymax\nIntervalli verticali\n\n\n\ngeom_pointrange()\ncategorico\ny + range\nPunto + intervallo\n\n\n\ngeom_ribbon()\ncontinuo\nymin/ymax\nBande continue"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#esercizi-hands-on",
+    "href": "materials/04_geometrie_base.html#esercizi-hands-on",
+    "title": "Geometrie Base in ggplot2",
+    "section": "Esercizi Hands-on",
+    "text": "Esercizi Hands-on\n\nScarica il file degli esercizi:\n📁 04_geometrie_base_exercises.qmd\nCosa troverai:\n\n20+ esercizi progressivi\nDati reali (mpg, diamonds, economics, faithful)\nCopertura completa di tutti i geom\nDomande guidate\nSpazio per il tuo codice\n\nCome lavorare:\n\nApri il file in RStudio/VS Code\nLavora un esercizio alla volta\nEsegui i chunk di codice\nSperimenta variazioni!\n\n\n\n\n\n\n\nSoluzioni\n\n\nLe soluzioni complete saranno fornite a fine corso"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#bar-plots-grafici-a-barre",
+    "href": "materials/04_geometrie_base.html#bar-plots-grafici-a-barre",
+    "title": "Geometrie Base in ggplot2",
+    "section": "Bar plots (Grafici a barre)",
+    "text": "Bar plots (Grafici a barre)\nHistograms (Istogrammi)\nBox plots"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_density2d",
+    "href": "materials/04_geometrie_base.html#geom_density2d",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_density2d()",
+    "text": "geom_density2d()\n\n\n\nContour lines per densità 2D\nggplot(faithful, aes(x = eruptions, y = waiting)) +\n  geom_density2d()\nCombinare con punti:\nggplot(faithful, aes(x = eruptions, y = waiting)) +\n  geom_point(alpha = 0.3) +\n  geom_density2d(color = \"red\")\n\n\n\nFilled density:\nggplot(faithful, aes(x = eruptions, y = waiting)) +\n  geom_density2d_filled()\nQuando usarlo:\n\nIdentificare cluster\nDistribuzioni multimodali\nDataset medio-grandi\n\n\n\n\n\n\n\nTip\n\n\ngeom_density2d_filled() crea heatmap smooth (no contorni)"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_boxplot-geom_violin",
+    "href": "materials/04_geometrie_base.html#geom_boxplot-geom_violin",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_boxplot() & geom_violin()",
+    "text": "geom_boxplot() & geom_violin()\n\n\n\ngeom_boxplot():\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_boxplot()\nComponenti:\n\nMediana (linea centrale)\nQ1, Q3 (box)\nWhiskers (1.5×IQR)\nOutliers (punti)\n\nParametri:\ngeom_boxplot(\n  notch = TRUE,    # notch per CI mediana\n  outlier.color = \"red\"\n)\n\ngeom_violin():\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_violin()\nVantaggi:\n\nMostra forma completa distribuzione\nRivela multimodalità\nPiù informativo di boxplot\n\nCombinare entrambi:\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_violin() +\n  geom_boxplot(width = 0.1)"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#geom_errorbar-geom_pointrange",
+    "href": "materials/04_geometrie_base.html#geom_errorbar-geom_pointrange",
+    "title": "Geometrie Base in ggplot2",
+    "section": "geom_errorbar() & geom_pointrange()",
+    "text": "geom_errorbar() & geom_pointrange()\n\n\n\ngeom_errorbar():\n# Dati con SE\nsummary_data &lt;- mpg %&gt;%\n  group_by(class) %&gt;%\n  summarise(\n    mean = mean(hwy),\n    se = sd(hwy) / sqrt(n())\n  )\n\nggplot(summary_data, aes(x = class, y = mean)) +\n  geom_col() +\n  geom_errorbar(\n    aes(ymin = mean - se, ymax = mean + se),\n    width = 0.2\n  )\n\ngeom_pointrange():\nggplot(summary_data, aes(x = class, y = mean)) +\n  geom_pointrange(\n    aes(ymin = mean - se, ymax = mean + se)\n  )\nAlternative:\n\ngeom_linerange(): solo linea verticale\ngeom_crossbar(): barra orizzontale\ngeom_ribbon(): bande continue (time series)"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#esercizi-pratici",
+    "href": "materials/04_geometrie_base.html#esercizi-pratici",
+    "title": "Geometrie Base in ggplot2",
+    "section": "Esercizi Pratici",
+    "text": "Esercizi Pratici\n\nScarica il file esercizi: 04_geometrie_base_exercises.R\n30 esercizi organizzati in 6 parti:\n\nRelazioni (6 esercizi): point, smooth, line, path\nDistribuzioni 1D (6 esercizi): histogram, density, freqpoly, dotplot\nDistribuzioni 2D (4 esercizi): bin2d, hex, density2d\nStatistiche (5 esercizi): boxplot, violin, bar, col\nIncertezza (3 esercizi): errorbar, pointrange, ribbon\nCombinazioni (6 esercizi): multi-layer plots\n\nApproccio suggerito:\n\nLavora su ogni parte in sequenza\nConfronta con soluzioni solo dopo aver provato\nSperimenta con parametri diversi"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#risorse-prossimi-passi",
+    "href": "materials/04_geometrie_base.html#risorse-prossimi-passi",
+    "title": "Geometrie Base in ggplot2",
+    "section": "Risorse & Prossimi Passi",
+    "text": "Risorse & Prossimi Passi\n\n\n\nDocumentazione:\n\nggplot2 Reference\nggplot2 Book (3rd ed)\nR Graph Gallery\nData to Viz\n\nCheat sheets:\n\nggplot2 cheat sheet\n\n\nProssime sessioni:\n\nAesthetics avanzate (color, size, shape, fill)\nScales & Coordinate systems\nFaceting (small multiples)\nThemes & styling\nAnnotations & labels\nPlot composition (patchwork)\n\n\n\n\n\n\n\nDomande?\n\n\nUsa Slack o email per supporto sugli esercizi!"
+  },
+  {
+    "objectID": "materials/04_geometrie_base.html#esercizi-pratici-1",
+    "href": "materials/04_geometrie_base.html#esercizi-pratici-1",
+    "title": "Geometrie Base in ggplot2",
+    "section": "Esercizi Pratici",
+    "text": "Esercizi Pratici\n\nScarica il file esercizi: 04_geometrie_base_exercises.R\n30 esercizi organizzati in 6 parti:\n\nRelazioni (6 esercizi): point, smooth, line, path\nDistribuzioni 1D (6 esercizi): histogram, density, freqpoly, dotplot\nDistribuzioni 2D (4 esercizi): bin2d, hex, density2d\nStatistiche (5 esercizi): boxplot, violin, bar, col\nIncertezza (3 esercizi): errorbar, pointrange, ribbon\nCombinazioni (6 esercizi): multi-layer plots\n\nApproccio suggerito:\n\nLavora su ogni parte in sequenza\nConfronta con soluzioni solo dopo aver provato\nSperimenta con parametri diversi"
   }
 ]
