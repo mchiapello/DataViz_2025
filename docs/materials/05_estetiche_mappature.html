@@ -1,952 +1,1390 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>Estetiche e Mappature – Data Visualization con ggplot2</title>
-<style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-  vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-</style>
-
-
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<html lang="en"><head>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-69c9ff99c67efa88eb04e9ce5679500c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-354e64e0df703e008adbf2938f5ab231.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-69c9ff99c67efa88eb04e9ce5679500c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
-  }
-}</script>
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
-
-<link rel="stylesheet" href="../styles.css">
+  <meta name="author" content="Marco Chiapello">
+  <title>Data Visualization con ggplot2 – Estetiche e Mappature in ggplot2</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2c1b5f745a11cfad616ebade4a4a7d24.css">
+  <link rel="stylesheet" href="presentation-style.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
 </head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
 
-<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<section id="title-slide" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-opacity="0.1" data-background-size="cover" class="quarto-title-block center">
+  <h1 class="title">Estetiche e Mappature in ggplot2</h1>
+  <p class="subtitle">Hands-on Workshop</p>
 
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Data Visualization con ggplot2</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-materiali" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Materiali</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-materiali">    
-        <li class="dropdown-header">—Day 1—</li>
-        <li>
-    <a class="dropdown-item" href="../materials/01_introduzione.html">
- <span class="dropdown-text">Introduzione al Corso</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../materials/02_gestione_tabelle.html">
- <span class="dropdown-text">Gestione delle Tabelle</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../materials/03_grammar_of_graphics.html">
- <span class="dropdown-text">Grammar of Graphics</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../materials/04_geometrie_base.html">
- <span class="dropdown-text">Geometrie Base</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../materials/05_estetiche_mappature.html">
- <span class="dropdown-text">Estetiche e Mappature</span></a>
-  </li>  
-        <li class="dropdown-header">—Day 2—</li>
-        <li>
-    <a class="dropdown-item" href="../materials/06_recap_giorno1.html">
- <span class="dropdown-text">Recap Giorno 1</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../materials/07_facets_coordinate.html">
- <span class="dropdown-text">Facets e Coordinate</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../materials/08_scale_trasformazioni.html">
- <span class="dropdown-text">Scale e Trasformazioni</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../materials/09_themes_personalizzazione.html">
- <span class="dropdown-text">Themes e Personalizzazione</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../materials/10_visualizzazioni_avanzate.html">
- <span class="dropdown-text">Visualizzazioni Avanzate</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../materials/11_conclusioni_qa.html">
- <span class="dropdown-text">Conclusioni e Q&amp;A</span></a>
-  </li>  
-        <li><hr class="dropdown-divider"></li>
-        <li>
-    <a class="dropdown-item" href="../materials/exercises.html">
- <span class="dropdown-text">Esercizi</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../resources.html"> 
-<span class="menu-text">Risorse</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../setup.html"> 
-<span class="menu-text">Setup</span></a>
-  </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/yourusername/dataviz-course"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Marco Chiapello 
 </div>
-      </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-<!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#aesthetics-estetiche" id="toc-aesthetics-estetiche" class="nav-link active" data-scroll-target="#aesthetics-estetiche">Aesthetics (Estetiche)</a></li>
-  <li><a href="#mappature-estetiche" id="toc-mappature-estetiche" class="nav-link" data-scroll-target="#mappature-estetiche">Mappature estetiche</a>
-  <ul class="collapse">
-  <li><a href="#posizione" id="toc-posizione" class="nav-link" data-scroll-target="#posizione">Posizione</a></li>
-  <li><a href="#colore" id="toc-colore" class="nav-link" data-scroll-target="#colore">Colore</a></li>
-  <li><a href="#dimensione" id="toc-dimensione" class="nav-link" data-scroll-target="#dimensione">Dimensione</a></li>
-  <li><a href="#forma" id="toc-forma" class="nav-link" data-scroll-target="#forma">Forma</a></li>
-  <li><a href="#trasparenza-alpha" id="toc-trasparenza-alpha" class="nav-link" data-scroll-target="#trasparenza-alpha">Trasparenza (alpha)</a></li>
-  </ul></li>
-  <li><a href="#mapping-vs-setting" id="toc-mapping-vs-setting" class="nav-link" data-scroll-target="#mapping-vs-setting">Mapping vs Setting</a>
-  <ul class="collapse">
-  <li><a href="#mapping-dentro-aes" id="toc-mapping-dentro-aes" class="nav-link" data-scroll-target="#mapping-dentro-aes">Mapping (dentro aes)</a></li>
-  <li><a href="#setting-fuori-aes" id="toc-setting-fuori-aes" class="nav-link" data-scroll-target="#setting-fuori-aes">Setting (fuori aes)</a></li>
-  </ul></li>
-  <li><a href="#differenza-tra-color-e-fill" id="toc-differenza-tra-color-e-fill" class="nav-link" data-scroll-target="#differenza-tra-color-e-fill">Differenza tra color e fill</a></li>
-  <li><a href="#esercizi" id="toc-esercizi" class="nav-link" data-scroll-target="#esercizi">Esercizi</a></li>
-  <li><a href="#risorse" id="toc-risorse" class="nav-link" data-scroll-target="#risorse">Risorse</a></li>
-  </ul>
-</nav>
-    </div>
-<!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Estetiche e Mappature</h1>
+</div>
 </div>
 
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="aesthetics-estetiche" class="level2">
-<h2 class="anchored" data-anchor-id="aesthetics-estetiche">Aesthetics (Estetiche)</h2>
-<p>Le estetiche sono le proprietà visive degli oggetti nel grafico.</p>
 </section>
-<section id="mappature-estetiche" class="level2">
-<h2 class="anchored" data-anchor-id="mappature-estetiche">Mappature estetiche</h2>
-<section id="posizione" class="level3">
-<h3 class="anchored" data-anchor-id="posizione">Posizione</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> var1, <span class="at">y =</span> var2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="colore" class="level3">
-<h3 class="anchored" data-anchor-id="colore">Colore</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Colore per categoria</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> category)) <span class="sc">+</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill per aree</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> category, <span class="at">fill =</span> category)) <span class="sc">+</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="dimensione" class="level3">
-<h3 class="anchored" data-anchor-id="dimensione">Dimensione</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">size =</span> value)) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="forma" class="level3">
-<h3 class="anchored" data-anchor-id="forma">Forma</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">shape =</span> category)) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="trasparenza-alpha" class="level3">
-<h3 class="anchored" data-anchor-id="trasparenza-alpha">Trasparenza (alpha)</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">alpha =</span> density)) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
-<section id="mapping-vs-setting" class="level2">
-<h2 class="anchored" data-anchor-id="mapping-vs-setting">Mapping vs Setting</h2>
-<section id="mapping-dentro-aes" class="level3">
-<h3 class="anchored" data-anchor-id="mapping-dentro-aes">Mapping (dentro aes)</h3>
-<p>Mappa i dati a proprietà visive:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aes</span>(<span class="at">color =</span> category)  <span class="co"># Colore dipende dai dati</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="setting-fuori-aes" class="level3">
-<h3 class="anchored" data-anchor-id="setting-fuori-aes">Setting (fuori aes)</h3>
-<p>Imposta valori fissi:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>)  <span class="co"># Tutti i punti blu</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
-<section id="differenza-tra-color-e-fill" class="level2">
-<h2 class="anchored" data-anchor-id="differenza-tra-color-e-fill">Differenza tra color e fill</h2>
+<section id="obiettivi-della-sessione" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Obiettivi della Sessione</h2>
+<div style="font-size: 0.85em;">
+<p><strong>Cosa impareremo oggi:</strong></p>
 <ul>
-<li><strong>color</strong>: Colore del bordo/linea</li>
-<li><strong>fill</strong>: Colore di riempimento</li>
+<li>Comprendere cosa sono le <strong>estetiche (aesthetics)</strong></li>
+<li>Distinguere tra <strong>mapping</strong> e <strong>setting</strong></li>
+<li>Esplorare le estetiche principali: color, fill, size, shape, alpha</li>
+<li>Applicare estetiche a diversi tipi di geom</li>
+<li>Gestire scale e legende</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Per barre</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> category), <span class="at">color =</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="esercizi" class="level2">
-<h2 class="anchored" data-anchor-id="esercizi">Esercizi</h2>
+<p><strong>Approccio:</strong></p>
 <ol type="1">
-<li>Mappa diverse variabili a colore, dimensione e forma</li>
-<li>Sperimenta con la differenza tra mapping e setting</li>
-<li>Crea un grafico con color e fill diversi</li>
+<li>Teoria delle estetiche</li>
+<li>Differenza mapping vs setting</li>
+<li>Estetiche specifiche per tipo</li>
+<li>Esercizi pratici</li>
 </ol>
+</div>
 </section>
-<section id="risorse" class="level2">
-<h2 class="anchored" data-anchor-id="risorse">Risorse</h2>
+<section id="esercizi-pratici" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Esercizi Pratici</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Scarica il file esercizi:</strong> <a href="05_estetiche_mappature_exercises.R">05_estetiche_mappature_exercises.R</a></p>
+<p><strong>30 esercizi organizzati in 6 parti:</strong></p>
+<ol type="1">
+<li><strong>Color Aesthetic</strong> (5 esercizi): color mapping, discrete vs continuous</li>
+<li><strong>Fill Aesthetic</strong> (5 esercizi): fill per aree, interazione con color</li>
+<li><strong>Size e Shape</strong> (5 esercizi): dimensione e forma dei punti</li>
+<li><strong>Alpha (Trasparenza)</strong> (5 esercizi): gestione overplotting</li>
+<li><strong>Mapping vs Setting</strong> (5 esercizi): differenze chiave</li>
+<li><strong>Combinazioni Avanzate</strong> (5 esercizi): multiple aesthetics</li>
+</ol>
+<p><strong>Approccio suggerito:</strong></p>
 <ul>
-<li><a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html">ggplot2 aesthetics</a></li>
+<li>Lavora su ogni parte in sequenza</li>
+<li>Sperimenta con diverse combinazioni</li>
+<li>Osserva come le scale si adattano automaticamente</li>
 </ul>
-
+</div>
+</section>
+<section id="cosè-unestetica" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Cos’è un’Estetica?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 0.7em;">
+<p><strong>Definizione:</strong></p>
+<p>Le estetiche (aesthetics) sono le <strong>proprietà visive</strong> degli oggetti nel grafico.</p>
+<p><strong>Estetiche principali:</strong></p>
+<ul>
+<li><strong>Posizione</strong>: <code>x</code>, <code>y</code></li>
+<li><strong>Colore</strong>: <code>color</code> (bordi/linee), <code>fill</code> (riempimento)</li>
+<li><strong>Dimensione</strong>: <code>size</code></li>
+<li><strong>Forma</strong>: <code>shape</code></li>
+<li><strong>Trasparenza</strong>: <code>alpha</code></li>
+<li><strong>Tipo di linea</strong>: <code>linetype</code></li>
+</ul>
+<p><strong>Struttura:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> var1, <span class="at">y =</span> var2, </span>
+<span id="cb1-2"><a></a>                 <span class="at">color =</span> var3)) <span class="sc">+</span></span>
+<span id="cb1-3"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size: 0.675em;">
+<p><strong>Caratteristiche:</strong></p>
+<ol type="1">
+<li>Collegano <strong>dati</strong> a <strong>proprietà visive</strong></li>
+<li>Creano automaticamente <strong>scale</strong> appropriate</li>
+<li>Generano <strong>legende</strong> quando necessario</li>
+<li>Possono essere <strong>mappate</strong> (dipendono dai dati) o <strong>impostate</strong> (fisse)</li>
+</ol>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Regola d’oro</strong></p>
+</div>
+<div class="callout-content">
+<p>Se vuoi che una proprietà visiva <strong>vari con i dati</strong>, mettila dentro <code>aes()</code>. Se vuoi un valore <strong>fisso</strong>, mettila fuori <code>aes()</code>.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section>
+<section id="color-aesthetic" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>Color Aesthetic</h1>
 
 </section>
+<section id="color-variabili-discrete" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Color: Variabili Discrete</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 0.7em;">
+<p><strong>Uso con categorie:</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="co"># Color per categoria</span></span>
+<span id="cb2-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
+<span id="cb2-3"><a></a>                <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb2-4"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Caratteristiche:</strong></p>
+<ul>
+<li>Ogni categoria ottiene un <strong>colore distinto</strong></li>
+<li>Scala discreta automatica</li>
+<li>Legenda con tutti i livelli</li>
+<li>Default: palette ggplot2</li>
+</ul>
+<p><strong>Quando usare:</strong></p>
+<ul>
+<li>Distinguere gruppi</li>
+<li>Evidenziare categorie</li>
+<li>Confrontare pattern tra gruppi</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size: 0.675em;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tipi di geom</strong></p>
+</div>
+<div class="callout-content">
+<p><code>color</code> controlla colori diversi in base al geom:</p>
+<ul>
+<li><code>geom_point()</code>: colore del punto</li>
+<li><code>geom_line()</code>: colore della linea</li>
+<li><code>geom_bar()</code>: colore del bordo</li>
+<li><code>geom_boxplot()</code>: colore del bordo</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Troppe categorie</strong></p>
+</div>
+<div class="callout-content">
+<p>Con &gt;7-8 categorie, i colori diventano difficili da distinguere. Considera di:</p>
+<ul>
+<li>Raggruppare categorie minori in “Altri”</li>
+<li>Usare facets invece di color</li>
+<li>Usare palette ottimizzate (viridis, ColorBrewer)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="color-variabili-continue" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Color: Variabili Continue</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 0.7em;">
+<p><strong>Uso con valori numerici:</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># Gradient di colore</span></span>
+<span id="cb3-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
+<span id="cb3-3"><a></a>                <span class="at">color =</span> cty)) <span class="sc">+</span></span>
+<span id="cb3-4"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Caratteristiche:</strong></p>
+<ul>
+<li><strong>Gradient continuo</strong> di colori</li>
+<li>Scala continua automatica</li>
+<li>Legenda con barra di colore</li>
+<li>Default: blu scuro → blu chiaro</li>
+</ul>
+<p><strong>Quando usare:</strong></p>
+<ul>
+<li>Mostrare terza dimensione</li>
+<li>Visualizzare intensità/densità</li>
+<li>Heatmaps e mappe</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size: 0.675em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Palette migliori</strong></p>
+</div>
+<div class="callout-content">
+<p>Il gradient blu di default non è sempre ottimale:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="co"># Viridis (percettualmente uniforme)</span></span>
+<span id="cb4-2"><a></a><span class="sc">+</span> <span class="fu">scale_color_viridis_c</span>()</span>
+<span id="cb4-3"><a></a></span>
+<span id="cb4-4"><a></a><span class="co"># Gradient personalizzato</span></span>
+<span id="cb4-5"><a></a><span class="sc">+</span> <span class="fu">scale_color_gradient</span>(</span>
+<span id="cb4-6"><a></a>    <span class="at">low =</span> <span class="st">"yellow"</span>, </span>
+<span id="cb4-7"><a></a>    <span class="at">high =</span> <span class="st">"red"</span></span>
+<span id="cb4-8"><a></a>  )</span>
+<span id="cb4-9"><a></a></span>
+<span id="cb4-10"><a></a><span class="co"># Divergente (es. + e -)</span></span>
+<span id="cb4-11"><a></a><span class="sc">+</span> <span class="fu">scale_color_gradient2</span>(</span>
+<span id="cb4-12"><a></a>    <span class="at">low =</span> <span class="st">"blue"</span>,</span>
+<span id="cb4-13"><a></a>    <span class="at">mid =</span> <span class="st">"white"</span>,</span>
+<span id="cb4-14"><a></a>    <span class="at">high =</span> <span class="st">"red"</span>,</span>
+<span id="cb4-15"><a></a>    <span class="at">midpoint =</span> <span class="dv">0</span></span>
+<span id="cb4-16"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="section" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2></h2>
+<div style="text-align: center; font-size: 3em; margin-top: 200px;">
+<p><strong>Adesso tocca a te!</strong></p>
+</div>
+</section></section>
+<section>
+<section id="fill-aesthetic" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>Fill Aesthetic</h1>
 
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
-    }
-    setColorSchemeToggle(hasAlternateSentinel())
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
-        }
-      }
-      return false;
-    }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
-    }
-    const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
-        }
-        return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
-    });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
-    }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
-        }
-      }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
+</section>
+<section id="fill-riempimento-aree" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Fill: Riempimento Aree</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 0.7em;">
+<p><strong>Uso con geom ad area:</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co"># Fill per categorie</span></span>
+<span id="cb5-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">fill =</span> drv)) <span class="sc">+</span></span>
+<span id="cb5-3"><a></a>  <span class="fu">geom_bar</span>()</span>
+<span id="cb5-4"><a></a></span>
+<span id="cb5-5"><a></a><span class="co"># Fill per densità</span></span>
+<span id="cb5-6"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> hwy, <span class="at">fill =</span> drv)) <span class="sc">+</span></span>
+<span id="cb5-7"><a></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Geom che usano fill:</strong></p>
+<ul>
+<li><code>geom_bar()</code>, <code>geom_col()</code></li>
+<li><code>geom_histogram()</code></li>
+<li><code>geom_density()</code></li>
+<li><code>geom_boxplot()</code>, <code>geom_violin()</code></li>
+<li><code>geom_polygon()</code>, <code>geom_ribbon()</code></li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size: 0.675em;">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Color vs Fill</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><strong>color</strong>: bordo/linea</li>
+<li><strong>fill</strong>: interno/area</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="co"># Entrambi</span></span>
+<span id="cb6-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class, </span>
+<span id="cb6-3"><a></a>                <span class="at">fill =</span> class)) <span class="sc">+</span></span>
+<span id="cb6-4"><a></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Spesso si usa <code>fill</code> per gruppi e <code>color</code> fisso per bordi.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Scale separate</strong></p>
+</div>
+<div class="callout-content">
+<p><code>color</code> e <code>fill</code> hanno scale indipendenti:</p>
+<ul>
+<li><code>scale_color_*()</code> per color</li>
+<li><code>scale_fill_*()</code> per fill</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="fill-gestire-trasparenza" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Fill: Gestire Trasparenza</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 0.7em;">
+<p><strong>Overlapping con alpha:</strong></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="co"># Densità sovrapposte</span></span>
+<span id="cb7-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> hwy, <span class="at">fill =</span> drv)) <span class="sc">+</span></span>
+<span id="cb7-3"><a></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>)</span>
+<span id="cb7-4"><a></a></span>
+<span id="cb7-5"><a></a><span class="co"># Violini trasparenti</span></span>
+<span id="cb7-6"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> hwy,</span>
+<span id="cb7-7"><a></a>                <span class="at">fill =</span> class)) <span class="sc">+</span></span>
+<span id="cb7-8"><a></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Valori alpha:</strong></p>
+<ul>
+<li><code>alpha = 1</code>: opaco (default)</li>
+<li><code>alpha = 0</code>: completamente trasparente</li>
+<li><code>alpha = 0.3-0.7</code>: buon range per overlap</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size: 0.675em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Position adjustments</strong></p>
+</div>
+<div class="callout-content">
+<p>Per barre sovrapposte, usa <code>position</code>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="co"># Stacked (default)</span></span>
+<span id="cb8-2"><a></a><span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"stack"</span>)</span>
+<span id="cb8-3"><a></a></span>
+<span id="cb8-4"><a></a><span class="co"># Affiancate</span></span>
+<span id="cb8-5"><a></a><span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span>
+<span id="cb8-6"><a></a></span>
+<span id="cb8-7"><a></a><span class="co"># Normalizzate (100%)</span></span>
+<span id="cb8-8"><a></a><span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)</span>
+<span id="cb8-9"><a></a></span>
+<span id="cb8-10"><a></a><span class="co"># Sovrapposte</span></span>
+<span id="cb8-11"><a></a><span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"identity"</span>, </span>
+<span id="cb8-12"><a></a>         <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="section-1" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2></h2>
+<div style="text-align: center; font-size: 3em; margin-top: 200px;">
+<p><strong>Adesso tocca a te!</strong></p>
+</div>
+</section></section>
+<section>
+<section id="size-e-shape" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>Size e Shape</h1>
+
+</section>
+<section id="size-dimensione-punti" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Size: Dimensione Punti</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 0.7em;">
+<p><strong>Mapping size a dati:</strong></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="co"># Size variabile continua</span></span>
+<span id="cb9-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
+<span id="cb9-3"><a></a>                <span class="at">size =</span> cyl)) <span class="sc">+</span></span>
+<span id="cb9-4"><a></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb9-5"><a></a></span>
+<span id="cb9-6"><a></a><span class="co"># Bubble chart (3 variabili)</span></span>
+<span id="cb9-7"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
+<span id="cb9-8"><a></a>                <span class="at">size =</span> cty, <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb9-9"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Caratteristiche:</strong></p>
+<ul>
+<li>Ottimo per terza variabile numerica</li>
+<li>Scala automatica con legenda</li>
+<li>Attenzione: area vs raggio</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size: 0.675em;">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Limitazioni di size</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Problemi:</strong></p>
+<ol type="1">
+<li>Difficile confrontare dimensioni precise</li>
+<li>Punti grandi possono sovrapporsi</li>
+<li>Non funziona bene con molte categorie discrete</li>
+</ol>
+<p><strong>Soluzioni:</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="co"># Controllare range</span></span>
+<span id="cb10-2"><a></a><span class="sc">+</span> <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>))</span>
+<span id="cb10-3"><a></a></span>
+<span id="cb10-4"><a></a><span class="co"># Usare area invece di raggio</span></span>
+<span id="cb10-5"><a></a><span class="sc">+</span> <span class="fu">scale_size_area</span>()</span>
+<span id="cb10-6"><a></a></span>
+<span id="cb10-7"><a></a><span class="co"># Ridurre alpha per overlap</span></span>
+<span id="cb10-8"><a></a><span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="shape-forma-punti" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Shape: Forma Punti</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 0.7em;">
+<p><strong>Mapping shape a categorie:</strong></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="co"># Shape per gruppi</span></span>
+<span id="cb11-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
+<span id="cb11-3"><a></a>                <span class="at">shape =</span> drv)) <span class="sc">+</span></span>
+<span id="cb11-4"><a></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb11-5"><a></a></span>
+<span id="cb11-6"><a></a><span class="co"># Shape + color (ridondanza utile)</span></span>
+<span id="cb11-7"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
+<span id="cb11-8"><a></a>                <span class="at">shape =</span> drv, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb11-9"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Quando usare:</strong></p>
+<ul>
+<li>Gruppi categorici (max 6-7)</li>
+<li>Accessibilità (color blindness)</li>
+<li>Stampa in bianco e nero</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size: 0.675em;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Shape disponibili</strong></p>
+</div>
+<div class="callout-content">
+<p>ggplot2 ha 25 shape built-in (0-24):</p>
+<ul>
+<li><strong>0-14</strong>: solo bordo (usa <code>color</code>)</li>
+<li><strong>15-20</strong>: solo riempimento (usa <code>color</code>)</li>
+<li><strong>21-24</strong>: bordo + riempimento (usa <code>color</code> + <code>fill</code>)</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="co"># Shape personalizzato</span></span>
+<span id="cb12-2"><a></a><span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, </span>
+<span id="cb12-3"><a></a>           <span class="at">color =</span> <span class="st">"black"</span>, </span>
+<span id="cb12-4"><a></a>           <span class="at">fill =</span> <span class="st">"red"</span>, </span>
+<span id="cb12-5"><a></a>           <span class="at">size =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Limite shape</strong></p>
+</div>
+<div class="callout-content">
+<p>Max ~6 shape distinguibili. Oltre, meglio usare facets.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="section-2" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2></h2>
+<div style="text-align: center; font-size: 3em; margin-top: 200px;">
+<p><strong>Adesso tocca a te!</strong></p>
+</div>
+</section></section>
+<section>
+<section id="alpha-trasparenza" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>Alpha (Trasparenza)</h1>
+
+</section>
+<section id="alpha-gestire-overplotting" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Alpha: Gestire Overplotting</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 0.7em;">
+<p><strong>Trasparenza per densità:</strong></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="co"># Alpha fisso (setting)</span></span>
+<span id="cb13-2"><a></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb13-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>)</span>
+<span id="cb13-4"><a></a></span>
+<span id="cb13-5"><a></a><span class="co"># Alpha variabile (mapping)</span></span>
+<span id="cb13-6"><a></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price,</span>
+<span id="cb13-7"><a></a>                     <span class="at">alpha =</span> depth)) <span class="sc">+</span></span>
+<span id="cb13-8"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Quando usare:</strong></p>
+<ul>
+<li><strong>Overplotting</strong>: molti punti sovrapposti</li>
+<li><strong>Densità</strong>: mostrare concentrazione</li>
+<li><strong>Overlay</strong>: sovrapporre elementi</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size: 0.675em;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Valori alpha consigliati</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Per overplotting:</strong></p>
+<ul>
+<li>Centinaia di punti: <code>alpha = 0.5</code></li>
+<li>Migliaia: <code>alpha = 0.3</code></li>
+<li>Decine di migliaia: <code>alpha = 0.1</code></li>
+<li>Centinaia di migliaia: <code>alpha = 0.01</code></li>
+</ul>
+<p><strong>Per overlay:</strong></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="co"># Linea + ribbon</span></span>
+<span id="cb14-2"><a></a><span class="fu">geom_ribbon</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb14-3"><a></a><span class="fu">geom_line</span>()</span>
+<span id="cb14-4"><a></a></span>
+<span id="cb14-5"><a></a><span class="co"># Densità multiple</span></span>
+<span id="cb14-6"><a></a><span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="alpha-mapping-vs-setting" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Alpha: Mapping vs Setting</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 0.7em;">
+<p><strong>Setting (valore fisso):</strong></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="co"># Tutti i punti stessa trasparenza</span></span>
+<span id="cb15-2"><a></a><span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>)</span>
+<span id="cb15-3"><a></a></span>
+<span id="cb15-4"><a></a><span class="co"># Utile per overplotting</span></span>
+<span id="cb15-5"><a></a><span class="fu">ggplot</span>(big_data, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb15-6"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">size =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Più comune di mapping:</strong></p>
+<ul>
+<li>Risolve overplotting</li>
+<li>Migliora leggibilità</li>
+<li>Non crea legenda aggiuntiva</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size: 0.675em;">
+<p><strong>Mapping (variabile):</strong></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="co"># Alpha dipende dai dati</span></span>
+<span id="cb16-2"><a></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, </span>
+<span id="cb16-3"><a></a>                 <span class="at">alpha =</span> confidence)) <span class="sc">+</span></span>
+<span id="cb16-4"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Quando mappare:</strong></p>
+<ul>
+<li>Mostrare incertezza</li>
+<li>Evidenziare priorità</li>
+<li>Visualizzare peso/importanza</li>
+</ul>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Attenzione</strong></p>
+</div>
+<div class="callout-content">
+<p>Mapping alpha crea legenda, che può confondere. Spesso meglio setting fisso + altre estetiche.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="section-3" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2></h2>
+<div style="text-align: center; font-size: 3em; margin-top: 200px;">
+<p><strong>Adesso tocca a te!</strong></p>
+</div>
+</section></section>
+<section>
+<section id="mapping-vs-setting" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>Mapping vs Setting</h1>
+
+</section>
+<section id="la-distinzione-fondamentale" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>La Distinzione Fondamentale</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 0.7em;">
+<p><strong>MAPPING (dentro aes):</strong></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="co"># Dipende dai DATI</span></span>
+<span id="cb17-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy,</span>
+<span id="cb17-3"><a></a>                <span class="at">color =</span> class,    <span class="co"># varia</span></span>
+<span id="cb17-4"><a></a>                <span class="at">size =</span> cyl)) <span class="sc">+</span>    <span class="co"># varia</span></span>
+<span id="cb17-5"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Proprietà <strong>varia con i dati</strong></li>
+<li>Crea <strong>scala automatica</strong></li>
+<li>Genera <strong>legenda</strong></li>
+<li>Usa nome variabile</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size: 0.7em;">
+<p><strong>SETTING (fuori aes):</strong></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="co"># Valore FISSO</span></span>
+<span id="cb18-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb18-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>,    <span class="co"># fisso</span></span>
+<span id="cb18-4"><a></a>             <span class="at">size =</span> <span class="dv">3</span>,          <span class="co"># fisso</span></span>
+<span id="cb18-5"><a></a>             <span class="at">alpha =</span> <span class="fl">0.6</span>)       <span class="co"># fisso</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Proprietà <strong>costante</strong></li>
+<li>Nessuna scala</li>
+<li>Nessuna legenda</li>
+<li>Usa valore diretto</li>
+</ul>
+</div>
+</div></div>
+</section>
+<section id="errori-comuni" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Errori Comuni</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 0.7em;">
+<p><strong>ERRORE 1: Setting dentro aes()</strong></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="co"># ❌ SBAGLIATO</span></span>
+<span id="cb19-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy,</span>
+<span id="cb19-3"><a></a>                <span class="at">color =</span> <span class="st">"blue"</span>)) <span class="sc">+</span></span>
+<span id="cb19-4"><a></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb19-5"><a></a><span class="co"># Crea variabile "blue", non blu!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>ERRORE 2: Mapping fuori aes()</strong></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="co"># ❌ SBAGLIATO</span></span>
+<span id="cb20-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb20-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> class)</span>
+<span id="cb20-4"><a></a><span class="co"># Error: object 'class' not found</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size: 0.675em;">
+<p><strong>CORRETTO:</strong></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="co"># ✅ Setting corretto</span></span>
+<span id="cb21-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb21-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">3</span>)</span>
+<span id="cb21-4"><a></a></span>
+<span id="cb21-5"><a></a><span class="co"># ✅ Mapping corretto</span></span>
+<span id="cb21-6"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy,</span>
+<span id="cb21-7"><a></a>                <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb21-8"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>)  <span class="co"># size fisso OK</span></span>
+<span id="cb21-9"><a></a></span>
+<span id="cb21-10"><a></a><span class="co"># ✅ Mix corretto</span></span>
+<span id="cb21-11"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy,</span>
+<span id="cb21-12"><a></a>                <span class="at">color =</span> class)) <span class="sc">+</span>    <span class="co"># mapping</span></span>
+<span id="cb21-13"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>)  <span class="co"># setting</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div></div>
+</section>
+<section id="section-4" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2></h2>
+<div style="text-align: center; font-size: 3em; margin-top: 200px;">
+<p><strong>Adesso tocca a te!</strong></p>
+</div>
+</section></section>
+<section>
+<section id="combinazioni-avanzate" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>Combinazioni Avanzate</h1>
+
+</section>
+<section id="multiple-aesthetics" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Multiple Aesthetics</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 0.7em;">
+<p><strong>Combinare più estetiche:</strong></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="co"># 4 variabili in un plot</span></span>
+<span id="cb22-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy,</span>
+<span id="cb22-3"><a></a>                <span class="at">color =</span> class,</span>
+<span id="cb22-4"><a></a>                <span class="at">size =</span> cyl)) <span class="sc">+</span></span>
+<span id="cb22-5"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>)</span>
+<span id="cb22-6"><a></a></span>
+<span id="cb22-7"><a></a><span class="co"># Con shape aggiuntivo</span></span>
+<span id="cb22-8"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy,</span>
+<span id="cb22-9"><a></a>                <span class="at">color =</span> class,</span>
+<span id="cb22-10"><a></a>                <span class="at">shape =</span> drv)) <span class="sc">+</span></span>
+<span id="cb22-11"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Benefici:</strong></p>
+<ul>
+<li>Visualizzare più dimensioni</li>
+<li>Ridondanza utile (accessibilità)</li>
+<li>Analisi multivariata</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size: 0.675em;">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Rischio sovraccarico</strong></p>
+</div>
+<div class="callout-content">
+<p>Troppi aesthetic = confusione!</p>
+<p><strong>Linee guida:</strong></p>
+<ul>
+<li>Max 3-4 aesthetic mappate</li>
+<li>Usa ridondanza intelligente (color + shape per stesso gruppo)</li>
+<li>Considera facets invece di aesthetic aggiuntive</li>
+<li>Mantieni setting (fissi) per migliorare leggibilità</li>
+</ul>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="co"># Meglio ridondante che solo shape</span></span>
+<span id="cb23-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy,</span>
+<span id="cb23-3"><a></a>                <span class="at">color =</span> drv,   <span class="co"># e</span></span>
+<span id="cb23-4"><a></a>                <span class="at">shape =</span> drv)) <span class="sc">+</span> <span class="co"># drv</span></span>
+<span id="cb23-5"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="best-practices" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Best Practices</h2>
+<div style="font-size: 0.75em;">
+<p><strong>Consigli per estetiche efficaci:</strong></p>
+<ol type="1">
+<li><strong>Priorità percettiva</strong>: Posizione &gt; Size &gt; Color &gt; Shape
+<ul>
+<li>Usa <code>x</code>/<code>y</code> per variabili più importanti</li>
+<li><code>color</code> per gruppi principali</li>
+<li><code>size</code>/<code>shape</code> per info secondarie</li>
+</ul></li>
+<li><strong>Accessibilità</strong>:
+<ul>
+<li>Usa palette colorblind-friendly (viridis, ColorBrewer)</li>
+<li>Combina color + shape per gruppi</li>
+<li>Evita solo rosso/verde</li>
+</ul></li>
+<li><strong>Chiarezza</strong>:
+<ul>
+<li>Meno è meglio: non mappare tutto</li>
+<li>Setting per migliorare leggibilità (alpha, size fissi)</li>
+<li>Legende chiare: rinomina se necessario</li>
+</ul></li>
+<li><strong>Performance</strong>:
+<ul>
+<li>Con big data: alpha basso, size piccolo</li>
+<li>Considera <code>geom_hex()</code> o <code>geom_bin2d()</code> invece di troppi punti</li>
+</ul></li>
+</ol>
+</div>
+</section>
+<section id="section-5" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2></h2>
+<div style="text-align: center; font-size: 3em; margin-top: 200px;">
+<p><strong>Adesso tocca a te!</strong></p>
+</div>
+</section>
+<section id="risorse-prossimi-passi" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Risorse &amp; Prossimi Passi</h2>
+<div style="font-size: 0.75em;">
+<p><strong>Documentazione:</strong></p>
+<ul>
+<li><a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html">ggplot2 Aesthetic specifications</a></li>
+<li><a href="https://ggplot2.tidyverse.org/reference/index.html#scales">ggplot2 scales reference</a></li>
+<li><a href="https://r-graphics.org/">R Graphics Cookbook</a></li>
+</ul>
+<p><strong>Palette utili:</strong></p>
+<ul>
+<li><code>viridis</code>: palette percettualmente uniformi e colorblind-friendly</li>
+<li><code>RColorBrewer</code>: palette predefinite per diversi usi</li>
+<li><code>ggsci</code>: palette da pubblicazioni scientifiche</li>
+</ul>
+<p><strong>Prossima sessione:</strong></p>
+<ul>
+<li><strong>Facets e coordinate</strong>: organizzare e trasformare visualizzazioni</li>
+<li>Small multiples con <code>facet_wrap()</code> e <code>facet_grid()</code></li>
+<li>Sistemi di coordinate: cartesiano, polare, flip</li>
+</ul>
+<p><strong>Continua a praticare!</strong> Gli esercizi coprono casistiche reali che incontrerai nel lavoro quotidiano.</p>
+</div>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="images/ggplot2_logo.jpg" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>REVELO Training - Data Viz 2025</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
         },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
-    }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
       });
-    }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
             }
           }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
           }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }
-          return note.innerHTML;
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
         }
-      } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
-      }
-    }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
             }
           } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
             });
           }
-        } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
-            if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
         }
-      }, function(instance) {
       });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
-      } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
-        });
-      }
-    }
-  });
-  </script>
-</div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
-    <div class="nav-footer-left">
-<p>This page was built with ❤️, <a href="https://cran.r-project.org/">R</a> and <a href="https://quarto.org/">Quarto</a> by Marco Chiapello.</p>
-</div>   
-    <div class="nav-footer-center">
-      &nbsp;
-    </div>
-    <div class="nav-footer-right">
-<p>© 2025 REVELO Training</p>
-</div>
-  </div>
-</footer>
-
-
-
+      </script>
+    
 
 </body></html>

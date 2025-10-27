@@ -1,98 +1,793 @@
 ---
-title: "Estetiche e Mappature"
+title: "Estetiche e Mappature in ggplot2"
+subtitle: "Hands-on Workshop"
+author: "Marco Chiapello"
+format: 
+  revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    chalkboard: true
+    logo: images/ggplot2_logo.jpg
+    footer: "REVELO Training - Data Viz 2025"
+    css: presentation-style.css
+    title-slide-attributes:
+      data-background-image: images/frequency-wave-7776034_1280.jpg
+      data-background-size: cover
+      data-background-opacity: "0.1"
+resources:
+  - images/
+  - presentation-style.css
 ---
 
-## Aesthetics (Estetiche)
+## Obiettivi della Sessione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-Le estetiche sono le proprietà visive degli oggetti nel grafico.
+::: {style="font-size: 0.85em;"}
+**Cosa impareremo oggi:**
 
-## Mappature estetiche
+- Comprendere cosa sono le **estetiche (aesthetics)**
+- Distinguere tra **mapping** e **setting**
+- Esplorare le estetiche principali: color, fill, size, shape, alpha
+- Applicare estetiche a diversi tipi di geom
+- Gestire scale e legende
 
-### Posizione
+**Approccio:**
 
-```{r}
-#| eval: false
+1. Teoria delle estetiche
+2. Differenza mapping vs setting
+3. Estetiche specifiche per tipo
+4. Esercizi pratici
 
-ggplot(data, aes(x = var1, y = var2))
+:::
+
+## Esercizi Pratici {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Scarica il file esercizi:** [05_estetiche_mappature_exercises.R](05_estetiche_mappature_exercises.R)
+
+**30 esercizi organizzati in 6 parti:**
+
+1. **Color Aesthetic** (5 esercizi): color mapping, discrete vs continuous
+2. **Fill Aesthetic** (5 esercizi): fill per aree, interazione con color
+3. **Size e Shape** (5 esercizi): dimensione e forma dei punti
+4. **Alpha (Trasparenza)** (5 esercizi): gestione overplotting
+5. **Mapping vs Setting** (5 esercizi): differenze chiave
+6. **Combinazioni Avanzate** (5 esercizi): multiple aesthetics
+
+**Approccio suggerito:**
+
+- Lavora su ogni parte in sequenza
+- Sperimenta con diverse combinazioni
+- Osserva come le scale si adattano automaticamente
+:::
+
+## Cos'è un'Estetica? {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Definizione:**
+
+Le estetiche (aesthetics) sono le **proprietà visive** degli oggetti nel grafico.
+
+**Estetiche principali:**
+
+- **Posizione**: `x`, `y`
+- **Colore**: `color` (bordi/linee), `fill` (riempimento)
+- **Dimensione**: `size`
+- **Forma**: `shape`
+- **Trasparenza**: `alpha`
+- **Tipo di linea**: `linetype`
+
+**Struttura:**
+
+```r
+ggplot(data, aes(x = var1, y = var2, 
+                 color = var3)) +
+  geom_point()
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Caratteristiche:**
+
+1. Collegano **dati** a **proprietà visive**
+2. Creano automaticamente **scale** appropriate
+3. Generano **legende** quando necessario
+4. Possono essere **mappate** (dipendono dai dati) o **impostate** (fisse)
+
+::: {.callout-tip}
+## Regola d'oro
+Se vuoi che una proprietà visiva **vari con i dati**, 
+mettila dentro `aes()`. Se vuoi un valore **fisso**, 
+mettila fuori `aes()`.
+:::
+
+:::
+:::
+:::
+
+# Color Aesthetic {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Color: Variabili Discrete {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Uso con categorie:**
+
+```r
+# Color per categoria
+ggplot(mpg, aes(x = displ, y = hwy, 
+                color = class)) +
+  geom_point()
 ```
 
-### Colore
+**Caratteristiche:**
 
-```{r}
-#| eval: false
+- Ogni categoria ottiene un **colore distinto**
+- Scala discreta automatica
+- Legenda con tutti i livelli
+- Default: palette ggplot2
 
-# Colore per categoria
-ggplot(data, aes(x = x, y = y, color = category)) +
+**Quando usare:**
+
+- Distinguere gruppi
+- Evidenziare categorie
+- Confrontare pattern tra gruppi
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+::: {.callout-note}
+## Tipi di geom
+`color` controlla colori diversi in base al geom:
+
+- `geom_point()`: colore del punto
+- `geom_line()`: colore della linea
+- `geom_bar()`: colore del bordo
+- `geom_boxplot()`: colore del bordo
+:::
+
+::: {.callout-warning}
+## Troppe categorie
+Con >7-8 categorie, i colori diventano difficili da distinguere. 
+Considera di:
+
+- Raggruppare categorie minori in "Altri"
+- Usare facets invece di color
+- Usare palette ottimizzate (viridis, ColorBrewer)
+:::
+
+:::
+:::
+:::
+
+## Color: Variabili Continue {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Uso con valori numerici:**
+
+```r
+# Gradient di colore
+ggplot(mpg, aes(x = displ, y = hwy, 
+                color = cty)) +
   geom_point()
+```
 
-# Fill per aree
-ggplot(data, aes(x = category, fill = category)) +
+**Caratteristiche:**
+
+- **Gradient continuo** di colori
+- Scala continua automatica
+- Legenda con barra di colore
+- Default: blu scuro → blu chiaro
+
+**Quando usare:**
+
+- Mostrare terza dimensione
+- Visualizzare intensità/densità
+- Heatmaps e mappe
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+::: {.callout-tip}
+## Palette migliori
+Il gradient blu di default non è sempre ottimale:
+
+```r
+# Viridis (percettualmente uniforme)
++ scale_color_viridis_c()
+
+# Gradient personalizzato
++ scale_color_gradient(
+    low = "yellow", 
+    high = "red"
+  )
+
+# Divergente (es. + e -)
++ scale_color_gradient2(
+    low = "blue",
+    mid = "white",
+    high = "red",
+    midpoint = 0
+  )
+```
+:::
+
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Fill Aesthetic {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Fill: Riempimento Aree {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Uso con geom ad area:**
+
+```r
+# Fill per categorie
+ggplot(mpg, aes(x = class, fill = drv)) +
   geom_bar()
+
+# Fill per densità
+ggplot(mpg, aes(x = hwy, fill = drv)) +
+  geom_density(alpha = 0.5)
 ```
 
-### Dimensione
+**Geom che usano fill:**
 
-```{r}
-#| eval: false
+- `geom_bar()`, `geom_col()`
+- `geom_histogram()`
+- `geom_density()`
+- `geom_boxplot()`, `geom_violin()`
+- `geom_polygon()`, `geom_ribbon()`
+:::
+:::
 
-ggplot(data, aes(x = x, y = y, size = value)) +
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+::: {.callout-important}
+## Color vs Fill
+
+- **color**: bordo/linea
+- **fill**: interno/area
+
+```r
+# Entrambi
+ggplot(mpg, aes(x = class, 
+                fill = class)) +
+  geom_bar(color = "black")
+```
+
+Spesso si usa `fill` per gruppi e `color` fisso per bordi.
+:::
+
+::: {.callout-note}
+## Scale separate
+`color` e `fill` hanno scale indipendenti:
+
+- `scale_color_*()` per color
+- `scale_fill_*()` per fill
+:::
+
+:::
+:::
+:::
+
+## Fill: Gestire Trasparenza {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Overlapping con alpha:**
+
+```r
+# Densità sovrapposte
+ggplot(mpg, aes(x = hwy, fill = drv)) +
+  geom_density(alpha = 0.3)
+
+# Violini trasparenti
+ggplot(mpg, aes(x = class, y = hwy,
+                fill = class)) +
+  geom_violin(alpha = 0.6)
+```
+
+**Valori alpha:**
+
+- `alpha = 1`: opaco (default)
+- `alpha = 0`: completamente trasparente
+- `alpha = 0.3-0.7`: buon range per overlap
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+::: {.callout-tip}
+## Position adjustments
+Per barre sovrapposte, usa `position`:
+
+```r
+# Stacked (default)
+geom_bar(position = "stack")
+
+# Affiancate
+geom_bar(position = "dodge")
+
+# Normalizzate (100%)
+geom_bar(position = "fill")
+
+# Sovrapposte
+geom_bar(position = "identity", 
+         alpha = 0.5)
+```
+:::
+
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Size e Shape {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Size: Dimensione Punti {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Mapping size a dati:**
+
+```r
+# Size variabile continua
+ggplot(mpg, aes(x = displ, y = hwy, 
+                size = cyl)) +
+  geom_point()
+
+# Bubble chart (3 variabili)
+ggplot(mpg, aes(x = displ, y = hwy, 
+                size = cty, color = class)) +
+  geom_point(alpha = 0.6)
+```
+
+**Caratteristiche:**
+
+- Ottimo per terza variabile numerica
+- Scala automatica con legenda
+- Attenzione: area vs raggio
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+::: {.callout-warning}
+## Limitazioni di size
+
+**Problemi:**
+
+1. Difficile confrontare dimensioni precise
+2. Punti grandi possono sovrapporsi
+3. Non funziona bene con molte categorie discrete
+
+**Soluzioni:**
+
+```r
+# Controllare range
++ scale_size_continuous(range = c(1, 10))
+
+# Usare area invece di raggio
++ scale_size_area()
+
+# Ridurre alpha per overlap
+geom_point(alpha = 0.5)
+```
+:::
+
+:::
+:::
+:::
+
+## Shape: Forma Punti {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Mapping shape a categorie:**
+
+```r
+# Shape per gruppi
+ggplot(mpg, aes(x = displ, y = hwy, 
+                shape = drv)) +
+  geom_point()
+
+# Shape + color (ridondanza utile)
+ggplot(mpg, aes(x = displ, y = hwy, 
+                shape = drv, color = drv)) +
+  geom_point(size = 3)
+```
+
+**Quando usare:**
+
+- Gruppi categorici (max 6-7)
+- Accessibilità (color blindness)
+- Stampa in bianco e nero
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+::: {.callout-note}
+## Shape disponibili
+ggplot2 ha 25 shape built-in (0-24):
+
+- **0-14**: solo bordo (usa `color`)
+- **15-20**: solo riempimento (usa `color`)
+- **21-24**: bordo + riempimento (usa `color` + `fill`)
+
+```r
+# Shape personalizzato
+geom_point(shape = 21, 
+           color = "black", 
+           fill = "red", 
+           size = 3)
+```
+:::
+
+::: {.callout-warning}
+## Limite shape
+Max ~6 shape distinguibili. Oltre, meglio usare facets.
+:::
+
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Alpha (Trasparenza) {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Alpha: Gestire Overplotting {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Trasparenza per densità:**
+
+```r
+# Alpha fisso (setting)
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point(alpha = 0.1)
+
+# Alpha variabile (mapping)
+ggplot(diamonds, aes(x = carat, y = price,
+                     alpha = depth)) +
   geom_point()
 ```
 
-### Forma
+**Quando usare:**
 
-```{r}
-#| eval: false
+- **Overplotting**: molti punti sovrapposti
+- **Densità**: mostrare concentrazione
+- **Overlay**: sovrapporre elementi
+:::
+:::
 
-ggplot(data, aes(x = x, y = y, shape = category)) +
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+::: {.callout-tip}
+## Valori alpha consigliati
+
+**Per overplotting:**
+
+- Centinaia di punti: `alpha = 0.5`
+- Migliaia: `alpha = 0.3`
+- Decine di migliaia: `alpha = 0.1`
+- Centinaia di migliaia: `alpha = 0.01`
+
+**Per overlay:**
+```r
+# Linea + ribbon
+geom_ribbon(alpha = 0.3) +
+geom_line()
+
+# Densità multiple
+geom_density(alpha = 0.5)
+```
+:::
+
+:::
+:::
+:::
+
+## Alpha: Mapping vs Setting {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Setting (valore fisso):**
+
+```r
+# Tutti i punti stessa trasparenza
+geom_point(alpha = 0.4)
+
+# Utile per overplotting
+ggplot(big_data, aes(x = x, y = y)) +
+  geom_point(alpha = 0.1, size = 0.5)
+```
+
+**Più comune di mapping:**
+
+- Risolve overplotting
+- Migliora leggibilità
+- Non crea legenda aggiuntiva
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Mapping (variabile):**
+
+```r
+# Alpha dipende dai dati
+ggplot(data, aes(x = x, y = y, 
+                 alpha = confidence)) +
   geom_point()
 ```
 
-### Trasparenza (alpha)
+**Quando mappare:**
 
-```{r}
-#| eval: false
+- Mostrare incertezza
+- Evidenziare priorità
+- Visualizzare peso/importanza
 
-ggplot(data, aes(x = x, y = y, alpha = density)) +
+::: {.callout-warning}
+## Attenzione
+Mapping alpha crea legenda, che può confondere. 
+Spesso meglio setting fisso + altre estetiche.
+:::
+
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Mapping vs Setting {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## La Distinzione Fondamentale {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**MAPPING (dentro aes):**
+
+```r
+# Dipende dai DATI
+ggplot(mpg, aes(x = displ, y = hwy,
+                color = class,    # varia
+                size = cyl)) +    # varia
   geom_point()
 ```
 
-## Mapping vs Setting
+- Proprietà **varia con i dati**
+- Crea **scala automatica**
+- Genera **legenda**
+- Usa nome variabile
 
-### Mapping (dentro aes)
-Mappa i dati a proprietà visive:
-```{r}
-#| eval: false
+:::
+:::
 
-aes(color = category)  # Colore dipende dai dati
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**SETTING (fuori aes):**
+
+```r
+# Valore FISSO
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(color = "blue",    # fisso
+             size = 3,          # fisso
+             alpha = 0.6)       # fisso
 ```
 
-### Setting (fuori aes)
-Imposta valori fissi:
-```{r}
-#| eval: false
+- Proprietà **costante**
+- Nessuna scala
+- Nessuna legenda
+- Usa valore diretto
 
-geom_point(color = "blue")  # Tutti i punti blu
+:::
+:::
+:::
+
+## Errori Comuni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**ERRORE 1: Setting dentro aes()**
+
+```r
+# ❌ SBAGLIATO
+ggplot(mpg, aes(x = displ, y = hwy,
+                color = "blue")) +
+  geom_point()
+# Crea variabile "blue", non blu!
 ```
 
-## Differenza tra color e fill
+**ERRORE 2: Mapping fuori aes()**
 
-- **color**: Colore del bordo/linea
-- **fill**: Colore di riempimento
+```r
+# ❌ SBAGLIATO
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(color = class)
+# Error: object 'class' not found
+```
+:::
+:::
 
-```{r}
-#| eval: false
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**CORRETTO:**
 
-# Per barre
-geom_bar(aes(fill = category), color = "black")
+```r
+# ✅ Setting corretto
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(color = "blue", size = 3)
+
+# ✅ Mapping corretto
+ggplot(mpg, aes(x = displ, y = hwy,
+                color = class)) +
+  geom_point(size = 3)  # size fisso OK
+
+# ✅ Mix corretto
+ggplot(mpg, aes(x = displ, y = hwy,
+                color = class)) +    # mapping
+  geom_point(size = 3, alpha = 0.6)  # setting
+```
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Combinazioni Avanzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Multiple Aesthetics {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Combinare più estetiche:**
+
+```r
+# 4 variabili in un plot
+ggplot(mpg, aes(x = displ, y = hwy,
+                color = class,
+                size = cyl)) +
+  geom_point(alpha = 0.6)
+
+# Con shape aggiuntivo
+ggplot(mpg, aes(x = displ, y = hwy,
+                color = class,
+                shape = drv)) +
+  geom_point(size = 3)
 ```
 
-## Esercizi
+**Benefici:**
 
-1. Mappa diverse variabili a colore, dimensione e forma
-2. Sperimenta con la differenza tra mapping e setting
-3. Crea un grafico con color e fill diversi
+- Visualizzare più dimensioni
+- Ridondanza utile (accessibilità)
+- Analisi multivariata
+:::
+:::
 
-## Risorse
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+::: {.callout-warning}
+## Rischio sovraccarico
+Troppi aesthetic = confusione!
 
-- [ggplot2 aesthetics](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html)
+**Linee guida:**
+
+- Max 3-4 aesthetic mappate
+- Usa ridondanza intelligente (color + shape per stesso gruppo)
+- Considera facets invece di aesthetic aggiuntive
+- Mantieni setting (fissi) per migliorare leggibilità
+
+```r
+# Meglio ridondante che solo shape
+ggplot(mpg, aes(x = displ, y = hwy,
+                color = drv,   # e
+                shape = drv)) + # drv
+  geom_point(size = 3)
+```
+:::
+
+:::
+:::
+:::
+
+## Best Practices {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Consigli per estetiche efficaci:**
+
+1. **Priorità percettiva**: Posizione > Size > Color > Shape
+   - Usa `x`/`y` per variabili più importanti
+   - `color` per gruppi principali
+   - `size`/`shape` per info secondarie
+
+2. **Accessibilità**:
+   - Usa palette colorblind-friendly (viridis, ColorBrewer)
+   - Combina color + shape per gruppi
+   - Evita solo rosso/verde
+
+3. **Chiarezza**:
+   - Meno è meglio: non mappare tutto
+   - Setting per migliorare leggibilità (alpha, size fissi)
+   - Legende chiare: rinomina se necessario
+
+4. **Performance**:
+   - Con big data: alpha basso, size piccolo
+   - Considera `geom_hex()` o `geom_bin2d()` invece di troppi punti
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+## Risorse & Prossimi Passi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Documentazione:**
+
+- [ggplot2 Aesthetic specifications](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html)
+- [ggplot2 scales reference](https://ggplot2.tidyverse.org/reference/index.html#scales)
+- [R Graphics Cookbook](https://r-graphics.org/)
+
+**Palette utili:**
+
+- `viridis`: palette percettualmente uniformi e colorblind-friendly
+- `RColorBrewer`: palette predefinite per diversi usi
+- `ggsci`: palette da pubblicazioni scientifiche
+
+**Prossima sessione:**
+
+- **Facets e coordinate**: organizzare e trasformare visualizzazioni
+- Small multiples con `facet_wrap()` e `facet_grid()`
+- Sistemi di coordinate: cartesiano, polare, flip
+
+**Continua a praticare!** Gli esercizi coprono casistiche reali che incontrerai nel lavoro quotidiano.
+:::

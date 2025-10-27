@@ -1874,5 +1874,159 @@
     "title": "Geometrie Base in ggplot2",
     "section": "",
     "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#obiettivi-della-sessione",
+    "href": "materials/05_estetiche_mappature.html#obiettivi-della-sessione",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "Obiettivi della Sessione",
+    "text": "Obiettivi della Sessione\n\nCosa impareremo oggi:\n\nComprendere cosa sono le estetiche (aesthetics)\nDistinguere tra mapping e setting\nEsplorare le estetiche principali: color, fill, size, shape, alpha\nApplicare estetiche a diversi tipi di geom\nGestire scale e legende\n\nApproccio:\n\nTeoria delle estetiche\nDifferenza mapping vs setting\nEstetiche specifiche per tipo\nEsercizi pratici"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#esercizi-pratici",
+    "href": "materials/05_estetiche_mappature.html#esercizi-pratici",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "Esercizi Pratici",
+    "text": "Esercizi Pratici\n\nScarica il file esercizi: 05_estetiche_mappature_exercises.R\n30 esercizi organizzati in 6 parti:\n\nColor Aesthetic (5 esercizi): color mapping, discrete vs continuous\nFill Aesthetic (5 esercizi): fill per aree, interazione con color\nSize e Shape (5 esercizi): dimensione e forma dei punti\nAlpha (Trasparenza) (5 esercizi): gestione overplotting\nMapping vs Setting (5 esercizi): differenze chiave\nCombinazioni Avanzate (5 esercizi): multiple aesthetics\n\nApproccio suggerito:\n\nLavora su ogni parte in sequenza\nSperimenta con diverse combinazioni\nOsserva come le scale si adattano automaticamente"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#cosè-unestetica",
+    "href": "materials/05_estetiche_mappature.html#cosè-unestetica",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "Cos’è un’Estetica?",
+    "text": "Cos’è un’Estetica?\n\n\n\nDefinizione:\nLe estetiche (aesthetics) sono le proprietà visive degli oggetti nel grafico.\nEstetiche principali:\n\nPosizione: x, y\nColore: color (bordi/linee), fill (riempimento)\nDimensione: size\nForma: shape\nTrasparenza: alpha\nTipo di linea: linetype\n\nStruttura:\nggplot(data, aes(x = var1, y = var2, \n                 color = var3)) +\n  geom_point()\n\n\n\nCaratteristiche:\n\nCollegano dati a proprietà visive\nCreano automaticamente scale appropriate\nGenerano legende quando necessario\nPossono essere mappate (dipendono dai dati) o impostate (fisse)\n\n\n\n\n\n\n\nRegola d’oro\n\n\nSe vuoi che una proprietà visiva vari con i dati, mettila dentro aes(). Se vuoi un valore fisso, mettila fuori aes()."
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#color-variabili-discrete",
+    "href": "materials/05_estetiche_mappature.html#color-variabili-discrete",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "Color: Variabili Discrete",
+    "text": "Color: Variabili Discrete\n\n\n\nUso con categorie:\n# Color per categoria\nggplot(mpg, aes(x = displ, y = hwy, \n                color = class)) +\n  geom_point()\nCaratteristiche:\n\nOgni categoria ottiene un colore distinto\nScala discreta automatica\nLegenda con tutti i livelli\nDefault: palette ggplot2\n\nQuando usare:\n\nDistinguere gruppi\nEvidenziare categorie\nConfrontare pattern tra gruppi\n\n\n\n\n\n\n\n\n\n\nTipi di geom\n\n\ncolor controlla colori diversi in base al geom:\n\ngeom_point(): colore del punto\ngeom_line(): colore della linea\ngeom_bar(): colore del bordo\ngeom_boxplot(): colore del bordo\n\n\n\n\n\n\n\n\n\n\nTroppe categorie\n\n\nCon &gt;7-8 categorie, i colori diventano difficili da distinguere. Considera di:\n\nRaggruppare categorie minori in “Altri”\nUsare facets invece di color\nUsare palette ottimizzate (viridis, ColorBrewer)"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#color-variabili-continue",
+    "href": "materials/05_estetiche_mappature.html#color-variabili-continue",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "Color: Variabili Continue",
+    "text": "Color: Variabili Continue\n\n\n\nUso con valori numerici:\n# Gradient di colore\nggplot(mpg, aes(x = displ, y = hwy, \n                color = cty)) +\n  geom_point()\nCaratteristiche:\n\nGradient continuo di colori\nScala continua automatica\nLegenda con barra di colore\nDefault: blu scuro → blu chiaro\n\nQuando usare:\n\nMostrare terza dimensione\nVisualizzare intensità/densità\nHeatmaps e mappe\n\n\n\n\n\n\n\n\n\n\nPalette migliori\n\n\nIl gradient blu di default non è sempre ottimale:\n# Viridis (percettualmente uniforme)\n+ scale_color_viridis_c()\n\n# Gradient personalizzato\n+ scale_color_gradient(\n    low = \"yellow\", \n    high = \"red\"\n  )\n\n# Divergente (es. + e -)\n+ scale_color_gradient2(\n    low = \"blue\",\n    mid = \"white\",\n    high = \"red\",\n    midpoint = 0\n  )"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#section",
+    "href": "materials/05_estetiche_mappature.html#section",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#fill-riempimento-aree",
+    "href": "materials/05_estetiche_mappature.html#fill-riempimento-aree",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "Fill: Riempimento Aree",
+    "text": "Fill: Riempimento Aree\n\n\n\nUso con geom ad area:\n# Fill per categorie\nggplot(mpg, aes(x = class, fill = drv)) +\n  geom_bar()\n\n# Fill per densità\nggplot(mpg, aes(x = hwy, fill = drv)) +\n  geom_density(alpha = 0.5)\nGeom che usano fill:\n\ngeom_bar(), geom_col()\ngeom_histogram()\ngeom_density()\ngeom_boxplot(), geom_violin()\ngeom_polygon(), geom_ribbon()\n\n\n\n\n\n\n\n\n\n\nColor vs Fill\n\n\n\ncolor: bordo/linea\nfill: interno/area\n\n# Entrambi\nggplot(mpg, aes(x = class, \n                fill = class)) +\n  geom_bar(color = \"black\")\nSpesso si usa fill per gruppi e color fisso per bordi.\n\n\n\n\n\n\n\n\n\nScale separate\n\n\ncolor e fill hanno scale indipendenti:\n\nscale_color_*() per color\nscale_fill_*() per fill"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#fill-gestire-trasparenza",
+    "href": "materials/05_estetiche_mappature.html#fill-gestire-trasparenza",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "Fill: Gestire Trasparenza",
+    "text": "Fill: Gestire Trasparenza\n\n\n\nOverlapping con alpha:\n# Densità sovrapposte\nggplot(mpg, aes(x = hwy, fill = drv)) +\n  geom_density(alpha = 0.3)\n\n# Violini trasparenti\nggplot(mpg, aes(x = class, y = hwy,\n                fill = class)) +\n  geom_violin(alpha = 0.6)\nValori alpha:\n\nalpha = 1: opaco (default)\nalpha = 0: completamente trasparente\nalpha = 0.3-0.7: buon range per overlap\n\n\n\n\n\n\n\n\n\n\nPosition adjustments\n\n\nPer barre sovrapposte, usa position:\n# Stacked (default)\ngeom_bar(position = \"stack\")\n\n# Affiancate\ngeom_bar(position = \"dodge\")\n\n# Normalizzate (100%)\ngeom_bar(position = \"fill\")\n\n# Sovrapposte\ngeom_bar(position = \"identity\", \n         alpha = 0.5)"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#section-1",
+    "href": "materials/05_estetiche_mappature.html#section-1",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#size-dimensione-punti",
+    "href": "materials/05_estetiche_mappature.html#size-dimensione-punti",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "Size: Dimensione Punti",
+    "text": "Size: Dimensione Punti\n\n\n\nMapping size a dati:\n# Size variabile continua\nggplot(mpg, aes(x = displ, y = hwy, \n                size = cyl)) +\n  geom_point()\n\n# Bubble chart (3 variabili)\nggplot(mpg, aes(x = displ, y = hwy, \n                size = cty, color = class)) +\n  geom_point(alpha = 0.6)\nCaratteristiche:\n\nOttimo per terza variabile numerica\nScala automatica con legenda\nAttenzione: area vs raggio\n\n\n\n\n\n\n\n\n\n\nLimitazioni di size\n\n\nProblemi:\n\nDifficile confrontare dimensioni precise\nPunti grandi possono sovrapporsi\nNon funziona bene con molte categorie discrete\n\nSoluzioni:\n# Controllare range\n+ scale_size_continuous(range = c(1, 10))\n\n# Usare area invece di raggio\n+ scale_size_area()\n\n# Ridurre alpha per overlap\ngeom_point(alpha = 0.5)"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#shape-forma-punti",
+    "href": "materials/05_estetiche_mappature.html#shape-forma-punti",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "Shape: Forma Punti",
+    "text": "Shape: Forma Punti\n\n\n\nMapping shape a categorie:\n# Shape per gruppi\nggplot(mpg, aes(x = displ, y = hwy, \n                shape = drv)) +\n  geom_point()\n\n# Shape + color (ridondanza utile)\nggplot(mpg, aes(x = displ, y = hwy, \n                shape = drv, color = drv)) +\n  geom_point(size = 3)\nQuando usare:\n\nGruppi categorici (max 6-7)\nAccessibilità (color blindness)\nStampa in bianco e nero\n\n\n\n\n\n\n\n\n\n\nShape disponibili\n\n\nggplot2 ha 25 shape built-in (0-24):\n\n0-14: solo bordo (usa color)\n15-20: solo riempimento (usa color)\n21-24: bordo + riempimento (usa color + fill)\n\n# Shape personalizzato\ngeom_point(shape = 21, \n           color = \"black\", \n           fill = \"red\", \n           size = 3)\n\n\n\n\n\n\n\n\n\nLimite shape\n\n\nMax ~6 shape distinguibili. Oltre, meglio usare facets."
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#section-2",
+    "href": "materials/05_estetiche_mappature.html#section-2",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#alpha-gestire-overplotting",
+    "href": "materials/05_estetiche_mappature.html#alpha-gestire-overplotting",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "Alpha: Gestire Overplotting",
+    "text": "Alpha: Gestire Overplotting\n\n\n\nTrasparenza per densità:\n# Alpha fisso (setting)\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_point(alpha = 0.1)\n\n# Alpha variabile (mapping)\nggplot(diamonds, aes(x = carat, y = price,\n                     alpha = depth)) +\n  geom_point()\nQuando usare:\n\nOverplotting: molti punti sovrapposti\nDensità: mostrare concentrazione\nOverlay: sovrapporre elementi\n\n\n\n\n\n\n\n\n\n\nValori alpha consigliati\n\n\nPer overplotting:\n\nCentinaia di punti: alpha = 0.5\nMigliaia: alpha = 0.3\nDecine di migliaia: alpha = 0.1\nCentinaia di migliaia: alpha = 0.01\n\nPer overlay:\n# Linea + ribbon\ngeom_ribbon(alpha = 0.3) +\ngeom_line()\n\n# Densità multiple\ngeom_density(alpha = 0.5)"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#alpha-mapping-vs-setting",
+    "href": "materials/05_estetiche_mappature.html#alpha-mapping-vs-setting",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "Alpha: Mapping vs Setting",
+    "text": "Alpha: Mapping vs Setting\n\n\n\nSetting (valore fisso):\n# Tutti i punti stessa trasparenza\ngeom_point(alpha = 0.4)\n\n# Utile per overplotting\nggplot(big_data, aes(x = x, y = y)) +\n  geom_point(alpha = 0.1, size = 0.5)\nPiù comune di mapping:\n\nRisolve overplotting\nMigliora leggibilità\nNon crea legenda aggiuntiva\n\n\n\n\nMapping (variabile):\n# Alpha dipende dai dati\nggplot(data, aes(x = x, y = y, \n                 alpha = confidence)) +\n  geom_point()\nQuando mappare:\n\nMostrare incertezza\nEvidenziare priorità\nVisualizzare peso/importanza\n\n\n\n\n\n\n\nAttenzione\n\n\nMapping alpha crea legenda, che può confondere. Spesso meglio setting fisso + altre estetiche."
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#section-3",
+    "href": "materials/05_estetiche_mappature.html#section-3",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#la-distinzione-fondamentale",
+    "href": "materials/05_estetiche_mappature.html#la-distinzione-fondamentale",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "La Distinzione Fondamentale",
+    "text": "La Distinzione Fondamentale\n\n\n\nMAPPING (dentro aes):\n# Dipende dai DATI\nggplot(mpg, aes(x = displ, y = hwy,\n                color = class,    # varia\n                size = cyl)) +    # varia\n  geom_point()\n\nProprietà varia con i dati\nCrea scala automatica\nGenera legenda\nUsa nome variabile\n\n\n\n\nSETTING (fuori aes):\n# Valore FISSO\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(color = \"blue\",    # fisso\n             size = 3,          # fisso\n             alpha = 0.6)       # fisso\n\nProprietà costante\nNessuna scala\nNessuna legenda\nUsa valore diretto"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#errori-comuni",
+    "href": "materials/05_estetiche_mappature.html#errori-comuni",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "Errori Comuni",
+    "text": "Errori Comuni\n\n\n\nERRORE 1: Setting dentro aes()\n# ❌ SBAGLIATO\nggplot(mpg, aes(x = displ, y = hwy,\n                color = \"blue\")) +\n  geom_point()\n# Crea variabile \"blue\", non blu!\nERRORE 2: Mapping fuori aes()\n# ❌ SBAGLIATO\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(color = class)\n# Error: object 'class' not found\n\n\n\nCORRETTO:\n# ✅ Setting corretto\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(color = \"blue\", size = 3)\n\n# ✅ Mapping corretto\nggplot(mpg, aes(x = displ, y = hwy,\n                color = class)) +\n  geom_point(size = 3)  # size fisso OK\n\n# ✅ Mix corretto\nggplot(mpg, aes(x = displ, y = hwy,\n                color = class)) +    # mapping\n  geom_point(size = 3, alpha = 0.6)  # setting"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#section-4",
+    "href": "materials/05_estetiche_mappature.html#section-4",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#multiple-aesthetics",
+    "href": "materials/05_estetiche_mappature.html#multiple-aesthetics",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "Multiple Aesthetics",
+    "text": "Multiple Aesthetics\n\n\n\nCombinare più estetiche:\n# 4 variabili in un plot\nggplot(mpg, aes(x = displ, y = hwy,\n                color = class,\n                size = cyl)) +\n  geom_point(alpha = 0.6)\n\n# Con shape aggiuntivo\nggplot(mpg, aes(x = displ, y = hwy,\n                color = class,\n                shape = drv)) +\n  geom_point(size = 3)\nBenefici:\n\nVisualizzare più dimensioni\nRidondanza utile (accessibilità)\nAnalisi multivariata\n\n\n\n\n\n\n\n\n\n\nRischio sovraccarico\n\n\nTroppi aesthetic = confusione!\nLinee guida:\n\nMax 3-4 aesthetic mappate\nUsa ridondanza intelligente (color + shape per stesso gruppo)\nConsidera facets invece di aesthetic aggiuntive\nMantieni setting (fissi) per migliorare leggibilità\n\n# Meglio ridondante che solo shape\nggplot(mpg, aes(x = displ, y = hwy,\n                color = drv,   # e\n                shape = drv)) + # drv\n  geom_point(size = 3)"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#best-practices",
+    "href": "materials/05_estetiche_mappature.html#best-practices",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "Best Practices",
+    "text": "Best Practices\n\nConsigli per estetiche efficaci:\n\nPriorità percettiva: Posizione &gt; Size &gt; Color &gt; Shape\n\nUsa x/y per variabili più importanti\ncolor per gruppi principali\nsize/shape per info secondarie\n\nAccessibilità:\n\nUsa palette colorblind-friendly (viridis, ColorBrewer)\nCombina color + shape per gruppi\nEvita solo rosso/verde\n\nChiarezza:\n\nMeno è meglio: non mappare tutto\nSetting per migliorare leggibilità (alpha, size fissi)\nLegende chiare: rinomina se necessario\n\nPerformance:\n\nCon big data: alpha basso, size piccolo\nConsidera geom_hex() o geom_bin2d() invece di troppi punti"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#section-5",
+    "href": "materials/05_estetiche_mappature.html#section-5",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/05_estetiche_mappature.html#risorse-prossimi-passi",
+    "href": "materials/05_estetiche_mappature.html#risorse-prossimi-passi",
+    "title": "Estetiche e Mappature in ggplot2",
+    "section": "Risorse & Prossimi Passi",
+    "text": "Risorse & Prossimi Passi\n\nDocumentazione:\n\nggplot2 Aesthetic specifications\nggplot2 scales reference\nR Graphics Cookbook\n\nPalette utili:\n\nviridis: palette percettualmente uniformi e colorblind-friendly\nRColorBrewer: palette predefinite per diversi usi\nggsci: palette da pubblicazioni scientifiche\n\nProssima sessione:\n\nFacets e coordinate: organizzare e trasformare visualizzazioni\nSmall multiples con facet_wrap() e facet_grid()\nSistemi di coordinate: cartesiano, polare, flip\n\nContinua a praticare! Gli esercizi coprono casistiche reali che incontrerai nel lavoro quotidiano."
   }
 ]
