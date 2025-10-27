@@ -2301,5 +2301,159 @@
     "title": "Facets e Sistemi di Coordinate",
     "section": "Risorse & Prossimi Passi",
     "text": "Risorse & Prossimi Passi\n\nDocumentazione:\n\nggplot2 Faceting\nggplot2 Coordinate systems\nggplot2 Book - Facets chapter\nggplot2 Book - Coordinate chapter\n\nPackages complementari:\n\nggforce: facets avanzati (es. facet_zoom())\nggh4x: faceting nested e altre estensioni\n\nProssima sessione:\n\nScale e Trasformazioni: personalizzare scale (color, size, x, y), palette, limiti e breaks\nControllo completo su come dati vengono mappati a proprietà visive\nColor palettes avanzate e accessibilità\n\nContinua a praticare! Facets e coordinates sono fondamentali per organizzare visualizzazioni complesse."
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#obiettivi-della-sessione",
+    "href": "materials/08_scale_trasformazioni.html#obiettivi-della-sessione",
+    "title": "Scale e Trasformazioni",
+    "section": "Obiettivi della Sessione",
+    "text": "Obiettivi della Sessione\n\nCosa impareremo oggi:\n\nComprendere il ruolo delle scale in ggplot2\nPersonalizzare scale continue e discrete\nGestire palette di colori accessibili\nApplicare trasformazioni (log, sqrt, reverse)\nControllare breaks, labels e limiti\nFormattare assi con il package scales\n\nApproccio:\n\nTeoria delle scale\nScale posizionali (x, y)\nScale estetiche (color, fill, size)\nTrasformazioni e formattazione\nEsercizi pratici"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#esercizi-pratici",
+    "href": "materials/08_scale_trasformazioni.html#esercizi-pratici",
+    "title": "Scale e Trasformazioni",
+    "section": "Esercizi Pratici",
+    "text": "Esercizi Pratici\n\nScarica il file esercizi: 08_scale_trasformazioni_exercises.R\n30 esercizi organizzati in 6 parti:\n\nScale Continue (5 esercizi): limiti, breaks, labels\nTrasformazioni (5 esercizi): log, sqrt, reverse\nScale Colore Discrete (5 esercizi): manual, brewer, viridis\nScale Colore Continue (5 esercizi): gradient, viridis, diverging\nScale Dimensione e Forma (5 esercizi): area, radius, shapes\nFormattazione Avanzata (5 esercizi): dates, percents, custom\n\nApproccio suggerito:\n\nLavora su ogni parte in sequenza\nSperimenta con parametri diversi\nOsserva come le scale influenzano la percezione"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#cosa-sono-le-scale",
+    "href": "materials/08_scale_trasformazioni.html#cosa-sono-le-scale",
+    "title": "Scale e Trasformazioni",
+    "section": "Cosa Sono le Scale?",
+    "text": "Cosa Sono le Scale?\n\n\n\nDefinizione:\nLe scale mappano i dati alle proprietà visive (estetiche).\nRuolo cruciale:\n\nTraducono valori in posizioni, colori, dimensioni\nControllano leggibilità e interpretazione\nGenerano guide (assi, legende)\nApplicano trasformazioni\n\nOgni aesthetic ha una scala:\n\nx, y → posizioni\ncolor, fill → colori\nsize → dimensioni\nshape → forme\nalpha → trasparenza\n\n\n\n\nDefault automatici:\nggplot2 sceglie scale sensate basandosi sul tipo di dati:\n\nContinuous: numeric, date → scale_*_continuous()\nDiscrete: factor, character → scale_*_discrete()\nBinned: numeric con intervalli → scale_*_binned()\n\n\n\n\n\n\n\nRegola d’oro\n\n\nOgni aesthetic mappato ottiene automaticamente una scala. Puoi sostituirla esplicitamente con scale_*_*().\n\n\n\n\n\n\n\n\n\nNaming convention\n\n\nscale_&lt;aesthetic&gt;_&lt;type&gt;() dove:\n\n&lt;aesthetic&gt; = x, y, color, fill, size…\n&lt;type&gt; = continuous, discrete, manual, gradient, brewer…"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#scale-posizionali-x-e-y",
+    "href": "materials/08_scale_trasformazioni.html#scale-posizionali-x-e-y",
+    "title": "Scale e Trasformazioni",
+    "section": "Scale Posizionali: X e Y",
+    "text": "Scale Posizionali: X e Y\n\n\n\nParametri principali:\nscale_x_continuous(\n  name = \"Titolo asse\",\n  breaks = seq(0, 100, 20),\n  labels = c(\"0\", \"20\", \"40\", \"60\", \"80\", \"100\"),\n  limits = c(0, 100),\n  expand = expansion(mult = c(0, 0.05))\n)\nname: titolo dell’asse\nbreaks: dove posizionare tick marks\nlabels: cosa mostrare ai tick marks\nlimits: range min-max\nexpand: padding ai bordi\n\n\n\nEsempio pratico:\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  scale_x_continuous(\n    name = \"Cilindrata (L)\",\n    breaks = 2:7\n  ) +\n  scale_y_continuous(\n    name = \"Consumo autostrada (mpg)\",\n    limits = c(10, 45)\n  )\n\n\n\n\n\n\nBreaks automatici\n\n\nggplot2 calcola breaks sensati. Usa breaks = waiver() per ripristinare default dopo modifica."
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#limiti-limits-vs-coord_cartesian",
+    "href": "materials/08_scale_trasformazioni.html#limiti-limits-vs-coord_cartesian",
+    "title": "Scale e Trasformazioni",
+    "section": "Limiti: limits vs coord_cartesian()",
+    "text": "Limiti: limits vs coord_cartesian()\n\n\n\nCon scale (RIMUOVE dati):\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_boxplot() +\n  scale_y_continuous(limits = c(10, 30))\n# Rimuove osservazioni &gt; 30!\nDati fuori limite vengono eliminati prima del calcolo di stat. Boxplot ricalcolati su dati filtrati.\nProblema: statistiche errate!\n\n\n\nCon coordinate (ZOOM):\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_boxplot() +\n  coord_cartesian(ylim = c(10, 30))\n# Mantiene tutti i dati!\nDati fuori limite rimangono, solo non vengono mostrati. Statistiche corrette.\n\n\n\n\n\n\nQuando usare cosa\n\n\n\nscale_*_continuous(limits = ...): per filtrare dati\ncoord_cartesian(xlim/ylim = ...): per zoom visivo\n\nQuasi sempre preferisci coord_cartesian()!"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#labels-personalizzati",
+    "href": "materials/08_scale_trasformazioni.html#labels-personalizzati",
+    "title": "Scale e Trasformazioni",
+    "section": "Labels Personalizzati",
+    "text": "Labels Personalizzati\n\n\n\nLabels manuali:\nggplot(mpg, aes(x = cyl, y = hwy)) +\n  geom_point() +\n  scale_x_continuous(\n    breaks = c(4, 5, 6, 8),\n    labels = c(\"Quattro\", \"Cinque\", \n               \"Sei\", \"Otto\")\n  )\nFunzioni di formattazione:\n# Dal package scales\nscale_y_continuous(\n  labels = scales::comma  # 1,000\n)\nscale_y_continuous(\n  labels = scales::percent  # 50%\n)\n\n\n\nLabels con funzione custom:\nscale_y_continuous(\n  labels = function(x) paste0(\"$\", x)\n)\n\n# O con lambda function\nscale_y_continuous(\n  labels = ~ paste0(.x, \" km\")\n)\nRimuovere labels:\nscale_x_continuous(\n  labels = NULL  # mantiene breaks, rimuove testo\n)\n\n\n\n\n\n\nPackage scales\n\n\nEssenziale per formattazione:\n\ncomma(), number()\npercent(), percent_format()\ndollar(), euro()\ndate_format(), time_format()"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#section",
+    "href": "materials/08_scale_trasformazioni.html#section",
+    "title": "Scale e Trasformazioni",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#trasformazioni-logaritmiche",
+    "href": "materials/08_scale_trasformazioni.html#trasformazioni-logaritmiche",
+    "title": "Scale e Trasformazioni",
+    "section": "Trasformazioni Logaritmiche",
+    "text": "Trasformazioni Logaritmiche\n\nQuando usare scale log:\n\nDati con range molto ampio (es. 1 a 1,000,000)\nRelazioni moltiplicative\nDati economici, popolazione, intensità\n\nDue approcci - risultati DIVERSI:\n\n\nApproccio 1: Scala (PREFERITO)\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_point(alpha = 0.1) +\n  geom_smooth() +\n  scale_x_log10() +\n  scale_y_log10()\n\nTrasformazione prima di stat\ngeom_smooth() su dati log-trasformati\nBreaks in scala log (1, 10, 100, 1000)\nQuasi sempre preferibile\n\n\nApproccio 2: Coordinate\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_point(alpha = 0.1) +\n  geom_smooth() +\n  coord_trans(x = \"log10\", y = \"log10\")\n\nTrasformazione dopo rendering\ngeom_smooth() su dati originali\nBreaks lineari, poi trasformati\nRaramente necessario"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#altre-trasformazioni",
+    "href": "materials/08_scale_trasformazioni.html#altre-trasformazioni",
+    "title": "Scale e Trasformazioni",
+    "section": "Altre Trasformazioni",
+    "text": "Altre Trasformazioni\n\n\n\nRadice quadrata:\nscale_y_sqrt()\n# Utile per conteggi, aree\nInversa (reverse):\nscale_y_reverse()\n# Inverte direzione asse\n# Utile per profondità, ranking\nTrasformazioni custom:\nscale_y_continuous(\n  trans = \"log2\"  # log base 2\n)\nscale_y_continuous(\n  trans = \"exp\"   # esponenziale\n)\n\n\n\nTransformations disponibili:\n\n\"log10\", \"log2\", \"log\"\n\"sqrt\", \"exp\"\n\"reverse\"\n\"identity\" (nessuna)\n\"logit\", \"probit\" (proporzioni)\n\"reciprocal\", \"asn\", \"atanh\"\n\n\n\n\n\n\n\nPackage scales\n\n\nFornisce altre trasformazioni e permette di creare custom transformations.\n\n\n\n\n\n\n\n\n\nDati con zeri\n\n\nlog10(0) = -Inf! Con log scales, valori ≤ 0 vengono rimossi. Considera log1p (log(x + 1)) per dati con zeri."
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#section-1",
+    "href": "materials/08_scale_trasformazioni.html#section-1",
+    "title": "Scale e Trasformazioni",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#color-vs-fill",
+    "href": "materials/08_scale_trasformazioni.html#color-vs-fill",
+    "title": "Scale e Trasformazioni",
+    "section": "Color vs Fill",
+    "text": "Color vs Fill\n\n\n\nDue estetiche separate:\n\ncolor: bordi, linee, punti\nfill: riempimenti (barre, aree, poligoni)\n\nEsempio:\nggplot(mpg, aes(x = class, fill = drv)) +\n  geom_bar(color = \"black\")\n\nfill = drv: riempimento barre\ncolor = \"black\": bordo nero\n\nScale corrispondenti:\n\nscale_color_*() per color\nscale_fill_*() per fill\n\n\n\n\nGeometrie che usano:\n\n\n\nGeom\ncolor\nfill\n\n\n\n\ngeom_point()\n✓\n△\n\n\ngeom_line()\n✓\n\n\n\ngeom_bar()\n✓\n✓\n\n\ngeom_boxplot()\n✓\n✓\n\n\ngeom_polygon()\n✓\n✓\n\n\ngeom_ribbon()\n✓\n✓\n\n\n\n△ = solo con shape 21-25\n\n\n\n\n\n\nConsistenza\n\n\nUsa stessa palette per color e fill quando mappano stessa variabile:\nscale_color_brewer(palette = \"Set1\") +\nscale_fill_brewer(palette = \"Set1\")"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#scale-colore-discrete",
+    "href": "materials/08_scale_trasformazioni.html#scale-colore-discrete",
+    "title": "Scale e Trasformazioni",
+    "section": "Scale Colore Discrete",
+    "text": "Scale Colore Discrete\n\nColorBrewer (RACCOMANDATO):\nscale_color_brewer(palette = \"Set1\")  # Qualitative\nscale_color_brewer(palette = \"Blues\", direction = -1)  # Sequential\nscale_color_brewer(palette = \"RdBu\")  # Diverging\n\nPalette progettate scientificamente\nPerceptually uniform\nColorblind-safe options\ntype = \"qual\"/\"seq\"/\"div\"\n\nViridis (ACCESSIBILE):\nscale_color_viridis_d(option = \"D\")  # Default (viridis)\nscale_color_viridis_d(option = \"C\")  # plasma\nscale_color_viridis_d(option = \"E\")  # cividis (migliore per daltonici)\nManual (controllo totale):\nscale_color_manual(\n  values = c(\"red\" = \"#E41A1C\", \"blue\" = \"#377EB8\", \"green\" = \"#4DAF4A\"),\n  breaks = c(\"red\", \"blue\", \"green\"),\n  labels = c(\"Rosso\", \"Blu\", \"Verde\")\n)"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#scale-colore-continue",
+    "href": "materials/08_scale_trasformazioni.html#scale-colore-continue",
+    "title": "Scale e Trasformazioni",
+    "section": "Scale Colore Continue",
+    "text": "Scale Colore Continue\n\n\n\nGradient (2 colori):\nscale_color_gradient(\n  low = \"blue\",\n  high = \"red\"\n)\nGradient2 (diverging):\nscale_color_gradient2(\n  low = \"blue\",\n  mid = \"white\",\n  high = \"red\",\n  midpoint = 0\n)\nGradientn (n colori):\nscale_color_gradientn(\n  colors = c(\"blue\", \"cyan\", \n             \"yellow\", \"red\")\n)\n\n\n\nViridis (PREFERITO):\nscale_color_viridis_c(\n  option = \"D\",  # viridis/magma/plasma/etc\n  direction = 1  # 1 o -1\n)\nPerché Viridis:\n\nPerceptually uniform\nColorblind-friendly\nStampa bene in B&W\nNessun artificio percettivo\n\n\n\n\n\n\n\nRainbow scales\n\n\nMAI usare rainbow/jet!\n\nNon perceptually uniform\nCrea false strutture\nProblematica per daltonici\n\nUsa viridis invece."
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#section-2",
+    "href": "materials/08_scale_trasformazioni.html#section-2",
+    "title": "Scale e Trasformazioni",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#scale-size",
+    "href": "materials/08_scale_trasformazioni.html#scale-size",
+    "title": "Scale e Trasformazioni",
+    "section": "Scale Size",
+    "text": "Scale Size\n\n\n\nSize (radius scaling):\nscale_size(\n  range = c(1, 10)  # min, max size\n)\nProblema: mappa valori a radius, ma occhio percepisce area. Valori grandi sembrano troppo grandi!\nSize_area (PREFERITO):\nscale_size_area(\n  max_size = 10\n)\n\nMappa valori a area, non radius\nZero in dati → zero area\nPercezione corretta\n\n\n\n\nConfronto:\n# SBAGLIATO - radius scaling\nggplot(data, aes(size = value)) +\n  geom_point() +\n  scale_size(range = c(1, 20))\n\n# CORRETTO - area scaling  \nggplot(data, aes(size = value)) +\n  geom_point() +\n  scale_size_area(max_size = 20)\n\n\n\n\n\n\nSempre usa scale_size_area()\n\n\nPer dati quantitativi, quasi sempre preferisci scale_size_area() per mappatura corretta valori → percezione visiva."
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#scale-shape",
+    "href": "materials/08_scale_trasformazioni.html#scale-shape",
+    "title": "Scale e Trasformazioni",
+    "section": "Scale Shape",
+    "text": "Scale Shape\n\n\n\nAutomatic:\nscale_shape()\n# Usa forme di default\n# Max 6 forme distinte\nManual:\nscale_shape_manual(\n  values = c(16, 17, 15, 3, 7, 8)\n)\nShape numbers:\n\n0-20: solo bordo\n21-25: bordo + riempimento\nCaratteri: “a”, “+”, “*”\n\n\n\n\nLimiti di shape:\n\nMax 6 categorie riconoscibili\nOltre 6 → confusione\nConsidera color o facets invece\n\nShape 21-25 (filled):\nggplot(mpg, aes(x = displ, y = hwy,\n                shape = class, \n                fill = class)) +\n  geom_point(size = 3) +\n  scale_shape_manual(values = 21:25) +\n  scale_fill_brewer(palette = \"Set1\")\nPermette color + fill separati!"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#section-3",
+    "href": "materials/08_scale_trasformazioni.html#section-3",
+    "title": "Scale e Trasformazioni",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#package-scales-formattatori",
+    "href": "materials/08_scale_trasformazioni.html#package-scales-formattatori",
+    "title": "Scale e Trasformazioni",
+    "section": "Package scales: Formattatori",
+    "text": "Package scales: Formattatori\n\nNumeri:\nlibrary(scales)\n\nscale_y_continuous(labels = comma)  # 1,000,000\nscale_y_continuous(labels = number_format(big.mark = \".\", decimal.mark = \",\"))  # Europeo\nscale_y_continuous(labels = scientific)  # 1.0e+06\nPercentuali:\nscale_y_continuous(labels = percent)  # Moltiplica × 100, aggiunge %\nscale_y_continuous(labels = percent_format(accuracy = 0.1))  # 12.3%\nValuta:\nscale_y_continuous(labels = dollar)  # $1,000\nscale_y_continuous(labels = dollar_format(prefix = \"€\", suffix = \" EUR\"))\nDate e tempi:\nscale_x_date(labels = date_format(\"%b %Y\"))  # Gen 2020\nscale_x_datetime(labels = date_format(\"%d/%m/%Y %H:%M\"))\nscale_x_time(labels = time_format(\"%H:%M\"))\nPersonalizzati:\nscale_y_continuous(labels = label_number(suffix = \" km\", scale = 1/1000))  # 5 km\nscale_y_continuous(labels = label_percent(accuracy = 1, scale = 1))  # Se già percentuale"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#guide-personalizzare-legende",
+    "href": "materials/08_scale_trasformazioni.html#guide-personalizzare-legende",
+    "title": "Scale e Trasformazioni",
+    "section": "Guide: Personalizzare Legende",
+    "text": "Guide: Personalizzare Legende\n\n\n\nModificare nella scala:\nscale_color_continuous(\n  name = \"Titolo legenda\",\n  breaks = c(0, 50, 100),\n  labels = c(\"Basso\", \"Medio\", \"Alto\"),\n  guide = guide_colorbar(\n    barwidth = 10,\n    barheight = 0.5\n  )\n)\nRimuovere legenda:\nscale_color_continuous(\n  guide = \"none\"\n)\n\n\n\nGuide globali:\nguides(\n  color = guide_legend(\n    nrow = 2,\n    title.position = \"top\"\n  ),\n  size = \"none\"\n)\nTipi di guide:\n\nguide_legend(): discrete\nguide_colorbar(): continuous colors\nguide_bins(): binned colors\nguide_axis(): assi custom\n\n\n\n\n\n\n\nPosizione legenda\n\n\nControlla con theme():\ntheme(legend.position = \"bottom\")"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#best-practices",
+    "href": "materials/08_scale_trasformazioni.html#best-practices",
+    "title": "Scale e Trasformazioni",
+    "section": "Best Practices",
+    "text": "Best Practices\n\n\n\nScale:\n\nUsa defaults sensati: ggplot2 sceglie bene, modifica solo se necessario\ncoord_cartesian() per zoom: Non scale_*_continuous(limits = ...)\n**scale_*_log10() per trasformazioni**: Non coord_trans()\nBreaks significativi: Non troppi, non troppo pochi (3-7 ottimale)\nLabels chiari: Unità di misura, formattazione appropriata\n\nColore:\n\nColorBrewer o Viridis: Scientificamente progettate, accessibili\nMAI rainbow: Crea false strutture, problematico per daltonici\nDiverging per dati con midpoint: usa scale_*_gradient2()\nConsistenza: stessa palette per color e fill se mappano stessa variabile\nTesta accessibilità: considera daltonismo (8% uomini, 0.5% donne)\n\n\n\n\nDimensione:\n\nscale_size_area(): Quasi sempre migliore di scale_size()\nRange appropriato: troppo piccolo → invisibile, troppo grande → overlap\nMax 6-7 shapes: oltre → usa color o facets\n\nGenerale:\n\nScale influenzano percezione → scelte etiche\nTesta su pubblico target\nDocumentazione sempre disponibile: ?scale_color_brewer"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#section-4",
+    "href": "materials/08_scale_trasformazioni.html#section-4",
+    "title": "Scale e Trasformazioni",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/08_scale_trasformazioni.html#risorse-prossimi-passi",
+    "href": "materials/08_scale_trasformazioni.html#risorse-prossimi-passi",
+    "title": "Scale e Trasformazioni",
+    "section": "Risorse & Prossimi Passi",
+    "text": "Risorse & Prossimi Passi\n\nDocumentazione:\n\nggplot2 Scales\nggplot2 Book - Scales chapter\nColorBrewer palettes\nViridis vignette\nscales package\n\nPackages utili:\n\nscales: formattazione numeri, date, percentuali\nviridis: palette accessibili\nRColorBrewer: palette ColorBrewer\ncolorspace: manipolazione avanzata colori\n\nProssima sessione:\n\nThemes e Personalizzazione: personalizzare aspetto estetico, creare temi custom\nControllo completo su fonts, colori background, gridlines, margini\nPublication-ready plots\n\nContinua a praticare! Le scale sono fondamentali - influenzano direttamente percezione e interpretazione dei dati."
   }
 ]

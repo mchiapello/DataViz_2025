@@ -1,125 +1,867 @@
 ---
 title: "Scale e Trasformazioni"
+subtitle: "Hands-on Workshop"
+author: "Marco Chiapello"
+format: 
+  revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    chalkboard: true
+    logo: images/ggplot2_logo.jpg
+    footer: "REVELO Training - Data Viz 2025"
+    css: presentation-style.css
+    title-slide-attributes:
+      data-background-image: images/frequency-wave-7776034_1280.jpg
+      data-background-size: cover
+      data-background-opacity: "0.1"
+resources:
+  - images/
+  - presentation-style.css
 ---
 
-## Scale in ggplot2
+## Obiettivi della Sessione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-Le scale controllano come i dati vengono mappati alle proprietà visive.
+::: {style="font-size: 0.65em;"}
+**Cosa impareremo oggi:**
 
-## Scale continue
+- Comprendere il ruolo delle **scale** in ggplot2
+- Personalizzare **scale continue e discrete**
+- Gestire **palette di colori** accessibili
+- Applicare **trasformazioni** (log, sqrt, reverse)
+- Controllare **breaks, labels e limiti**
+- Formattare assi con il package `scales`
 
-### Scale degli assi
+**Approccio:**
 
-```{r}
-#| eval: false
+1. Teoria delle scale
+2. Scale posizionali (x, y)
+3. Scale estetiche (color, fill, size)
+4. Trasformazioni e formattazione
+5. Esercizi pratici
 
-# Impostare limiti
-ggplot(data, aes(x = x, y = y)) +
-  geom_point() +
-  scale_x_continuous(limits = c(0, 100))
+:::
 
-# Trasformazione logaritmica
-ggplot(data, aes(x = x, y = y)) +
-  geom_point() +
-  scale_y_log10()
+## Esercizi Pratici {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.70em;"}
+**Scarica il file esercizi:** [08_scale_trasformazioni_exercises.R](08_scale_trasformazioni_exercises.R)
+
+**30 esercizi organizzati in 6 parti:**
+
+1. **Scale Continue** (5 esercizi): limiti, breaks, labels
+2. **Trasformazioni** (5 esercizi): log, sqrt, reverse
+3. **Scale Colore Discrete** (5 esercizi): manual, brewer, viridis
+4. **Scale Colore Continue** (5 esercizi): gradient, viridis, diverging
+5. **Scale Dimensione e Forma** (5 esercizi): area, radius, shapes
+6. **Formattazione Avanzata** (5 esercizi): dates, percents, custom
+
+**Approccio suggerito:**
+
+- Lavora su ogni parte in sequenza
+- Sperimenta con parametri diversi
+- Osserva come le scale influenzano la percezione
+:::
+
+## Cosa Sono le Scale? {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.55em;"}
+**Definizione:**
+
+Le scale mappano i **dati** alle **proprietà visive** (estetiche).
+
+**Ruolo cruciale:**
+
+- Traducono valori in posizioni, colori, dimensioni
+- Controllano leggibilità e interpretazione
+- Generano guide (assi, legende)
+- Applicano trasformazioni
+
+**Ogni aesthetic ha una scala:**
+
+- `x`, `y` → posizioni
+- `color`, `fill` → colori
+- `size` → dimensioni
+- `shape` → forme
+- `alpha` → trasparenza
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.53em;"}
+**Default automatici:**
+
+ggplot2 sceglie scale sensate basandosi sul tipo di dati:
+
+- **Continuous**: numeric, date → `scale_*_continuous()`
+- **Discrete**: factor, character → `scale_*_discrete()`
+- **Binned**: numeric con intervalli → `scale_*_binned()`
+
+::: {.callout-tip}
+## Regola d'oro
+Ogni aesthetic mappato ottiene automaticamente una scala. Puoi sostituirla esplicitamente con `scale_*_*()`.
+:::
+
+::: {.callout-warning}
+## Naming convention
+`scale_<aesthetic>_<type>()` dove:
+
+- `<aesthetic>` = x, y, color, fill, size...
+- `<type>` = continuous, discrete, manual, gradient, brewer...
+:::
+
+:::
+:::
+:::
+
+# Scale Continue {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Scale Posizionali: X e Y {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Parametri principali:**
+
+```r
+scale_x_continuous(
+  name = "Titolo asse",
+  breaks = seq(0, 100, 20),
+  labels = c("0", "20", "40", "60", "80", "100"),
+  limits = c(0, 100),
+  expand = expansion(mult = c(0, 0.05))
+)
 ```
 
-### Etichette personalizzate
+**name**: titolo dell'asse  
+**breaks**: dove posizionare tick marks  
+**labels**: cosa mostrare ai tick marks  
+**limits**: range min-max  
+**expand**: padding ai bordi
+:::
+:::
 
-```{r}
-#| eval: false
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Esempio pratico:**
 
-ggplot(data, aes(x = x, y = y)) +
+```r
+ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   scale_x_continuous(
-    name = "Asse X",
-    breaks = seq(0, 100, 20),
-    labels = c("0", "20", "40", "60", "80", "100")
+    name = "Cilindrata (L)",
+    breaks = 2:7
+  ) +
+  scale_y_continuous(
+    name = "Consumo autostrada (mpg)",
+    limits = c(10, 45)
   )
 ```
 
-## Scale di colore
+::: {.callout-note}
+## Breaks automatici
+ggplot2 calcola breaks sensati. Usa `breaks = waiver()` per ripristinare default dopo modifica.
+:::
 
-### Colori continui
+:::
+:::
+:::
 
-```{r}
-#| eval: false
+## Limiti: limits vs coord_cartesian() {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-# Gradient
-ggplot(data, aes(x = x, y = y, color = value)) +
-  geom_point() +
-  scale_color_gradient(low = "blue", high = "red")
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Con scale (RIMUOVE dati):**
 
-# Viridis
-ggplot(data, aes(x = x, y = y, color = value)) +
-  geom_point() +
-  scale_color_viridis_c()
+```r
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot() +
+  scale_y_continuous(limits = c(10, 30))
+# Rimuove osservazioni > 30!
 ```
 
-### Colori discreti
+Dati fuori limite vengono **eliminati** prima del calcolo di stat. Boxplot ricalcolati su dati filtrati.
 
-```{r}
-#| eval: false
+**Problema:** statistiche errate!
+:::
+:::
 
-# Manuale
-ggplot(data, aes(x = x, y = y, color = category)) +
-  geom_point() +
-  scale_color_manual(values = c("red", "blue", "green"))
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Con coordinate (ZOOM):**
 
-# Brewer
-ggplot(data, aes(x = x, y = y, color = category)) +
-  geom_point() +
-  scale_color_brewer(palette = "Set1")
+```r
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot() +
+  coord_cartesian(ylim = c(10, 30))
+# Mantiene tutti i dati!
 ```
 
-## Scale di dimensione
+Dati fuori limite **rimangono**, solo non vengono mostrati. Statistiche corrette.
 
-```{r}
-#| eval: false
+::: {.callout-important}
+## Quando usare cosa
+- **`scale_*_continuous(limits = ...)`**: per filtrare dati
+- **`coord_cartesian(xlim/ylim = ...)`**: per zoom visivo
 
-ggplot(data, aes(x = x, y = y, size = value)) +
+Quasi sempre preferisci `coord_cartesian()`!
+:::
+
+:::
+:::
+:::
+
+## Labels Personalizzati {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Labels manuali:**
+
+```r
+ggplot(mpg, aes(x = cyl, y = hwy)) +
   geom_point() +
-  scale_size_continuous(range = c(1, 10))
+  scale_x_continuous(
+    breaks = c(4, 5, 6, 8),
+    labels = c("Quattro", "Cinque", 
+               "Sei", "Otto")
+  )
 ```
 
-## Trasformazioni
+**Funzioni di formattazione:**
 
-### Trasformazioni degli assi
+```r
+# Dal package scales
+scale_y_continuous(
+  labels = scales::comma  # 1,000
+)
+scale_y_continuous(
+  labels = scales::percent  # 50%
+)
+```
+:::
+:::
 
-```{r}
-#| eval: false
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Labels con funzione custom:**
 
-# Log10
-scale_y_log10()
+```r
+scale_y_continuous(
+  labels = function(x) paste0("$", x)
+)
 
-# Sqrt
+# O con lambda function
+scale_y_continuous(
+  labels = ~ paste0(.x, " km")
+)
+```
+
+**Rimuovere labels:**
+
+```r
+scale_x_continuous(
+  labels = NULL  # mantiene breaks, rimuove testo
+)
+```
+
+::: {.callout-tip}
+## Package scales
+Essenziale per formattazione:
+
+- `comma()`, `number()`
+- `percent()`, `percent_format()`
+- `dollar()`, `euro()`
+- `date_format()`, `time_format()`
+:::
+
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Trasformazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Trasformazioni Logaritmiche {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.65em;"}
+**Quando usare scale log:**
+
+- Dati con range molto ampio (es. 1 a 1,000,000)
+- Relazioni moltiplicative
+- Dati economici, popolazione, intensità
+
+**Due approcci - risultati DIVERSI:**
+
+::: {.columns}
+::: {.column width="50%"}
+**Approccio 1: Scala (PREFERITO)**
+
+```r
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point(alpha = 0.1) +
+  geom_smooth() +
+  scale_x_log10() +
+  scale_y_log10()
+```
+
+- Trasformazione **prima** di stat
+- `geom_smooth()` su dati log-trasformati
+- Breaks in scala log (1, 10, 100, 1000)
+- **Quasi sempre preferibile**
+:::
+
+::: {.column width="50%"}
+**Approccio 2: Coordinate**
+
+```r
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point(alpha = 0.1) +
+  geom_smooth() +
+  coord_trans(x = "log10", y = "log10")
+```
+
+- Trasformazione **dopo** rendering
+- `geom_smooth()` su dati originali
+- Breaks lineari, poi trasformati
+- **Raramente necessario**
+:::
+:::
+
+:::
+
+## Altre Trasformazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Radice quadrata:**
+
+```r
 scale_y_sqrt()
-
-# Reverse
-scale_y_reverse()
+# Utile per conteggi, aree
 ```
 
-### Formattazione
+**Inversa (reverse):**
 
-```{r}
-#| eval: false
+```r
+scale_y_reverse()
+# Inverte direzione asse
+# Utile per profondità, ranking
+```
 
+**Trasformazioni custom:**
+
+```r
+scale_y_continuous(
+  trans = "log2"  # log base 2
+)
+scale_y_continuous(
+  trans = "exp"   # esponenziale
+)
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Transformations disponibili:**
+
+- `"log10"`, `"log2"`, `"log"`
+- `"sqrt"`, `"exp"`
+- `"reverse"`
+- `"identity"` (nessuna)
+- `"logit"`, `"probit"` (proporzioni)
+- `"reciprocal"`, `"asn"`, `"atanh"`
+
+::: {.callout-note}
+## Package scales
+Fornisce altre trasformazioni e permette di creare custom transformations.
+:::
+
+::: {.callout-warning}
+## Dati con zeri
+`log10(0) = -Inf`! Con log scales, valori ≤ 0 vengono rimossi. Considera log1p (log(x + 1)) per dati con zeri.
+:::
+
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Scale Colore {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Color vs Fill {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Due estetiche separate:**
+
+- **`color`**: bordi, linee, punti
+- **`fill`**: riempimenti (barre, aree, poligoni)
+
+**Esempio:**
+
+```r
+ggplot(mpg, aes(x = class, fill = drv)) +
+  geom_bar(color = "black")
+```
+
+- `fill = drv`: riempimento barre
+- `color = "black"`: bordo nero
+
+**Scale corrispondenti:**
+
+- `scale_color_*()` per color
+- `scale_fill_*()` per fill
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.63em;"}
+**Geometrie che usano:**
+
+| Geom | color | fill |
+|------|-------|------|
+| `geom_point()` | ✓ | △ |
+| `geom_line()` | ✓ | |
+| `geom_bar()` | ✓ | ✓ |
+| `geom_boxplot()` | ✓ | ✓ |
+| `geom_polygon()` | ✓ | ✓ |
+| `geom_ribbon()` | ✓ | ✓ |
+
+△ = solo con shape 21-25
+
+::: {.callout-tip}
+## Consistenza
+Usa stessa palette per color e fill quando mappano stessa variabile:
+
+```r
+scale_color_brewer(palette = "Set1") +
+scale_fill_brewer(palette = "Set1")
+```
+:::
+
+:::
+:::
+:::
+
+## Scale Colore Discrete {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.60em;"}
+**ColorBrewer (RACCOMANDATO):**
+
+```r
+scale_color_brewer(palette = "Set1")  # Qualitative
+scale_color_brewer(palette = "Blues", direction = -1)  # Sequential
+scale_color_brewer(palette = "RdBu")  # Diverging
+```
+
+- Palette progettate scientificamente
+- Perceptually uniform
+- Colorblind-safe options
+- `type = "qual"/"seq"/"div"`
+
+**Viridis (ACCESSIBILE):**
+
+```r
+scale_color_viridis_d(option = "D")  # Default (viridis)
+scale_color_viridis_d(option = "C")  # plasma
+scale_color_viridis_d(option = "E")  # cividis (migliore per daltonici)
+```
+
+**Manual (controllo totale):**
+
+```r
+scale_color_manual(
+  values = c("red" = "#E41A1C", "blue" = "#377EB8", "green" = "#4DAF4A"),
+  breaks = c("red", "blue", "green"),
+  labels = c("Rosso", "Blu", "Verde")
+)
+```
+:::
+
+## Scale Colore Continue {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Gradient (2 colori):**
+
+```r
+scale_color_gradient(
+  low = "blue",
+  high = "red"
+)
+```
+
+**Gradient2 (diverging):**
+
+```r
+scale_color_gradient2(
+  low = "blue",
+  mid = "white",
+  high = "red",
+  midpoint = 0
+)
+```
+
+**Gradientn (n colori):**
+
+```r
+scale_color_gradientn(
+  colors = c("blue", "cyan", 
+             "yellow", "red")
+)
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.6em;"}
+**Viridis (PREFERITO):**
+
+```r
+scale_color_viridis_c(
+  option = "D",  # viridis/magma/plasma/etc
+  direction = 1  # 1 o -1
+)
+```
+
+**Perché Viridis:**
+
+- Perceptually uniform
+- Colorblind-friendly
+- Stampa bene in B&W
+- Nessun artificio percettivo
+
+::: {.callout-warning}
+## Rainbow scales
+**MAI usare rainbow/jet**!
+
+- Non perceptually uniform
+- Crea false strutture
+- Problematica per daltonici
+
+Usa viridis invece.
+:::
+
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Scale Dimensione e Forma {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Scale Size {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Size (radius scaling):**
+
+```r
+scale_size(
+  range = c(1, 10)  # min, max size
+)
+```
+
+**Problema:** mappa valori a **radius**, ma occhio percepisce **area**. Valori grandi sembrano troppo grandi!
+
+**Size_area (PREFERITO):**
+
+```r
+scale_size_area(
+  max_size = 10
+)
+```
+
+- Mappa valori a **area**, non radius
+- Zero in dati → zero area
+- Percezione corretta
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Confronto:**
+
+```r
+# SBAGLIATO - radius scaling
+ggplot(data, aes(size = value)) +
+  geom_point() +
+  scale_size(range = c(1, 20))
+
+# CORRETTO - area scaling  
+ggplot(data, aes(size = value)) +
+  geom_point() +
+  scale_size_area(max_size = 20)
+```
+
+::: {.callout-important}
+## Sempre usa scale_size_area()
+Per dati quantitativi, quasi sempre preferisci `scale_size_area()` per mappatura corretta valori → percezione visiva.
+:::
+
+:::
+:::
+:::
+
+## Scale Shape {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Automatic:**
+
+```r
+scale_shape()
+# Usa forme di default
+# Max 6 forme distinte
+```
+
+**Manual:**
+
+```r
+scale_shape_manual(
+  values = c(16, 17, 15, 3, 7, 8)
+)
+```
+
+**Shape numbers:**
+
+- 0-20: solo bordo
+- 21-25: bordo + riempimento
+- Caratteri: "a", "+", "*"
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Limiti di shape:**
+
+- Max 6 categorie riconoscibili
+- Oltre 6 → confusione
+- Considera color o facets invece
+
+**Shape 21-25 (filled):**
+
+```r
+ggplot(mpg, aes(x = displ, y = hwy,
+                shape = class, 
+                fill = class)) +
+  geom_point(size = 3) +
+  scale_shape_manual(values = 21:25) +
+  scale_fill_brewer(palette = "Set1")
+```
+
+Permette color + fill separati!
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Formattazione Avanzata {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Package scales: Formattatori {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.60em;"}
+**Numeri:**
+
+```r
 library(scales)
 
-ggplot(data, aes(x = date, y = value)) +
-  geom_line() +
-  scale_y_continuous(labels = comma) +  # Formato con virgole
-  scale_x_date(date_labels = "%b %Y")   # Formato data
+scale_y_continuous(labels = comma)  # 1,000,000
+scale_y_continuous(labels = number_format(big.mark = ".", decimal.mark = ","))  # Europeo
+scale_y_continuous(labels = scientific)  # 1.0e+06
 ```
 
-## Esercizi
+**Percentuali:**
 
-1. Crea un grafico con scala logaritmica
-2. Usa una palette di colori personalizzata
-3. Formatta gli assi con etichette personalizzate
+```r
+scale_y_continuous(labels = percent)  # Moltiplica × 100, aggiunge %
+scale_y_continuous(labels = percent_format(accuracy = 0.1))  # 12.3%
+```
 
-## Risorse
+**Valuta:**
 
-- [Scales in ggplot2](https://ggplot2-book.org/scales.html)
+```r
+scale_y_continuous(labels = dollar)  # $1,000
+scale_y_continuous(labels = dollar_format(prefix = "€", suffix = " EUR"))
+```
+
+**Date e tempi:**
+
+```r
+scale_x_date(labels = date_format("%b %Y"))  # Gen 2020
+scale_x_datetime(labels = date_format("%d/%m/%Y %H:%M"))
+scale_x_time(labels = time_format("%H:%M"))
+```
+
+**Personalizzati:**
+
+```r
+scale_y_continuous(labels = label_number(suffix = " km", scale = 1/1000))  # 5 km
+scale_y_continuous(labels = label_percent(accuracy = 1, scale = 1))  # Se già percentuale
+```
+:::
+
+## Guide: Personalizzare Legende {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.75em;"}
+**Modificare nella scala:**
+
+```r
+scale_color_continuous(
+  name = "Titolo legenda",
+  breaks = c(0, 50, 100),
+  labels = c("Basso", "Medio", "Alto"),
+  guide = guide_colorbar(
+    barwidth = 10,
+    barheight = 0.5
+  )
+)
+```
+
+**Rimuovere legenda:**
+
+```r
+scale_color_continuous(
+  guide = "none"
+)
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.64em;"}
+**Guide globali:**
+
+```r
+guides(
+  color = guide_legend(
+    nrow = 2,
+    title.position = "top"
+  ),
+  size = "none"
+)
+```
+
+**Tipi di guide:**
+
+- `guide_legend()`: discrete
+- `guide_colorbar()`: continuous colors
+- `guide_bins()`: binned colors
+- `guide_axis()`: assi custom
+
+::: {.callout-tip}
+## Posizione legenda
+Controlla con `theme()`:
+
+```r
+theme(legend.position = "bottom")
+```
+:::
+
+:::
+:::
+:::
+
+## Best Practices {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.60em;"}
+**Scale:**
+
+1. **Usa defaults sensati**: ggplot2 sceglie bene, modifica solo se necessario
+2. **coord_cartesian() per zoom**: Non `scale_*_continuous(limits = ...)`
+3. **scale_\*_log10() per trasformazioni**: Non `coord_trans()`
+4. **Breaks significativi**: Non troppi, non troppo pochi (3-7 ottimale)
+5. **Labels chiari**: Unità di misura, formattazione appropriata
+
+**Colore:**
+
+1. **ColorBrewer o Viridis**: Scientificamente progettate, accessibili
+2. **MAI rainbow**: Crea false strutture, problematico per daltonici
+3. **Diverging per dati con midpoint**: usa `scale_*_gradient2()`
+4. **Consistenza**: stessa palette per color e fill se mappano stessa variabile
+5. **Testa accessibilità**: considera daltonismo (8% uomini, 0.5% donne)
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.60em;"}
+**Dimensione:**
+
+1. **scale_size_area()**: Quasi sempre migliore di `scale_size()`
+2. **Range appropriato**: troppo piccolo → invisibile, troppo grande → overlap
+3. **Max 6-7 shapes**: oltre → usa color o facets
+
+**Generale:**
+
+- Scale influenzano percezione → scelte etiche
+- Testa su pubblico target
+- Documentazione sempre disponibile: `?scale_color_brewer`
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+## Risorse & Prossimi Passi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.46em;"}
+**Documentazione:**
+
+- [ggplot2 Scales](https://ggplot2.tidyverse.org/reference/index.html#scales)
+- [ggplot2 Book - Scales chapter](https://ggplot2-book.org/scales.html)
 - [ColorBrewer palettes](https://colorbrewer2.org/)
-- [Viridis color scales](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html)
+- [Viridis vignette](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html)
+- [scales package](https://scales.r-lib.org/)
+
+**Packages utili:**
+
+- `scales`: formattazione numeri, date, percentuali
+- `viridis`: palette accessibili
+- `RColorBrewer`: palette ColorBrewer
+- `colorspace`: manipolazione avanzata colori
+
+**Prossima sessione:**
+
+- **Themes e Personalizzazione**: personalizzare aspetto estetico, creare temi custom
+- Controllo completo su fonts, colori background, gridlines, margini
+- Publication-ready plots
+
+**Continua a praticare!** Le scale sono fondamentali - influenzano direttamente percezione e interpretazione dei dati.
+:::
