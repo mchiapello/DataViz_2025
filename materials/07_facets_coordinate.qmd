@@ -1,96 +1,795 @@
 ---
-title: "Facets e Coordinate"
+title: "Facets e Sistemi di Coordinate"
+subtitle: "Hands-on Workshop"
+author: "Marco Chiapello"
+format: 
+  revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    chalkboard: true
+    logo: images/ggplot2_logo.jpg
+    footer: "REVELO Training - Data Viz 2025"
+    css: presentation-style.css
+    title-slide-attributes:
+      data-background-image: images/frequency-wave-7776034_1280.jpg
+      data-background-size: cover
+      data-background-opacity: "0.1"
+resources:
+  - images/
+  - presentation-style.css
 ---
 
-## Facets (Sottografici)
+## Obiettivi della Sessione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-I facets permettono di dividere un grafico in più pannelli basati su variabili categoriali.
+::: {style="font-size: 0.80em;"}
+**Cosa impareremo oggi:**
 
-## Facet wrap
+- Creare **small multiples** con faceting
+- Distinguere `facet_wrap()` vs `facet_grid()`
+- Gestire **scale libere** vs **scale fisse**
+- Esplorare i **sistemi di coordinate**
+- Applicare trasformazioni con coordinate
 
-Crea una griglia di grafici basata su una variabile:
+**Approccio:**
 
-```{r}
-#| eval: false
+1. Teoria del faceting
+2. Facet wrap e facet grid
+3. Sistemi di coordinate
+4. Esercizi pratici
 
-ggplot(data, aes(x = x, y = y)) +
+:::
+
+## Esercizi Pratici {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.70em;"}
+**Scarica il file esercizi:** [07_facets_coordinate_exercises.R](07_facets_coordinate_exercises.R)
+
+**30 esercizi organizzati in 6 parti:**
+
+1. **Facet Wrap Basics** (5 esercizi): faceting con una variabile
+2. **Facet Grid** (5 esercizi): griglie con due variabili
+3. **Scale Control** (5 esercizi): scale libere vs fisse
+4. **Coordinate Systems** (5 esercizi): flip, fixed, polar
+5. **Coord Transformations** (5 esercizi): log, sqrt, limits
+6. **Combinazioni Avanzate** (5 esercizi): facets + coordinates
+
+**Approccio suggerito:**
+
+- Lavora su ogni parte in sequenza
+- Sperimenta con diversi layout
+- Osserva come scale e coordinate interagiscono
+:::
+
+## Cos'è il Faceting? {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+**Definizione:**
+
+Il faceting crea **small multiples**: grafici multipli che mostrano subset dei dati.
+
+**Vantaggi:**
+
+- Confronti tra gruppi
+- Evita overplotting con color
+- Pattern più chiari
+- Scale condivise o indipendenti
+
+**Quando usare:**
+
+- Molti gruppi (> 6-7)
+- Patterns per categoria
+- Time series multipli
+- Evitare troppe estetiche
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Due funzioni principali:**
+
+1. **`facet_wrap()`**: una variabile
+   - Layout automatico
+   - Numero colonne controllabile
+   
+2. **`facet_grid()`**: due variabili
+   - Griglia righe × colonne
+   - Layout fisso
+
+::: {.callout-tip}
+## Regola d'oro
+Facets vs Aesthetics:
+
+- **< 6 gruppi**: usa `color`/`fill`
+- **> 6 gruppi**: usa facets
+- **Comparazioni precise**: usa facets
+:::
+
+:::
+:::
+:::
+
+# Facet Wrap {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Facet Wrap: Sintassi Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Formula notation:**
+
+```r
+# Sintassi base
+ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
-  facet_wrap(~ category)
+  facet_wrap(~ class)
+
+# Variabili multiple (NOT typical)
+facet_wrap(~ var1 + var2)
 ```
 
-## Facet grid
+**Parametri chiave:**
 
-Crea una griglia basata su due variabili:
+```r
+facet_wrap(
+  ~ class,
+  ncol = 3,      # numero colonne
+  nrow = 2,      # numero righe
+  scales = "fixed"  # o "free", "free_x", "free_y"
+)
+```
+:::
+:::
 
-```{r}
-#| eval: false
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Caratteristiche:**
 
-ggplot(data, aes(x = x, y = y)) +
+- Layout **automatico** (ribbon-like)
+- Ottimizza spazio disponibile
+- Tutti i pannelli stesso geom/aesthetic
+- Default: scale condivise
+
+::: {.callout-note}
+## Formula notation
+`~ variable` indica "facet by variable"
+
+Il `~` separa "nulla" (lato sinistro) da variabile di faceting (lato destro)
+:::
+
+::: {.callout-warning}
+## ncol vs nrow
+Specifica **uno** dei due, non entrambi! 
+Se specifichi entrambi, `ncol` ha precedenza.
+:::
+
+:::
+:::
+:::
+
+## Facet Wrap: Controllo Layout {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Numero colonne:**
+
+```r
+# 2 colonne
+ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
-  facet_grid(rows = vars(var1), cols = vars(var2))
+  facet_wrap(~ class, ncol = 2)
+
+# 4 colonne
+facet_wrap(~ class, ncol = 4)
 ```
 
-## Personalizzare i facets
+**Direzione fill:**
 
-```{r}
-#| eval: false
+```r
+# Riempie per righe (default)
+facet_wrap(~ class, dir = "h")
 
-# Scale libere
-facet_wrap(~ category, scales = "free")
+# Riempie per colonne
+facet_wrap(~ class, dir = "v")
+```
+:::
+:::
 
-# Numero di colonne
-facet_wrap(~ category, ncol = 3)
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Strip positioning:**
+
+```r
+# Labels in alto (default)
+facet_wrap(~ class, 
+           strip.position = "top")
+
+# Labels a destra
+facet_wrap(~ class, 
+           strip.position = "right")
 ```
 
-## Sistemi di coordinate
+::: {.callout-tip}
+## Scelta ncol
+Considera:
 
-### Cartesiano (default)
+- **Aspect ratio** dei dati
+- **Spazio disponibile** (slide vs paper)
+- **Leggibilità** axis labels
+- Default spesso ottimale!
+:::
 
-Il sistema standard x-y.
+:::
+:::
+:::
 
-### Flip coordinates
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-Scambia gli assi x e y:
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
 
-```{r}
-#| eval: false
+# Facet Grid {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-ggplot(data, aes(x = category, y = value)) +
-  geom_col() +
+## Facet Grid: Griglie 2D {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Sintassi:**
+
+```r
+# Formula notation
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_grid(drv ~ cyl)
+
+# vars() notation (preferred)
+facet_grid(
+  rows = vars(drv),
+  cols = vars(cyl)
+)
+
+# Solo righe o colonne
+facet_grid(rows = vars(drv))
+facet_grid(cols = vars(cyl))
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Quando usare:**
+
+- **Due variabili categoriche** importanti
+- Confronti **riga × colonna**
+- Layout **fisso** desiderato
+- Poche combinazioni (< 20 pannelli)
+
+**wrap vs grid:**
+
+| Feature | wrap | grid |
+|---------|------|------|
+| Variabili | 1 (tipico) | 2 |
+| Layout | Automatico | Fisso |
+| Flessibilità | Alta | Bassa |
+| Confronti | Generali | Precisi |
+
+:::
+:::
+:::
+
+## Facet Grid: Margini e Totali {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Marginal plots:**
+
+```r
+# Aggiungi pannelli "margine"
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_grid(
+    drv ~ cyl,
+    margins = TRUE
+  )
+```
+
+Crea pannelli extra con **tutti i dati** per:
+- Ogni riga (aggregato colonne)
+- Ogni colonna (aggregato righe)
+- Angolo (tutti i dati)
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Margini selettivi:**
+
+```r
+# Solo margini righe
+facet_grid(drv ~ cyl, 
+           margins = "drv")
+
+# Solo margini colonne
+facet_grid(drv ~ cyl, 
+           margins = "cyl")
+```
+
+::: {.callout-warning}
+## Margins = many panels!
+Con 3 drv × 4 cyl:
+
+- Base: 12 pannelli
+- `margins = TRUE`: 20 pannelli
+- Scala rapidamente!
+:::
+
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Scale Control {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Scale Fisse vs Libere {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Scale fisse (default):**
+
+```r
+facet_wrap(~ class, scales = "fixed")
+```
+
+- **Stesso range** per tutti i pannelli
+- **Confronti diretti** facilitati
+- Alcuni pannelli possono essere "vuoti"
+
+**Scale libere:**
+
+```r
+# Entrambi assi liberi
+facet_wrap(~ class, scales = "free")
+
+# Solo X libero
+facet_wrap(~ class, scales = "free_x")
+
+# Solo Y libero
+facet_wrap(~ class, scales = "free_y")
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Quando usare scale libere:**
+
+✅ Range molto diversi tra gruppi  
+✅ Focus su **pattern** non su **valori assoluti**  
+✅ Ogni pannello self-contained
+
+**Quando NON usare:**
+
+❌ Confronti quantitativi precisi  
+❌ Comparare magnitudini  
+❌ Pattern attraverso pannelli
+
+::: {.callout-important}
+## Attenzione!
+Scale libere possono **ingannare**:
+
+Pattern simili possono rappresentare magnitudini molto diverse!
+:::
+
+:::
+:::
+:::
+
+## Space e Labelling {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Space control (solo grid):**
+
+```r
+facet_grid(
+  drv ~ cyl,
+  scales = "free",
+  space = "free"  # pannelli proporzionali a range
+)
+```
+
+- `space = "fixed"`: pannelli stessa dimensione
+- `space = "free"`: dimensione ∝ range dati
+- Solo con `scales = "free"`
+
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Labeller customization:**
+
+```r
+# Nomi variabili + valori
+facet_wrap(~ class, 
+           labeller = label_both)
+
+# Custom labels
+class_names <- c(
+  "compact" = "Compatte",
+  "suv" = "SUV"
+)
+facet_wrap(~ class,
+           labeller = labeller(
+             class = class_names
+           ))
+```
+
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Sistemi di Coordinate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Coordinate Cartesiane {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**coord_cartesian() - default:**
+
+```r
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  coord_cartesian()
+```
+
+**Zooming (preferito):**
+
+```r
+# Zoom senza rimuovere dati
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  coord_cartesian(
+    xlim = c(3, 5),
+    ylim = c(20, 35)
+  )
+```
+
+Dati fuori range **non eliminati**, solo non mostrati.
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**coord_cartesian vs xlim():**
+
+```r
+# xlim() rimuove dati!
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth() +
+  xlim(3, 5)  # smooth ricalcolato!
+
+# coord_cartesian() zoom only
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth() +
+  coord_cartesian(xlim = c(3, 5))
+  # smooth su tutti i dati
+```
+
+::: {.callout-tip}
+## Regola
+Usa `coord_cartesian()` per zoom,  
+`xlim()`/`ylim()` solo se vuoi rimuovere dati
+:::
+
+:::
+:::
+:::
+
+## coord_flip(): Scambiare Assi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Flip X e Y:**
+
+```r
+# Verticale (default)
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot()
+
+# Orizzontale
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot() +
   coord_flip()
 ```
 
-### Coordinate polari
+**Quando usare:**
 
-Per grafici circolari:
+- Labels lunghi (leggibilità)
+- Molte categorie
+- Convenzioni (es. forest plots)
+- Estetica
+:::
+:::
 
-```{r}
-#| eval: false
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Alternativa moderna:**
 
-ggplot(data, aes(x = "", y = value, fill = category)) +
-  geom_col() +
-  coord_polar("y")
+```r
+# ggplot2 >= 3.3.0
+# Scambia direttamente x e y
+ggplot(mpg, aes(x = hwy, y = class)) +
+  geom_boxplot()
 ```
 
-### Coordinate fisse
+Più intuitivo, stesso risultato!
 
-Mantiene proporzioni 1:1:
+::: {.callout-note}
+## coord_flip() legacy
+Ancora utile per compatibilità con vecchio codice, ma approccio moderno è scambiare aesthetic mapping.
+:::
 
-```{r}
-#| eval: false
+:::
+:::
+:::
 
+## coord_fixed(): Aspect Ratio {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Ratio fisso:**
+
+```r
+# 1:1 (default)
 ggplot(data, aes(x = x, y = y)) +
   geom_point() +
   coord_fixed()
+
+# 1:2 (1 unità x = 2 unità y)
+coord_fixed(ratio = 1/2)
+
+# 2:1
+coord_fixed(ratio = 2)
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Quando usare:**
+
+✅ **Mappe** (distanze reali)  
+✅ **Scatter plots** dove scale devono essere comparabili  
+✅ **Dati geometrici** (coordinate spaziali)
+
+**Esempio - distanze:**
+
+```r
+# Distanze euclidee corrette (dataset quakes)
+ggplot(quakes, aes(x = long, y = lat)) +
+  geom_point() +
+  coord_fixed(ratio = 1)
+  # mantiene proporzioni corrette lat/lon
 ```
 
-## Esercizi
+:::
+:::
+:::
 
-1. Crea facets basati su una variabile categoriale
-2. Usa facet_grid con due variabili
-3. Crea un bar plot orizzontale con coord_flip()
+## coord_polar(): Coordinate Polari {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-## Risorse
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Trasforma in polare:**
 
-- [Faceting in ggplot2](https://ggplot2-book.org/facet.html)
-- [Coordinate systems](https://ggplot2-book.org/coord.html)
+```r
+# Pie chart
+ggplot(data, aes(x = "", y = value, 
+                 fill = category)) +
+  geom_col() +
+  coord_polar(theta = "y")
+
+# Bullseye/radar chart
+ggplot(data, aes(x = category, y = value)) +
+  geom_col() +
+  coord_polar(theta = "x")
+```
+
+**Parametri:**
+
+- `theta`: quale asse diventa angolo
+- `start`: angolo iniziale (radianti)
+- `direction`: 1 (antiorario) o -1 (orario)
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Applicazioni:**
+
+- Pie charts (controversi!)
+- Radar/spider charts
+- Wind roses
+- Circular patterns
+
+::: {.callout-warning}
+## Pie charts
+Generalmente **sconsigliati**:
+
+- Difficile confrontare angoli
+- Bar chart spesso migliore
+- Usa solo per proportions ovvie (50%, 25%, etc.)
+
+Se proprio necessario, max 5-6 categorie.
+:::
+
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Trasformazioni Coordinate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Trasformazioni Logaritmiche {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Due approcci:**
+
+```r
+# Approccio 1: scale
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_y_log10()
+
+# Approccio 2: coordinate
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point() +
+  coord_trans(x = "log10", y = "log10")
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.675em;"}
+**Differenze:**
+
+| Aspetto | scale_*_log10() | coord_trans() |
+|---------|-----------------|---------------|
+| Trasformazione | Prima di stat | Dopo rendering |
+| Smooth lines | Su dati trasf. | Su dati originali |
+| Axis labels | Log scale | Log scale |
+| Quando | Quasi sempre | Raramente |
+
+::: {.callout-tip}
+## Preferisci scale_*_log10()
+Trasforma prima del calcolo → risultati corretti per smooth, stat, etc.
+:::
+
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Combinazioni Avanzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Facets + Coordinates {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+**Si possono combinare:**
+
+```r
+# Facets + coord_flip
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot() +
+  facet_wrap(~ year) +
+  coord_flip()
+
+# Facets + coord_fixed
+ggplot(quakes, aes(x = long, y = lat, color = depth)) +
+  geom_point() +
+  facet_wrap(~ cut(mag, breaks = 3)) +
+  coord_fixed(ratio = 1)
+
+# Facets + zoom
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point(alpha = 0.1) +
+  facet_wrap(~ cut) +
+  coord_cartesian(xlim = c(0, 3), ylim = c(0, 15000))
+```
+
+**Principio:** Facets organizzano dati, coordinates trasformano visualizzazione.
+:::
+
+## Best Practices {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.54em;"}
+**Faceting:**
+
+1. **Numero pannelli**: < 20 ideale, > 30 problematico
+2. **Ordine**: Usa `reorder()` o `factor()` per ordinamento significativo
+3. **Labels**: Nomi chiari e concisi (usa `labeller`)
+4. **Scale fisse quando possibile**: Facilitano confronti
+5. **Strip text**: Dimensione adeguata (`theme(strip.text = element_text(size = ...))`)
+
+**Coordinate:**
+
+1. **coord_cartesian() per zoom**: Non rimuove dati
+2. **coord_fixed() per mappe**: Aspect ratio corretto
+3. **Evita coord_polar()**: Quasi sempre alternativa migliore
+4. **Trasformazioni via scale**: Non via coord_trans()
+
+**Combinazioni:**
+
+- Facets per categorie, color per subcategorie (max 2-3 livelli)
+- Free scales solo se assolutamente necessario
+- Coordinate transformations applicano a tutti i pannelli
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+## Risorse & Prossimi Passi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.58em;"}
+**Documentazione:**
+
+- [ggplot2 Faceting](https://ggplot2.tidyverse.org/reference/index.html#facetting)
+- [ggplot2 Coordinate systems](https://ggplot2.tidyverse.org/reference/index.html#coordinate-systems)
+- [ggplot2 Book - Facets chapter](https://ggplot2-book.org/facet.html)
+- [ggplot2 Book - Coordinate chapter](https://ggplot2-book.org/coord.html)
+
+**Packages complementari:**
+
+- `ggforce`: facets avanzati (es. `facet_zoom()`)
+- `ggh4x`: faceting nested e altre estensioni
+
+**Prossima sessione:**
+
+- **Scale e Trasformazioni**: personalizzare scale (color, size, x, y), palette, limiti e breaks
+- Controllo completo su come dati vengono mappati a proprietà visive
+- Color palettes avanzate e accessibilità
+
+**Continua a praticare!** Facets e coordinates sono fondamentali per organizzare visualizzazioni complesse.
+:::

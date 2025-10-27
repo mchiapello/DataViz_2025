@@ -2140,5 +2140,166 @@
     "title": "Recap Giorno 1",
     "section": "Risorse Utili",
     "text": "Risorse Utili\n\nDocumentazione:\n\nggplot2 Reference\nggplot2 Book (3rd ed)\nR Graph Gallery\n\nCheat sheets:\n\nggplot2 cheat sheet\n\nDataset per pratica:\n\nmpg, diamonds, economics (già usati)\nmtcars, iris, faithful (altri built-in)\nI tuoi dati! Prova a replicare questi concetti\n\n\n\n\n\n\n\nRicorda\n\n\nLa pratica è fondamentale! Continua a sperimentare con gli esercizi."
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#obiettivi-della-sessione",
+    "href": "materials/07_facets_coordinate.html#obiettivi-della-sessione",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "Obiettivi della Sessione",
+    "text": "Obiettivi della Sessione\n\nCosa impareremo oggi:\n\nCreare small multiples con faceting\nDistinguere facet_wrap() vs facet_grid()\nGestire scale libere vs scale fisse\nEsplorare i sistemi di coordinate\nApplicare trasformazioni con coordinate\n\nApproccio:\n\nTeoria del faceting\nFacet wrap e facet grid\nSistemi di coordinate\nEsercizi pratici"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#esercizi-pratici",
+    "href": "materials/07_facets_coordinate.html#esercizi-pratici",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "Esercizi Pratici",
+    "text": "Esercizi Pratici\n\nScarica il file esercizi: 07_facets_coordinate_exercises.R\n30 esercizi organizzati in 6 parti:\n\nFacet Wrap Basics (5 esercizi): faceting con una variabile\nFacet Grid (5 esercizi): griglie con due variabili\nScale Control (5 esercizi): scale libere vs fisse\nCoordinate Systems (5 esercizi): flip, fixed, polar\nCoord Transformations (5 esercizi): log, sqrt, limits\nCombinazioni Avanzate (5 esercizi): facets + coordinates\n\nApproccio suggerito:\n\nLavora su ogni parte in sequenza\nSperimenta con diversi layout\nOsserva come scale e coordinate interagiscono"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#cosè-il-faceting",
+    "href": "materials/07_facets_coordinate.html#cosè-il-faceting",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "Cos’è il Faceting?",
+    "text": "Cos’è il Faceting?\n\n\n\nDefinizione:\nIl faceting crea small multiples: grafici multipli che mostrano subset dei dati.\nVantaggi:\n\nConfronti tra gruppi\nEvita overplotting con color\nPattern più chiari\nScale condivise o indipendenti\n\nQuando usare:\n\nMolti gruppi (&gt; 6-7)\nPatterns per categoria\nTime series multipli\nEvitare troppe estetiche\n\n\n\n\nDue funzioni principali:\n\nfacet_wrap(): una variabile\n\nLayout automatico\nNumero colonne controllabile\n\nfacet_grid(): due variabili\n\nGriglia righe × colonne\nLayout fisso\n\n\n\n\n\n\n\n\nRegola d’oro\n\n\nFacets vs Aesthetics:\n\n&lt; 6 gruppi: usa color/fill\n&gt; 6 gruppi: usa facets\nComparazioni precise: usa facets"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#facet-wrap-sintassi-base",
+    "href": "materials/07_facets_coordinate.html#facet-wrap-sintassi-base",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "Facet Wrap: Sintassi Base",
+    "text": "Facet Wrap: Sintassi Base\n\n\n\nFormula notation:\n# Sintassi base\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  facet_wrap(~ class)\n\n# Variabili multiple (NOT typical)\nfacet_wrap(~ var1 + var2)\nParametri chiave:\nfacet_wrap(\n  ~ class,\n  ncol = 3,      # numero colonne\n  nrow = 2,      # numero righe\n  scales = \"fixed\"  # o \"free\", \"free_x\", \"free_y\"\n)\n\n\n\nCaratteristiche:\n\nLayout automatico (ribbon-like)\nOttimizza spazio disponibile\nTutti i pannelli stesso geom/aesthetic\nDefault: scale condivise\n\n\n\n\n\n\n\nFormula notation\n\n\n~ variable indica “facet by variable”\nIl ~ separa “nulla” (lato sinistro) da variabile di faceting (lato destro)\n\n\n\n\n\n\n\n\n\nncol vs nrow\n\n\nSpecifica uno dei due, non entrambi! Se specifichi entrambi, ncol ha precedenza."
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#facet-wrap-controllo-layout",
+    "href": "materials/07_facets_coordinate.html#facet-wrap-controllo-layout",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "Facet Wrap: Controllo Layout",
+    "text": "Facet Wrap: Controllo Layout\n\n\n\nNumero colonne:\n# 2 colonne\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  facet_wrap(~ class, ncol = 2)\n\n# 4 colonne\nfacet_wrap(~ class, ncol = 4)\nDirezione fill:\n# Riempie per righe (default)\nfacet_wrap(~ class, dir = \"h\")\n\n# Riempie per colonne\nfacet_wrap(~ class, dir = \"v\")\n\n\n\nStrip positioning:\n# Labels in alto (default)\nfacet_wrap(~ class, \n           strip.position = \"top\")\n\n# Labels a destra\nfacet_wrap(~ class, \n           strip.position = \"right\")\n\n\n\n\n\n\nScelta ncol\n\n\nConsidera:\n\nAspect ratio dei dati\nSpazio disponibile (slide vs paper)\nLeggibilità axis labels\nDefault spesso ottimale!"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#section",
+    "href": "materials/07_facets_coordinate.html#section",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#facet-grid-griglie-2d",
+    "href": "materials/07_facets_coordinate.html#facet-grid-griglie-2d",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "Facet Grid: Griglie 2D",
+    "text": "Facet Grid: Griglie 2D\n\n\n\nSintassi:\n# Formula notation\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  facet_grid(drv ~ cyl)\n\n# vars() notation (preferred)\nfacet_grid(\n  rows = vars(drv),\n  cols = vars(cyl)\n)\n\n# Solo righe o colonne\nfacet_grid(rows = vars(drv))\nfacet_grid(cols = vars(cyl))\n\n\n\nQuando usare:\n\nDue variabili categoriche importanti\nConfronti riga × colonna\nLayout fisso desiderato\nPoche combinazioni (&lt; 20 pannelli)\n\nwrap vs grid:\n\n\n\nFeature\nwrap\ngrid\n\n\n\n\nVariabili\n1 (tipico)\n2\n\n\nLayout\nAutomatico\nFisso\n\n\nFlessibilità\nAlta\nBassa\n\n\nConfronti\nGenerali\nPrecisi"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#facet-grid-margini-e-totali",
+    "href": "materials/07_facets_coordinate.html#facet-grid-margini-e-totali",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "Facet Grid: Margini e Totali",
+    "text": "Facet Grid: Margini e Totali\n\n\n\nMarginal plots:\n# Aggiungi pannelli \"margine\"\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  facet_grid(\n    drv ~ cyl,\n    margins = TRUE\n  )\nCrea pannelli extra con tutti i dati per: - Ogni riga (aggregato colonne) - Ogni colonna (aggregato righe) - Angolo (tutti i dati)\n\n\n\nMargini selettivi:\n# Solo margini righe\nfacet_grid(drv ~ cyl, \n           margins = \"drv\")\n\n# Solo margini colonne\nfacet_grid(drv ~ cyl, \n           margins = \"cyl\")\n\n\n\n\n\n\nMargins = many panels!\n\n\nCon 3 drv × 4 cyl:\n\nBase: 12 pannelli\nmargins = TRUE: 20 pannelli\nScala rapidamente!"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#section-1",
+    "href": "materials/07_facets_coordinate.html#section-1",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#scale-fisse-vs-libere",
+    "href": "materials/07_facets_coordinate.html#scale-fisse-vs-libere",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "Scale Fisse vs Libere",
+    "text": "Scale Fisse vs Libere\n\n\n\nScale fisse (default):\nfacet_wrap(~ class, scales = \"fixed\")\n\nStesso range per tutti i pannelli\nConfronti diretti facilitati\nAlcuni pannelli possono essere “vuoti”\n\nScale libere:\n# Entrambi assi liberi\nfacet_wrap(~ class, scales = \"free\")\n\n# Solo X libero\nfacet_wrap(~ class, scales = \"free_x\")\n\n# Solo Y libero\nfacet_wrap(~ class, scales = \"free_y\")\n\n\n\nQuando usare scale libere:\n✅ Range molto diversi tra gruppi\n✅ Focus su pattern non su valori assoluti\n✅ Ogni pannello self-contained\nQuando NON usare:\n❌ Confronti quantitativi precisi\n❌ Comparare magnitudini\n❌ Pattern attraverso pannelli\n\n\n\n\n\n\nAttenzione!\n\n\nScale libere possono ingannare:\nPattern simili possono rappresentare magnitudini molto diverse!"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#space-e-labelling",
+    "href": "materials/07_facets_coordinate.html#space-e-labelling",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "Space e Labelling",
+    "text": "Space e Labelling\n\n\n\nSpace control (solo grid):\nfacet_grid(\n  drv ~ cyl,\n  scales = \"free\",\n  space = \"free\"  # pannelli proporzionali a range\n)\n\nspace = \"fixed\": pannelli stessa dimensione\nspace = \"free\": dimensione ∝ range dati\nSolo con scales = \"free\"\n\n\n\n\nLabeller customization:\n# Nomi variabili + valori\nfacet_wrap(~ class, \n           labeller = label_both)\n\n# Custom labels\nclass_names &lt;- c(\n  \"compact\" = \"Compatte\",\n  \"suv\" = \"SUV\"\n)\nfacet_wrap(~ class,\n           labeller = labeller(\n             class = class_names\n           ))"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#section-2",
+    "href": "materials/07_facets_coordinate.html#section-2",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#coordinate-cartesiane",
+    "href": "materials/07_facets_coordinate.html#coordinate-cartesiane",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "Coordinate Cartesiane",
+    "text": "Coordinate Cartesiane\n\n\n\ncoord_cartesian() - default:\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  coord_cartesian()\nZooming (preferito):\n# Zoom senza rimuovere dati\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  coord_cartesian(\n    xlim = c(3, 5),\n    ylim = c(20, 35)\n  )\nDati fuori range non eliminati, solo non mostrati.\n\n\n\ncoord_cartesian vs xlim():\n# xlim() rimuove dati!\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  geom_smooth() +\n  xlim(3, 5)  # smooth ricalcolato!\n\n# coord_cartesian() zoom only\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  geom_smooth() +\n  coord_cartesian(xlim = c(3, 5))\n  # smooth su tutti i dati\n\n\n\n\n\n\nRegola\n\n\nUsa coord_cartesian() per zoom,\nxlim()/ylim() solo se vuoi rimuovere dati"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#coord_flip-scambiare-assi",
+    "href": "materials/07_facets_coordinate.html#coord_flip-scambiare-assi",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "coord_flip(): Scambiare Assi",
+    "text": "coord_flip(): Scambiare Assi\n\n\n\nFlip X e Y:\n# Verticale (default)\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_boxplot()\n\n# Orizzontale\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_boxplot() +\n  coord_flip()\nQuando usare:\n\nLabels lunghi (leggibilità)\nMolte categorie\nConvenzioni (es. forest plots)\nEstetica\n\n\n\n\nAlternativa moderna:\n# ggplot2 &gt;= 3.3.0\n# Scambia direttamente x e y\nggplot(mpg, aes(x = hwy, y = class)) +\n  geom_boxplot()\nPiù intuitivo, stesso risultato!\n\n\n\n\n\n\ncoord_flip() legacy\n\n\nAncora utile per compatibilità con vecchio codice, ma approccio moderno è scambiare aesthetic mapping."
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#coord_fixed-aspect-ratio",
+    "href": "materials/07_facets_coordinate.html#coord_fixed-aspect-ratio",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "coord_fixed(): Aspect Ratio",
+    "text": "coord_fixed(): Aspect Ratio\n\n\n\nRatio fisso:\n# 1:1 (default)\nggplot(data, aes(x = x, y = y)) +\n  geom_point() +\n  coord_fixed()\n\n# 1:2 (1 unità x = 2 unità y)\ncoord_fixed(ratio = 1/2)\n\n# 2:1\ncoord_fixed(ratio = 2)\n\n\n\nQuando usare:\n✅ Mappe (distanze reali)\n✅ Scatter plots dove scale devono essere comparabili\n✅ Dati geometrici (coordinate spaziali)\nEsempio - distanze:\n# Distanze euclidee corrette (dataset quakes)\nggplot(quakes, aes(x = long, y = lat)) +\n  geom_point() +\n  coord_fixed(ratio = 1)\n  # mantiene proporzioni corrette lat/lon"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#coord_polar-coordinate-polari",
+    "href": "materials/07_facets_coordinate.html#coord_polar-coordinate-polari",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "coord_polar(): Coordinate Polari",
+    "text": "coord_polar(): Coordinate Polari\n\n\n\nTrasforma in polare:\n# Pie chart\nggplot(data, aes(x = \"\", y = value, \n                 fill = category)) +\n  geom_col() +\n  coord_polar(theta = \"y\")\n\n# Bullseye/radar chart\nggplot(data, aes(x = category, y = value)) +\n  geom_col() +\n  coord_polar(theta = \"x\")\nParametri:\n\ntheta: quale asse diventa angolo\nstart: angolo iniziale (radianti)\ndirection: 1 (antiorario) o -1 (orario)\n\n\n\n\nApplicazioni:\n\nPie charts (controversi!)\nRadar/spider charts\nWind roses\nCircular patterns\n\n\n\n\n\n\n\nPie charts\n\n\nGeneralmente sconsigliati:\n\nDifficile confrontare angoli\nBar chart spesso migliore\nUsa solo per proportions ovvie (50%, 25%, etc.)\n\nSe proprio necessario, max 5-6 categorie."
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#section-3",
+    "href": "materials/07_facets_coordinate.html#section-3",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#trasformazioni-logaritmiche",
+    "href": "materials/07_facets_coordinate.html#trasformazioni-logaritmiche",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "Trasformazioni Logaritmiche",
+    "text": "Trasformazioni Logaritmiche\n\n\n\nDue approcci:\n# Approccio 1: scale\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_point() +\n  scale_x_log10() +\n  scale_y_log10()\n\n# Approccio 2: coordinate\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_point() +\n  coord_trans(x = \"log10\", y = \"log10\")\n\n\n\nDifferenze:\n\n\n\nAspetto\nscale_*_log10()\ncoord_trans()\n\n\n\n\nTrasformazione\nPrima di stat\nDopo rendering\n\n\nSmooth lines\nSu dati trasf.\nSu dati originali\n\n\nAxis labels\nLog scale\nLog scale\n\n\nQuando\nQuasi sempre\nRaramente\n\n\n\n\n\n\n\n\n\nPreferisci scale_*_log10()\n\n\nTrasforma prima del calcolo → risultati corretti per smooth, stat, etc."
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#section-4",
+    "href": "materials/07_facets_coordinate.html#section-4",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#facets-coordinates",
+    "href": "materials/07_facets_coordinate.html#facets-coordinates",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "Facets + Coordinates",
+    "text": "Facets + Coordinates\n\nSi possono combinare:\n# Facets + coord_flip\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_boxplot() +\n  facet_wrap(~ year) +\n  coord_flip()\n\n# Facets + coord_fixed\nggplot(quakes, aes(x = long, y = lat, color = depth)) +\n  geom_point() +\n  facet_wrap(~ cut(mag, breaks = 3)) +\n  coord_fixed(ratio = 1)\n\n# Facets + zoom\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_point(alpha = 0.1) +\n  facet_wrap(~ cut) +\n  coord_cartesian(xlim = c(0, 3), ylim = c(0, 15000))\nPrincipio: Facets organizzano dati, coordinates trasformano visualizzazione."
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#best-practices",
+    "href": "materials/07_facets_coordinate.html#best-practices",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "Best Practices",
+    "text": "Best Practices\n\nFaceting:\n\nNumero pannelli: &lt; 20 ideale, &gt; 30 problematico\nOrdine: Usa reorder() o factor() per ordinamento significativo\nLabels: Nomi chiari e concisi (usa labeller)\nScale fisse quando possibile: Facilitano confronti\nStrip text: Dimensione adeguata (theme(strip.text = element_text(size = ...)))\n\nCoordinate:\n\ncoord_cartesian() per zoom: Non rimuove dati\ncoord_fixed() per mappe: Aspect ratio corretto\nEvita coord_polar(): Quasi sempre alternativa migliore\nTrasformazioni via scale: Non via coord_trans()\n\nCombinazioni:\n\nFacets per categorie, color per subcategorie (max 2-3 livelli)\nFree scales solo se assolutamente necessario\nCoordinate transformations applicano a tutti i pannelli"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#section-5",
+    "href": "materials/07_facets_coordinate.html#section-5",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/07_facets_coordinate.html#risorse-prossimi-passi",
+    "href": "materials/07_facets_coordinate.html#risorse-prossimi-passi",
+    "title": "Facets e Sistemi di Coordinate",
+    "section": "Risorse & Prossimi Passi",
+    "text": "Risorse & Prossimi Passi\n\nDocumentazione:\n\nggplot2 Faceting\nggplot2 Coordinate systems\nggplot2 Book - Facets chapter\nggplot2 Book - Coordinate chapter\n\nPackages complementari:\n\nggforce: facets avanzati (es. facet_zoom())\nggh4x: faceting nested e altre estensioni\n\nProssima sessione:\n\nScale e Trasformazioni: personalizzare scale (color, size, x, y), palette, limiti e breaks\nControllo completo su come dati vengono mappati a proprietà visive\nColor palettes avanzate e accessibilità\n\nContinua a praticare! Facets e coordinates sono fondamentali per organizzare visualizzazioni complesse."
   }
 ]
