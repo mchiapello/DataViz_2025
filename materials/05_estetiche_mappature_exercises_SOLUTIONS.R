@@ -229,11 +229,27 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 # Jitter + alpha gestisce overplotting in variabili discrete
 
 
+# ESERCIZIO 21: Boxplot + Punti con Alpha -----------------------------------
+# Obiettivo: Sovrapporre boxplot e punti per class vs hwy
+#            Usa geom_boxplot con alpha = 0.5, poi geom_point sopra
+#            In questo modo i punti sono visibili attraverso i boxplot
+
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot(alpha = 0.5, fill = "lightblue") +
+  geom_point(alpha = 0.6)
+
+# Alpha sul boxplot permette di vedere i punti sottostanti
+# Variante con jitter per evitare sovrapposizione punti:
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot(alpha = 0.3, fill = "steelblue") +
+  geom_jitter(alpha = 0.5, width = 0.2, color = "darkred")
+
+
 # =============================================================================
 # PARTE 5: MAPPING VS SETTING
 # =============================================================================
 
-# ESERCIZIO 21: Errore Comune - Setting in aes() ---------------------------
+# ESERCIZIO 22: Errore Comune - Setting in aes() ---------------------------
 # Obiettivo: IDENTIFICA L'ERRORE e correggilo
 # Questo codice è sbagliato:
 # ggplot(mpg, aes(x = displ, y = hwy, color = "blue")) + geom_point()
@@ -247,7 +263,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(color = "blue")
 
 
-# ESERCIZIO 22: Mapping Corretto --------------------------------------------
+# ESERCIZIO 23: Mapping Corretto --------------------------------------------
 # Obiettivo: Scatter plot displ vs hwy, mapping color a class,
 #            setting size = 3 e alpha = 0.7
 
@@ -284,6 +300,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class, size = cyl)) +
 ggplot(mpg, aes(x = class, fill = drv)) +
   geom_bar(position = "dodge")
 
+# Try to use the different positions: stack, fill, dodge, identity
 # Barre affiancate facilitano confronto tra gruppi
 
 

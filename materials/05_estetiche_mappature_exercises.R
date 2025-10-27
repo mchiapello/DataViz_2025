@@ -202,11 +202,21 @@ data(mtcars)
 
 
 
+# ESERCIZIO 21: Boxplot + Punti con Alpha -----------------------------------
+# Obiettivo: Sovrapporre boxplot e punti per class vs hwy
+#            Usa geom_boxplot con alpha = 0.5, poi geom_point sopra
+#            In questo modo i punti sono visibili attraverso i boxplot
+
+# Il tuo codice qui:
+
+
+
+
 # =============================================================================
 # PARTE 5: MAPPING VS SETTING
 # =============================================================================
 
-# ESERCIZIO 21: Errore Comune - Setting in aes() ---------------------------
+# ESERCIZIO 22: Errore Comune - Setting in aes() ---------------------------
 # Obiettivo: IDENTIFICA L'ERRORE e correggilo
 # Questo codice è sbagliato:
 # ggplot(mpg, aes(x = displ, y = hwy, color = "blue")) + geom_point()
@@ -216,7 +226,7 @@ data(mtcars)
 
 
 
-# ESERCIZIO 22: Mapping Corretto --------------------------------------------
+# ESERCIZIO 23: Mapping Corretto --------------------------------------------
 # Obiettivo: Scatter plot displ vs hwy, mapping color a class,
 #            setting size = 3 e alpha = 0.7
 

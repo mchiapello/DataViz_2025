@@ -22,7 +22,7 @@ resources:
 
 ## Obiettivi della Sessione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.85em;"}
+::: {style="font-size: 0.80em;"}
 **Cosa impareremo oggi:**
 
 - Comprendere cosa sono le **estetiche (aesthetics)**
@@ -42,7 +42,7 @@ resources:
 
 ## Esercizi Pratici {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
+::: {style="font-size: 0.70em;"}
 **Scarica il file esercizi:** [05_estetiche_mappature_exercises.R](05_estetiche_mappature_exercises.R)
 
 **30 esercizi organizzati in 6 parti:**
@@ -65,7 +65,7 @@ resources:
 
 ::: {.columns}
 ::: {.column width="50%"}
-::: {style="font-size: 0.7em;"}
+::: {style="font-size: 0.6em;"}
 **Definizione:**
 
 Le estetiche (aesthetics) sono le **proprietà visive** degli oggetti nel grafico.
@@ -115,7 +115,7 @@ mettila fuori `aes()`.
 
 ::: {.columns}
 ::: {.column width="50%"}
-::: {style="font-size: 0.7em;"}
+::: {style="font-size: 0.65em;"}
 **Uso con categorie:**
 
 ```r
@@ -141,7 +141,7 @@ ggplot(mpg, aes(x = displ, y = hwy,
 :::
 
 ::: {.column width="50%"}
-::: {style="font-size: 0.675em;"}
+::: {style="font-size: 0.75em;"}
 ::: {.callout-note}
 ## Tipi di geom
 `color` controlla colori diversi in base al geom:
@@ -196,7 +196,7 @@ ggplot(mpg, aes(x = displ, y = hwy,
 :::
 
 ::: {.column width="50%"}
-::: {style="font-size: 0.675em;"}
+::: {style="font-size: 0.75em;"}
 ::: {.callout-tip}
 ## Palette migliori
 Il gradient blu di default non è sempre ottimale:
@@ -739,7 +739,7 @@ ggplot(mpg, aes(x = displ, y = hwy,
 
 ## Best Practices {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.75em;"}
+::: {style="font-size: 0.55em;"}
 **Consigli per estetiche efficaci:**
 
 1. **Priorità percettiva**: Posizione > Size > Color > Shape
@@ -770,7 +770,7 @@ ggplot(mpg, aes(x = displ, y = hwy,
 
 ## Risorse & Prossimi Passi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.75em;"}
+::: {style="font-size: 0.58em;"}
 **Documentazione:**
 
 - [ggplot2 Aesthetic specifications](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html)
