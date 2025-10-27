@@ -2028,5 +2028,117 @@
     "title": "Estetiche e Mappature in ggplot2",
     "section": "Risorse & Prossimi Passi",
     "text": "Risorse & Prossimi Passi\n\nDocumentazione:\n\nggplot2 Aesthetic specifications\nggplot2 scales reference\nR Graphics Cookbook\n\nPalette utili:\n\nviridis: palette percettualmente uniformi e colorblind-friendly\nRColorBrewer: palette predefinite per diversi usi\nggsci: palette da pubblicazioni scientifiche\n\nProssima sessione:\n\nFacets e coordinate: organizzare e trasformare visualizzazioni\nSmall multiples con facet_wrap() e facet_grid()\nSistemi di coordinate: cartesiano, polare, flip\n\nContinua a praticare! Gli esercizi coprono casistiche reali che incontrerai nel lavoro quotidiano."
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#benvenuti-al-giorno-2",
+    "href": "materials/06_recap_giorno1.html#benvenuti-al-giorno-2",
+    "title": "Recap Giorno 1",
+    "section": "Benvenuti al Giorno 2!",
+    "text": "Benvenuti al Giorno 2!\n\nOggi iniziamo con un riepilogo del Giorno 1\nCosa abbiamo visto:\n\n✅ Geometrie Base - I mattoni della visualizzazione\n✅ Estetiche e Mappature - Come collegare dati a proprietà visive\n\nObiettivi di questo recap:\n\nConsolidare concetti chiave\nChiarire dubbi\nPreparare la base per argomenti avanzati\nEsercizio pratico di riscaldamento"
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#categorie-di-geometrie",
+    "href": "materials/06_recap_giorno1.html#categorie-di-geometrie",
+    "title": "Recap Giorno 1",
+    "section": "Categorie di Geometrie",
+    "text": "Categorie di Geometrie\n\n\n\n1. Relazioni (2 variabili continue)\n\ngeom_point() - scatter plot\ngeom_line() - time series (ordinato per x)\ngeom_path() - traiettorie (ordine dati)\ngeom_smooth() - trend lines\n\n2. Distribuzioni 1D\n\ngeom_histogram() - barre di frequenza\ngeom_density() - curve smooth\ngeom_freqpoly() - histogram come linea\ngeom_dotplot() - ogni punto visibile\n\n\n3. Distribuzioni 2D\n\ngeom_bin2d() - heatmap rettangolare\ngeom_hex() - heatmap esagonale\ngeom_density2d() - contour lines\n\n4. Statistiche Riassuntive\n\ngeom_boxplot() - mediana, quartili, outliers\ngeom_violin() - forma distribuzione completa\ngeom_bar() / geom_col() - conteggi/valori\n\n5. Incertezza\n\ngeom_errorbar(), geom_pointrange(), geom_ribbon()"
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#geometrie-punti-chiave",
+    "href": "materials/06_recap_giorno1.html#geometrie-punti-chiave",
+    "title": "Recap Giorno 1",
+    "section": "Geometrie: Punti Chiave",
+    "text": "Geometrie: Punti Chiave\n\nCosa ricordare:\n\nOgni geom interpreta i dati in modo specifico\ngeom_point()      # ogni riga = 1 punto\ngeom_histogram()  # conta frequenze\ngeom_boxplot()    # calcola statistiche riassuntive\nSi possono combinare più geom\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(alpha = 0.3) +\n  geom_smooth(method = \"lm\")\nOgni geom ha parametri specifici\n\ngeom_histogram(): bins, binwidth\ngeom_smooth(): method, se, level\ngeom_point(): size, shape, alpha\n\n\n\n\n\n\n\n\nRegola pratica\n\n\nInizia sempre con il geom più semplice, poi aggiungi complessità."
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#le-6-estetiche-principali",
+    "href": "materials/06_recap_giorno1.html#le-6-estetiche-principali",
+    "title": "Recap Giorno 1",
+    "section": "Le 6 Estetiche Principali",
+    "text": "Le 6 Estetiche Principali\n\n\n\n1. Color (bordi/linee)\naes(color = class)\n\nDiscrete: colori distinti per categoria\nContinue: gradient di colore\n\n2. Fill (riempimento aree)\naes(fill = drv)\n\nPer bar, histogram, density, violin\nIndipendente da color\n\n3. Size (dimensione)\naes(size = cyl)\n\nBubble charts\nEnfatizzare importanza\n\n\n4. Shape (forma punti)\naes(shape = drv)\n\nMax 6-7 forme distinguibili\nUtile per accessibilità\n\n5. Alpha (trasparenza)\naes(alpha = depth)\n# oppure fisso:\ngeom_point(alpha = 0.3)\n\nGestire overplotting\nMostrare densità\n\n6. Linetype (tipo linea)\naes(linetype = type)\n\nPer linee e bordi"
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#mapping-vs-setting-la-distinzione-chiave",
+    "href": "materials/06_recap_giorno1.html#mapping-vs-setting-la-distinzione-chiave",
+    "title": "Recap Giorno 1",
+    "section": "Mapping vs Setting: LA Distinzione Chiave",
+    "text": "Mapping vs Setting: LA Distinzione Chiave\n\n\n\nMAPPING (dentro aes())\nProprietà dipende dai dati\nggplot(mpg, aes(x = displ, y = hwy,\n                color = class,    # VARIA\n                size = cyl)) +    # VARIA\n  geom_point()\n✅ Crea scala automatica\n✅ Genera legenda\n✅ Usa nome variabile\nQuando usare: - Vuoi che colore/size/etc. cambi con i dati - Vuoi distinguere gruppi - Hai bisogno di legenda\n\nSETTING (fuori aes())\nProprietà fissa per tutti\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(color = \"blue\",    # FISSO\n             size = 3,          # FISSO\n             alpha = 0.6)       # FISSO\n❌ Nessuna scala\n❌ Nessuna legenda\n✅ Valore diretto\nQuando usare: - Vuoi migliorare leggibilità - Stile costante per tutto il layer - Non servono legende\n\n\n\n\n\n\n\nErrore più comune\n\n\naes(color = \"blue\") ❌ crea variabile chiamata “blue”!\nUsa geom_point(color = \"blue\") ✅ per colore fisso."
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#combinazioni-di-estetiche",
+    "href": "materials/06_recap_giorno1.html#combinazioni-di-estetiche",
+    "title": "Recap Giorno 1",
+    "section": "Combinazioni di Estetiche",
+    "text": "Combinazioni di Estetiche\n\nSi possono combinare mapping e setting:\n# Color mappato + size fisso + alpha fisso\nggplot(mpg, aes(x = displ, y = hwy, color = class)) +\n  geom_point(size = 3, alpha = 0.6)\n\n# Multiple aesthetics mappate\nggplot(mpg, aes(x = displ, y = hwy, \n                color = class,    # gruppi principali\n                shape = drv)) +   # sottogruppi\n  geom_point(size = 3)            # dimensione fissa\nLinee guida:\n\nMax 3-4 aesthetics mappate (oltre x, y)\nUsa ridondanza intelligente: color + shape per stesso gruppo\nSetting per migliorare leggibilità: alpha, size fissi\nPriorità percettiva: Posizione &gt; Size &gt; Color &gt; Shape"
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#color-vs-fill",
+    "href": "materials/06_recap_giorno1.html#color-vs-fill",
+    "title": "Recap Giorno 1",
+    "section": "Color vs Fill",
+    "text": "Color vs Fill\n\n\n\nCOLOR = bordi, linee, punti\n# Punti\nggplot(mpg, aes(x = displ, y = hwy,\n                color = class)) +\n  geom_point()\n\n# Linee\nggplot(economics, aes(x = date, y = unemploy)) +\n  geom_line(color = \"blue\")\n\n# Bordi di barre\nggplot(mpg, aes(x = class)) +\n  geom_bar(color = \"black\")\n\nFILL = riempimento aree\n# Barre\nggplot(mpg, aes(x = class, fill = drv)) +\n  geom_bar()\n\n# Densità\nggplot(mpg, aes(x = hwy, fill = drv)) +\n  geom_density(alpha = 0.5)\n\n# Boxplot\nggplot(mpg, aes(x = class, y = hwy,\n                fill = class)) +\n  geom_boxplot()\n\nSpesso insieme:\ngeom_bar(fill = \"lightblue\", color = \"black\")  # fill interno + color bordo"
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#scale-automatiche",
+    "href": "materials/06_recap_giorno1.html#scale-automatiche",
+    "title": "Recap Giorno 1",
+    "section": "Scale Automatiche",
+    "text": "Scale Automatiche\n\nQuando mappi un’estetica, ggplot2 crea automaticamente la scala appropriata:\n\n\nVariabili Discrete:\naes(color = class)\n→ scale_color_discrete() automatica\n→ Colori distinti per categoria\n→ Legenda con tutti i livelli\nVariabili Continue:\naes(color = cty)\n→ scale_color_continuous() automatica\n→ Gradient blu scuro → blu chiaro\n→ Legenda con barra colore\n\nPersonalizzabili:\n# Palette migliori\n+ scale_color_viridis_d()  # discrete\n+ scale_color_viridis_c()  # continuous\n\n# Manuale\n+ scale_color_manual(\n    values = c(\"red\", \"blue\", \"green\")\n  )\n\n# Gradient custom\n+ scale_color_gradient(\n    low = \"yellow\", \n    high = \"red\"\n  )\n(Approfondimento: Giorno 2!)"
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#gestire-overplotting",
+    "href": "materials/06_recap_giorno1.html#gestire-overplotting",
+    "title": "Recap Giorno 1",
+    "section": "Gestire Overplotting",
+    "text": "Gestire Overplotting\n\nProblema comune: troppi punti sovrapposti\nSoluzioni imparate:\n\nAlpha (trasparenza)\ngeom_point(alpha = 0.3)  # più punti = più scuro\nJitter (rumore casuale)\ngeom_jitter(width = 0.1, height = 0.1)\nHeatmaps 2D\ngeom_bin2d()  # o geom_hex()\nDimensione ridotta\ngeom_point(size = 0.5, alpha = 0.2)\nCombinazioni\ngeom_hex() + geom_density2d(color = \"white\")"
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#esercizio-1-geometrie-multiple",
+    "href": "materials/06_recap_giorno1.html#esercizio-1-geometrie-multiple",
+    "title": "Recap Giorno 1",
+    "section": "Esercizio 1: Geometrie Multiple",
+    "text": "Esercizio 1: Geometrie Multiple\n\nRicrea questo grafico usando il dataset mpg:\n\nScatter plot di displ (x) vs hwy (y)\nAggiungi linea di trend lineare con intervallo di confidenza\nPunti semi-trasparenti (alpha = 0.4)\nDimensione punti = 2\n\n\nlibrary(ggplot2)\n\n# Il tuo codice qui:\nggplot(mpg, aes(x = ___, y = ___)) +\n  geom_____(___) +\n  geom_____(___) \n\n\n\n\n\n\n\nSoluzione\n\n\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(alpha = 0.4, size = 2) +\n  geom_smooth(method = \"lm\")"
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#esercizio-2-mapping-vs-setting",
+    "href": "materials/06_recap_giorno1.html#esercizio-2-mapping-vs-setting",
+    "title": "Recap Giorno 1",
+    "section": "Esercizio 2: Mapping vs Setting",
+    "text": "Esercizio 2: Mapping vs Setting\n\nDataset mpg, crea due versioni:\nVersione A: - Scatter plot displ vs hwy - Colore mappato a class - Size fisso = 3\nVersione B: - Stesso scatter plot - Colore fisso = “darkred” - Size mappato a cyl\n\n# Versione A\nggplot(mpg, aes(x = displ, y = hwy, ___)) +\n  geom_point(___)\n\n# Versione B\nggplot(mpg, aes(x = displ, y = hwy, ___)) +\n  geom_point(___)\n\n\n\n\n\n\n\nSoluzione\n\n\n# A\nggplot(mpg, aes(x = displ, y = hwy, color = class)) +\n  geom_point(size = 3)\n\n# B\nggplot(mpg, aes(x = displ, y = hwy, size = cyl)) +\n  geom_point(color = \"darkred\")"
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#esercizio-3-distribuzioni-con-fill",
+    "href": "materials/06_recap_giorno1.html#esercizio-3-distribuzioni-con-fill",
+    "title": "Recap Giorno 1",
+    "section": "Esercizio 3: Distribuzioni con Fill",
+    "text": "Esercizio 3: Distribuzioni con Fill\n\nDataset mpg, crea:\n\nDensity plot di hwy\nFill mappato a drv (tipo trazione)\nAlpha = 0.5 per vedere sovrapposizioni\nAggiungi bordo nero a ogni curva\n\n\nggplot(mpg, aes(x = hwy, ___)) +\n  geom_density(___, ___)\n\n\n\n\n\n\n\nSoluzione\n\n\nggplot(mpg, aes(x = hwy, fill = drv)) +\n  geom_density(alpha = 0.5, color = \"black\")\n\n\n\nDomanda: Cosa succede se usi color = drv invece di fill = drv?\n\n\n\n\n\n\nRisposta\n\n\ncolor colora solo il bordo della curva, non l’area interna. fill riempie l’area sotto la curva."
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#esercizio-4-boxplot-violin",
+    "href": "materials/06_recap_giorno1.html#esercizio-4-boxplot-violin",
+    "title": "Recap Giorno 1",
+    "section": "Esercizio 4: Boxplot + Violin",
+    "text": "Esercizio 4: Boxplot + Violin\n\nDataset mpg, sovrapponi:\n\nViolin plot di class (x) vs hwy (y)\nFill = “lightblue”, alpha = 0.6\nAggiungi boxplot sopra\nBoxplot: width = 0.2, fill = “white”\n\n\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_____(___) +\n  geom_____(___) \n\n\n\n\n\n\n\nSoluzione\n\n\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_violin(fill = \"lightblue\", alpha = 0.6) +\n  geom_boxplot(width = 0.2, fill = \"white\")\n\n\n\nPerché questa combinazione è utile?\nViolin mostra la forma completa della distribuzione, boxplot aggiunge statistiche chiave (mediana, quartili)."
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#spazio-per-domande",
+    "href": "materials/06_recap_giorno1.html#spazio-per-domande",
+    "title": "Recap Giorno 1",
+    "section": "Spazio per Domande",
+    "text": "Spazio per Domande\n\nTemi comuni da chiarire:\n\nQuando usare geom_bar() vs geom_col()?\nCome scegliere il numero di bins in geom_histogram()?\nDifferenza tra geom_line() e geom_path()?\nQuando mappare alpha vs quando fissarlo?\nCome combinare color e fill efficacemente?\n\nDomande dal gruppo:\n(Spazio per discussione)"
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#cosa-vedremo-oggi",
+    "href": "materials/06_recap_giorno1.html#cosa-vedremo-oggi",
+    "title": "Recap Giorno 1",
+    "section": "Cosa Vedremo Oggi",
+    "text": "Cosa Vedremo Oggi\n\n\n\nMattina:\n\nFacets e Coordinate\n\nfacet_wrap() e facet_grid() - small multiples\nSistemi di coordinate: cartesiano, flip, polare\nQuando usare facets vs aesthetics\n\nScale e Trasformazioni\n\nPersonalizzare scale (color, size, x, y)\nTrasformazioni (log, sqrt, reverse)\nLimiti e breaks\nPalette avanzate\n\n\n\nPomeriggio:\n\nThemes e Personalizzazione\n\nTheme predefiniti\nCustomizzare ogni elemento\nCreare il tuo theme\n\nVisualizzazioni Avanzate\n\nAnnotazioni e labels\nPlot composition (patchwork)\nExport e ottimizzazione"
+  },
+  {
+    "objectID": "materials/06_recap_giorno1.html#risorse-utili",
+    "href": "materials/06_recap_giorno1.html#risorse-utili",
+    "title": "Recap Giorno 1",
+    "section": "Risorse Utili",
+    "text": "Risorse Utili\n\nDocumentazione:\n\nggplot2 Reference\nggplot2 Book (3rd ed)\nR Graph Gallery\n\nCheat sheets:\n\nggplot2 cheat sheet\n\nDataset per pratica:\n\nmpg, diamonds, economics (già usati)\nmtcars, iris, faithful (altri built-in)\nI tuoi dati! Prova a replicare questi concetti\n\n\n\n\n\n\n\nRicorda\n\n\nLa pratica è fondamentale! Continua a sperimentare con gli esercizi."
   }
 ]
