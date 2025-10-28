@@ -1,83 +1,872 @@
 ---
-title: "Considerazioni Finali e Q&A"
+title: "Conclusioni e Q&A"
+subtitle: "Riepilogo del Corso - Data Visualization con ggplot2"
+author: "Marco Chiapello"
+format: 
+  revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    chalkboard: true
+    logo: images/ggplot2_logo.jpg
+    footer: "REVELO Training - Data Viz 2025"
+    css: presentation-style.css
+    title-slide-attributes:
+      data-background-image: images/frequency-wave-7776034_1280.jpg
+      data-background-size: cover
+      data-background-opacity: "0.1"
+resources:
+  - images/
+  - presentation-style.css
 ---
 
-## Riepilogo del corso
+## Il Nostro Viaggio in ggplot2 {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-Cosa abbiamo imparato in questi due giorni.
+::: {style="font-size: 0.75em;"}
+**Cosa abbiamo imparato:**
 
-## Concetti chiave
+::: {.columns}
+::: {.column width="50%"}
+**Giorno 1: Fondamenti**
 
-### Giorno 1
-- Grammar of Graphics: framework teorico
-- Geometrie base: punti, linee, barre
-- Estetiche e mappature
-- Gestione dei dati con tidyverse
+1. **Introduzione** - Filosofia ggplot2
+2. **Gestione Tabelle** - tidyverse workflow
+3. **Grammar of Graphics** - Framework teorico
+4. **Geometrie Base** - point, line, bar, histogram
+5. **Estetiche** - color, fill, size, shape, alpha
+6. **Recap** - Consolidamento concetti
+:::
 
-### Giorno 2
-- Facets per creare sottografici
-- Scale e trasformazioni
-- Themes e personalizzazione
-- Tecniche avanzate (patchwork, annotazioni, interattività)
+::: {.column width="50%"}
+**Giorno 2: Avanzato**
 
-## Best practices riassuntive
+7. **Facets & Coordinate** - Small multiples
+8. **Scale & Trasformazioni** - Controllo fine
+9. **Temi** - Personalizzazione completa
+10. **Visualizzazioni Avanzate** - patchwork, ggrepel, heatmaps
+11. **Conclusioni** - Best practices
+:::
+:::
+:::
 
-1. **Inizia semplice**: crea prima un grafico base, poi perfeziona
-2. **Dati tidy**: prepara bene i dati prima di visualizzare
-3. **Esplora**: prova diverse geometrie e mappature
-4. **Personalizza**: usa themes per rendere i grafici professionali
-5. **Documenta**: commenta il codice e salva gli script
+# Concetti Chiave da Ricordare {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-## Prossimi passi
+## La Grammar of Graphics {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-### Continua a imparare
-- Pratica regolarmente
-- Esplora il [R Graph Gallery](https://r-graph-gallery.com/)
-- Partecipa a [TidyTuesday](https://github.com/rfordatascience/tidytuesday)
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**I Componenti Essenziali:**
 
-### Risorse consigliate
+1. **Data** - Il dataset tidy
+2. **Aesthetics** - Mappature (x, y, color, ...)
+3. **Geometries** - Rappresentazione visiva
+4. **Scales** - Controllo mappature
+5. **Facets** - Small multiples
+6. **Coordinates** - Sistemi di riferimento
+7. **Themes** - Aspetto non-dati
 
-**Libri**:
-- [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/)
-- [R for Data Science](https://r4ds.hadley.nz/)
-- [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/)
+**Formula base:**
 
-**Online**:
-- [ggplot2 documentation](https://ggplot2.tidyverse.org/)
-- [RStudio cheatsheets](https://posit.co/resources/cheatsheets/)
-- [Stack Overflow ggplot2 tag](https://stackoverflow.com/questions/tagged/ggplot2)
+```r
+ggplot(data, aes(x, y, ...)) +
+  geom_*() +
+  scale_*() +
+  facet_*() +
+  coord_*() +
+  theme_*()
+```
+:::
+:::
 
-**Community**:
-- [RStudio Community](https://community.rstudio.com/)
-- [R4DS Slack](https://www.rfordatasci.com/)
-- Twitter #rstats
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+::: {.callout-important}
+## Layer by Layer
+ggplot2 costruisce grafici per **strati successivi**. Ogni `+` aggiunge un elemento.
+:::
 
-## Progetto finale (opzionale)
+::: {.callout-tip}
+## Separazione Dati/Estetica
+- **Dati → Geometrie/Scale** (il cosa)
+- **Aspetto → Temi** (il come)
 
-Crea una visualizzazione completa che incorpori:
-- Import e manipolazione dati
-- Più geometrie
-- Personalizzazione con theme
-- Annotazioni o composizioni
+Questa separazione permette riproducibilità e flessibilità!
+:::
+:::
+:::
+:::
 
-## Feedback
+## Mapping vs Setting {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-Il tuo feedback è importante! Per favore, compila il questionario di valutazione del corso.
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Mapping (dentro aes()):**
 
-## Q&A
+```r
+# Dipende DAI DATI
+ggplot(mpg, aes(
+  x = displ,
+  y = hwy,
+  color = class,  # varia per gruppo
+  size = cyl      # varia per valore
+)) +
+  geom_point()
+```
 
-Spazio per domande finali e discussione.
+- Crea legende automatiche
+- Scala automatica
+- Valore diverso per ogni osservazione
+:::
+:::
 
-## Contatti
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Setting (fuori aes()):**
 
-Rimaniamo in contatto:
+```r
+# Valore FISSO
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(
+    color = "blue",   # tutti blu
+    size = 3,         # tutti size 3
+    alpha = 0.6       # tutti trasparenti
+  )
+```
 
-- Email: chiapello.m@gmail.com
-- Slack: [REVELO Training workspace](https://revelotraining.slack.com/)
-- GitHub: [Course Repository](https://github.com/mchiapello/DataViz_2025)
+- Nessuna legenda
+- Stesso valore per tutte le osservazioni
+- Personalizzazione estetica
+:::
+:::
+:::
 
-## Grazie!
+::: {.callout-warning style="font-size: 0.65em;"}
+**Errore comune:** Mettere valori fissi dentro `aes()` crea legende inutili!
+:::
 
-Grazie per aver partecipato al corso. Buona visualizzazione! 📊
+## Workflow Ottimale {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-![](images/ggplot2_logo.jpg){width=200px fig-align="center"}
+::: {style="font-size: 0.75em;"}
+**Processo iterativo per creare grafici efficaci:**
+
+::: {.columns}
+::: {.column width="50%"}
+**1. Prepara i Dati**
+
+- Import con `readr`
+- Manipola con `dplyr`
+- Formato tidy (long)
+- Controlla tipi variabili
+
+**2. Esplora con ggplot2**
+
+- Inizia semplice (`geom_point()`)
+- Aggiungi aesthetic mappings
+- Prova diverse geometrie
+- Identifica pattern
+:::
+
+::: {.column width="50%"}
+**3. Raffina**
+
+- Aggiungi scale appropriate
+- Usa facets se necessario
+- Applica trasformazioni
+- Gestisci overplotting
+
+**4. Personalizza**
+
+- Scegli tema appropriato
+- Customizza con `theme()`
+- Labels chiari e completi
+- Colori accessibili (viridis)
+:::
+:::
+:::
+
+# Best Practices Essenziali {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Principi di Design {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**1. Chiarezza Prima di Tutto**
+
+- Un messaggio per grafico
+- Labels completi e leggibili
+- Font size adeguato (≥ 10pt)
+- Evita 3D e effetti inutili
+
+**2. Colori Accessibili**
+
+```r
+# Preferisci viridis
+scale_color_viridis_d()
+scale_fill_viridis_c()
+
+# ColorBrewer per discrete
+scale_color_brewer(palette = "Set2")
+```
+
+- Friendly per daltonici
+- Funziona in B/N
+- Percettualmente uniforme
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**3. Aspect Ratio Appropriato**
+
+- Banking to 45° per trend
+- Quadrato per scatter con x≈y
+- Wide per time series
+
+**4. Gestione Overplotting**
+
+```r
+# Strategia 1: alpha
+geom_point(alpha = 0.3)
+
+# Strategia 2: jitter
+geom_jitter()
+
+# Strategia 3: bin2d/hex
+geom_hex()
+
+# Strategia 4: facets
+facet_wrap(~ group)
+```
+:::
+:::
+:::
+
+## Scelta della Geometria {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.55em;"}
+**Guida rapida per tipo di dato:**
+
+| Obiettivo | Tipo Dati | Geometria | Quando Usare |
+|-----------|-----------|-----------|--------------|
+| Relazione | 2 continue | `geom_point()`, `geom_smooth()` | Correlazioni, scatter |
+| Distribuzione | 1 continua | `geom_histogram()`, `geom_density()` | Esplorare forma distribuzione |
+| Comparazione | Continua + Categorica | `geom_boxplot()`, `geom_violin()` | Confrontare gruppi |
+| Conteggi | Categorica | `geom_bar()`, `geom_col()` | Frequenze, totali |
+| Evoluzione | Tempo + Valore | `geom_line()`, `geom_area()` | Time series, trend |
+| Composizione | Parti di un tutto | `geom_col(position="fill")` | Proporzioni nel tempo |
+| Multidimensionale | Matrice valori | `geom_tile()` (heatmap) | Gene expression, correlazioni |
+
+::: {.callout-tip}
+Quando in dubbio, inizia con `geom_point()` per esplorare!
+:::
+:::
+
+## Codice Riproducibile {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Best Practices per Script:**
+
+```r
+# 1. Header informativo
+# Titolo: Analisi MPG Dataset
+# Autore: Marco Chiapello
+# Data: 2025-10-28
+# Scopo: Esplorare relazione mpg-displ
+
+# 2. Setup esplicito
+library(tidyverse)
+library(patchwork)
+
+# 3. Import dati documentato
+data(mpg)
+# oppure
+# mpg <- read_csv("data/mpg.csv")
+
+# 4. Commenta scelte chiave
+# Uso log scale per range ampio
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  scale_x_log10()
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Salvataggio Professionale:**
+
+```r
+# 5. Salva con parametri espliciti
+ggsave(
+  "output/mpg_analysis.png",
+  width = 8,
+  height = 6,
+  dpi = 300,
+  bg = "white"
+)
+
+# 6. Per pubblicazioni
+ggsave(
+  "figures/fig1.pdf",
+  width = 7,
+  height = 5,
+  device = cairo_pdf
+)
+```
+
+::: {.callout-note}
+## Versionamento
+Usa Git per tracciare evoluzione dei grafici!
+:::
+:::
+:::
+:::
+
+# Tecniche Avanzate Recap {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Composizioni con Patchwork {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+**Operatori intuitivi:**
+
+```r
+library(patchwork)
+
+# Affiancati
+p1 + p2
+
+# Verticale
+p1 / p2
+
+# Layout complesso
+(p1 + p2) / p3
+
+# Con annotazioni
+p1 + p2 +
+  plot_annotation(
+    title = "Analisi Completa",
+    tag_levels = "A"
+  )
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+**Controllo fine:**
+
+```r
+# Proporzioni custom
+p1 + p2 +
+  plot_layout(widths = c(2, 1))
+
+# Tema globale
+(p1 + p2) &
+  theme_minimal() &
+  theme(legend.position = "bottom")
+
+# Guide collettive
+p1 + p2 +
+  plot_layout(guides = "collect")
+```
+
+::: {.callout-tip}
+**Operatore `&`** applica a tutti i subplot!
+:::
+:::
+:::
+:::
+
+## Annotazioni Intelligenti {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**ggrepel per etichette:**
+
+```r
+library(ggrepel)
+
+# Evita sovrapposizioni
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  geom_text_repel(
+    aes(label = rownames(mtcars))
+  )
+
+# Solo subset
+top_cars <- mtcars[mtcars$mpg > 25, ]
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  geom_text_repel(
+    data = top_cars,
+    aes(label = rownames(top_cars)),
+    color = "red"
+  )
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Labels vs Text:**
+
+- `geom_text_repel()`: solo testo
+- `geom_label_repel()`: box background
+
+**Controllo direzione:**
+
+```r
+geom_text_repel(
+  direction = "y",  # solo verticale
+  nudge_x = 0.1,
+  segment.color = "grey50"
+)
+```
+
+::: {.callout-warning}
+Etichetta solo punti **rilevanti** per leggibilità!
+:::
+:::
+:::
+:::
+
+## Heatmaps e Volcano Plots {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+**Heatmaps per matrici:**
+
+```r
+# Formato long
+heatmap_data <- data %>%
+  pivot_longer(
+    cols = -id,
+    names_to = "var",
+    values_to = "value"
+  ) %>%
+  group_by(var) %>%
+  mutate(scaled = scale(value)[,1])
+
+# Plot
+ggplot(heatmap_data, 
+       aes(var, id, fill = scaled)) +
+  geom_tile() +
+  scale_fill_gradient2(
+    low = "blue",
+    mid = "white",
+    high = "red"
+  )
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+**Volcano plots per DEG:**
+
+```r
+# Categorizza
+deg_data <- data %>%
+  mutate(
+    regulation = case_when(
+      log2FC > 1 & padj < 0.05 ~ "Up",
+      log2FC < -1 & padj < 0.05 ~ "Down",
+      TRUE ~ "NS"
+    )
+  )
+
+# Plot
+ggplot(deg_data, 
+       aes(log2FC, -log10(padj),
+           color = regulation)) +
+  geom_point(alpha = 0.6) +
+  geom_vline(xintercept = c(-1, 1),
+             linetype = "dashed") +
+  geom_hline(yintercept = -log10(0.05),
+             linetype = "dashed")
+```
+:::
+:::
+:::
+
+# Risorse per Continuare {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Libri Essenziali {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**ggplot2 Specifici:**
+
+📘 [**ggplot2: Elegant Graphics for Data Analysis**](https://ggplot2-book.org/)
+- Hadley Wickham et al.
+- LA risorsa ufficiale
+- Teoria + pratica
+- Gratuito online
+
+📗 [**R Graphics Cookbook**](https://r-graphics.org/)
+- Winston Chang
+- Ricette pratiche
+- Problem-solving oriented
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Workflow e Fondamenti:**
+
+📙 [**R for Data Science**](https://r4ds.hadley.nz/)
+- Wickham & Grolemund
+- Intero workflow data science
+- ggplot2 integrato
+
+📕 [**Fundamentals of Data Visualization**](https://clauswilke.com/dataviz/)
+- Claus Wilke
+- Principi di design
+- Non solo R
+- Teoria visuale
+:::
+:::
+:::
+
+## Risorse Online {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+**Documentazione:**
+
+🔗 [ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/)
+- Documentazione ufficiale
+- Reference completa
+- Esempi per ogni funzione
+
+🔗 [R Graph Gallery](https://r-graph-gallery.com/)
+- 400+ esempi
+- Codice copy-paste
+- Organizzato per tipo
+
+🔗 [ggplot2 Extensions](https://exts.ggplot2.tidyverse.org/)
+- Lista pacchetti estensioni
+- Categorie specializzate
+- Sempre aggiornato
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+**Community e Aiuto:**
+
+💬 [RStudio Community](https://community.rstudio.com/)
+- Forum ufficiale
+- Molto attivo
+- Esperti disponibili
+
+💬 [Stack Overflow #ggplot2](https://stackoverflow.com/questions/tagged/ggplot2)
+- 50,000+ domande
+- Cerca prima di postare
+- Riproducibilità essenziale
+
+📊 [TidyTuesday](https://github.com/rfordatascience/tidytuesday)
+- Dataset settimanali
+- Pratica con dati reali
+- Community condivisione
+:::
+:::
+:::
+
+## Cheatsheets e Quick Reference {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Posit Cheatsheets:**
+
+📄 [Data Visualization with ggplot2](https://posit.co/resources/cheatsheets/)
+
+- 2 pagine PDF stampabili
+- Geometrie comuni
+- Scale e coordinate
+- Facets e temi
+
+📄 Altri utili:
+
+- Data Transformation (dplyr)
+- Data Import (readr)
+- patchwork
+- lubridate (date/time)
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Come usarli:**
+
+1. Stampa e tieni sulla scrivania
+2. In RStudio: Help → Cheatsheets
+3. Consulta per sintassi veloce
+4. Non sostituiscono documentazione completa
+
+::: {.callout-tip}
+**Pratica Attiva**
+
+Il modo migliore per imparare: 
+
+- Ricrea grafici che vedi
+- #TidyTuesday settimanale
+- Visualizza i TUOI dati!
+:::
+:::
+:::
+:::
+
+# Progetto Finale Suggerito {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Challenge: Crea un Report Completo {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.6em;"}
+**Obiettivo:** Applicare tutto ciò che hai imparato in un progetto integrato
+
+**Requisiti minimi:**
+
+::: {.columns}
+::: {.column width="50%"}
+**1. Data Preparation**
+
+- Import dataset (CSV, Excel, o API)
+- Pulizia e manipolazione (dplyr)
+- Formato tidy
+
+**2. Exploratory Analysis**
+
+- Almeno 4 grafici diversi:
+  - Distribuzione (histogram/density)
+  - Relazione (scatter + smooth)
+  - Comparazione (boxplot/violin)
+  - Time series O heatmap
+:::
+
+::: {.column width="50%"}
+**3. Advanced Features**
+
+- Faceting con `facet_wrap()` o `facet_grid()`
+- Scale personalizzate (viridis, breaks custom)
+- Tema personalizzato O consistente
+- Composizione multi-panel (patchwork)
+
+**4. Professional Polish**
+
+- Labels completi (title, subtitle, caption)
+- Annotazioni dove appropriato
+- Export alta qualità (300 dpi)
+- Codice ben commentato
+:::
+:::
+:::
+
+## Suggerimenti Dataset {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+**Opzioni per il progetto:**
+
+::: {.columns}
+::: {.column width="50%"}
+**Dataset Built-in R:**
+
+```r
+# Ricchi e vari
+diamonds, mpg, msleep, 
+economics, txhousing
+
+# Accedi facilmente
+data(diamonds)
+?diamonds  # documentazione
+```
+
+**TidyTuesday Archive:**
+
+- [github.com/rfordatascience/tidytuesday](https://github.com/rfordatascience/tidytuesday)
+- Dataset curati settimanalmente
+- Vedi grafici community per ispirazione
+:::
+
+::: {.column width="50%"}
+**Tuoi Dati:**
+
+- **Meglio ancora!** Usa dati del tuo lavoro/ricerca
+- Massima motivazione
+- Risultati direttamente utili
+- Portfolio personale
+
+**Dataset Pubblici:**
+
+- [Kaggle Datasets](https://www.kaggle.com/datasets)
+- [data.gov](https://data.gov/)
+- [Our World in Data](https://ourworldindata.org/)
+- [Eurostat](https://ec.europa.eu/eurostat)
+:::
+:::
+:::
+
+# Domande Frequenti {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## FAQ Tecniche {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.65em;"}
+**Q: Quando usare facets vs color?**
+
+A: 
+- **Color** se < 6 gruppi E confronti diretti
+- **Facets** se > 6 gruppi O pattern complessi O scale molto diverse
+
+**Q: geom_col() vs geom_bar()?**
+
+A:
+- `geom_bar()`: conta osservazioni (stat = "count"), solo x
+- `geom_col()`: usa valori y forniti (stat = "identity"), x e y
+
+**Q: Trasformazione in scale o coordinate?**
+
+A:
+- **Scale** (preferito): `scale_y_log10()` - trasforma PRIMA di stat
+- **Coordinate**: `coord_trans(y = "log10")` - trasforma DOPO rendering
+
+**Q: Come gestire warning "Removed X rows containing missing values"?**
+
+A:
+- Verifica: `summary(data)`, `is.na()` per trovare NA
+- Decidi: rimuovi (`na.omit()`), imputa, o gestisci esplicitamente
+- Warning è informativo, non sempre errore!
+
+**Q: Salvo con ggsave ma risoluzione bassa?**
+
+A:
+```r
+ggsave("plot.png", dpi = 300, width = 8, height = 6)  # 300 dpi per stampa!
+```
+:::
+
+## FAQ Concettuali {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.65em;"}
+**Q: ggplot2 vs base R graphics?**
+
+A: ggplot2 offre:
+- Sintassi consistente e logica
+- Estetiche automatiche (legende, scale)
+- Temi riutilizzabili
+- Migliore per grafici complessi
+  
+Base R: più veloce per plot rapidissimi esplorativi
+
+**Q: Devo memorizzare tutte le funzioni?**
+
+A: **NO!** 
+- Comprendi i concetti (grammar, layers)
+- Usa reference/cheatsheets
+- Google/Stack Overflow sono normali
+- La pratica consolida la memoria
+
+**Q: Come scegliere palette colori?**
+
+A:
+1. **Default**: viridis (colorblind-safe)
+2. **Categoriche**: ColorBrewer Set2, Dark2
+3. **Divergenti**: RdBu, BrBG per dati con zero centrale
+4. **Custom**: solo se branding/necessità specifiche
+
+**Q: Quanto tempo serve per diventare fluente?**
+
+A: 
+- **Basic plots**: 2-3 settimane pratica regolare
+- **Advanced customization**: 2-3 mesi
+- **Expert**: 6-12 mesi + uso continuo
+:::
+
+# Q&A Session {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 2.5em; margin-top: 150px;"}
+**Le Vostre Domande**
+
+💬
+
+Domande? Dubbi? Curiosità?
+:::
+
+# Contatti e Follow-up {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Rimaniamo in Contatto {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Marco Chiapello**
+
+📧 **Email:** chiapello.m@gmail.com
+
+🐙 **GitHub:** [@mchiapello](https://github.com/mchiapello)
+
+💼 **LinkedIn:** Marco Chiapello
+
+**Materiali del Corso:**
+
+🗂️ **Repository:** [github.com/mchiapello/DataViz_2025](https://github.com/mchiapello/DataViz_2025)
+
+- Tutti gli script
+- Datasets
+- Soluzioni esercizi
+- Slide aggiornate
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**REVELO Training:**
+
+💬 **Slack:** [revelotraining.slack.com](https://revelotraining.slack.com/)
+
+- Canale corso attivo
+- Supporto post-corso
+- Community learners
+
+**Feedback:**
+
+📝 Per favore, compila il **questionario di valutazione** del corso
+
+Il tuo feedback ci aiuta a migliorare!
+:::
+:::
+:::
+
+## Grazie per aver partecipato! {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; margin-top: 100px;"}
+::: {style="font-size: 1.8em;"}
+
+:::
+
+::: {style="font-size: 1.2em; margin-top: 40px;"}
+Buona visualizzazione! 📊✨
+:::
+
+::: {style="margin-top: 60px;"}
+![](images/ggplot2_logo.jpg){width="120px" fig-align="center"}
+:::
+
+::: {style="font-size: 0.8em; margin-top: 40px; font-style: italic;"}
+"The simple graph has brought more information to the data analyst's mind than any other device."  
+— John Tukey
+:::
+:::

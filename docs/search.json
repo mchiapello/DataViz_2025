@@ -835,9 +835,9 @@
   {
     "objectID": "materials/11_conclusioni_qa.html#grazie",
     "href": "materials/11_conclusioni_qa.html#grazie",
-    "title": "Considerazioni Finali e Q&A",
+    "title": "Conclusioni e Q&A",
     "section": "Grazie!",
-    "text": "Grazie!\nGrazie per aver partecipato al corso. Buona visualizzazione! 📊"
+    "text": "Grazie!\n\n\nGrazie per aver partecipato!\n\n\nBuona visualizzazione! 📊✨\n\n\n\n\n\n\n\n\n\n“The simple graph has brought more information to the data analyst’s mind\nthan any other device.”\n— John Tukey"
   },
   {
     "objectID": "materials/02_gestione_tabelle.html#obiettivi",
@@ -2903,5 +2903,152 @@
     "title": "Visualizzazioni Avanzate in ggplot2",
     "section": "Risorse & Prossimi Passi",
     "text": "Risorse & Prossimi Passi\n\nDocumentazione Pacchetti:\n\npatchwork - Composizione grafici\nggrepel - Etichette intelligenti\n\npheatmap - Heatmaps con clustering\n\nCheat Sheets:\n\npatchwork cheatsheet\nggplot2 extensions gallery"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#il-nostro-viaggio-in-ggplot2",
+    "href": "materials/11_conclusioni_qa.html#il-nostro-viaggio-in-ggplot2",
+    "title": "Conclusioni e Q&A",
+    "section": "Il Nostro Viaggio in ggplot2",
+    "text": "Il Nostro Viaggio in ggplot2\n\nCosa abbiamo imparato:\n\n\nGiorno 1: Fondamenti\n\nIntroduzione - Filosofia ggplot2\nGestione Tabelle - tidyverse workflow\nGrammar of Graphics - Framework teorico\nGeometrie Base - point, line, bar, histogram\nEstetiche - color, fill, size, shape, alpha\nRecap - Consolidamento concetti\n\n\nGiorno 2: Avanzato\n\nFacets & Coordinate - Small multiples\nScale & Trasformazioni - Controllo fine\nTemi - Personalizzazione completa\nVisualizzazioni Avanzate - patchwork, ggrepel, heatmaps\nConclusioni - Best practices"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#la-grammar-of-graphics",
+    "href": "materials/11_conclusioni_qa.html#la-grammar-of-graphics",
+    "title": "Conclusioni e Q&A",
+    "section": "La Grammar of Graphics",
+    "text": "La Grammar of Graphics\n\n\n\nI Componenti Essenziali:\n\nData - Il dataset tidy\nAesthetics - Mappature (x, y, color, …)\nGeometries - Rappresentazione visiva\nScales - Controllo mappature\nFacets - Small multiples\nCoordinates - Sistemi di riferimento\nThemes - Aspetto non-dati\n\nFormula base:\nggplot(data, aes(x, y, ...)) +\n  geom_*() +\n  scale_*() +\n  facet_*() +\n  coord_*() +\n  theme_*()\n\n\n\n\n\n\n\n\n\nLayer by Layer\n\n\nggplot2 costruisce grafici per strati successivi. Ogni + aggiunge un elemento.\n\n\n\n\n\n\n\n\n\nSeparazione Dati/Estetica\n\n\n\nDati → Geometrie/Scale (il cosa)\nAspetto → Temi (il come)\n\nQuesta separazione permette riproducibilità e flessibilità!"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#mapping-vs-setting",
+    "href": "materials/11_conclusioni_qa.html#mapping-vs-setting",
+    "title": "Conclusioni e Q&A",
+    "section": "Mapping vs Setting",
+    "text": "Mapping vs Setting\n\n\n\nMapping (dentro aes()):\n# Dipende DAI DATI\nggplot(mpg, aes(\n  x = displ,\n  y = hwy,\n  color = class,  # varia per gruppo\n  size = cyl      # varia per valore\n)) +\n  geom_point()\n\nCrea legende automatiche\nScala automatica\nValore diverso per ogni osservazione\n\n\n\n\nSetting (fuori aes()):\n# Valore FISSO\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(\n    color = \"blue\",   # tutti blu\n    size = 3,         # tutti size 3\n    alpha = 0.6       # tutti trasparenti\n  )\n\nNessuna legenda\nStesso valore per tutte le osservazioni\nPersonalizzazione estetica\n\n\n\n\n\n\n\n\n\n\nWarning\n\n\nErrore comune: Mettere valori fissi dentro aes() crea legende inutili!"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#workflow-ottimale",
+    "href": "materials/11_conclusioni_qa.html#workflow-ottimale",
+    "title": "Conclusioni e Q&A",
+    "section": "Workflow Ottimale",
+    "text": "Workflow Ottimale\n\nProcesso iterativo per creare grafici efficaci:\n\n\n1. Prepara i Dati\n\nImport con readr\nManipola con dplyr\nFormato tidy (long)\nControlla tipi variabili\n\n2. Esplora con ggplot2\n\nInizia semplice (geom_point())\nAggiungi aesthetic mappings\nProva diverse geometrie\nIdentifica pattern\n\n\n3. Raffina\n\nAggiungi scale appropriate\nUsa facets se necessario\nApplica trasformazioni\nGestisci overplotting\n\n4. Personalizza\n\nScegli tema appropriato\nCustomizza con theme()\nLabels chiari e completi\nColori accessibili (viridis)"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#principi-di-design",
+    "href": "materials/11_conclusioni_qa.html#principi-di-design",
+    "title": "Conclusioni e Q&A",
+    "section": "Principi di Design",
+    "text": "Principi di Design\n\n\n\n1. Chiarezza Prima di Tutto\n\nUn messaggio per grafico\nLabels completi e leggibili\nFont size adeguato (≥ 10pt)\nEvita 3D e effetti inutili\n\n2. Colori Accessibili\n# Preferisci viridis\nscale_color_viridis_d()\nscale_fill_viridis_c()\n\n# ColorBrewer per discrete\nscale_color_brewer(palette = \"Set2\")\n\nFriendly per daltonici\nFunziona in B/N\nPercettualmente uniforme\n\n\n\n\n3. Aspect Ratio Appropriato\n\nBanking to 45° per trend\nQuadrato per scatter con x≈y\nWide per time series\n\n4. Gestione Overplotting\n# Strategia 1: alpha\ngeom_point(alpha = 0.3)\n\n# Strategia 2: jitter\ngeom_jitter()\n\n# Strategia 3: bin2d/hex\ngeom_hex()\n\n# Strategia 4: facets\nfacet_wrap(~ group)"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#scelta-della-geometria",
+    "href": "materials/11_conclusioni_qa.html#scelta-della-geometria",
+    "title": "Conclusioni e Q&A",
+    "section": "Scelta della Geometria",
+    "text": "Scelta della Geometria\n\nGuida rapida per tipo di dato:\n\n\n\n\n\n\n\n\n\nObiettivo\nTipo Dati\nGeometria\nQuando Usare\n\n\n\n\nRelazione\n2 continue\ngeom_point(), geom_smooth()\nCorrelazioni, scatter\n\n\nDistribuzione\n1 continua\ngeom_histogram(), geom_density()\nEsplorare forma distribuzione\n\n\nComparazione\nContinua + Categorica\ngeom_boxplot(), geom_violin()\nConfrontare gruppi\n\n\nConteggi\nCategorica\ngeom_bar(), geom_col()\nFrequenze, totali\n\n\nEvoluzione\nTempo + Valore\ngeom_line(), geom_area()\nTime series, trend\n\n\nComposizione\nParti di un tutto\ngeom_col(position=\"fill\")\nProporzioni nel tempo\n\n\nMultidimensionale\nMatrice valori\ngeom_tile() (heatmap)\nGene expression, correlazioni\n\n\n\n\n\n\n\n\n\nTip\n\n\nQuando in dubbio, inizia con geom_point() per esplorare!"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#codice-riproducibile",
+    "href": "materials/11_conclusioni_qa.html#codice-riproducibile",
+    "title": "Conclusioni e Q&A",
+    "section": "Codice Riproducibile",
+    "text": "Codice Riproducibile\n\n\n\nBest Practices per Script:\n# 1. Header informativo\n# Titolo: Analisi MPG Dataset\n# Autore: Marco Chiapello\n# Data: 2025-10-28\n# Scopo: Esplorare relazione mpg-displ\n\n# 2. Setup esplicito\nlibrary(tidyverse)\nlibrary(patchwork)\n\n# 3. Import dati documentato\ndata(mpg)\n# oppure\n# mpg &lt;- read_csv(\"data/mpg.csv\")\n\n# 4. Commenta scelte chiave\n# Uso log scale per range ampio\nggplot(mpg, aes(displ, hwy)) +\n  geom_point() +\n  scale_x_log10()\n\n\n\nSalvataggio Professionale:\n# 5. Salva con parametri espliciti\nggsave(\n  \"output/mpg_analysis.png\",\n  width = 8,\n  height = 6,\n  dpi = 300,\n  bg = \"white\"\n)\n\n# 6. Per pubblicazioni\nggsave(\n  \"figures/fig1.pdf\",\n  width = 7,\n  height = 5,\n  device = cairo_pdf\n)\n\n\n\n\n\n\nVersionamento\n\n\nUsa Git per tracciare evoluzione dei grafici!"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#composizioni-con-patchwork",
+    "href": "materials/11_conclusioni_qa.html#composizioni-con-patchwork",
+    "title": "Conclusioni e Q&A",
+    "section": "Composizioni con Patchwork",
+    "text": "Composizioni con Patchwork\n\n\n\nOperatori intuitivi:\nlibrary(patchwork)\n\n# Affiancati\np1 + p2\n\n# Verticale\np1 / p2\n\n# Layout complesso\n(p1 + p2) / p3\n\n# Con annotazioni\np1 + p2 +\n  plot_annotation(\n    title = \"Analisi Completa\",\n    tag_levels = \"A\"\n  )\n\n\n\nControllo fine:\n# Proporzioni custom\np1 + p2 +\n  plot_layout(widths = c(2, 1))\n\n# Tema globale\n(p1 + p2) &\n  theme_minimal() &\n  theme(legend.position = \"bottom\")\n\n# Guide collettive\np1 + p2 +\n  plot_layout(guides = \"collect\")\n\n\n\n\n\n\nTip\n\n\nOperatore & applica a tutti i subplot!"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#annotazioni-intelligenti",
+    "href": "materials/11_conclusioni_qa.html#annotazioni-intelligenti",
+    "title": "Conclusioni e Q&A",
+    "section": "Annotazioni Intelligenti",
+    "text": "Annotazioni Intelligenti\n\n\n\nggrepel per etichette:\nlibrary(ggrepel)\n\n# Evita sovrapposizioni\nggplot(mtcars, aes(wt, mpg)) +\n  geom_point() +\n  geom_text_repel(\n    aes(label = rownames(mtcars))\n  )\n\n# Solo subset\ntop_cars &lt;- mtcars[mtcars$mpg &gt; 25, ]\n\nggplot(mtcars, aes(wt, mpg)) +\n  geom_point() +\n  geom_text_repel(\n    data = top_cars,\n    aes(label = rownames(top_cars)),\n    color = \"red\"\n  )\n\n\n\nLabels vs Text:\n\ngeom_text_repel(): solo testo\ngeom_label_repel(): box background\n\nControllo direzione:\ngeom_text_repel(\n  direction = \"y\",  # solo verticale\n  nudge_x = 0.1,\n  segment.color = \"grey50\"\n)\n\n\n\n\n\n\nWarning\n\n\nEtichetta solo punti rilevanti per leggibilità!"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#heatmaps-e-volcano-plots",
+    "href": "materials/11_conclusioni_qa.html#heatmaps-e-volcano-plots",
+    "title": "Conclusioni e Q&A",
+    "section": "Heatmaps e Volcano Plots",
+    "text": "Heatmaps e Volcano Plots\n\n\n\nHeatmaps per matrici:\n# Formato long\nheatmap_data &lt;- data %&gt;%\n  pivot_longer(\n    cols = -id,\n    names_to = \"var\",\n    values_to = \"value\"\n  ) %&gt;%\n  group_by(var) %&gt;%\n  mutate(scaled = scale(value)[,1])\n\n# Plot\nggplot(heatmap_data, \n       aes(var, id, fill = scaled)) +\n  geom_tile() +\n  scale_fill_gradient2(\n    low = \"blue\",\n    mid = \"white\",\n    high = \"red\"\n  )\n\n\n\nVolcano plots per DEG:\n# Categorizza\ndeg_data &lt;- data %&gt;%\n  mutate(\n    regulation = case_when(\n      log2FC &gt; 1 & padj &lt; 0.05 ~ \"Up\",\n      log2FC &lt; -1 & padj &lt; 0.05 ~ \"Down\",\n      TRUE ~ \"NS\"\n    )\n  )\n\n# Plot\nggplot(deg_data, \n       aes(log2FC, -log10(padj),\n           color = regulation)) +\n  geom_point(alpha = 0.6) +\n  geom_vline(xintercept = c(-1, 1),\n             linetype = \"dashed\") +\n  geom_hline(yintercept = -log10(0.05),\n             linetype = \"dashed\")"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#libri-essenziali",
+    "href": "materials/11_conclusioni_qa.html#libri-essenziali",
+    "title": "Conclusioni e Q&A",
+    "section": "Libri Essenziali",
+    "text": "Libri Essenziali\n\n\n\nggplot2 Specifici:\n📘 ggplot2: Elegant Graphics for Data Analysis - Hadley Wickham et al. - LA risorsa ufficiale - Teoria + pratica - Gratuito online\n📗 R Graphics Cookbook - Winston Chang - Ricette pratiche - Problem-solving oriented\n\n\n\nWorkflow e Fondamenti:\n📙 R for Data Science - Wickham & Grolemund - Intero workflow data science - ggplot2 integrato\n📕 Fundamentals of Data Visualization - Claus Wilke - Principi di design - Non solo R - Teoria visuale"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#risorse-online",
+    "href": "materials/11_conclusioni_qa.html#risorse-online",
+    "title": "Conclusioni e Q&A",
+    "section": "Risorse Online",
+    "text": "Risorse Online\n\n\n\nDocumentazione:\n🔗 ggplot2.tidyverse.org - Documentazione ufficiale - Reference completa - Esempi per ogni funzione\n🔗 R Graph Gallery - 400+ esempi - Codice copy-paste - Organizzato per tipo\n🔗 ggplot2 Extensions - Lista pacchetti estensioni - Categorie specializzate - Sempre aggiornato\n\n\n\nCommunity e Aiuto:\n💬 RStudio Community - Forum ufficiale - Molto attivo - Esperti disponibili\n💬 Stack Overflow #ggplot2 - 50,000+ domande - Cerca prima di postare - Riproducibilità essenziale\n📊 TidyTuesday - Dataset settimanali - Pratica con dati reali - Community condivisione"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#cheatsheets-e-quick-reference",
+    "href": "materials/11_conclusioni_qa.html#cheatsheets-e-quick-reference",
+    "title": "Conclusioni e Q&A",
+    "section": "Cheatsheets e Quick Reference",
+    "text": "Cheatsheets e Quick Reference\n\n\n\nPosit Cheatsheets:\n📄 Data Visualization with ggplot2\n\n2 pagine PDF stampabili\nGeometrie comuni\nScale e coordinate\nFacets e temi\n\n📄 Altri utili:\n\nData Transformation (dplyr)\nData Import (readr)\npatchwork\nlubridate (date/time)\n\n\n\n\nCome usarli:\n\nStampa e tieni sulla scrivania\nIn RStudio: Help → Cheatsheets\nConsulta per sintassi veloce\nNon sostituiscono documentazione completa\n\n\n\n\n\n\n\nTip\n\n\nPratica Attiva\nIl modo migliore per imparare:\n\nRicrea grafici che vedi\n#TidyTuesday settimanale\nVisualizza i TUOI dati!"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#challenge-crea-un-report-completo",
+    "href": "materials/11_conclusioni_qa.html#challenge-crea-un-report-completo",
+    "title": "Conclusioni e Q&A",
+    "section": "Challenge: Crea un Report Completo",
+    "text": "Challenge: Crea un Report Completo\n\nObiettivo: Applicare tutto ciò che hai imparato in un progetto integrato\nRequisiti minimi:\n\n\n1. Data Preparation\n\nImport dataset (CSV, Excel, o API)\nPulizia e manipolazione (dplyr)\nFormato tidy\n\n2. Exploratory Analysis\n\nAlmeno 4 grafici diversi:\n\nDistribuzione (histogram/density)\nRelazione (scatter + smooth)\nComparazione (boxplot/violin)\nTime series O heatmap\n\n\n\n3. Advanced Features\n\nFaceting con facet_wrap() o facet_grid()\nScale personalizzate (viridis, breaks custom)\nTema personalizzato O consistente\nComposizione multi-panel (patchwork)\n\n4. Professional Polish\n\nLabels completi (title, subtitle, caption)\nAnnotazioni dove appropriato\nExport alta qualità (300 dpi)\nCodice ben commentato"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#suggerimenti-dataset",
+    "href": "materials/11_conclusioni_qa.html#suggerimenti-dataset",
+    "title": "Conclusioni e Q&A",
+    "section": "Suggerimenti Dataset",
+    "text": "Suggerimenti Dataset\n\nOpzioni per il progetto:\n\n\nDataset Built-in R:\n# Ricchi e vari\ndiamonds, mpg, msleep, \neconomics, txhousing\n\n# Accedi facilmente\ndata(diamonds)\n?diamonds  # documentazione\nTidyTuesday Archive:\n\ngithub.com/rfordatascience/tidytuesday\nDataset curati settimanalmente\nVedi grafici community per ispirazione\n\n\nTuoi Dati:\n\nMeglio ancora! Usa dati del tuo lavoro/ricerca\nMassima motivazione\nRisultati direttamente utili\nPortfolio personale\n\nDataset Pubblici:\n\nKaggle Datasets\ndata.gov\nOur World in Data\nEurostat"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#faq-tecniche",
+    "href": "materials/11_conclusioni_qa.html#faq-tecniche",
+    "title": "Conclusioni e Q&A",
+    "section": "FAQ Tecniche",
+    "text": "FAQ Tecniche\n\nQ: Quando usare facets vs color?\nA: - Color se &lt; 6 gruppi E confronti diretti - Facets se &gt; 6 gruppi O pattern complessi O scale molto diverse\nQ: geom_col() vs geom_bar()?\nA: - geom_bar(): conta osservazioni (stat = “count”), solo x - geom_col(): usa valori y forniti (stat = “identity”), x e y\nQ: Trasformazione in scale o coordinate?\nA: - Scale (preferito): scale_y_log10() - trasforma PRIMA di stat - Coordinate: coord_trans(y = \"log10\") - trasforma DOPO rendering\nQ: Come gestire warning “Removed X rows containing missing values”?\nA: - Verifica: summary(data), is.na() per trovare NA - Decidi: rimuovi (na.omit()), imputa, o gestisci esplicitamente - Warning è informativo, non sempre errore!\nQ: Salvo con ggsave ma risoluzione bassa?\nA:\nggsave(\"plot.png\", dpi = 300, width = 8, height = 6)  # 300 dpi per stampa!"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#faq-concettuali",
+    "href": "materials/11_conclusioni_qa.html#faq-concettuali",
+    "title": "Conclusioni e Q&A",
+    "section": "FAQ Concettuali",
+    "text": "FAQ Concettuali\n\nQ: ggplot2 vs base R graphics?\nA: ggplot2 offre: - Sintassi consistente e logica - Estetiche automatiche (legende, scale) - Temi riutilizzabili - Migliore per grafici complessi\nBase R: più veloce per plot rapidissimi esplorativi\nQ: Devo memorizzare tutte le funzioni?\nA: NO! - Comprendi i concetti (grammar, layers) - Usa reference/cheatsheets - Google/Stack Overflow sono normali - La pratica consolida la memoria\nQ: Come scegliere palette colori?\nA: 1. Default: viridis (colorblind-safe) 2. Categoriche: ColorBrewer Set2, Dark2 3. Divergenti: RdBu, BrBG per dati con zero centrale 4. Custom: solo se branding/necessità specifiche\nQ: Quanto tempo serve per diventare fluente?\nA: - Basic plots: 2-3 settimane pratica regolare - Advanced customization: 2-3 mesi - Expert: 6-12 mesi + uso continuo"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#section",
+    "href": "materials/11_conclusioni_qa.html#section",
+    "title": "Conclusioni e Q&A",
+    "section": "",
+    "text": "Le Vostre Domande\n💬\nDomande? Dubbi? Curiosità?"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#rimaniamo-in-contatto",
+    "href": "materials/11_conclusioni_qa.html#rimaniamo-in-contatto",
+    "title": "Conclusioni e Q&A",
+    "section": "Rimaniamo in Contatto",
+    "text": "Rimaniamo in Contatto\n\n\n\nMarco Chiapello\n📧 Email: chiapello.m@gmail.com\n🐙 GitHub: @mchiapello\n💼 LinkedIn: Marco Chiapello\nMateriali del Corso:\n🗂️ Repository: github.com/mchiapello/DataViz_2025\n\nTutti gli script\nDatasets\nSoluzioni esercizi\nSlide aggiornate\n\n\n\n\nREVELO Training:\n💬 Slack: revelotraining.slack.com\n\nCanale corso attivo\nSupporto post-corso\nCommunity learners\n\nFeedback:\n📝 Per favore, compila il questionario di valutazione del corso\nIl tuo feedback ci aiuta a migliorare!"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#section-1",
+    "href": "materials/11_conclusioni_qa.html#section-1",
+    "title": "Conclusioni e Q&A",
+    "section": "",
+    "text": "Grazie per aver partecipato!\n\n\nBuona visualizzazione! 📊✨\n\n\n\n\n\n\n\n\n\n“The simple graph has brought more information to the data analyst’s mind\nthan any other device.”\n— John Tukey"
+  },
+  {
+    "objectID": "materials/11_conclusioni_qa.html#grazie-per-aver-partecipato",
+    "href": "materials/11_conclusioni_qa.html#grazie-per-aver-partecipato",
+    "title": "Conclusioni e Q&A",
+    "section": "Grazie per aver partecipato!",
+    "text": "Grazie per aver partecipato!\n\n\n\n\n\nBuona visualizzazione! 📊✨\n\n\n\n\n\n\n\n\n\n“The simple graph has brought more information to the data analyst’s mind than any other device.”\n— John Tukey"
   }
 ]
