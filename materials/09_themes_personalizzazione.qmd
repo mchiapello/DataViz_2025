@@ -1,167 +1,1625 @@
 ---
-title: "Themes e Personalizzazione"
+title: "Temi e Personalizzazione in ggplot2"
+subtitle: "Hands-on Workshop"
+author: "Marco Chiapello"
+format: 
+  revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    chalkboard: true
+    logo: images/ggplot2_logo.jpg
+    footer: "REVELO Training - Data Viz 2025"
+    css: presentation-style.css
+    title-slide-attributes:
+      data-background-image: images/frequency-wave-7776034_1280.jpg
+      data-background-size: cover
+      data-background-opacity: "0.1"
+resources:
+  - images/
+  - presentation-style.css
 ---
 
-## Temi in ggplot2
+## Obiettivi della Sessione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-I temi controllano l'aspetto non-dati del grafico.
+::: {style="font-size: 0.65em;"}
+**Cosa impareremo oggi:**
 
-## Temi predefiniti
+- Comprendere la separazione tra **dati** e **aspetto visivo**
+- Utilizzare **temi predefiniti** per cambiare rapidamente lo stile
+- Padroneggiare la funzione `theme()` e i suoi parametri
+- Utilizzare le funzioni `element_*()` per personalizzare ogni dettaglio
+- Creare **annotazioni complete** con `labs()`
+- Personalizzare **legende** e guide
+- Salvare grafici con `ggsave()` in alta qualità
+- Creare e riutilizzare **temi personalizzati**
 
-```{r}
-#| eval: false
+**Approccio:**
 
-# Minimal
-ggplot(data, aes(x = x, y = y)) +
+- Prima i temi predefiniti (facile e veloce)
+- Poi la personalizzazione fine (potente e flessibile)
+- Focus su publication-ready plots
+:::
+
+## Esercizi Pratici {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+**Struttura degli Esercizi:**
+
+📁 **File:** [09_themes_personalizzazione_exercises.R](09_themes_personalizzazione_exercises.R)
+
+**30 esercizi organizzati in 6 parti:**
+
+1. **Temi Predefiniti** (5 esercizi) - Esplorare theme_\*() functions
+2. **theme() Basics** (5 esercizi) - Modificare elementi base
+3. **Funzioni element_\*()** (5 esercizi) - Controllo fine degli elementi
+4. **Labels e Titoli** (5 esercizi) - labs() e annotazioni
+5. **Personalizzazione Legende** (5 esercizi) - Position, formatting, guides
+6. **Temi Custom e Export** (5 esercizi) - Creare temi riutilizzabili
+
+💡 **Suggerimento:** Inizia con temi predefiniti, poi personalizza gradualmente!
+:::
+
+## Cos'è un Tema in ggplot2? {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+**Definizione:**
+
+Un tema controlla tutti gli elementi **non relativi ai dati** in un grafico:
+
+- Colori di sfondo
+- Griglie
+- Font e dimensioni testo
+- Posizione legende
+- Bordi e margini
+- Aspetto degli assi
+
+**Separazione Fondamentale:**
+
+- **Dati → Geometrie/Scale** (cosa mostriamo)
+- **Aspetto → Temi** (come lo mostriamo)
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.72em;"}
+**Perché è Importante:**
+
+1. **Riproducibilità:** Codice invece di Photoshop
+2. **Consistenza:** Stesso stile per tutti i grafici
+3. **Flessibilità:** Cambia look con una riga di codice
+4. **Professionalità:** Publication-ready plots
+
+::: {.callout-tip}
+## Best Practice
+Separa sempre la creazione del grafico dalla sua personalizzazione estetica. Prima focus sui dati, poi sull'aspetto!
+:::
+:::
+:::
+:::
+
+# Capitolo 1: Temi Predefiniti {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## theme_gray() - Il Default {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.6em;"}
+**Caratteristiche:**
+
+- Sfondo grigio con griglia bianca
+- Design di Hadley Wickham
+- Ottimizzato per massimizzare la distinzione dei dati
+- **È il tema di default** - non serve specificarlo
+
+```r
+library(ggplot2)
+
+# Tema default (non serve specificare)
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = class))
+
+# Oppure esplicitamente
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = class)) +
+  theme_gray()
+```
+
+**Quando usarlo:**
+
+- Analisi esplorativa
+- Draft plots
+- Focus massimo sui dati
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+::: {.callout-note}
+## Filosofia del Gray Background
+Lo sfondo grigio non è casuale! Aiuta a:
+
+- Far risaltare i colori dei dati
+- Rendere la griglia meno invasiva
+- Creare contrasto senza stancare gli occhi
+:::
+
+**Parametri base_size:**
+
+```r
+# Aumenta dimensioni testo
+ggplot(mpg, aes(x = class)) +
+  geom_bar() +
+  theme_gray(base_size = 18)
+
+# Diminuisce tutto
+ggplot(mpg, aes(x = class)) +
+  geom_bar() +
+  theme_gray(base_size = 8)
+```
+
+Tutti i temi accettano `base_size`, `base_family`, `base_line_size`, `base_rect_size`
+:::
+:::
+:::
+
+## theme_minimal() e theme_classic() {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.55em;"}
+**theme_minimal():**
+
+- Sfondo bianco
+- Griglia sottile
+- Nessun bordo
+- Molto pulito e moderno
+
+```r
+ggplot(economics, aes(x = date, y = unemploy)) +
+  geom_line(color = "steelblue", size = 1) +
+  theme_minimal()
+
+# Con base_size
+ggplot(economics, aes(x = date, y = unemploy)) +
+  geom_line(color = "steelblue", size = 1) +
+  theme_minimal(base_size = 14)
+```
+
+**Quando usarlo:**
+
+- Presentazioni
+- Report aziendali
+- Web graphics
+- Quando vuoi massima pulizia
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.5em;"}
+**theme_classic():**
+
+- Assi neri con tick marks
+- Nessuna griglia
+- Stile "pubblicazione accademica"
+- Look tradizionale
+
+```r
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point(aes(color = Species), size = 3) +
+  theme_classic()
+```
+
+**Quando usarlo:**
+
+- Paper scientifici
+- Pubblicazioni accademiche
+- Quando la griglia distrae
+
+::: {.callout-important}
+## Differenza Chiave
+`theme_minimal()` = griglia + no bordi  
+`theme_classic()` = no griglia + assi tradizionali
+:::
+:::
+:::
+:::
+
+## Altri Temi Built-in {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+::: {.columns}
+::: {.column width="50%"}
+**theme_bw()** - Bianco e Nero
+
+```r
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  theme_bw()
+```
+
+- Sfondo bianco, griglia grigia, bordi neri
+- Ottimo per stampa B/N
+- Professional look
+
+**theme_void()** - Nessun Elemento
+
+```r
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  theme_void()
+```
+
+- Rimuove tutto (assi, griglia, labels)
+- Perfetto per mappe, network graphs
+- Solo i dati, niente altro
+:::
+
+::: {.column width="50%"}
+**theme_dark()** - Sfondo Scuro
+
+```r
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point(alpha = 0.1, color = "cyan") +
+  theme_dark()
+```
+
+- Sfondo scuro, griglia chiara
+- Riduce affaticamento occhi
+- Ottimo per presentazioni
+
+**theme_light()** - Leggero
+
+```r
+ggplot(mpg, aes(x = class)) +
+  geom_bar(fill = "steelblue") +
+  theme_light()
+```
+
+- Simile a minimal ma con bordi sottili
+- Via di mezzo tra minimal e bw
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Capitolo 2: La Funzione theme() {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Anatomia di theme() {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.5em;"}
+**Struttura Gerarchica:**
+
+`theme()` controlla ~100 parametri organizzati gerarchicamente:
+
+- **line** - Tutte le linee
+  - axis.line - Linee assi
+  - panel.grid - Linee griglia
+    - panel.grid.major - Griglia maggiore
+    - panel.grid.minor - Griglia minore
+- **rect** - Tutti i rettangoli
+  - plot.background - Sfondo plot
+  - panel.background - Sfondo panel
+- **text** - Tutto il testo
+  - axis.text - Testo assi
+  - plot.title - Titolo
+  - legend.text - Testo legenda
+
+**Ereditarietà:** Gli elementi figli ereditano proprietà dai genitori
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Esempio Base:**
+
+```r
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  theme(
+    # Modifica solo griglia maggiore
+    panel.grid.major = element_line(color = "red"),
+    
+    # Modifica tutto il testo
+    text = element_text(size = 16),
+    
+    # Rimuove griglia minore
+    panel.grid.minor = element_blank()
+  )
+```
+
+::: {.callout-tip}
+## Ordine di Applicazione
+Prima applica tema predefinito, poi `theme()` per personalizzazioni:
+
+```r
+theme_minimal() + theme(...)
+```
+:::
+:::
+:::
+:::
+
+## Modificare Background e Panel {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Background Elements:**
+
+```r
+ggplot(economics, aes(x = date, y = unemploy)) +
+  geom_line() +
+  theme_minimal() +
+  theme(
+    # Sfondo intero plot
+    plot.background = element_rect(
+      fill = "lightblue",
+      color = "navy",
+      size = 2
+    ),
+    
+    # Sfondo area dati
+    panel.background = element_rect(
+      fill = "white",
+      color = "black",
+      size = 1
+    ),
+    
+    # Bordo panel
+    panel.border = element_rect(
+      color = "darkgreen",
+      fill = NA,
+      size = 1.5
+    )
+  )
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.6em;"}
+**Differenza plot vs panel:**
+
+- **plot.background:** Tutto il grafico (include titoli, legende)
+- **panel.background:** Solo l'area con i dati
+- **panel.border:** Bordo attorno ai dati
+
+```r
+# Esempio chiaro della differenza
+ggplot(mpg, aes(x = class)) +
+  geom_bar() +
+  labs(title = "Distribuzione Classi") +
+  theme(
+    plot.background = element_rect(fill = "yellow"),
+    panel.background = element_rect(fill = "lightgreen"),
+    panel.border = element_rect(
+      color = "red", 
+      fill = NA, 
+      size = 2
+    )
+  )
+```
+
+::: {.callout-warning}
+## Attenzione
+`fill = NA` significa trasparente, non "nessun fill"!
+:::
+:::
+:::
+:::
+
+## Personalizzare Griglie {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.72em;"}
+**Controllo Completo delle Gridlines:**
+
+::: {.columns}
+::: {.column width="50%"}
+```r
+# Rimuovere tutte le griglie
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank()
+  )
+
+# Solo griglia maggiore
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  theme_minimal() +
+  theme(
+    panel.grid.minor = element_blank()
+  )
+
+# Solo griglia orizzontale
+ggplot(mpg, aes(x = class)) +
+  geom_bar() +
+  theme_minimal() +
+  theme(
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank()
+  )
+```
+:::
+
+::: {.column width="50%"}
+```r
+# Personalizza colore e stile
+ggplot(economics, aes(x = date, y = unemploy)) +
+  geom_line() +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_line(
+      color = "gray70",
+      size = 0.5,
+      linetype = "dashed"
+    ),
+    panel.grid.minor = element_line(
+      color = "gray90",
+      size = 0.25,
+      linetype = "dotted"
+    )
+  )
+```
+
+::: {.callout-important}
+## Best Practice per Griglie
+- **Bar charts:** Solo linee orizzontali
+- **Time series:** Entrambe le direzioni
+- **Scatter plots:** Dipende - spesso solo maggiori
+- **Pubblicazioni:** Spesso nessuna griglia
+:::
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Capitolo 3: Funzioni element_\*() {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## element_text() - Controllo Testo {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.6em;"}
+**Parametri Principali:**
+
+```r
+element_text(
+  family = "sans",        # Font family
+  face = "plain",         # plain, bold, italic
+  colour = "black",       # Colore testo
+  size = 11,              # Dimensione (pt)
+  hjust = 0.5,            # Align orizzontale (0-1)
+  vjust = 0.5,            # Align verticale (0-1)
+  angle = 0,              # Rotazione (gradi)
+  lineheight = 1.2,       # Interlinea
+  margin = margin(0,0,0,0) # Margini
+)
+```
+
+**Esempio Completo:**
+
+```r
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot() +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1,
+      color = "darkred",
+      size = 12,
+      face = "bold"
+    ),
+    axis.title = element_text(
+      size = 14,
+      face = "bold"
+    )
+  )
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.45em;"}
+**Elementi di Testo Comuni:**
+
+- `plot.title` - Titolo principale
+- `plot.subtitle` - Sottotitolo
+- `plot.caption` - Didascalia
+- `axis.title.x/y` - Titoli assi
+- `axis.text.x/y` - Labels assi
+- `legend.title` - Titolo legenda
+- `legend.text` - Testo legenda
+- `strip.text` - Testo facet
+
+**Esempio Ereditarietà:**
+
+```r
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(~class) +
+  theme_minimal() +
+  theme(
+    # Modifica TUTTO il testo
+    text = element_text(
+      family = "serif",
+      size = 14
+    ),
+    # Override solo per titolo
+    plot.title = element_text(
+      size = 20,
+      face = "bold",
+      color = "navy"
+    )
+  )
+```
+:::
+:::
+:::
+
+## element_line() - Controllo Linee {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.6em;"}
+**Parametri:**
+
+```r
+element_line(
+  colour = "black",
+  size = 0.5,
+  linetype = 1,      # 1=solid, 2=dashed, etc
+  lineend = "butt",  # butt, round, square
+  arrow = NULL
+)
+```
+
+**Tipi di Linea:**
+
+```r
+# linetype può essere:
+# 0 = blank, 1 = solid, 2 = dashed
+# 3 = dotted, 4 = dotdash, 5 = longdash
+# 6 = twodash
+
+ggplot(economics, aes(x = date, y = unemploy)) +
+  geom_line() +
+  theme_minimal() +
+  theme(
+    axis.line = element_line(
+      color = "black",
+      size = 1
+    ),
+    panel.grid.major = element_line(
+      linetype = "dashed",
+      color = "gray70"
+    )
+  )
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.5em;"}
+**Elementi di Linea Comuni:**
+
+- `axis.line.x/y` - Linee assi
+- `axis.ticks` - Tick marks
+- `panel.grid.major/minor` - Griglie
+- `legend.key` - Bordo chiave legenda
+
+**Esempio con Frecce:**
+
+```r
+library(grid)
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  theme_classic() +
+  theme(
+    axis.line = element_line(
+      arrow = arrow(
+        length = unit(0.3, "cm"),
+        ends = "last"
+      ),
+      size = 1
+    )
+  )
+```
+
+::: {.callout-note}
+## Rimuovere Tick Marks
+```r
+theme(
+  axis.ticks = element_blank()
+)
+```
+Utile con `theme_minimal()`
+:::
+:::
+:::
+:::
+
+## element_rect() - Controllo Rettangoli {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+**Parametri:**
+
+```r
+element_rect(
+  fill = NA,         # Colore riempimento
+  colour = NA,       # Colore bordo
+  size = 0.5,        # Spessore bordo
+  linetype = 1       # Tipo linea bordo
+)
+```
+
+**Elementi Rettangolari:**
+
+- `plot.background` - Sfondo intero
+- `panel.background` - Sfondo panel
+- `panel.border` - Bordo panel
+- `legend.background` - Sfondo legenda
+- `legend.key` - Background chiavi legenda
+- `strip.background` - Sfondo facet labels
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.6em;"}
+**Esempio:**
+
+```r
+ggplot(mpg, aes(x = class, fill = class)) +
+  geom_bar() +
+  theme_minimal() +
+  theme(
+    panel.background = element_rect(
+      fill = "white",
+      color = "black",
+      size = 1
+    ),
+    legend.background = element_rect(
+      fill = "gray95",
+      color = "black",
+      size = 0.5
+    )
+  )
+```
+
+**element_blank() - Rimuovere Elementi:**
+
+```r
+# Rimuove completamente un elemento
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  theme(
+    panel.background = element_blank(),
+    panel.grid = element_blank(),
+    axis.line = element_line(color = "black")
+  )
+```
+:::
+:::
+:::
+
+## Differenze Importanti {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**fill vs colour:**
+
+```r
+ggplot(mpg, aes(x = class)) +
+  geom_bar() +
+  theme_classic() +
+  theme(
+    # fill = riempimento interno
+    plot.background = element_rect(
+      fill = "lightyellow"
+    ),
+    # colour = bordo
+    panel.border = element_rect(
+      colour = "navy",
+      fill = NA,  # Trasparente!
+      size = 2
+    )
+  )
+```
+
+- **fill:** Colore interno del rettangolo
+- **colour:** Colore del bordo del rettangolo
+- **fill = NA:** Riempimento trasparente (ma elemento esiste)
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+::: {.callout-warning}
+## NA vs element_blank()
+**Due modi diversi di "rimuovere":**
+
+- `fill = NA` o `colour = NA`  
+  → Trasparente ma elemento esiste ancora  
+  → Occupa spazio nel layout
+
+- `element_blank()`  
+  → Elemento rimosso completamente  
+  → Non occupa spazio
+
+**Quando usare cosa:**
+
+- `NA`: Vuoi l'elemento ma trasparente
+- `element_blank()`: Non vuoi l'elemento affatto
+:::
+
+**Esempio pratico:**
+
+```r
+# Griglia trasparente (mantiene spazio)
+theme(panel.grid = element_line(color = NA))
+
+# Griglia rimossa completamente
+theme(panel.grid = element_blank())
+```
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Capitolo 4: Labels e Annotazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## La Funzione labs() {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Annotazioni Complete:**
+
+```r
+labs(
+  title = "Titolo Principale",
+  subtitle = "Sottotitolo descrittivo",
+  caption = "Fonte dati",
+  x = "Asse X",
+  y = "Asse Y",
+  color = "Nome Legenda",
+  fill = "Nome Legenda",
+  size = "Nome Legenda",
+  # ... qualsiasi aesthetica
+)
+```
+
+**Esempio Completo:**
+
+```r
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point(size = 3, alpha = 0.7) +
+  labs(
+    title = "Consumo Carburante vs Cilindrata",
+    subtitle = "Dati EPA per veicoli 1999-2008",
+    caption = "Fonte: EPA fuel economy data",
+    x = "Cilindrata motore (litri)",
+    y = "Consumo autostrada (mpg)",
+    color = "Classe\nVeicolo"
+  ) +
+  theme_minimal()
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.55em;"}
+**Formattazione Titoli:**
+
+```r
+ggplot(economics, aes(x = date, y = unemploy/1000)) +
+  geom_line(color = "steelblue", size = 1) +
+  labs(
+    title = "Disoccupazione USA",
+    subtitle = "1967-2015",
+    y = "Disoccupati (migliaia)",
+    x = NULL,  # Rimuove label
+    caption = "Dati: Federal Reserve Economic Data"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(
+      size = 20,
+      face = "bold",
+      hjust = 0  # Allinea a sinistra
+    ),
+    plot.subtitle = element_text(
+      size = 14,
+      color = "gray40"
+    ),
+    plot.caption = element_text(
+      size = 9,
+      hjust = 1,  # Allinea a destra
+      face = "italic"
+    )
+  )
+```
+
+::: {.callout-tip}
+## A Capo nei Labels
+Usa `\n` per andare a capo:
+```r
+x = "Prima riga\nSeconda riga"
+```
+:::
+:::
+:::
+:::
+
+## Tag e Annotazioni Avanzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.6em;"}
+**plot.tag per Panel Labels:**
+
+```r
+# Utile per figure multi-panel
+p <- ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  labs(tag = "A") +
+  theme_minimal() +
+  theme(
+    plot.tag = element_text(
+      size = 20,
+      face = "bold"
+    ),
+    plot.tag.position = c(0.05, 0.95)
+  )
+```
+
+**Rimuovere Labels:**
+
+```r
+# x = NULL rimuove titolo asse
+ggplot(mpg, aes(x = class)) +
+  geom_bar() +
+  labs(
+    x = NULL,  # No titolo X
+    y = "Conteggio"
+  )
+
+# color = NULL rimuove titolo legenda
+ggplot(mpg, aes(x = displ, y = hwy, 
+                color = class)) +
+  geom_point() +
+  labs(color = NULL)
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.56em;"}
+**Sostituire Tutti i Labels:**
+
+```r
+# ggtitle(), xlab(), ylab() - shortcut
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  ggtitle("Titolo") +
+  xlab("Asse X") +
+  ylab("Asse Y")
+
+# Equivalente a:
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  labs(
+    title = "Titolo",
+    x = "Asse X",
+    y = "Asse Y"
+  )
+```
+
+**Multi-line Titles con expression():**
+
+```r
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  labs(
+    title = expression(
+      paste("Consumo vs Cilindrata (", R^2, ")")
+    )
+  )
+```
+
+::: {.callout-note}
+## Best Practice
+Usa sempre `labs()` invece di modificare direttamente i nomi delle variabili nei dati!
+:::
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Capitolo 5: Personalizzazione Legende {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Posizione e Layout Legende {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.55em;"}
+**legend.position:**
+
+```r
+# Posizioni predefinite
+theme(legend.position = "right")   # Default
+theme(legend.position = "left")
+theme(legend.position = "top")
+theme(legend.position = "bottom")
+theme(legend.position = "none")    # Nasconde
+
+# Coordinate precise (0-1, 0-1)
+ggplot(mpg, aes(x = displ, y = hwy, 
+                color = class)) +
+  geom_point(size = 3) +
+  theme_minimal() +
+  theme(
+    legend.position = c(0.85, 0.75),
+    legend.background = element_rect(
+      fill = "white",
+      color = "black"
+    )
+  )
+```
+
+**legend.justification:**
+
+```r
+# Controlla quale parte della legenda
+# si posiziona al punto specificato
+theme(
+  legend.position = c(1, 1),
+  legend.justification = c(1, 1)
+)
+# Angolo top-right della legenda
+# nell'angolo top-right del plot
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.55em;"}
+**legend.direction:**
+
+```r
+# Layout orizzontale
+ggplot(mpg, aes(x = displ, y = hwy, 
+                color = class)) +
+  geom_point() +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    legend.direction = "horizontal"
+  )
+
+# Layout verticale (default)
+theme(legend.direction = "vertical")
+```
+
+**legend.box:**
+
+```r
+# Quando hai più legende
+ggplot(mpg, aes(x = displ, y = hwy, 
+                color = class, size = cyl)) +
+  geom_point(alpha = 0.6) +
+  theme_minimal() +
+  theme(
+    legend.box = "horizontal",  # Side-by-side
+    # oppure "vertical"
+    legend.box.just = "top"
+  )
+```
+
+::: {.callout-important}
+## Multiple Legende
+Usa `legend.box` per controllare il layout quando hai più di una estetica mappata.
+:::
+:::
+:::
+:::
+
+## Formattazione Testo e Sfondo Legenda {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.6em;"}
+::: {.columns}
+::: {.column width="50%"}
+**Elementi Testo:**
+
+```r
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point(size = 3) +
+  labs(color = "Classe Veicolo") +
+  theme_minimal() +
+  theme(
+    # Titolo legenda
+    legend.title = element_text(
+      size = 14,
+      face = "bold",
+      color = "navy"
+    ),
+    
+    # Labels legenda
+    legend.text = element_text(
+      size = 11,
+      face = "italic"
+    ),
+    
+    # Allineamento titolo
+    legend.title.align = 0.5  # 0=left, 0.5=center, 1=right
+  )
+```
+:::
+
+::: {.column width="50%"}
+**Elementi Background:**
+
+```r
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point(size = 3) +
+  theme_minimal() +
+  theme(
+    # Sfondo legenda
+    legend.background = element_rect(
+      fill = "gray95",
+      color = "black",
+      size = 0.5
+    ),
+    
+    # Sfondo chiavi
+    legend.key = element_rect(
+      fill = "white",
+      color = NA
+    ),
+    
+    # Dimensione chiavi
+    legend.key.size = unit(1.5, "cm"),
+    legend.key.height = unit(1, "cm"),
+    legend.key.width = unit(1, "cm")
+  )
+```
+:::
+:::
+:::
+
+## Guides Avanzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.55em;"}
+**guides() - Controllo Fine:**
+
+```r
+# Personalizza guide per estetica
+ggplot(mpg, aes(x = displ, y = hwy, 
+                color = class, size = cyl)) +
+  geom_point(alpha = 0.6) +
+  guides(
+    color = guide_legend(
+      title = "Tipo",
+      nrow = 2,
+      override.aes = list(size = 4)
+    ),
+    size = guide_legend(
+      title = "Cilindri",
+      reverse = TRUE
+    )
+  )
+```
+
+**guide_legend() Opzioni:**
+
+- `nrow/ncol` - Righe/colonne
+- `byrow` - Riempimento per riga
+- `reverse` - Inverti ordine
+- `override.aes` - Modifica aesthetics nella legenda
+- `title.position` - "top", "bottom", "left", "right"
+- `label.position` - Come title
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.6em;"}
+**guide_colorbar() per Scale Continue:**
+
+```r
+ggplot(faithfuld, aes(waiting, eruptions)) +
+  geom_raster(aes(fill = density)) +
+  scale_fill_viridis_c() +
+  guides(
+    fill = guide_colorbar(
+      title = "Densità",
+      barwidth = 1,
+      barheight = 10,
+      title.position = "top",
+      title.hjust = 0.5
+    )
+  ) +
+  theme_minimal()
+```
+
+**Rimuovere Guide Specifiche:**
+
+```r
+# Rimuove solo color legend
+guides(color = "none")
+
+# Equivalente a:
+scale_color_discrete(guide = "none")
+```
+
+::: {.callout-tip}
+## Override Aesthetics
+`override.aes` è perfetto per rendere le chiavi della legenda più visibili quando i punti nel plot sono piccoli o trasparenti.
+:::
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Capitolo 6: Temi Custom e Export {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Creare Temi Riutilizzabili {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.6em;"}
+**Definire un Tema Custom:**
+
+```r
+# Crea funzione tema
+theme_mio <- function(base_size = 12) {
+  theme_minimal(base_size = base_size) +
+    theme(
+      # Griglia
+      panel.grid.minor = element_blank(),
+      panel.grid.major = element_line(
+        color = "gray90",
+        size = 0.5
+      ),
+      
+      # Testo
+      plot.title = element_text(
+        size = base_size * 1.5,
+        face = "bold",
+        hjust = 0,
+        margin = margin(b = 10)
+      ),
+      
+      plot.subtitle = element_text(
+        size = base_size * 1.1,
+        color = "gray40",
+        margin = margin(b = 15)
+      ),
+      
+      # Assi
+      axis.title = element_text(
+        size = base_size * 1.1,
+        face = "bold"
+      ),
+      
+      # Legenda
+      legend.position = "top",
+      legend.title = element_blank()
+    )
+}
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.55em;"}
+**Usare il Tema:**
+
+```r
+# Applica a singolo plot
+ggplot(mpg, aes(x = displ, y = hwy, 
+                color = class)) +
+  geom_point(size = 3) +
+  labs(
+    title = "Consumo vs Cilindrata",
+    subtitle = "Dati EPA"
+  ) +
+  theme_mio()
+
+# Con base_size diverso
+ggplot(mpg, aes(x = class)) +
+  geom_bar() +
+  theme_mio(base_size = 16)
+```
+
+**Impostare come Default:**
+
+```r
+# Per tutta la sessione
+theme_set(theme_mio())
+
+# Ora tutti i plot usano theme_mio
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point()
+
+# Reset a default
+theme_set(theme_gray())
+```
+
+::: {.callout-tip}
+## Organizzazione
+Salva i tuoi temi in un file R separato e caricalo con `source("my_themes.R")`
+:::
+:::
+:::
+:::
+
+## Salvare Grafici con ggsave() {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+**Sintassi Base:**
+
+```r
+p <- ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   theme_minimal()
 
-# Classic
-theme_classic()
+# Salva ultimo plot
+ggsave("mio_plot.png")
 
-# BW (bianco e nero)
-theme_bw()
+# Salva plot specifico
+ggsave("mio_plot.png", plot = p)
 
-# Dark
-theme_dark()
+# Specifica dimensioni
+ggsave(
+  "mio_plot.png",
+  plot = p,
+  width = 8,
+  height = 6,
+  units = "in"  # "in", "cm", "mm"
+)
 ```
 
-## Temi da pacchetti esterni
+**Formati Supportati:**
 
-```{r}
-#| eval: false
+```r
+ggsave("plot.png")   # PNG (default)
+ggsave("plot.pdf")   # PDF vettoriale
+ggsave("plot.svg")   # SVG vettoriale
+ggsave("plot.eps")   # EPS per LaTeX
+ggsave("plot.jpg")   # JPEG
+ggsave("plot.tiff")  # TIFF
+```
+:::
+:::
 
+::: {.column width="50%"}
+::: {style="font-size: 0.4em;"}
+**Risoluzione e DPI:**
+
+```r
+# Alta risoluzione per pubblicazioni
+ggsave(
+  "plot_highres.png",
+  plot = p,
+  width = 8,
+  height = 6,
+  dpi = 300  # Standard pubblicazioni
+)
+
+# Bassa risoluzione per web
+ggsave(
+  "plot_web.png",
+  plot = p,
+  width = 800,
+  height = 600,
+  units = "px",
+  dpi = 72
+)
+```
+
+**Controllo Background:**
+
+```r
+# Sfondo trasparente
+ggsave(
+  "plot_transparent.png",
+  plot = p,
+  bg = "transparent"
+)
+
+# Sfondo bianco
+ggsave(
+  "plot_white.png",
+  plot = p,
+  bg = "white"
+)
+```
+
+::: {.callout-important}
+## DPI per Pubblicazioni
+- **300 DPI:** Pubblicazioni scientifiche
+- **150 DPI:** Presentazioni
+- **72-96 DPI:** Web/schermo
+:::
+:::
+:::
+:::
+
+## Pacchetti di Temi Esterni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.58em;"}
+::: {.columns}
+::: {.column width="50%"}
+**ggthemes - Temi Classici:**
+
+```r
 library(ggthemes)
 
 # Economist style
-theme_economist()
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point(size = 3) +
+  theme_economist() +
+  scale_color_economist()
 
-# FiveThirtyEight style
-theme_fivethirtyeight()
+# Wall Street Journal
+ggplot(mpg, aes(x = class)) +
+  geom_bar() +
+  theme_wsj()
+
+# FiveThirtyEight
+ggplot(economics, aes(x = date, y = unemploy)) +
+  geom_line() +
+  theme_fivethirtyeight()
+
+# Altri: theme_tufte(), theme_excel(), 
+#        theme_stata(), theme_solarized()
 ```
+:::
 
-## Personalizzare i temi
+::: {.column width="50%"}
+**hrbrthemes - Temi Moderni:**
 
-### Elementi di testo
+```r
+library(hrbrthemes)
 
-```{r}
-#| eval: false
-
-ggplot(data, aes(x = x, y = y)) +
+# Modern minimal
+ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
-  theme(
-    plot.title = element_text(size = 16, face = "bold"),
-    axis.text = element_text(size = 12),
-    axis.title = element_text(size = 14, face = "bold")
-  )
-```
+  theme_ipsum()
 
-### Elementi di linea
-
-```{r}
-#| eval: false
-
-theme(
-  axis.line = element_line(color = "black", size = 1),
-  panel.grid.major = element_line(color = "gray", linetype = "dashed")
-)
-```
-
-### Elementi di sfondo
-
-```{r}
-#| eval: false
-
-theme(
-  panel.background = element_rect(fill = "white"),
-  plot.background = element_rect(fill = "lightgray"),
-  legend.background = element_rect(fill = "white", color = "black")
-)
-```
-
-### Rimuovere elementi
-
-```{r}
-#| eval: false
-
-theme(
-  panel.grid = element_blank(),  # Rimuove griglia
-  legend.position = "none"       # Rimuove legenda
-)
-```
-
-## Etichette e titoli
-
-```{r}
-#| eval: false
-
-ggplot(data, aes(x = x, y = y)) +
+# Con font Roboto Condensed
+ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
-  labs(
-    title = "Titolo del grafico",
-    subtitle = "Sottotitolo",
-    x = "Asse X",
-    y = "Asse Y",
-    caption = "Fonte: I miei dati"
-  )
+  theme_ipsum_rc()
+
+# Dark theme
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(color = "white") +
+  theme_ft_rc()
 ```
 
-## Legenda
+**cowplot - Scientific:**
 
-```{r}
-#| eval: false
+```r
+library(cowplot)
 
-# Posizione
-theme(legend.position = "bottom")  # "top", "left", "right", "none"
-
-# Titolo della legenda
-labs(color = "Categoria", size = "Valore")
-
-# Personalizzare
-theme(
-  legend.title = element_text(face = "bold"),
-  legend.text = element_text(size = 10)
-)
-```
-
-## Salvare il tema personalizzato
-
-```{r}
-#| eval: false
-
-my_theme <- theme_minimal() +
-  theme(
-    plot.title = element_text(size = 16, face = "bold"),
-    axis.text = element_text(size = 12)
-  )
-
-# Usare il tema
-ggplot(data, aes(x = x, y = y)) +
+ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
-  my_theme
+  theme_cowplot()
+```
+:::
+:::
+
+::: {.callout-note}
+## Installazione
+```r
+install.packages(c("ggthemes", "hrbrthemes", "cowplot"))
+```
+Alcuni richiedono font aggiuntivi installati sul sistema.
+:::
+:::
+
+## Best Practices - Parte 1 {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.6em;"}
+::: {.columns}
+::: {.column width="50%"}
+**1. Workflow Consigliato:**
+
+1. Crea il plot base (dati + geom + scale)
+2. Applica tema predefinito
+3. Personalizza con `theme()`
+4. Aggiungi labels con `labs()`
+5. Sistema legende con `guides()`
+6. Salva con `ggsave()`
+
+**2. Separazione Responsabilità:**
+
+```r
+# ✅ GIUSTO: Separa dati e aspetto
+p_base <- ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = class))
+
+p_styled <- p_base +
+  theme_minimal() +
+  labs(title = "Mio Plot")
+
+# ❌ SBAGLIATO: Tutto insieme
+ggplot(mpg, aes(...)) + geom_point(...) + 
+  theme(...) + scale_x_continuous(...) +
+  guides(...) + labs(...)
+```
+:::
+
+::: {.column width="50%"}
+**3. Riusabilità:**
+
+```r
+# Crea tema aziendale
+theme_company <- function() {
+  theme_minimal() +
+    theme(
+      plot.title = element_text(
+        color = "#003366",
+        face = "bold"
+      ),
+      # ... altri parametri
+    )
+}
 ```
 
-## Esportare grafici
+::: {.callout-tip}
+## Organizzazione Codice
+- Salva temi custom in file separato
+- Carica con `source("my_themes.R")`
+- Versiona con git per tracking
+- Documenta parametri personalizzabili
+:::
+:::
+:::
+:::
 
-```{r}
-#| eval: false
+## Best Practices - Parte 2 {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-# ggsave
-ggsave("grafico.png", width = 8, height = 6, dpi = 300)
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.5em;"}
+**4. Pubblicazioni Scientifiche:**
 
-# Specificare il grafico
-p <- ggplot(data, aes(x = x, y = y)) + geom_point()
-ggsave("grafico.pdf", plot = p, width = 10, height = 8)
+- Usa `theme_classic()` o `theme_bw()`
+- Rimuovi background colors
+- **DPI = 300 minimo**
+- Formato PDF o TIFF
+- Font leggibili (size ≥ 10)
+
+**5. Presentazioni:**
+
+- Font grandi (base_size = 16-20)
+- Colori ad alto contrasto
+- Rimuovi elementi non essenziali
+- `theme_minimal()` o `theme_void()`
+
+**6. Web/Digital:**
+
+- DPI = 72-96
+- PNG con sfondo trasparente
+- Dimensioni in pixel (800x600, 1200x800)
+- Colori web-safe
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**7. Accessibilità:**
+
+```r
+# Usa scale adatte a daltonici
+scale_color_viridis_d()
+scale_fill_brewer(palette = "Set2")
+
+# Font leggibili
+theme(text = element_text(size = 12))
+
+# Contrasto sufficiente
+# Evita rosso/verde come unica distinzione
 ```
 
-## Esercizi
+::: {.callout-important}
+## Golden Rules
+1. **Consistenza:** Stesso tema per tutti i grafici di un progetto
+2. **Semplicità:** Less is more - rimuovi elementi non necessari
+3. **Leggibilità:** Testo sempre leggibile, anche in stampa
+4. **Colori:** Accessibili a tutti (inclusi daltonici)
+:::
+:::
+:::
+:::
 
-1. Applica diversi temi predefiniti
-2. Crea un tema personalizzato
-3. Aggiungi titoli e etichette complete
-4. Salva un grafico in alta risoluzione
 
-## Risorse
+## Risorse & Prossimi Passi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-- [Themes documentation](https://ggplot2.tidyverse.org/reference/theme.html)
-- [ggthemes package](https://jrnold.github.io/ggthemes/)
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.56em;"}
+**Documentazione:**
+
+- [ggplot2 Theme Elements](https://ggplot2.tidyverse.org/reference/theme.html) - Riferimento completo
+- [Complete themes](https://ggplot2.tidyverse.org/reference/ggtheme.html) - Tutti i temi built-in
+- [Modify components](https://ggplot2.tidyverse.org/reference/element.html) - element_\*() functions
+
+**Cheat Sheets:**
+
+- [ggplot2 Cheat Sheet](https://posit.co/resources/cheatsheets/) - Include sezione themes
+
+**Pacchetti Utili:**
+
+- `ggthemes` - Temi classici (Economist, WSJ, Tufte)
+- `hrbrthemes` - Temi moderni typography-focused
+- `cowplot` - Temi scientifici
+- `thematic` - Temi automatici da RStudio theme
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.55em;"}
+**Prossima Sessione:**
+
+- **Visualizzazioni Avanzate** - Combina tutto quello che hai imparato!
+- Heatmaps, network graphs, spatial data
+- Estensioni ggplot2 (patchwork, gganimate, ggraph)
+
+**Pratica Consigliata:**
+
+1. Crea il tuo tema personale
+2. Ricrea il look di una pubblicazione che ti piace
+3. Esporta grafici in formati diversi
+4. Sperimenta con pacchetti di temi esterni
+
+::: {.callout-tip}
+## Continua a Imparare
+Prova a combinare tutto ciò che hai imparato creando un grafico completo con dati personalizzati, tema custom, e esportalo in alta qualità!
+:::
+:::
+:::
+:::

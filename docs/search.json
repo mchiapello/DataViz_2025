@@ -2455,5 +2455,236 @@
     "title": "Scale e Trasformazioni",
     "section": "Risorse & Prossimi Passi",
     "text": "Risorse & Prossimi Passi\n\nDocumentazione:\n\nggplot2 Scales\nggplot2 Book - Scales chapter\nColorBrewer palettes\nViridis vignette\nscales package\n\nPackages utili:\n\nscales: formattazione numeri, date, percentuali\nviridis: palette accessibili\nRColorBrewer: palette ColorBrewer\ncolorspace: manipolazione avanzata colori\n\nProssima sessione:\n\nThemes e Personalizzazione: personalizzare aspetto estetico, creare temi custom\nControllo completo su fonts, colori background, gridlines, margini\nPublication-ready plots\n\nContinua a praticare! Le scale sono fondamentali - influenzano direttamente percezione e interpretazione dei dati."
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#obiettivi-della-sessione",
+    "href": "materials/09_themes_personalizzazione.html#obiettivi-della-sessione",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Obiettivi della Sessione",
+    "text": "Obiettivi della Sessione\n\nCosa impareremo oggi:\n\nComprendere la separazione tra dati e aspetto visivo\nUtilizzare temi predefiniti per cambiare rapidamente lo stile\nPadroneggiare la funzione theme() e i suoi parametri\nUtilizzare le funzioni element_*() per personalizzare ogni dettaglio\nCreare annotazioni complete con labs()\nPersonalizzare legende e guide\nSalvare grafici con ggsave() in alta qualità\nCreare e riutilizzare temi personalizzati\n\nApproccio:\n\nPrima i temi predefiniti (facile e veloce)\nPoi la personalizzazione fine (potente e flessibile)\nFocus su publication-ready plots"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#esercizi-pratici",
+    "href": "materials/09_themes_personalizzazione.html#esercizi-pratici",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Esercizi Pratici",
+    "text": "Esercizi Pratici\n\nStruttura degli Esercizi:\n📁 File: 09_themes_personalizzazione_exercises.R\n30 esercizi organizzati in 6 parti:\n\nTemi Predefiniti (5 esercizi) - Esplorare theme_*() functions\ntheme() Basics (5 esercizi) - Modificare elementi base\nFunzioni element_*() (5 esercizi) - Controllo fine degli elementi\nLabels e Titoli (5 esercizi) - labs() e annotazioni\nPersonalizzazione Legende (5 esercizi) - Position, formatting, guides\nTemi Custom e Export (5 esercizi) - Creare temi riutilizzabili\n\n💡 Suggerimento: Inizia con temi predefiniti, poi personalizza gradualmente!"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#cosè-un-tema-in-ggplot2",
+    "href": "materials/09_themes_personalizzazione.html#cosè-un-tema-in-ggplot2",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Cos’è un Tema in ggplot2?",
+    "text": "Cos’è un Tema in ggplot2?\n\n\n\nDefinizione:\nUn tema controlla tutti gli elementi non relativi ai dati in un grafico:\n\nColori di sfondo\nGriglie\nFont e dimensioni testo\nPosizione legende\nBordi e margini\nAspetto degli assi\n\nSeparazione Fondamentale:\n\nDati → Geometrie/Scale (cosa mostriamo)\nAspetto → Temi (come lo mostriamo)\n\n\n\n\nPerché è Importante:\n\nRiproducibilità: Codice invece di Photoshop\nConsistenza: Stesso stile per tutti i grafici\nFlessibilità: Cambia look con una riga di codice\nProfessionalità: Publication-ready plots\n\n\n\n\n\n\n\nBest Practice\n\n\nSepara sempre la creazione del grafico dalla sua personalizzazione estetica. Prima focus sui dati, poi sull’aspetto!"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#theme_gray---il-default",
+    "href": "materials/09_themes_personalizzazione.html#theme_gray---il-default",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "theme_gray() - Il Default",
+    "text": "theme_gray() - Il Default\n\n\n\nCaratteristiche:\n\nSfondo grigio con griglia bianca\nDesign di Hadley Wickham\nOttimizzato per massimizzare la distinzione dei dati\nÈ il tema di default - non serve specificarlo\n\nlibrary(ggplot2)\n\n# Tema default (non serve specificare)\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(aes(color = class))\n\n# Oppure esplicitamente\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(aes(color = class)) +\n  theme_gray()\nQuando usarlo:\n\nAnalisi esplorativa\nDraft plots\nFocus massimo sui dati\n\n\n\n\n\n\n\n\n\n\nFilosofia del Gray Background\n\n\nLo sfondo grigio non è casuale! Aiuta a:\n\nFar risaltare i colori dei dati\nRendere la griglia meno invasiva\nCreare contrasto senza stancare gli occhi\n\n\n\n\nParametri base_size:\n# Aumenta dimensioni testo\nggplot(mpg, aes(x = class)) +\n  geom_bar() +\n  theme_gray(base_size = 18)\n\n# Diminuisce tutto\nggplot(mpg, aes(x = class)) +\n  geom_bar() +\n  theme_gray(base_size = 8)\nTutti i temi accettano base_size, base_family, base_line_size, base_rect_size"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#theme_minimal-e-theme_classic",
+    "href": "materials/09_themes_personalizzazione.html#theme_minimal-e-theme_classic",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "theme_minimal() e theme_classic()",
+    "text": "theme_minimal() e theme_classic()\n\n\n\ntheme_minimal():\n\nSfondo bianco\nGriglia sottile\nNessun bordo\nMolto pulito e moderno\n\nggplot(economics, aes(x = date, y = unemploy)) +\n  geom_line(color = \"steelblue\", size = 1) +\n  theme_minimal()\n\n# Con base_size\nggplot(economics, aes(x = date, y = unemploy)) +\n  geom_line(color = \"steelblue\", size = 1) +\n  theme_minimal(base_size = 14)\nQuando usarlo:\n\nPresentazioni\nReport aziendali\nWeb graphics\nQuando vuoi massima pulizia\n\n\n\n\ntheme_classic():\n\nAssi neri con tick marks\nNessuna griglia\nStile “pubblicazione accademica”\nLook tradizionale\n\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +\n  geom_point(aes(color = Species), size = 3) +\n  theme_classic()\nQuando usarlo:\n\nPaper scientifici\nPubblicazioni accademiche\nQuando la griglia distrae\n\n\n\n\n\n\n\nDifferenza Chiave\n\n\ntheme_minimal() = griglia + no bordi\ntheme_classic() = no griglia + assi tradizionali"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#altri-temi-built-in",
+    "href": "materials/09_themes_personalizzazione.html#altri-temi-built-in",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Altri Temi Built-in",
+    "text": "Altri Temi Built-in\n\n\n\ntheme_bw() - Bianco e Nero\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  theme_bw()\n\nSfondo bianco, griglia grigia, bordi neri\nOttimo per stampa B/N\nProfessional look\n\ntheme_void() - Nessun Elemento\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  theme_void()\n\nRimuove tutto (assi, griglia, labels)\nPerfetto per mappe, network graphs\nSolo i dati, niente altro\n\n\ntheme_dark() - Sfondo Scuro\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_point(alpha = 0.1, color = \"cyan\") +\n  theme_dark()\n\nSfondo scuro, griglia chiara\nRiduce affaticamento occhi\nOttimo per presentazioni\n\ntheme_light() - Leggero\nggplot(mpg, aes(x = class)) +\n  geom_bar(fill = \"steelblue\") +\n  theme_light()\n\nSimile a minimal ma con bordi sottili\nVia di mezzo tra minimal e bw"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#section",
+    "href": "materials/09_themes_personalizzazione.html#section",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#anatomia-di-theme",
+    "href": "materials/09_themes_personalizzazione.html#anatomia-di-theme",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Anatomia di theme()",
+    "text": "Anatomia di theme()\n\n\n\nStruttura Gerarchica:\ntheme() controlla ~100 parametri organizzati gerarchicamente:\n\nline - Tutte le linee\n\naxis.line - Linee assi\npanel.grid - Linee griglia\n\npanel.grid.major - Griglia maggiore\npanel.grid.minor - Griglia minore\n\n\nrect - Tutti i rettangoli\n\nplot.background - Sfondo plot\npanel.background - Sfondo panel\n\ntext - Tutto il testo\n\naxis.text - Testo assi\nplot.title - Titolo\nlegend.text - Testo legenda\n\n\nEreditarietà: Gli elementi figli ereditano proprietà dai genitori\n\n\n\nEsempio Base:\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  theme(\n    # Modifica solo griglia maggiore\n    panel.grid.major = element_line(color = \"red\"),\n    \n    # Modifica tutto il testo\n    text = element_text(size = 16),\n    \n    # Rimuove griglia minore\n    panel.grid.minor = element_blank()\n  )\n\n\n\n\n\n\nOrdine di Applicazione\n\n\nPrima applica tema predefinito, poi theme() per personalizzazioni:\ntheme_minimal() + theme(...)"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#modificare-background-e-panel",
+    "href": "materials/09_themes_personalizzazione.html#modificare-background-e-panel",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Modificare Background e Panel",
+    "text": "Modificare Background e Panel\n\n\n\nBackground Elements:\nggplot(economics, aes(x = date, y = unemploy)) +\n  geom_line() +\n  theme_minimal() +\n  theme(\n    # Sfondo intero plot\n    plot.background = element_rect(\n      fill = \"lightblue\",\n      color = \"navy\",\n      size = 2\n    ),\n    \n    # Sfondo area dati\n    panel.background = element_rect(\n      fill = \"white\",\n      color = \"black\",\n      size = 1\n    ),\n    \n    # Bordo panel\n    panel.border = element_rect(\n      color = \"darkgreen\",\n      fill = NA,\n      size = 1.5\n    )\n  )\n\n\n\nDifferenza plot vs panel:\n\nplot.background: Tutto il grafico (include titoli, legende)\npanel.background: Solo l’area con i dati\npanel.border: Bordo attorno ai dati\n\n# Esempio chiaro della differenza\nggplot(mpg, aes(x = class)) +\n  geom_bar() +\n  labs(title = \"Distribuzione Classi\") +\n  theme(\n    plot.background = element_rect(fill = \"yellow\"),\n    panel.background = element_rect(fill = \"lightgreen\"),\n    panel.border = element_rect(\n      color = \"red\", \n      fill = NA, \n      size = 2\n    )\n  )\n\n\n\n\n\n\nAttenzione\n\n\nfill = NA significa trasparente, non “nessun fill”!"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#personalizzare-griglie",
+    "href": "materials/09_themes_personalizzazione.html#personalizzare-griglie",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Personalizzare Griglie",
+    "text": "Personalizzare Griglie\n\nControllo Completo delle Gridlines:\n\n\n# Rimuovere tutte le griglie\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  theme_minimal() +\n  theme(\n    panel.grid = element_blank()\n  )\n\n# Solo griglia maggiore\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  theme_minimal() +\n  theme(\n    panel.grid.minor = element_blank()\n  )\n\n# Solo griglia orizzontale\nggplot(mpg, aes(x = class)) +\n  geom_bar() +\n  theme_minimal() +\n  theme(\n    panel.grid.major.x = element_blank(),\n    panel.grid.minor = element_blank()\n  )\n\n# Personalizza colore e stile\nggplot(economics, aes(x = date, y = unemploy)) +\n  geom_line() +\n  theme_minimal() +\n  theme(\n    panel.grid.major = element_line(\n      color = \"gray70\",\n      size = 0.5,\n      linetype = \"dashed\"\n    ),\n    panel.grid.minor = element_line(\n      color = \"gray90\",\n      size = 0.25,\n      linetype = \"dotted\"\n    )\n  )\n\n\n\n\n\n\nBest Practice per Griglie\n\n\n\nBar charts: Solo linee orizzontali\nTime series: Entrambe le direzioni\nScatter plots: Dipende - spesso solo maggiori\nPubblicazioni: Spesso nessuna griglia"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#section-1",
+    "href": "materials/09_themes_personalizzazione.html#section-1",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#element_text---controllo-testo",
+    "href": "materials/09_themes_personalizzazione.html#element_text---controllo-testo",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "element_text() - Controllo Testo",
+    "text": "element_text() - Controllo Testo\n\n\n\nParametri Principali:\nelement_text(\n  family = \"sans\",        # Font family\n  face = \"plain\",         # plain, bold, italic\n  colour = \"black\",       # Colore testo\n  size = 11,              # Dimensione (pt)\n  hjust = 0.5,            # Align orizzontale (0-1)\n  vjust = 0.5,            # Align verticale (0-1)\n  angle = 0,              # Rotazione (gradi)\n  lineheight = 1.2,       # Interlinea\n  margin = margin(0,0,0,0) # Margini\n)\nEsempio Completo:\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_boxplot() +\n  theme_minimal() +\n  theme(\n    axis.text.x = element_text(\n      angle = 45,\n      hjust = 1,\n      color = \"darkred\",\n      size = 12,\n      face = \"bold\"\n    ),\n    axis.title = element_text(\n      size = 14,\n      face = \"bold\"\n    )\n  )\n\n\n\nElementi di Testo Comuni:\n\nplot.title - Titolo principale\nplot.subtitle - Sottotitolo\nplot.caption - Didascalia\naxis.title.x/y - Titoli assi\naxis.text.x/y - Labels assi\nlegend.title - Titolo legenda\nlegend.text - Testo legenda\nstrip.text - Testo facet\n\nEsempio Ereditarietà:\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  facet_wrap(~class) +\n  theme_minimal() +\n  theme(\n    # Modifica TUTTO il testo\n    text = element_text(\n      family = \"serif\",\n      size = 14\n    ),\n    # Override solo per titolo\n    plot.title = element_text(\n      size = 20,\n      face = \"bold\",\n      color = \"navy\"\n    )\n  )"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#element_line---controllo-linee",
+    "href": "materials/09_themes_personalizzazione.html#element_line---controllo-linee",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "element_line() - Controllo Linee",
+    "text": "element_line() - Controllo Linee\n\n\n\nParametri:\nelement_line(\n  colour = \"black\",\n  size = 0.5,\n  linetype = 1,      # 1=solid, 2=dashed, etc\n  lineend = \"butt\",  # butt, round, square\n  arrow = NULL\n)\nTipi di Linea:\n# linetype può essere:\n# 0 = blank, 1 = solid, 2 = dashed\n# 3 = dotted, 4 = dotdash, 5 = longdash\n# 6 = twodash\n\nggplot(economics, aes(x = date, y = unemploy)) +\n  geom_line() +\n  theme_minimal() +\n  theme(\n    axis.line = element_line(\n      color = \"black\",\n      size = 1\n    ),\n    panel.grid.major = element_line(\n      linetype = \"dashed\",\n      color = \"gray70\"\n    )\n  )\n\n\n\nElementi di Linea Comuni:\n\naxis.line.x/y - Linee assi\naxis.ticks - Tick marks\npanel.grid.major/minor - Griglie\nlegend.key - Bordo chiave legenda\n\nEsempio con Frecce:\nlibrary(grid)\n\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  theme_classic() +\n  theme(\n    axis.line = element_line(\n      arrow = arrow(\n        length = unit(0.3, \"cm\"),\n        ends = \"last\"\n      ),\n      size = 1\n    )\n  )\n\n\n\n\n\n\nRimuovere Tick Marks\n\n\ntheme(\n  axis.ticks = element_blank()\n)\nUtile con theme_minimal()"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#element_rect---controllo-rettangoli",
+    "href": "materials/09_themes_personalizzazione.html#element_rect---controllo-rettangoli",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "element_rect() - Controllo Rettangoli",
+    "text": "element_rect() - Controllo Rettangoli\n\n\n\nParametri:\nelement_rect(\n  fill = NA,         # Colore riempimento\n  colour = NA,       # Colore bordo\n  size = 0.5,        # Spessore bordo\n  linetype = 1       # Tipo linea bordo\n)\nElementi Rettangolari:\n\nplot.background - Sfondo intero\npanel.background - Sfondo panel\npanel.border - Bordo panel\nlegend.background - Sfondo legenda\nlegend.key - Background chiavi legenda\nstrip.background - Sfondo facet labels\n\n\n\n\nEsempio:\nggplot(mpg, aes(x = class, fill = class)) +\n  geom_bar() +\n  theme_minimal() +\n  theme(\n    panel.background = element_rect(\n      fill = \"white\",\n      color = \"black\",\n      size = 1\n    ),\n    legend.background = element_rect(\n      fill = \"gray95\",\n      color = \"black\",\n      size = 0.5\n    )\n  )\nelement_blank() - Rimuovere Elementi:\n# Rimuove completamente un elemento\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  theme(\n    panel.background = element_blank(),\n    panel.grid = element_blank(),\n    axis.line = element_line(color = \"black\")\n  )"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#section-2",
+    "href": "materials/09_themes_personalizzazione.html#section-2",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#la-funzione-labs",
+    "href": "materials/09_themes_personalizzazione.html#la-funzione-labs",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "La Funzione labs()",
+    "text": "La Funzione labs()\n\n\n\nAnnotazioni Complete:\nlabs(\n  title = \"Titolo Principale\",\n  subtitle = \"Sottotitolo descrittivo\",\n  caption = \"Fonte dati\",\n  x = \"Asse X\",\n  y = \"Asse Y\",\n  color = \"Nome Legenda\",\n  fill = \"Nome Legenda\",\n  size = \"Nome Legenda\",\n  # ... qualsiasi aesthetica\n)\nEsempio Completo:\nggplot(mpg, aes(x = displ, y = hwy, color = class)) +\n  geom_point(size = 3, alpha = 0.7) +\n  labs(\n    title = \"Consumo Carburante vs Cilindrata\",\n    subtitle = \"Dati EPA per veicoli 1999-2008\",\n    caption = \"Fonte: EPA fuel economy data\",\n    x = \"Cilindrata motore (litri)\",\n    y = \"Consumo autostrada (mpg)\",\n    color = \"Classe\\nVeicolo\"\n  ) +\n  theme_minimal()\n\n\n\nFormattazione Titoli:\nggplot(economics, aes(x = date, y = unemploy/1000)) +\n  geom_line(color = \"steelblue\", size = 1) +\n  labs(\n    title = \"Disoccupazione USA\",\n    subtitle = \"1967-2015\",\n    y = \"Disoccupati (migliaia)\",\n    x = NULL,  # Rimuove label\n    caption = \"Dati: Federal Reserve Economic Data\"\n  ) +\n  theme_minimal() +\n  theme(\n    plot.title = element_text(\n      size = 20,\n      face = \"bold\",\n      hjust = 0  # Allinea a sinistra\n    ),\n    plot.subtitle = element_text(\n      size = 14,\n      color = \"gray40\"\n    ),\n    plot.caption = element_text(\n      size = 9,\n      hjust = 1,  # Allinea a destra\n      face = \"italic\"\n    )\n  )\n\n\n\n\n\n\nA Capo nei Labels\n\n\nUsa \\n per andare a capo:\nx = \"Prima riga\\nSeconda riga\""
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#tag-e-annotazioni-avanzate",
+    "href": "materials/09_themes_personalizzazione.html#tag-e-annotazioni-avanzate",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Tag e Annotazioni Avanzate",
+    "text": "Tag e Annotazioni Avanzate\n\n\n\nplot.tag per Panel Labels:\n# Utile per figure multi-panel\np &lt;- ggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  labs(tag = \"A\") +\n  theme_minimal() +\n  theme(\n    plot.tag = element_text(\n      size = 20,\n      face = \"bold\"\n    ),\n    plot.tag.position = c(0.05, 0.95)\n  )\nRimuovere Labels:\n# x = NULL rimuove titolo asse\nggplot(mpg, aes(x = class)) +\n  geom_bar() +\n  labs(\n    x = NULL,  # No titolo X\n    y = \"Conteggio\"\n  )\n\n# color = NULL rimuove titolo legenda\nggplot(mpg, aes(x = displ, y = hwy, \n                color = class)) +\n  geom_point() +\n  labs(color = NULL)\n\n\n\nSostituire Tutti i Labels:\n# ggtitle(), xlab(), ylab() - shortcut\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  ggtitle(\"Titolo\") +\n  xlab(\"Asse X\") +\n  ylab(\"Asse Y\")\n\n# Equivalente a:\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  labs(\n    title = \"Titolo\",\n    x = \"Asse X\",\n    y = \"Asse Y\"\n  )\nMulti-line Titles con expression():\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  labs(\n    title = expression(\n      paste(\"Consumo vs Cilindrata (\", R^2, \")\")\n    )\n  )\n\n\n\n\n\n\nBest Practice\n\n\nUsa sempre labs() invece di modificare direttamente i nomi delle variabili nei dati!"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#section-3",
+    "href": "materials/09_themes_personalizzazione.html#section-3",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#posizione-e-layout-legende",
+    "href": "materials/09_themes_personalizzazione.html#posizione-e-layout-legende",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Posizione e Layout Legende",
+    "text": "Posizione e Layout Legende\n\n\n\nlegend.position:\n# Posizioni predefinite\ntheme(legend.position = \"right\")   # Default\ntheme(legend.position = \"left\")\ntheme(legend.position = \"top\")\ntheme(legend.position = \"bottom\")\ntheme(legend.position = \"none\")    # Nasconde\n\n# Coordinate precise (0-1, 0-1)\nggplot(mpg, aes(x = displ, y = hwy, \n                color = class)) +\n  geom_point(size = 3) +\n  theme_minimal() +\n  theme(\n    legend.position = c(0.85, 0.75),\n    legend.background = element_rect(\n      fill = \"white\",\n      color = \"black\"\n    )\n  )\nlegend.justification:\n# Controlla quale parte della legenda\n# si posiziona al punto specificato\ntheme(\n  legend.position = c(1, 1),\n  legend.justification = c(1, 1)\n)\n# Angolo top-right della legenda\n# nell'angolo top-right del plot\n\n\n\nlegend.direction:\n# Layout orizzontale\nggplot(mpg, aes(x = displ, y = hwy, \n                color = class)) +\n  geom_point() +\n  theme_minimal() +\n  theme(\n    legend.position = \"bottom\",\n    legend.direction = \"horizontal\"\n  )\n\n# Layout verticale (default)\ntheme(legend.direction = \"vertical\")\nlegend.box:\n# Quando hai più legende\nggplot(mpg, aes(x = displ, y = hwy, \n                color = class, size = cyl)) +\n  geom_point(alpha = 0.6) +\n  theme_minimal() +\n  theme(\n    legend.box = \"horizontal\",  # Side-by-side\n    # oppure \"vertical\"\n    legend.box.just = \"top\"\n  )\n\n\n\n\n\n\nMultiple Legende\n\n\nUsa legend.box per controllare il layout quando hai più di una estetica mappata."
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#formattazione-testo-e-sfondo-legenda",
+    "href": "materials/09_themes_personalizzazione.html#formattazione-testo-e-sfondo-legenda",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Formattazione Testo e Sfondo Legenda",
+    "text": "Formattazione Testo e Sfondo Legenda\n\n\n\nElementi Testo:\nggplot(mpg, aes(x = displ, y = hwy, color = class)) +\n  geom_point(size = 3) +\n  labs(color = \"Classe Veicolo\") +\n  theme_minimal() +\n  theme(\n    # Titolo legenda\n    legend.title = element_text(\n      size = 14,\n      face = \"bold\",\n      color = \"navy\"\n    ),\n    \n    # Labels legenda\n    legend.text = element_text(\n      size = 11,\n      face = \"italic\"\n    ),\n    \n    # Allineamento titolo\n    legend.title.align = 0.5  # 0=left, 0.5=center, 1=right\n  )\n\nElementi Background:\nggplot(mpg, aes(x = displ, y = hwy, color = class)) +\n  geom_point(size = 3) +\n  theme_minimal() +\n  theme(\n    # Sfondo legenda\n    legend.background = element_rect(\n      fill = \"gray95\",\n      color = \"black\",\n      size = 0.5\n    ),\n    \n    # Sfondo chiavi\n    legend.key = element_rect(\n      fill = \"white\",\n      color = NA\n    ),\n    \n    # Dimensione chiavi\n    legend.key.size = unit(1.5, \"cm\"),\n    legend.key.height = unit(1, \"cm\"),\n    legend.key.width = unit(1, \"cm\")\n  )"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#guides-avanzate",
+    "href": "materials/09_themes_personalizzazione.html#guides-avanzate",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Guides Avanzate",
+    "text": "Guides Avanzate\n\n\n\nguides() - Controllo Fine:\n# Personalizza guide per estetica\nggplot(mpg, aes(x = displ, y = hwy, \n                color = class, size = cyl)) +\n  geom_point(alpha = 0.6) +\n  guides(\n    color = guide_legend(\n      title = \"Tipo\",\n      nrow = 2,\n      override.aes = list(size = 4)\n    ),\n    size = guide_legend(\n      title = \"Cilindri\",\n      reverse = TRUE\n    )\n  )\nguide_legend() Opzioni:\n\nnrow/ncol - Righe/colonne\nbyrow - Riempimento per riga\nreverse - Inverti ordine\noverride.aes - Modifica aesthetics nella legenda\ntitle.position - “top”, “bottom”, “left”, “right”\nlabel.position - Come title\n\n\n\n\nguide_colorbar() per Scale Continue:\nggplot(faithfuld, aes(waiting, eruptions)) +\n  geom_raster(aes(fill = density)) +\n  scale_fill_viridis_c() +\n  guides(\n    fill = guide_colorbar(\n      title = \"Densità\",\n      barwidth = 1,\n      barheight = 10,\n      title.position = \"top\",\n      title.hjust = 0.5\n    )\n  ) +\n  theme_minimal()\nRimuovere Guide Specifiche:\n# Rimuove solo color legend\nguides(color = \"none\")\n\n# Equivalente a:\nscale_color_discrete(guide = \"none\")\n\n\n\n\n\n\nOverride Aesthetics\n\n\noverride.aes è perfetto per rendere le chiavi della legenda più visibili quando i punti nel plot sono piccoli o trasparenti."
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#section-4",
+    "href": "materials/09_themes_personalizzazione.html#section-4",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#creare-temi-riutilizzabili",
+    "href": "materials/09_themes_personalizzazione.html#creare-temi-riutilizzabili",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Creare Temi Riutilizzabili",
+    "text": "Creare Temi Riutilizzabili\n\n\n\nDefinire un Tema Custom:\n# Crea funzione tema\ntheme_mio &lt;- function(base_size = 12) {\n  theme_minimal(base_size = base_size) +\n    theme(\n      # Griglia\n      panel.grid.minor = element_blank(),\n      panel.grid.major = element_line(\n        color = \"gray90\",\n        size = 0.5\n      ),\n      \n      # Testo\n      plot.title = element_text(\n        size = base_size * 1.5,\n        face = \"bold\",\n        hjust = 0,\n        margin = margin(b = 10)\n      ),\n      \n      plot.subtitle = element_text(\n        size = base_size * 1.1,\n        color = \"gray40\",\n        margin = margin(b = 15)\n      ),\n      \n      # Assi\n      axis.title = element_text(\n        size = base_size * 1.1,\n        face = \"bold\"\n      ),\n      \n      # Legenda\n      legend.position = \"top\",\n      legend.title = element_blank()\n    )\n}\n\n\n\nUsare il Tema:\n# Applica a singolo plot\nggplot(mpg, aes(x = displ, y = hwy, \n                color = class)) +\n  geom_point(size = 3) +\n  labs(\n    title = \"Consumo vs Cilindrata\",\n    subtitle = \"Dati EPA\"\n  ) +\n  theme_mio()\n\n# Con base_size diverso\nggplot(mpg, aes(x = class)) +\n  geom_bar() +\n  theme_mio(base_size = 16)\nImpostare come Default:\n# Per tutta la sessione\ntheme_set(theme_mio())\n\n# Ora tutti i plot usano theme_mio\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point()\n\n# Reset a default\ntheme_set(theme_gray())\n\n\n\n\n\n\nOrganizzazione\n\n\nSalva i tuoi temi in un file R separato e caricalo con source(\"my_themes.R\")"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#salvare-grafici-con-ggsave",
+    "href": "materials/09_themes_personalizzazione.html#salvare-grafici-con-ggsave",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Salvare Grafici con ggsave()",
+    "text": "Salvare Grafici con ggsave()\n\n\n\nSintassi Base:\np &lt;- ggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  theme_minimal()\n\n# Salva ultimo plot\nggsave(\"mio_plot.png\")\n\n# Salva plot specifico\nggsave(\"mio_plot.png\", plot = p)\n\n# Specifica dimensioni\nggsave(\n  \"mio_plot.png\",\n  plot = p,\n  width = 8,\n  height = 6,\n  units = \"in\"  # \"in\", \"cm\", \"mm\"\n)\nFormati Supportati:\nggsave(\"plot.png\")   # PNG (default)\nggsave(\"plot.pdf\")   # PDF vettoriale\nggsave(\"plot.svg\")   # SVG vettoriale\nggsave(\"plot.eps\")   # EPS per LaTeX\nggsave(\"plot.jpg\")   # JPEG\nggsave(\"plot.tiff\")  # TIFF\n\n\n\nRisoluzione e DPI:\n# Alta risoluzione per pubblicazioni\nggsave(\n  \"plot_highres.png\",\n  plot = p,\n  width = 8,\n  height = 6,\n  dpi = 300  # Standard pubblicazioni\n)\n\n# Bassa risoluzione per web\nggsave(\n  \"plot_web.png\",\n  plot = p,\n  width = 800,\n  height = 600,\n  units = \"px\",\n  dpi = 72\n)\nControllo Background:\n# Sfondo trasparente\nggsave(\n  \"plot_transparent.png\",\n  plot = p,\n  bg = \"transparent\"\n)\n\n# Sfondo bianco\nggsave(\n  \"plot_white.png\",\n  plot = p,\n  bg = \"white\"\n)\n\n\n\n\n\n\nDPI per Pubblicazioni\n\n\n\n300 DPI: Pubblicazioni scientifiche\n150 DPI: Presentazioni\n72-96 DPI: Web/schermo"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#pacchetti-di-temi-esterni",
+    "href": "materials/09_themes_personalizzazione.html#pacchetti-di-temi-esterni",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Pacchetti di Temi Esterni",
+    "text": "Pacchetti di Temi Esterni\n\n\n\nggthemes - Temi Classici:\nlibrary(ggthemes)\n\n# Economist style\nggplot(mpg, aes(x = displ, y = hwy, color = class)) +\n  geom_point(size = 3) +\n  theme_economist() +\n  scale_color_economist()\n\n# Wall Street Journal\nggplot(mpg, aes(x = class)) +\n  geom_bar() +\n  theme_wsj()\n\n# FiveThirtyEight\nggplot(economics, aes(x = date, y = unemploy)) +\n  geom_line() +\n  theme_fivethirtyeight()\n\n# Altri: theme_tufte(), theme_excel(), \n#        theme_stata(), theme_solarized()\n\nhrbrthemes - Temi Moderni:\nlibrary(hrbrthemes)\n\n# Modern minimal\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  theme_ipsum()\n\n# Con font Roboto Condensed\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  theme_ipsum_rc()\n\n# Dark theme\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(color = \"white\") +\n  theme_ft_rc()\ncowplot - Scientific:\nlibrary(cowplot)\n\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  theme_cowplot()\n\n\n\n\n\n\n\nInstallazione\n\n\ninstall.packages(c(\"ggthemes\", \"hrbrthemes\", \"cowplot\"))\nAlcuni richiedono font aggiuntivi installati sul sistema."
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#best-practices-riassuntive",
+    "href": "materials/09_themes_personalizzazione.html#best-practices-riassuntive",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Best Practices Riassuntive",
+    "text": "Best Practices Riassuntive\n\n\n\n1. Workflow Consigliato:\n\nCrea il plot base (dati + geom + scale)\nApplica tema predefinito\nPersonalizza con theme()\nAggiungi labels con labs()\nSistema legende con guides()\nSalva con ggsave()\n\n2. Separazione Responsabilità:\n# ✅ GIUSTO: Separa dati e aspetto\np_base &lt;- ggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(aes(color = class))\n\np_styled &lt;- p_base +\n  theme_minimal() +\n  labs(title = \"Mio Plot\")\n\n# ❌ SBAGLIATO: Tutto insieme\nggplot(mpg, aes(...)) + geom_point(...) + \n  theme(...) + scale_x_continuous(...) +\n  guides(...) + labs(...)\n3. Riusabilità:\n# Crea tema aziendale\ntheme_company &lt;- function() {\n  theme_minimal() +\n    theme(\n      plot.title = element_text(\n        color = \"#003366\",\n        face = \"bold\"\n      ),\n      # ... altri parametri\n    )\n}\n\n4. Pubblicazioni:\n\nUsa theme_classic() o theme_bw()\nRimuovi background colors\nDPI = 300 minimo\nFormato PDF o TIFF\nFont leggibili (size ≥ 10)\n\n5. Presentazioni:\n\nFont grandi (base_size = 16-20)\nColori ad alto contrasto\nRimuovi elementi non essenziali\ntheme_minimal() o theme_void()\n\n6. Web:\n\nDPI = 72-96\nPNG con sfondo trasparente\nDimensioni in pixel (800x600, 1200x800)\nColori web-safe\n\n7. Accessibilità:\n# Usa scale adatte a daltonici\nscale_color_viridis_d()\nscale_fill_brewer(palette = \"Set2\")\n\n# Font leggibili\ntheme(text = element_text(size = 12))\n\n# Contrasto sufficiente\n# Evita rosso/verde come unica distinzione"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#section-5",
+    "href": "materials/09_themes_personalizzazione.html#section-5",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#risorse-prossimi-passi",
+    "href": "materials/09_themes_personalizzazione.html#risorse-prossimi-passi",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Risorse & Prossimi Passi",
+    "text": "Risorse & Prossimi Passi\n\n\n\nDocumentazione:\n\nggplot2 Theme Elements - Riferimento completo\nComplete themes - Tutti i temi built-in\nModify components - element_*() functions\n\nCheat Sheets:\n\nggplot2 Cheat Sheet - Include sezione themes\n\nPacchetti Utili:\n\nggthemes - Temi classici (Economist, WSJ, Tufte)\nhrbrthemes - Temi moderni typography-focused\ncowplot - Temi scientifici\nthematic - Temi automatici da RStudio theme\n\n\n\n\nProssima Sessione:\n\nVisualizzazioni Avanzate - Combina tutto quello che hai imparato!\nHeatmaps, network graphs, spatial data\nEstensioni ggplot2 (patchwork, gganimate, ggraph)\n\nPratica Consigliata:\n\nCrea il tuo tema personale\nRicrea il look di una pubblicazione che ti piace\nEsporta grafici in formati diversi\nSperimenta con pacchetti di temi esterni\n\n\n\n\n\n\n\nContinua a Imparare\n\n\nProva a combinare tutto ciò che hai imparato creando un grafico completo con dati personalizzati, tema custom, e esportalo in alta qualità!"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#differenze-importanti",
+    "href": "materials/09_themes_personalizzazione.html#differenze-importanti",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Differenze Importanti",
+    "text": "Differenze Importanti\n\n\n\nfill vs colour:\nggplot(mpg, aes(x = class)) +\n  geom_bar() +\n  theme_classic() +\n  theme(\n    # fill = riempimento interno\n    plot.background = element_rect(\n      fill = \"lightyellow\"\n    ),\n    # colour = bordo\n    panel.border = element_rect(\n      colour = \"navy\",\n      fill = NA,  # Trasparente!\n      size = 2\n    )\n  )\n\nfill: Colore interno del rettangolo\ncolour: Colore del bordo del rettangolo\nfill = NA: Riempimento trasparente (ma elemento esiste)\n\n\n\n\n\n\n\n\n\n\nNA vs element_blank()\n\n\nDue modi diversi di “rimuovere”:\n\nfill = NA o colour = NA\n→ Trasparente ma elemento esiste ancora\n→ Occupa spazio nel layout\nelement_blank()\n→ Elemento rimosso completamente\n→ Non occupa spazio\n\nQuando usare cosa:\n\nNA: Vuoi l’elemento ma trasparente\nelement_blank(): Non vuoi l’elemento affatto\n\n\n\n\nEsempio pratico:\n# Griglia trasparente (mantiene spazio)\ntheme(panel.grid = element_line(color = NA))\n\n# Griglia rimossa completamente\ntheme(panel.grid = element_blank())"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#best-practices-riassuntive---parte-1",
+    "href": "materials/09_themes_personalizzazione.html#best-practices-riassuntive---parte-1",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Best Practices Riassuntive - Parte 1",
+    "text": "Best Practices Riassuntive - Parte 1\n\n\n\n1. Workflow Consigliato:\n\nCrea il plot base (dati + geom + scale)\nApplica tema predefinito\nPersonalizza con theme()\nAggiungi labels con labs()\nSistema legende con guides()\nSalva con ggsave()\n\n2. Separazione Responsabilità:\n# ✅ GIUSTO: Separa dati e aspetto\np_base &lt;- ggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(aes(color = class))\n\np_styled &lt;- p_base +\n  theme_minimal() +\n  labs(title = \"Mio Plot\")\n\n# ❌ SBAGLIATO: Tutto insieme\nggplot(mpg, aes(...)) + geom_point(...) + \n  theme(...) + scale_x_continuous(...) +\n  guides(...) + labs(...)\n\n3. Riusabilità:\n# Crea tema aziendale\ntheme_company &lt;- function() {\n  theme_minimal() +\n    theme(\n      plot.title = element_text(\n        color = \"#003366\",\n        face = \"bold\"\n      ),\n      # ... altri parametri\n    )\n}\n\n\n\n\n\n\nOrganizzazione Codice\n\n\n\nSalva temi custom in file separato\nCarica con source(\"my_themes.R\")\nVersiona con git per tracking\nDocumenta parametri personalizzabili"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#best-practices-riassuntive---parte-2",
+    "href": "materials/09_themes_personalizzazione.html#best-practices-riassuntive---parte-2",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Best Practices Riassuntive - Parte 2",
+    "text": "Best Practices Riassuntive - Parte 2\n\n\n\n4. Pubblicazioni Scientifiche:\n\nUsa theme_classic() o theme_bw()\nRimuovi background colors\nDPI = 300 minimo\nFormato PDF o TIFF\nFont leggibili (size ≥ 10)\n\n5. Presentazioni:\n\nFont grandi (base_size = 16-20)\nColori ad alto contrasto\nRimuovi elementi non essenziali\ntheme_minimal() o theme_void()\n\n6. Web/Digital:\n\nDPI = 72-96\nPNG con sfondo trasparente\nDimensioni in pixel (800x600, 1200x800)\nColori web-safe\n\n\n7. Accessibilità:\n# Usa scale adatte a daltonici\nscale_color_viridis_d()\nscale_fill_brewer(palette = \"Set2\")\n\n# Font leggibili\ntheme(text = element_text(size = 12))\n\n# Contrasto sufficiente\n# Evita rosso/verde come unica distinzione\n\n\n\n\n\n\nGolden Rules\n\n\n\nConsistenza: Stesso tema per tutti i grafici di un progetto\nSemplicità: Less is more - rimuovi elementi non necessari\nLeggibilità: Testo sempre leggibile, anche in stampa\nColori: Accessibili a tutti (inclusi daltonici)"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#best-practices---parte-1",
+    "href": "materials/09_themes_personalizzazione.html#best-practices---parte-1",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Best Practices - Parte 1",
+    "text": "Best Practices - Parte 1\n\n\n\n1. Workflow Consigliato:\n\nCrea il plot base (dati + geom + scale)\nApplica tema predefinito\nPersonalizza con theme()\nAggiungi labels con labs()\nSistema legende con guides()\nSalva con ggsave()\n\n2. Separazione Responsabilità:\n# ✅ GIUSTO: Separa dati e aspetto\np_base &lt;- ggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(aes(color = class))\n\np_styled &lt;- p_base +\n  theme_minimal() +\n  labs(title = \"Mio Plot\")\n\n# ❌ SBAGLIATO: Tutto insieme\nggplot(mpg, aes(...)) + geom_point(...) + \n  theme(...) + scale_x_continuous(...) +\n  guides(...) + labs(...)\n\n3. Riusabilità:\n# Crea tema aziendale\ntheme_company &lt;- function() {\n  theme_minimal() +\n    theme(\n      plot.title = element_text(\n        color = \"#003366\",\n        face = \"bold\"\n      ),\n      # ... altri parametri\n    )\n}\n\n\n\n\n\n\nOrganizzazione Codice\n\n\n\nSalva temi custom in file separato\nCarica con source(\"my_themes.R\")\nVersiona con git per tracking\nDocumenta parametri personalizzabili"
+  },
+  {
+    "objectID": "materials/09_themes_personalizzazione.html#best-practices---parte-2",
+    "href": "materials/09_themes_personalizzazione.html#best-practices---parte-2",
+    "title": "Temi e Personalizzazione in ggplot2",
+    "section": "Best Practices - Parte 2",
+    "text": "Best Practices - Parte 2\n\n\n\n4. Pubblicazioni Scientifiche:\n\nUsa theme_classic() o theme_bw()\nRimuovi background colors\nDPI = 300 minimo\nFormato PDF o TIFF\nFont leggibili (size ≥ 10)\n\n5. Presentazioni:\n\nFont grandi (base_size = 16-20)\nColori ad alto contrasto\nRimuovi elementi non essenziali\ntheme_minimal() o theme_void()\n\n6. Web/Digital:\n\nDPI = 72-96\nPNG con sfondo trasparente\nDimensioni in pixel (800x600, 1200x800)\nColori web-safe\n\n\n\n\n7. Accessibilità:\n# Usa scale adatte a daltonici\nscale_color_viridis_d()\nscale_fill_brewer(palette = \"Set2\")\n\n# Font leggibili\ntheme(text = element_text(size = 12))\n\n# Contrasto sufficiente\n# Evita rosso/verde come unica distinzione\n\n\n\n\n\n\nGolden Rules\n\n\n\nConsistenza: Stesso tema per tutti i grafici di un progetto\nSemplicità: Less is more - rimuovi elementi non necessari\nLeggibilità: Testo sempre leggibile, anche in stampa\nColori: Accessibili a tutti (inclusi daltonici)"
   }
 ]
