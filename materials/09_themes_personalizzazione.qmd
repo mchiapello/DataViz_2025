@@ -1606,8 +1606,7 @@ theme(text = element_text(size = 12))
 **Prossima Sessione:**
 
 - **Visualizzazioni Avanzate** - Combina tutto quello che hai imparato!
-- Heatmaps, network graphs, spatial data
-- Estensioni ggplot2 (patchwork, gganimate, ggraph)
+- Estensioni ggplot2 (patchwork, ggheatmap, ggraph)
 
 **Pratica Consigliata:**
 
