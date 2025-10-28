@@ -1,163 +1,839 @@
 ---
-title: "Visualizzazioni Avanzate"
+title: "Visualizzazioni Avanzate in ggplot2"
+subtitle: "Hands-on Workshop"
+author: "Marco Chiapello"
+format: 
+  revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    chalkboard: true
+    logo: images/ggplot2_logo.jpg
+    footer: "REVELO Training - Data Viz 2025"
+    css: presentation-style.css
+    title-slide-attributes:
+      data-background-image: images/frequency-wave-7776034_1280.jpg
+      data-background-size: cover
+      data-background-opacity: "0.1"
+resources:
+  - images/
+  - presentation-style.css
 ---
 
-## Tecniche avanzate
+## Obiettivi della Sessione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-Approfondiamo tecniche più sofisticate per creare visualizzazioni efficaci.
+::: {style="font-size: 0.85em;"}
+**Cosa impareremo oggi:**
 
-## Composizione di grafici con patchwork
+- Comporre **multipli grafici** con patchwork
+- Creare **annotazioni intelligenti** con ggrepel
+- Visualizzare **dati multidimensionali** con heatmaps
+- Costruire **volcano plots** per analisi genomiche
+- Best practices per visualizzazioni **professionali**
 
-```{r}
-#| eval: false
+**Approccio:**
 
+1. Teoria + esempi per ogni tecnica
+2. Focus su casi d'uso reali
+3. Esercizi pratici guidati
+:::
+
+## Esercizi Pratici {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Scarica il file esercizi:** [10_visualizzazioni_avanzate_exercises.R](10_visualizzazioni_avanzate_exercises.R)
+
+**30 esercizi organizzati in 6 parti:**
+
+1. **Patchwork Base** (6 esercizi): composizione, layout
+2. **Patchwork Avanzato** (6 esercizi): annotazioni, temi
+3. **ggrepel** (4 esercizi): etichette intelligenti
+4. **Heatmaps** (6 esercizi): clustering, colori
+5. **Volcano Plots** (5 esercizi): soglie, annotazioni
+6. **Combinazioni** (3 esercizi): tecniche integrate
+
+**Dataset:** gene expression, clinical data
+:::
+
+## Cos'è Patchwork? {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Composizione di grafici**
+
+patchwork è un'estensione ggplot2 che permette di:
+
+- **Combinare** più grafici in figure composite
+- **Allineare** automaticamente plot areas
+- **Condividere** legende e assi
+- **Annotare** composizioni complete
+
+**Filosofia:**
+Usa operatori intuitivi (`+`, `/`, `|`) per layout complessi senza codice verbose
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+```r
+# Operatori base
+p1 + p2       # Affiancati
+p1 / p2       # Sovrapposti
+p1 | p2 | p3  # Tre colonne
+(p1 + p2) / p3 # Nesting
+```
+
+**Vantaggi:**
+
+- Allineamento perfetto
+- Controllo preciso layout
+- Guide collettive
+- Tag automatici (A, B, C...)
+:::
+:::
+:::
+
+# Parte 1: Patchwork Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Composizione Semplice {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+```r
 library(patchwork)
+library(ggplot2)
 
-# Creare più grafici
-p1 <- ggplot(data1, aes(x, y)) + geom_point()
-p2 <- ggplot(data2, aes(x, y)) + geom_line()
-p3 <- ggplot(data3, aes(x)) + geom_histogram()
+# Crea grafici individuali
+p1 <- ggplot(mtcars, aes(mpg, disp)) +
+  geom_point(aes(color = factor(cyl))) +
+  labs(title = "Displacement vs MPG")
 
-# Combinare
-p1 + p2           # Affiancati
-p1 / p2           # Uno sopra l'altro
-(p1 + p2) / p3    # Layout complesso
+p2 <- ggplot(mtcars, aes(factor(cyl), mpg)) +
+  geom_boxplot(aes(fill = factor(cyl))) +
+  labs(title = "MPG by Cylinders")
+
+p3 <- ggplot(mtcars, aes(wt, mpg)) +
+  geom_point(aes(size = hp)) +
+  geom_smooth(method = "lm") +
+  labs(title = "Weight vs MPG")
+
+# Combina!
+p1 + p2 + p3
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {.callout-tip}
+### Operatore `+`
+Affianca grafici in griglia automatica
+:::
+
+::: {.callout-note}
+### Allineamento
+Le plot areas si allineano automaticamente, anche con assi di lunghezze diverse
+:::
+:::
+:::
+
+## Layout Verticale/Orizzontale {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+```r
+# Verticale con /
+p1 / p2 / p3
+
+# Orizzontale con |
+p1 | p2 | p3
+
+# Combinazioni
+(p1 + p2) / p3
+
+# Layout più complesso
+(p1 | p2) / (p3 + plot_spacer() + p3)
 ```
 
-## Annotazioni
+::: {.callout-important}
+### Parentesi per Precedenza
+Usa `()` per controllare ordine nesting. Senza parentesi, `+` e `/` hanno stessa precedenza e vengono valutati da sinistra a destra
+:::
+:::
 
-```{r}
-#| eval: false
+## Controllo Layout: plot_layout() {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-# Testo
-ggplot(data, aes(x, y)) +
-  geom_point() +
-  annotate("text", x = 5, y = 10, label = "Punto importante")
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+```r
+# Proporzioni colonne/righe
+p1 + p2 + p3 +
+  plot_layout(
+    ncol = 2,
+    widths = c(2, 1)
+  )
 
-# Forme
-ggplot(data, aes(x, y)) +
-  geom_point() +
-  annotate("rect", xmin = 2, xmax = 4, ymin = 5, ymax = 8, 
-           alpha = 0.2, fill = "red")
+# Proporzioni righe
+p1 / p2 / p3 +
+  plot_layout(
+    heights = c(1, 2, 1)
+  )
+
+# Guide collettive
+p1 + p2 +
+  plot_layout(
+    guides = "collect"
+  )
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {.callout-tip}
+### widths/heights
+Vettori numerici: proporzioni relative o unità assolute (`unit(5, "cm")`)
+:::
+
+::: {.callout-warning}
+### guides = "collect"
+Raccoglie tutte le legende in una sola posizione (evita duplicazioni)
+:::
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Parte 2: Patchwork Avanzato {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Annotazioni Globali {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+```r
+p1 + p2 + p3 +
+  plot_annotation(
+    title = "Analisi Multi-Panel di mtcars",
+    subtitle = "Relazioni tra variabili chiave",
+    caption = "Dati: mtcars dataset",
+    tag_levels = "A",  # A, B, C...
+    tag_prefix = "Fig. ",
+    tag_suffix = ":",
+    theme = theme(
+      plot.title = element_text(size = 16, face = "bold")
+    )
+  )
 ```
 
-## Etichette con ggrepel
+::: {.callout-note}
+### tag_levels
+Opzioni: `"A"` (maiuscole), `"a"` (minuscole), `"1"` (numeri), `"I"` (romani), `"i"` (romani minuscoli), o vettore custom
+:::
+:::
 
-```{r}
-#| eval: false
+## Applicare Temi Globalmente {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+```r
+# Operatore & applica a tutti i plot
+p1 + p2 + p3 &
+  theme_minimal() &
+  theme(
+    legend.position = "bottom"
+  )
+
+# Applica solo a subplot specifici
+p1 + (p2 & theme_dark()) + p3
+
+# Combina con annotazioni
+(p1 + p2 + p3) &
+  theme_bw() &
+  theme(legend.position = "none") +
+  plot_annotation(
+    title = "No Legends, Clean Theme"
+  )
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {.callout-important}
+### Operatore `&` vs `+`
+- `&`: applica elemento a **tutti** i subplot
+- `+`: aggiunge layer/elemento solo all'**ultimo** plot
+:::
+:::
+:::
+
+## Design Layouts Complessi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.65em;"}
+```r
+# Design testuale
+design <- "
+  AAB
+  CCC
+"
+
+p1 + p2 + p3 +
+  plot_layout(design = design)
+
+# Design con area()
+layout <- c(
+  area(t = 1, l = 1, b = 2, r = 2),  # p1: righe 1-2, colonne 1-2
+  area(t = 1, l = 3, b = 1, r = 4),  # p2: riga 1, colonne 3-4
+  area(t = 2, l = 3, b = 2, r = 4)   # p3: riga 2, colonne 3-4
+)
+
+p1 + p2 + p3 +
+  plot_layout(design = layout)
+```
+
+::: {.callout-tip}
+### Design Testuale
+Ogni lettera = 1 cella. Lettere uguali = stesso plot espanso su più celle. `#` = spazio vuoto
+:::
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Parte 3: ggrepel - Etichette Intelligenti {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Problema: Sovrapposizione Etichette {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**geom_text() standard:**
+
+```r
 library(ggrepel)
 
-ggplot(data, aes(x, y, label = name)) +
+ggplot(mtcars, 
+       aes(wt, mpg, label = rownames(mtcars))) +
   geom_point() +
-  geom_text_repel()  # Evita sovrapposizioni
+  geom_text()  # PROBLEMA!
 ```
 
-## Grafici interattivi con plotly
+**Risultato:** Testo sovrapposto, illeggibile
+:::
+:::
 
-```{r}
-#| eval: false
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**geom_text_repel() soluzione:**
 
-library(plotly)
-
-p <- ggplot(data, aes(x, y)) + geom_point()
-ggplotly(p)  # Rende il grafico interattivo
-```
-
-## Mappe con geom_sf
-
-```{r}
-#| eval: false
-
-library(sf)
-
-ggplot(map_data) +
-  geom_sf(aes(fill = value))
-```
-
-## Visualizzazioni statistiche
-
-### Intervalli di confidenza
-
-```{r}
-#| eval: false
-
-ggplot(data, aes(x = category, y = value)) +
-  stat_summary(fun.data = mean_se, geom = "errorbar")
-```
-
-### Regressioni
-
-```{r}
-#| eval: false
-
-ggplot(data, aes(x, y)) +
+```r
+ggplot(mtcars, 
+       aes(wt, mpg, label = rownames(mtcars))) +
   geom_point() +
-  geom_smooth(method = "lm")
+  geom_text_repel()  # RISOLTO!
 ```
 
-### Density plots 2D
+**Risultato:** Etichette automaticamente spostate per evitare overlap
+:::
+:::
+:::
 
-```{r}
-#| eval: false
+## geom_text_repel() vs geom_label_repel() {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-ggplot(data, aes(x, y)) +
-  geom_density_2d_filled()
+::: {style="font-size: 0.7em;"}
+```r
+# Solo testo
+ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars))) +
+  geom_point(aes(color = factor(cyl))) +
+  geom_text_repel(size = 3)
+
+# Testo con box background
+ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars))) +
+  geom_point(aes(color = factor(cyl))) +
+  geom_label_repel(
+    size = 3,
+    box.padding = 0.5,    # Padding intorno testo
+    point.padding = 0.3,  # Distanza da punto
+    segment.color = "grey50"  # Colore linea connessione
+  )
 ```
 
-## Ridge plots
+::: {.callout-note}
+### Quando usare label vs text
+`geom_label_repel()` ha background box → migliore leggibilità su plot complessi
+:::
+:::
 
-```{r}
-#| eval: false
+## Controllo Direzione Repulsione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-library(ggridges)
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+```r
+# Solo direzione Y (verticale)
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  geom_text_repel(
+    aes(label = rownames(mtcars)),
+    direction = "y",
+    hjust = 0
+  )
 
-ggplot(data, aes(x = value, y = category)) +
-  geom_density_ridges()
+# Solo direzione X (orizzontale)
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  geom_text_repel(
+    aes(label = rownames(mtcars)),
+    direction = "x"
+  )
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {.callout-tip}
+### direction
+- `"both"` (default): libertà totale
+- `"x"`: solo orizzontale
+- `"y"`: solo verticale
+:::
+
+::: {.callout-warning}
+### Quando limitare
+Utile per mantenere allineamento visivo con assi
+:::
+:::
+:::
+
+## Etichettare Subset Selezionati {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+```r
+# Strategia 1: Filter nel layer
+mtcars_subset <- mtcars[mtcars$mpg > 25, ]
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  geom_text_repel(
+    data = mtcars_subset,
+    aes(label = rownames(mtcars_subset)),
+    color = "red"
+  )
+
+# Strategia 2: Conditional label
+mtcars$label <- ifelse(mtcars$mpg > 25, rownames(mtcars), "")
+
+ggplot(mtcars, aes(wt, mpg, label = label)) +
+  geom_point() +
+  geom_text_repel()
 ```
 
-## Heatmaps
+::: {.callout-tip}
+### Best Practice
+Etichetta solo punti rilevanti (outliers, soglie) per plot leggibili
+:::
+:::
 
-```{r}
-#| eval: false
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-ggplot(data, aes(x = x, y = y, fill = value)) +
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Parte 4: Heatmaps {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Cos'è una Heatmap? {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Matrice di valori codificati tramite colore**
+
+- **Righe**: variabili/campioni
+- **Colonne**: condizioni/features
+- **Colore**: intensità valori
+
+**Quando usare:**
+
+- Gene expression data
+- Correlation matrices
+- Clustering patterns
+- Spatial data (mappe calore)
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+```r
+# Heatmap base
+ggplot(data, aes(x, y, fill = value)) +
+  geom_tile()
+
+# Con clustering
+library(pheatmap)
+pheatmap(matrix_data,
+         cluster_rows = TRUE,
+         cluster_cols = TRUE)
+```
+
+::: {.callout-important}
+### Scale colori
+Fondamentale scegliere palette appropriate (sequential, diverging)
+:::
+:::
+:::
+:::
+
+## geom_tile() Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+```r
+# Prepara dati long format
+library(tidyr)
+
+heatmap_data <- mtcars %>%
+  rownames_to_column("car") %>%
+  pivot_longer(cols = -car, names_to = "variable", values_to = "value") %>%
+  group_by(variable) %>%
+  mutate(value_scaled = scale(value)[,1])  # Z-score scaling
+
+# Heatmap
+ggplot(heatmap_data, aes(x = variable, y = car, fill = value_scaled)) +
+  geom_tile(color = "white", size = 0.5) +
+  scale_fill_gradient2(
+    low = "blue", mid = "white", high = "red",
+    midpoint = 0,
+    name = "Z-score"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+:::
+
+## Scale Colori per Heatmaps {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+**Sequential (dati mono-direzionali):**
+
+```r
+scale_fill_viridis_c()
+scale_fill_distiller(palette = "YlOrRd")
+scale_fill_gradient(
+  low = "white", 
+  high = "darkred"
+)
+```
+
+**Diverging (dati bi-direzionali):**
+
+```r
+scale_fill_gradient2(
+  low = "blue",
+  mid = "white",
+  high = "red",
+  midpoint = 0
+)
+
+scale_fill_distiller(
+  palette = "RdBu",
+  direction = -1
+)
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: {.callout-tip}
+### Sequential
+Per valori che vanno da basso → alto (es. espressione genica non normalizzata)
+:::
+
+::: {.callout-tip}
+### Diverging
+Per valori con punto centrale significativo (es. fold-change, correlazioni)
+:::
+:::
+:::
+
+## Clustering e Riordinamento {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.65em;"}
+```r
+# Clustering gerarchico manuale
+library(dendextend)
+
+# Converti in wide matrix
+heat_matrix <- heatmap_data %>%
+  select(car, variable, value_scaled) %>%
+  pivot_wider(names_from = variable, values_from = value_scaled) %>%
+  column_to_rownames("car") %>%
+  as.matrix()
+
+# Clustering
+row_order <- hclust(dist(heat_matrix))$order
+col_order <- hclust(dist(t(heat_matrix)))$order
+
+# Riordina factor levels
+heatmap_data$car <- factor(heatmap_data$car, 
+                            levels = rownames(heat_matrix)[row_order])
+heatmap_data$variable <- factor(heatmap_data$variable,
+                                 levels = colnames(heat_matrix)[col_order])
+
+# Plot con ordine cluster
+ggplot(heatmap_data, aes(variable, car, fill = value_scaled)) +
   geom_tile() +
-  scale_fill_viridis_c()
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red")
+```
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Parte 5: Volcano Plots {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Cos'è un Volcano Plot? {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 0.7em;"}
+**Visualizzazione differential expression**
+
+- **Asse X**: log2 Fold Change (effetto)
+- **Asse Y**: -log10 p-value (significatività)
+- **Punti**: geni/proteine
+
+**Regioni:**
+
+- In alto: alta significatività
+- Sinistra: down-regulated
+- Destra: up-regulated
+- Esterni: differenzialmente espressi
+:::
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: 0.65em;"}
+```r
+# Volcano plot base
+ggplot(deg_data, 
+       aes(x = log2FC, 
+           y = -log10(pvalue))) +
+  geom_point(aes(color = significant))
 ```
 
-## Grafici animati con gganimate
+::: {.callout-note}
+### Soglie comuni
+- |log2FC| > 1 (2x change)
+- p-value < 0.05 o 0.01
+:::
+:::
+:::
+:::
 
-```{r}
-#| eval: false
+## Volcano Plot Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-library(gganimate)
+::: {style="font-size: 0.7em;"}
+```r
+# Simula dati DEG
+set.seed(123)
+volcano_data <- data.frame(
+  gene = paste0("Gene_", 1:1000),
+  log2FC = rnorm(1000, mean = 0, sd = 2),
+  pvalue = runif(1000, 0, 1)
+) %>%
+  mutate(
+    padj = p.adjust(pvalue, method = "BH"),
+    significant = case_when(
+      abs(log2FC) > 1 & padj < 0.05 ~ "Significant",
+      TRUE ~ "Not Significant"
+    )
+  )
 
-ggplot(data, aes(x, y)) +
-  geom_point() +
-  transition_states(time) +
-  labs(title = "Time: {closest_state}")
+# Volcano
+ggplot(volcano_data, aes(x = log2FC, y = -log10(padj))) +
+  geom_point(aes(color = significant), alpha = 0.6, size = 2) +
+  scale_color_manual(values = c("grey70", "red3")) +
+  geom_vline(xintercept = c(-1, 1), linetype = "dashed") +
+  geom_hline(yintercept = -log10(0.05), linetype = "dashed") +
+  theme_bw()
 ```
+:::
 
-## Best practices
+## Categorizzazione Multi-Livello {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-1. **Scegli il grafico giusto** per i tuoi dati
-2. **Semplicità**: evita grafici troppo complessi
-3. **Colori**: usa palette accessibili
-4. **Etichette**: sempre chiare e complete
-5. **Contesto**: aggiungi titoli e caption
-6. **Riproducibilità**: salva il codice
+::: {style="font-size: 0.65em;"}
+```r
+volcano_data <- volcano_data %>%
+  mutate(
+    regulation = case_when(
+      log2FC > 1 & padj < 0.05 ~ "Up-regulated",
+      log2FC < -1 & padj < 0.05 ~ "Down-regulated",
+      abs(log2FC) > 1 ~ "Not Significant (FC only)",
+      padj < 0.05 ~ "Not Significant (p-val only)",
+      TRUE ~ "Not Significant"
+    ),
+    regulation = factor(regulation, levels = c(
+      "Up-regulated", "Down-regulated", 
+      "Not Significant (FC only)", "Not Significant (p-val only)",
+      "Not Significant"
+    ))
+  )
 
-## Esercizi
+ggplot(volcano_data, aes(x = log2FC, y = -log10(padj), color = regulation)) +
+  geom_point(alpha = 0.7, size = 2.5) +
+  scale_color_manual(values = c(
+    "Up-regulated" = "red3",
+    "Down-regulated" = "blue3",
+    "Not Significant (FC only)" = "orange",
+    "Not Significant (p-val only)" = "purple",
+    "Not Significant" = "grey70"
+  ))
+```
+:::
 
-1. Crea una composizione di 3 grafici
-2. Aggiungi annotazioni a un grafico
-3. Crea un grafico con etichette non sovrapposte
-4. Prova a creare un grafico interattivo
+## Annotazione Geni Top {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-## Risorse
+::: {style="font-size: 0.7em;"}
+```r
+library(ggrepel)
 
-- [patchwork](https://patchwork.data-imaginist.com/)
-- [ggrepel](https://ggrepel.slowkow.com/)
-- [plotly for R](https://plotly.com/r/)
-- [gganimate](https://gganimate.com/)
+# Identifica top geni
+top_genes <- volcano_data %>%
+  filter(significant == "Significant") %>%
+  arrange(padj) %>%
+  slice_head(n = 10)
+
+# Volcano con labels
+ggplot(volcano_data, aes(x = log2FC, y = -log10(padj))) +
+  geom_point(aes(color = significant), alpha = 0.6) +
+  geom_point(data = top_genes, color = "black", size = 3) +  # Highlight
+  geom_text_repel(
+    data = top_genes,
+    aes(label = gene),
+    size = 3,
+    box.padding = 0.5,
+    max.overlaps = Inf
+  ) +
+  scale_color_manual(values = c("grey70", "red3")) +
+  geom_vline(xintercept = c(-1, 1), linetype = "dashed", alpha = 0.5) +
+  geom_hline(yintercept = -log10(0.05), linetype = "dashed", alpha = 0.5) +
+  theme_minimal()
+```
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+# Parte 6: Combinazioni Avanzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Volcano + Heatmap dei Top Geni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.6em;"}
+```r
+library(patchwork)
+
+# 1. Volcano plot
+p_volcano <- ggplot(volcano_data, aes(x = log2FC, y = -log10(padj))) +
+  geom_point(aes(color = regulation), alpha = 0.7) +
+  scale_color_manual(values = c("red3", "blue3", "orange", "purple", "grey70")) +
+  theme_minimal() +
+  labs(title = "A. Differential Expression")
+
+# 2. Heatmap top 20 geni
+top20 <- volcano_data %>%
+  filter(significant == "Significant") %>%
+  arrange(padj) %>%
+  slice_head(n = 20) %>%
+  mutate(expression = rnorm(n(), mean = log2FC, sd = 0.5))  # Simula expression
+
+p_heatmap <- ggplot(top20, aes(x = "Sample", y = gene, fill = expression)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+  theme_minimal() +
+  labs(title = "B. Top 20 DEGs Expression") +
+  theme(axis.title.x = element_blank())
+
+# Combina con patchwork
+p_volcano + p_heatmap +
+  plot_layout(widths = c(2, 1)) +
+  plot_annotation(
+    title = "Comprehensive Differential Expression Analysis",
+    theme = theme(plot.title = element_text(size = 16, face = "bold"))
+  )
+```
+:::
+
+## Multi-Panel con Annotazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.6em;"}
+```r
+# Crea 4 visualizzazioni complementari
+p1 <- ggplot(volcano_data, aes(log2FC)) +
+  geom_histogram(aes(fill = significant), bins = 50) +
+  theme_minimal() +
+  labs(title = "Fold Change Distribution")
+
+p2 <- ggplot(volcano_data, aes(-log10(padj))) +
+  geom_density(fill = "skyblue", alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Significance Distribution")
+
+p3 <- ggplot(volcano_data, aes(regulation)) +
+  geom_bar(aes(fill = regulation)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "DEG Categories")
+
+p4 <- ggplot(volcano_data, aes(log2FC, -log10(padj), color = regulation)) +
+  geom_point(alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Volcano Plot")
+
+# Layout complesso
+design <- "
+  AAAB
+  CCDB
+"
+
+(p1 + p2 + p3 + p4) +
+  plot_layout(design = design, guides = "collect") &
+  theme(legend.position = "bottom")
+```
+:::
+
+## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
+**Adesso tocca a te!**
+:::
+
+## Risorse & Prossimi Passi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Documentazione Pacchetti:**
+
+- [patchwork](https://patchwork.data-imaginist.com/) - Composizione grafici
+- [ggrepel](https://ggrepel.slowkow.com/) - Etichette intelligenti  
+- [pheatmap](https://github.com/raivokolde/pheatmap) - Heatmaps con clustering
+
+
+**Cheat Sheets:**
+
+- [patchwork cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/patchwork.pdf)
+- [ggplot2 extensions gallery](https://exts.ggplot2.tidyverse.org/)
+
+:::

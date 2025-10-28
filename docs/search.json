@@ -2686,5 +2686,222 @@
     "title": "Temi e Personalizzazione in ggplot2",
     "section": "Best Practices - Parte 2",
     "text": "Best Practices - Parte 2\n\n\n\n4. Pubblicazioni Scientifiche:\n\nUsa theme_classic() o theme_bw()\nRimuovi background colors\nDPI = 300 minimo\nFormato PDF o TIFF\nFont leggibili (size ≥ 10)\n\n5. Presentazioni:\n\nFont grandi (base_size = 16-20)\nColori ad alto contrasto\nRimuovi elementi non essenziali\ntheme_minimal() o theme_void()\n\n6. Web/Digital:\n\nDPI = 72-96\nPNG con sfondo trasparente\nDimensioni in pixel (800x600, 1200x800)\nColori web-safe\n\n\n\n\n7. Accessibilità:\n# Usa scale adatte a daltonici\nscale_color_viridis_d()\nscale_fill_brewer(palette = \"Set2\")\n\n# Font leggibili\ntheme(text = element_text(size = 12))\n\n# Contrasto sufficiente\n# Evita rosso/verde come unica distinzione\n\n\n\n\n\n\nGolden Rules\n\n\n\nConsistenza: Stesso tema per tutti i grafici di un progetto\nSemplicità: Less is more - rimuovi elementi non necessari\nLeggibilità: Testo sempre leggibile, anche in stampa\nColori: Accessibili a tutti (inclusi daltonici)"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#obiettivi-della-sessione",
+    "href": "materials/10_visualizzazioni_avanzate.html#obiettivi-della-sessione",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Obiettivi della Sessione",
+    "text": "Obiettivi della Sessione\n\nCosa impareremo oggi:\n\nComporre multipli grafici con patchwork\nCreare annotazioni intelligenti con ggrepel\nVisualizzare dati multidimensionali con heatmaps\nCostruire volcano plots per analisi genomiche\nBest practices per visualizzazioni professionali\n\nApproccio:\n\nTeoria + esempi per ogni tecnica\nFocus su casi d’uso reali\nEsercizi pratici guidati"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#esercizi-pratici",
+    "href": "materials/10_visualizzazioni_avanzate.html#esercizi-pratici",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Esercizi Pratici",
+    "text": "Esercizi Pratici\n\nScarica il file esercizi: 10_visualizzazioni_avanzate_exercises.R\n30 esercizi organizzati in 6 parti:\n\nPatchwork Base (6 esercizi): composizione, layout\nPatchwork Avanzato (6 esercizi): annotazioni, temi\nggrepel (4 esercizi): etichette intelligenti\nHeatmaps (6 esercizi): clustering, colori\nVolcano Plots (5 esercizi): soglie, annotazioni\nCombinazioni (3 esercizi): tecniche integrate\n\nDataset: gene expression, clinical data"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#cosè-patchwork",
+    "href": "materials/10_visualizzazioni_avanzate.html#cosè-patchwork",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Cos’è Patchwork?",
+    "text": "Cos’è Patchwork?\n\n\n\nComposizione di grafici\npatchwork è un’estensione ggplot2 che permette di:\n\nCombinare più grafici in figure composite\nAllineare automaticamente plot areas\nCondividere legende e assi\nAnnotare composizioni complete\n\nFilosofia: Usa operatori intuitivi (+, /, |) per layout complessi senza codice verbose\n\n\n\n# Operatori base\np1 + p2       # Affiancati\np1 / p2       # Sovrapposti\np1 | p2 | p3  # Tre colonne\n(p1 + p2) / p3 # Nesting\nVantaggi:\n\nAllineamento perfetto\nControllo preciso layout\nGuide collettive\nTag automatici (A, B, C…)"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#composizione-semplice",
+    "href": "materials/10_visualizzazioni_avanzate.html#composizione-semplice",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Composizione Semplice",
+    "text": "Composizione Semplice\n\n\n\nlibrary(patchwork)\nlibrary(ggplot2)\n\n# Crea grafici individuali\np1 &lt;- ggplot(mtcars, aes(mpg, disp)) +\n  geom_point(aes(color = factor(cyl))) +\n  labs(title = \"Displacement vs MPG\")\n\np2 &lt;- ggplot(mtcars, aes(factor(cyl), mpg)) +\n  geom_boxplot(aes(fill = factor(cyl))) +\n  labs(title = \"MPG by Cylinders\")\n\np3 &lt;- ggplot(mtcars, aes(wt, mpg)) +\n  geom_point(aes(size = hp)) +\n  geom_smooth(method = \"lm\") +\n  labs(title = \"Weight vs MPG\")\n\n# Combina!\np1 + p2 + p3\n\n\n\n\n\n\n\n\nOperatore +\n\n\nAffianca grafici in griglia automatica\n\n\n\n\n\n\n\n\n\nAllineamento\n\n\nLe plot areas si allineano automaticamente, anche con assi di lunghezze diverse"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#layout-verticaleorizzontale",
+    "href": "materials/10_visualizzazioni_avanzate.html#layout-verticaleorizzontale",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Layout Verticale/Orizzontale",
+    "text": "Layout Verticale/Orizzontale\n\n# Verticale con /\np1 / p2 / p3\n\n# Orizzontale con |\np1 | p2 | p3\n\n# Combinazioni\n(p1 + p2) / p3\n\n# Layout più complesso\n(p1 | p2) / (p3 + plot_spacer() + p3)\n\n\n\n\n\n\nParentesi per Precedenza\n\n\nUsa () per controllare ordine nesting. Senza parentesi, + e / hanno stessa precedenza e vengono valutati da sinistra a destra"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#controllo-layout-plot_layout",
+    "href": "materials/10_visualizzazioni_avanzate.html#controllo-layout-plot_layout",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Controllo Layout: plot_layout()",
+    "text": "Controllo Layout: plot_layout()\n\n\n\n# Proporzioni colonne/righe\np1 + p2 + p3 +\n  plot_layout(\n    ncol = 2,\n    widths = c(2, 1)\n  )\n\n# Proporzioni righe\np1 / p2 / p3 +\n  plot_layout(\n    heights = c(1, 2, 1)\n  )\n\n# Guide collettive\np1 + p2 +\n  plot_layout(\n    guides = \"collect\"\n  )\n\n\n\n\n\n\n\n\nwidths/heights\n\n\nVettori numerici: proporzioni relative o unità assolute (unit(5, \"cm\"))\n\n\n\n\n\n\n\n\n\nguides = “collect”\n\n\nRaccoglie tutte le legende in una sola posizione (evita duplicazioni)"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#section",
+    "href": "materials/10_visualizzazioni_avanzate.html#section",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#annotazioni-globali",
+    "href": "materials/10_visualizzazioni_avanzate.html#annotazioni-globali",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Annotazioni Globali",
+    "text": "Annotazioni Globali\n\np1 + p2 + p3 +\n  plot_annotation(\n    title = \"Analisi Multi-Panel di mtcars\",\n    subtitle = \"Relazioni tra variabili chiave\",\n    caption = \"Dati: mtcars dataset\",\n    tag_levels = \"A\",  # A, B, C...\n    tag_prefix = \"Fig. \",\n    tag_suffix = \":\",\n    theme = theme(\n      plot.title = element_text(size = 16, face = \"bold\")\n    )\n  )\n\n\n\n\n\n\ntag_levels\n\n\nOpzioni: \"A\" (maiuscole), \"a\" (minuscole), \"1\" (numeri), \"I\" (romani), \"i\" (romani minuscoli), o vettore custom"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#applicare-temi-globalmente",
+    "href": "materials/10_visualizzazioni_avanzate.html#applicare-temi-globalmente",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Applicare Temi Globalmente",
+    "text": "Applicare Temi Globalmente\n\n\n\n# Operatore & applica a tutti i plot\np1 + p2 + p3 &\n  theme_minimal() &\n  theme(\n    legend.position = \"bottom\"\n  )\n\n# Applica solo a subplot specifici\np1 + (p2 & theme_dark()) + p3\n\n# Combina con annotazioni\n(p1 + p2 + p3) &\n  theme_bw() &\n  theme(legend.position = \"none\") +\n  plot_annotation(\n    title = \"No Legends, Clean Theme\"\n  )\n\n\n\n\n\n\n\n\nOperatore & vs +\n\n\n\n&: applica elemento a tutti i subplot\n+: aggiunge layer/elemento solo all’ultimo plot"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#design-layouts-complessi",
+    "href": "materials/10_visualizzazioni_avanzate.html#design-layouts-complessi",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Design Layouts Complessi",
+    "text": "Design Layouts Complessi\n\n# Design testuale\ndesign &lt;- \"\n  AAB\n  CCC\n\"\n\np1 + p2 + p3 +\n  plot_layout(design = design)\n\n# Design con area()\nlayout &lt;- c(\n  area(t = 1, l = 1, b = 2, r = 2),  # p1: righe 1-2, colonne 1-2\n  area(t = 1, l = 3, b = 1, r = 4),  # p2: riga 1, colonne 3-4\n  area(t = 2, l = 3, b = 2, r = 4)   # p3: riga 2, colonne 3-4\n)\n\np1 + p2 + p3 +\n  plot_layout(design = layout)\n\n\n\n\n\n\nDesign Testuale\n\n\nOgni lettera = 1 cella. Lettere uguali = stesso plot espanso su più celle. # = spazio vuoto"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#section-1",
+    "href": "materials/10_visualizzazioni_avanzate.html#section-1",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#problema-sovrapposizione-etichette",
+    "href": "materials/10_visualizzazioni_avanzate.html#problema-sovrapposizione-etichette",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Problema: Sovrapposizione Etichette",
+    "text": "Problema: Sovrapposizione Etichette\n\n\n\ngeom_text() standard:\nlibrary(ggrepel)\n\nggplot(mtcars, \n       aes(wt, mpg, label = rownames(mtcars))) +\n  geom_point() +\n  geom_text()  # PROBLEMA!\nRisultato: Testo sovrapposto, illeggibile\n\n\n\ngeom_text_repel() soluzione:\nggplot(mtcars, \n       aes(wt, mpg, label = rownames(mtcars))) +\n  geom_point() +\n  geom_text_repel()  # RISOLTO!\nRisultato: Etichette automaticamente spostate per evitare overlap"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#geom_text_repel-vs-geom_label_repel",
+    "href": "materials/10_visualizzazioni_avanzate.html#geom_text_repel-vs-geom_label_repel",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "geom_text_repel() vs geom_label_repel()",
+    "text": "geom_text_repel() vs geom_label_repel()\n\n# Solo testo\nggplot(mtcars, aes(wt, mpg, label = rownames(mtcars))) +\n  geom_point(aes(color = factor(cyl))) +\n  geom_text_repel(size = 3)\n\n# Testo con box background\nggplot(mtcars, aes(wt, mpg, label = rownames(mtcars))) +\n  geom_point(aes(color = factor(cyl))) +\n  geom_label_repel(\n    size = 3,\n    box.padding = 0.5,    # Padding intorno testo\n    point.padding = 0.3,  # Distanza da punto\n    segment.color = \"grey50\"  # Colore linea connessione\n  )\n\n\n\n\n\n\nQuando usare label vs text\n\n\ngeom_label_repel() ha background box → migliore leggibilità su plot complessi"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#controllo-direzione-repulsione",
+    "href": "materials/10_visualizzazioni_avanzate.html#controllo-direzione-repulsione",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Controllo Direzione Repulsione",
+    "text": "Controllo Direzione Repulsione\n\n\n\n# Solo direzione Y (verticale)\nggplot(mtcars, aes(wt, mpg)) +\n  geom_point() +\n  geom_text_repel(\n    aes(label = rownames(mtcars)),\n    direction = \"y\",\n    hjust = 0\n  )\n\n# Solo direzione X (orizzontale)\nggplot(mtcars, aes(wt, mpg)) +\n  geom_point() +\n  geom_text_repel(\n    aes(label = rownames(mtcars)),\n    direction = \"x\"\n  )\n\n\n\n\n\n\n\n\ndirection\n\n\n\n\"both\" (default): libertà totale\n\"x\": solo orizzontale\n\"y\": solo verticale\n\n\n\n\n\n\n\n\n\n\nQuando limitare\n\n\nUtile per mantenere allineamento visivo con assi"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#etichettare-subset-selezionati",
+    "href": "materials/10_visualizzazioni_avanzate.html#etichettare-subset-selezionati",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Etichettare Subset Selezionati",
+    "text": "Etichettare Subset Selezionati\n\n# Strategia 1: Filter nel layer\nmtcars_subset &lt;- mtcars[mtcars$mpg &gt; 25, ]\n\nggplot(mtcars, aes(wt, mpg)) +\n  geom_point() +\n  geom_text_repel(\n    data = mtcars_subset,\n    aes(label = rownames(mtcars_subset)),\n    color = \"red\"\n  )\n\n# Strategia 2: Conditional label\nmtcars$label &lt;- ifelse(mtcars$mpg &gt; 25, rownames(mtcars), \"\")\n\nggplot(mtcars, aes(wt, mpg, label = label)) +\n  geom_point() +\n  geom_text_repel()\n\n\n\n\n\n\nBest Practice\n\n\nEtichetta solo punti rilevanti (outliers, soglie) per plot leggibili"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#section-2",
+    "href": "materials/10_visualizzazioni_avanzate.html#section-2",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#cosè-una-heatmap",
+    "href": "materials/10_visualizzazioni_avanzate.html#cosè-una-heatmap",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Cos’è una Heatmap?",
+    "text": "Cos’è una Heatmap?\n\n\n\nMatrice di valori codificati tramite colore\n\nRighe: variabili/campioni\nColonne: condizioni/features\nColore: intensità valori\n\nQuando usare:\n\nGene expression data\nCorrelation matrices\nClustering patterns\nSpatial data (mappe calore)\n\n\n\n\n# Heatmap base\nggplot(data, aes(x, y, fill = value)) +\n  geom_tile()\n\n# Con clustering\nlibrary(pheatmap)\npheatmap(matrix_data,\n         cluster_rows = TRUE,\n         cluster_cols = TRUE)\n\n\n\n\n\n\nScale colori\n\n\nFondamentale scegliere palette appropriate (sequential, diverging)"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#geom_tile-base",
+    "href": "materials/10_visualizzazioni_avanzate.html#geom_tile-base",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "geom_tile() Base",
+    "text": "geom_tile() Base\n\n# Prepara dati long format\nlibrary(tidyr)\n\nheatmap_data &lt;- mtcars %&gt;%\n  rownames_to_column(\"car\") %&gt;%\n  pivot_longer(cols = -car, names_to = \"variable\", values_to = \"value\") %&gt;%\n  group_by(variable) %&gt;%\n  mutate(value_scaled = scale(value)[,1])  # Z-score scaling\n\n# Heatmap\nggplot(heatmap_data, aes(x = variable, y = car, fill = value_scaled)) +\n  geom_tile(color = \"white\", size = 0.5) +\n  scale_fill_gradient2(\n    low = \"blue\", mid = \"white\", high = \"red\",\n    midpoint = 0,\n    name = \"Z-score\"\n  ) +\n  theme_minimal() +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#scale-colori-per-heatmaps",
+    "href": "materials/10_visualizzazioni_avanzate.html#scale-colori-per-heatmaps",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Scale Colori per Heatmaps",
+    "text": "Scale Colori per Heatmaps\n\n\n\nSequential (dati mono-direzionali):\nscale_fill_viridis_c()\nscale_fill_distiller(palette = \"YlOrRd\")\nscale_fill_gradient(\n  low = \"white\", \n  high = \"darkred\"\n)\nDiverging (dati bi-direzionali):\nscale_fill_gradient2(\n  low = \"blue\",\n  mid = \"white\",\n  high = \"red\",\n  midpoint = 0\n)\n\nscale_fill_distiller(\n  palette = \"RdBu\",\n  direction = -1\n)\n\n\n\n\n\n\n\n\nSequential\n\n\nPer valori che vanno da basso → alto (es. espressione genica non normalizzata)\n\n\n\n\n\n\n\n\n\nDiverging\n\n\nPer valori con punto centrale significativo (es. fold-change, correlazioni)"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#clustering-e-riordinamento",
+    "href": "materials/10_visualizzazioni_avanzate.html#clustering-e-riordinamento",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Clustering e Riordinamento",
+    "text": "Clustering e Riordinamento\n\n# Clustering gerarchico manuale\nlibrary(dendextend)\n\n# Converti in wide matrix\nheat_matrix &lt;- heatmap_data %&gt;%\n  select(car, variable, value_scaled) %&gt;%\n  pivot_wider(names_from = variable, values_from = value_scaled) %&gt;%\n  column_to_rownames(\"car\") %&gt;%\n  as.matrix()\n\n# Clustering\nrow_order &lt;- hclust(dist(heat_matrix))$order\ncol_order &lt;- hclust(dist(t(heat_matrix)))$order\n\n# Riordina factor levels\nheatmap_data$car &lt;- factor(heatmap_data$car, \n                            levels = rownames(heat_matrix)[row_order])\nheatmap_data$variable &lt;- factor(heatmap_data$variable,\n                                 levels = colnames(heat_matrix)[col_order])\n\n# Plot con ordine cluster\nggplot(heatmap_data, aes(variable, car, fill = value_scaled)) +\n  geom_tile() +\n  scale_fill_gradient2(low = \"blue\", mid = \"white\", high = \"red\")"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#section-3",
+    "href": "materials/10_visualizzazioni_avanzate.html#section-3",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#cosè-un-volcano-plot",
+    "href": "materials/10_visualizzazioni_avanzate.html#cosè-un-volcano-plot",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Cos’è un Volcano Plot?",
+    "text": "Cos’è un Volcano Plot?\n\n\n\nVisualizzazione differential expression\n\nAsse X: log2 Fold Change (effetto)\nAsse Y: -log10 p-value (significatività)\nPunti: geni/proteine\n\nRegioni:\n\nIn alto: alta significatività\nSinistra: down-regulated\nDestra: up-regulated\nEsterni: differenzialmente espressi\n\n\n\n\n# Volcano plot base\nggplot(deg_data, \n       aes(x = log2FC, \n           y = -log10(pvalue))) +\n  geom_point(aes(color = significant))\n\n\n\n\n\n\nSoglie comuni\n\n\n\n|log2FC| &gt; 1 (2x change)\np-value &lt; 0.05 o 0.01"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#volcano-plot-base",
+    "href": "materials/10_visualizzazioni_avanzate.html#volcano-plot-base",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Volcano Plot Base",
+    "text": "Volcano Plot Base\n\n# Simula dati DEG\nset.seed(123)\nvolcano_data &lt;- data.frame(\n  gene = paste0(\"Gene_\", 1:1000),\n  log2FC = rnorm(1000, mean = 0, sd = 2),\n  pvalue = runif(1000, 0, 1)\n) %&gt;%\n  mutate(\n    padj = p.adjust(pvalue, method = \"BH\"),\n    significant = case_when(\n      abs(log2FC) &gt; 1 & padj &lt; 0.05 ~ \"Significant\",\n      TRUE ~ \"Not Significant\"\n    )\n  )\n\n# Volcano\nggplot(volcano_data, aes(x = log2FC, y = -log10(padj))) +\n  geom_point(aes(color = significant), alpha = 0.6, size = 2) +\n  scale_color_manual(values = c(\"grey70\", \"red3\")) +\n  geom_vline(xintercept = c(-1, 1), linetype = \"dashed\") +\n  geom_hline(yintercept = -log10(0.05), linetype = \"dashed\") +\n  theme_bw()"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#categorizzazione-multi-livello",
+    "href": "materials/10_visualizzazioni_avanzate.html#categorizzazione-multi-livello",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Categorizzazione Multi-Livello",
+    "text": "Categorizzazione Multi-Livello\n\nvolcano_data &lt;- volcano_data %&gt;%\n  mutate(\n    regulation = case_when(\n      log2FC &gt; 1 & padj &lt; 0.05 ~ \"Up-regulated\",\n      log2FC &lt; -1 & padj &lt; 0.05 ~ \"Down-regulated\",\n      abs(log2FC) &gt; 1 ~ \"Not Significant (FC only)\",\n      padj &lt; 0.05 ~ \"Not Significant (p-val only)\",\n      TRUE ~ \"Not Significant\"\n    ),\n    regulation = factor(regulation, levels = c(\n      \"Up-regulated\", \"Down-regulated\", \n      \"Not Significant (FC only)\", \"Not Significant (p-val only)\",\n      \"Not Significant\"\n    ))\n  )\n\nggplot(volcano_data, aes(x = log2FC, y = -log10(padj), color = regulation)) +\n  geom_point(alpha = 0.7, size = 2.5) +\n  scale_color_manual(values = c(\n    \"Up-regulated\" = \"red3\",\n    \"Down-regulated\" = \"blue3\",\n    \"Not Significant (FC only)\" = \"orange\",\n    \"Not Significant (p-val only)\" = \"purple\",\n    \"Not Significant\" = \"grey70\"\n  ))"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#annotazione-geni-top",
+    "href": "materials/10_visualizzazioni_avanzate.html#annotazione-geni-top",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Annotazione Geni Top",
+    "text": "Annotazione Geni Top\n\nlibrary(ggrepel)\n\n# Identifica top geni\ntop_genes &lt;- volcano_data %&gt;%\n  filter(significant == \"Significant\") %&gt;%\n  arrange(padj) %&gt;%\n  slice_head(n = 10)\n\n# Volcano con labels\nggplot(volcano_data, aes(x = log2FC, y = -log10(padj))) +\n  geom_point(aes(color = significant), alpha = 0.6) +\n  geom_point(data = top_genes, color = \"black\", size = 3) +  # Highlight\n  geom_text_repel(\n    data = top_genes,\n    aes(label = gene),\n    size = 3,\n    box.padding = 0.5,\n    max.overlaps = Inf\n  ) +\n  scale_color_manual(values = c(\"grey70\", \"red3\")) +\n  geom_vline(xintercept = c(-1, 1), linetype = \"dashed\", alpha = 0.5) +\n  geom_hline(yintercept = -log10(0.05), linetype = \"dashed\", alpha = 0.5) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#enhanced-volcano-enhancedvolcano-pkg",
+    "href": "materials/10_visualizzazioni_avanzate.html#enhanced-volcano-enhancedvolcano-pkg",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Enhanced Volcano (EnhancedVolcano pkg)",
+    "text": "Enhanced Volcano (EnhancedVolcano pkg)\n\n# Pacchetto specializzato per volcano plots\nlibrary(EnhancedVolcano)\n\n# Prepara dati wide format\nvolcano_wide &lt;- volcano_data %&gt;%\n  column_to_rownames(\"gene\")\n\nEnhancedVolcano(\n  volcano_wide,\n  lab = rownames(volcano_wide),\n  x = 'log2FC',\n  y = 'padj',\n  pCutoff = 0.05,\n  FCcutoff = 1,\n  pointSize = 2.0,\n  labSize = 3.0,\n  title = 'Differential Expression Analysis',\n  subtitle = 'Treatment vs Control',\n  caption = paste0('Total = ', nrow(volcano_wide), ' genes'),\n  legendPosition = 'right',\n  legendLabSize = 12,\n  col = c('grey30', 'forestgreen', 'royalblue', 'red2'),\n  colAlpha = 0.7\n)\n\n\n\n\n\n\nAltamente customizzabile\n\n\nControllo completo su soglie, colori, labels, shapes"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#section-4",
+    "href": "materials/10_visualizzazioni_avanzate.html#section-4",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#volcano-heatmap-dei-top-geni",
+    "href": "materials/10_visualizzazioni_avanzate.html#volcano-heatmap-dei-top-geni",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Volcano + Heatmap dei Top Geni",
+    "text": "Volcano + Heatmap dei Top Geni\n\nlibrary(patchwork)\n\n# 1. Volcano plot\np_volcano &lt;- ggplot(volcano_data, aes(x = log2FC, y = -log10(padj))) +\n  geom_point(aes(color = regulation), alpha = 0.7) +\n  scale_color_manual(values = c(\"red3\", \"blue3\", \"orange\", \"purple\", \"grey70\")) +\n  theme_minimal() +\n  labs(title = \"A. Differential Expression\")\n\n# 2. Heatmap top 20 geni\ntop20 &lt;- volcano_data %&gt;%\n  filter(significant == \"Significant\") %&gt;%\n  arrange(padj) %&gt;%\n  slice_head(n = 20) %&gt;%\n  mutate(expression = rnorm(n(), mean = log2FC, sd = 0.5))  # Simula expression\n\np_heatmap &lt;- ggplot(top20, aes(x = \"Sample\", y = gene, fill = expression)) +\n  geom_tile() +\n  scale_fill_gradient2(low = \"blue\", mid = \"white\", high = \"red\", midpoint = 0) +\n  theme_minimal() +\n  labs(title = \"B. Top 20 DEGs Expression\") +\n  theme(axis.title.x = element_blank())\n\n# Combina con patchwork\np_volcano + p_heatmap +\n  plot_layout(widths = c(2, 1)) +\n  plot_annotation(\n    title = \"Comprehensive Differential Expression Analysis\",\n    theme = theme(plot.title = element_text(size = 16, face = \"bold\"))\n  )"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#multi-panel-con-annotazioni",
+    "href": "materials/10_visualizzazioni_avanzate.html#multi-panel-con-annotazioni",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Multi-Panel con Annotazioni",
+    "text": "Multi-Panel con Annotazioni\n\n# Crea 4 visualizzazioni complementari\np1 &lt;- ggplot(volcano_data, aes(log2FC)) +\n  geom_histogram(aes(fill = significant), bins = 50) +\n  theme_minimal() +\n  labs(title = \"Fold Change Distribution\")\n\np2 &lt;- ggplot(volcano_data, aes(-log10(padj))) +\n  geom_density(fill = \"skyblue\", alpha = 0.7) +\n  theme_minimal() +\n  labs(title = \"Significance Distribution\")\n\np3 &lt;- ggplot(volcano_data, aes(regulation)) +\n  geom_bar(aes(fill = regulation)) +\n  theme_minimal() +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +\n  labs(title = \"DEG Categories\")\n\np4 &lt;- ggplot(volcano_data, aes(log2FC, -log10(padj), color = regulation)) +\n  geom_point(alpha = 0.7) +\n  theme_minimal() +\n  labs(title = \"Volcano Plot\")\n\n# Layout complesso\ndesign &lt;- \"\n  AAAB\n  CCDB\n\"\n\n(p1 + p2 + p3 + p4) +\n  plot_layout(design = design, guides = \"collect\") &\n  theme(legend.position = \"bottom\")"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#section-5",
+    "href": "materials/10_visualizzazioni_avanzate.html#section-5",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "",
+    "text": "Adesso tocca a te!"
+  },
+  {
+    "objectID": "materials/10_visualizzazioni_avanzate.html#risorse-prossimi-passi",
+    "href": "materials/10_visualizzazioni_avanzate.html#risorse-prossimi-passi",
+    "title": "Visualizzazioni Avanzate in ggplot2",
+    "section": "Risorse & Prossimi Passi",
+    "text": "Risorse & Prossimi Passi\n\nDocumentazione Pacchetti:\n\npatchwork - Composizione grafici\nggrepel - Etichette intelligenti\n\npheatmap - Heatmaps con clustering\n\nCheat Sheets:\n\npatchwork cheatsheet\nggplot2 extensions gallery"
   }
 ]
