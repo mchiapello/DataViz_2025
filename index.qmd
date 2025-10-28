@@ -17,6 +17,8 @@ Il corso si terrà in:
 
 ## Programma del corso {#programma}
 
+::: {.columns}
+::: {.column width="48%"}
 ### Giorno 1 {#giorno1}
 
 | Orario | Argomento |
@@ -30,7 +32,12 @@ Il corso si terrà in:
 | 15:00  | Pausa |
 | 15:30  | [Estetiche e Mappature](materials/05_estetiche_mappature.qmd) |
 | 16:30  | Fine giornata |
+:::
 
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
 ### Giorno 2 {#giorno2}
 
 | Orario | Argomento |
@@ -44,6 +51,8 @@ Il corso si terrà in:
 | 15:00  | Pausa |
 | 15:30  | [Visualizzazioni Avanzate](materials/10_visualizzazioni_avanzate.qmd) |
 | 16:30  | [Considerazioni finali e Q&A](materials/11_conclusioni_qa.qmd) |
+:::
+:::
 
 ## Obiettivi del corso {#obiettivi}
 

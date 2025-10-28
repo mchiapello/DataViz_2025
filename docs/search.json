@@ -1222,7 +1222,7 @@
     "href": "index.html#programma",
     "title": "Corso di Data Visualization con ggplot2",
     "section": "Programma del corso",
-    "text": "Programma del corso\n\nGiorno 1\n\n\n\nOrario\nArgomento\n\n\n\n\n9:30\nIntroduzione al Corso\n\n\n10:00\nGestione delle tabelle\n\n\n10:45\nPausa\n\n\n11:15\nFondamenti di ggplot2: Grammar of Graphics\n\n\n12:30\nPausa pranzo\n\n\n13:35\nGeometrie Base\n\n\n15:00\nPausa\n\n\n15:30\nEstetiche e Mappature\n\n\n16:30\nFine giornata\n\n\n\n\n\nGiorno 2\n\n\n\nOrario\nArgomento\n\n\n\n\n9:30\nRecap Giorno 1\n\n\n10:00\nFacets e Coordinate\n\n\n10:45\nPausa\n\n\n11:15\nScale e Trasformazioni\n\n\n12:30\nPausa pranzo\n\n\n13:30\nThemes e Personalizzazione\n\n\n15:00\nPausa\n\n\n15:30\nVisualizzazioni Avanzate\n\n\n16:30\nConsiderazioni finali e Q&A"
+    "text": "Programma del corso\n\n\n\nGiorno 1\n\n\n\nOrario\nArgomento\n\n\n\n\n9:30\nIntroduzione al Corso\n\n\n10:00\nGestione delle tabelle\n\n\n10:45\nPausa\n\n\n11:15\nFondamenti di ggplot2: Grammar of Graphics\n\n\n12:30\nPausa pranzo\n\n\n13:35\nGeometrie Base\n\n\n15:00\nPausa\n\n\n15:30\nEstetiche e Mappature\n\n\n16:30\nFine giornata\n\n\n\n\n\n\n\n\nGiorno 2\n\n\n\nOrario\nArgomento\n\n\n\n\n9:30\nRecap Giorno 1\n\n\n10:00\nFacets e Coordinate\n\n\n10:45\nPausa\n\n\n11:15\nScale e Trasformazioni\n\n\n12:30\nPausa pranzo\n\n\n13:30\nThemes e Personalizzazione\n\n\n15:00\nPausa\n\n\n15:30\nVisualizzazioni Avanzate\n\n\n16:30\nConsiderazioni finali e Q&A"
   },
   {
     "objectID": "index.html#obiettivi",
