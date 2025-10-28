@@ -3050,5 +3050,26 @@
     "title": "Conclusioni e Q&A",
     "section": "Grazie per aver partecipato!",
     "text": "Grazie per aver partecipato!\n\n\n\n\n\nBuona visualizzazione! 📊✨\n\n\n\n\n\n\n\n\n\n“The simple graph has brought more information to the data analyst’s mind than any other device.”\n— John Tukey"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#perché-visualizzare-il-datasaurus-dozen",
+    "href": "materials/03_grammar_of_graphics.html#perché-visualizzare-il-datasaurus-dozen",
+    "title": "Grammar of Graphics",
+    "section": "Perché Visualizzare? Il Datasaurus Dozen",
+    "text": "Perché Visualizzare? Il Datasaurus Dozen\n\nLe statistiche riassuntive non bastano!\n\n\n13 dataset con IDENTICHE statistiche:\n\nMedia X: ~54.26\nMedia Y: ~47.83\nDeviazione Standard X: ~16.76\nDeviazione Standard Y: ~26.93\nCorrelazione: ~-0.06\n\nSenza visualizzare, sembrano lo stesso dataset!\nCon la visualizzazione, la verità emerge…\n\n# Install & carica\ninstall.packages(\"datasauRus\")\nlibrary(datasauRus)\n\n# Esplora i dati\nhead(datasaurus_dozen)\n\n# Verifica statistiche identiche\nlibrary(dplyr)\ndatasaurus_dozen %&gt;% \n  group_by(dataset) %&gt;% \n  summarise(\n    mean_x = mean(x),\n    mean_y = mean(y),\n    cor_xy = cor(x, y)\n  )"
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#il-datasaurus-dozen-visualizzato",
+    "href": "materials/03_grammar_of_graphics.html#il-datasaurus-dozen-visualizzato",
+    "title": "Grammar of Graphics",
+    "section": "Il Datasaurus Dozen Visualizzato",
+    "text": "Il Datasaurus Dozen Visualizzato\n\nlibrary(ggplot2)\nlibrary(datasauRus)\n\nggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset)) +\n  geom_point() +\n  facet_wrap(~ dataset, ncol = 4) +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\n\nPattern completamente diversi:\n\n🦕 Dinosauro\n⭐ Stella\n⭕ Cerchi\n❌ X\nLinee verticali/orizzontali\n… e molti altri!\n\n\n\n\n\n\n\n\nLa Lezione\n\n\nMai fidarsi solo delle statistiche!\nLa visualizzazione rivela pattern, outlier, distribuzioni che i numeri nascondono."
+  },
+  {
+    "objectID": "materials/03_grammar_of_graphics.html#anscombes-quartet-il-predecessore",
+    "href": "materials/03_grammar_of_graphics.html#anscombes-quartet-il-predecessore",
+    "title": "Grammar of Graphics",
+    "section": "Anscombe’s Quartet: Il Predecessore",
+    "text": "Anscombe’s Quartet: Il Predecessore\n\nPrima del Datasaurus, c’era Anscombe (1973)\n\n\n4 dataset con statistiche IDENTICHE:\n\nMedia X: 9.0\nMedia Y: 7.5\nVarianza X: 11.0\nVarianza Y: 4.12\nCorrelazione: 0.816\nEquazione regressione: y = 3 + 0.5x\n\n# Built-in in R\ndata(anscombe)\n\nMa visualizzati sono completamente diversi:\n\nRelazione lineare perfetta\nRelazione non-lineare (quadratica)\nRelazione lineare con outlier\nOutlier influente (high leverage)\n\n\n\n\n\n\n\nIl messaggio\n\n\nSempre visualizzare prima di analizzare statisticamente!"
   }
 ]

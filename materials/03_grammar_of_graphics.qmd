@@ -20,6 +20,124 @@ resources:
   - presentation-style.css
 ---
 
+## Perché Visualizzare? Il Datasaurus Dozen {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.65em;"}
+**Le statistiche riassuntive non bastano!**
+
+::: {.columns}
+::: {.column width="50%"}
+**13 dataset con IDENTICHE statistiche:**
+
+- Media X: ~54.26
+- Media Y: ~47.83
+- Deviazione Standard X: ~16.76
+- Deviazione Standard Y: ~26.93
+- Correlazione: ~-0.06
+
+**Senza visualizzare**, sembrano lo stesso dataset!
+
+**Con la visualizzazione**, la verità emerge...
+:::
+
+::: {.column width="50%"}
+```r
+# Install & carica
+install.packages("datasauRus")
+library(datasauRus)
+
+# Esplora i dati
+head(datasaurus_dozen)
+
+# Verifica statistiche identiche
+library(dplyr)
+datasaurus_dozen %>% 
+  group_by(dataset) %>% 
+  summarise(
+    mean_x = mean(x),
+    mean_y = mean(y),
+    cor_xy = cor(x, y)
+  )
+```
+:::
+:::
+:::
+
+## Il Datasaurus Dozen Visualizzato {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+```r
+library(ggplot2)
+library(datasauRus)
+
+ggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset)) +
+  geom_point() +
+  facet_wrap(~ dataset, ncol = 4) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+::: {.columns}
+::: {.column width="60%"}
+**Pattern completamente diversi:**
+
+- 🦕 Dinosauro
+- ⭐ Stella
+- ⭕ Cerchi
+- ❌ X
+- Linee verticali/orizzontali
+- ... e molti altri!
+:::
+
+::: {.column width="40%"}
+::: {.callout-important}
+## La Lezione
+**Mai fidarsi solo delle statistiche!**
+
+La visualizzazione rivela pattern, outlier, distribuzioni che i numeri nascondono.
+:::
+:::
+:::
+:::
+
+## Anscombe's Quartet: Il Predecessore {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Prima del Datasaurus, c'era Anscombe (1973)**
+
+::: {.columns}
+::: {.column width="50%"}
+4 dataset con statistiche IDENTICHE:
+
+- Media X: 9.0
+- Media Y: 7.5
+- Varianza X: 11.0
+- Varianza Y: 4.12
+- Correlazione: 0.816
+- Equazione regressione: y = 3 + 0.5x
+
+```r
+# Built-in in R
+data(anscombe)
+```
+:::
+
+::: {.column width="50%"}
+**Ma visualizzati sono completamente diversi:**
+
+1. Relazione lineare perfetta
+2. Relazione non-lineare (quadratica)
+3. Relazione lineare con outlier
+4. Outlier influente (high leverage)
+
+::: {.callout-tip}
+## Il messaggio
+Sempre visualizzare prima di analizzare statisticamente!
+:::
+:::
+:::
+:::
+
 ## Best Practices per Pubblicazioni Scientifiche {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ::: {style="font-size: 0.85em;"}
