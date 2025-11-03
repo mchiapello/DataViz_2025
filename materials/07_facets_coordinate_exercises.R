@@ -27,6 +27,7 @@ data(mtcars)
 
 # ESERCIZIO 1: Facet Wrap Base -----------------------------------------------
 # Obiettivo: Creare scatter plot displ vs hwy, facet per class
+# Dataset: mpg
 
 # Il tuo codice qui:
 
@@ -64,6 +65,7 @@ data(mtcars)
 #            Facet non applicabile direttamente - crea variabile decade prima
 #            Aggiungi decade = floor(year(date)/10)*10
 #            Poi facet per decade
+# Dataset: economics
 
 # Prepara dati
 economics_decade <- economics %>%
@@ -108,6 +110,7 @@ economics_decade <- economics %>%
 # ESERCIZIO 9: Grid con Formula ----------------------------------------------
 # Obiettivo: Scatter carat vs price (diamonds, sample 1000 rows)
 #            Facet grid: cut ~ color (formula notation)
+# Dataset: diamonds
 
 # Prepara dati
 diamonds_sample <- diamonds %>% sample_n(1000)
@@ -205,6 +208,7 @@ diamonds_sample <- diamonds %>% sample_n(1000)
 # ESERCIZIO 18: coord_fixed() -----------------------------------------------
 # Obiettivo: Scatter drat vs wt (mtcars)
 #            Applica coord_fixed(ratio = 1) per aspect 1:1
+# Dataset: mtcars
 
 # Il tuo codice qui:
 

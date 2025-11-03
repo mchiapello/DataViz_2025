@@ -27,6 +27,7 @@ data(mtcars)
 
 # ESERCIZIO 1: Color Discreto Base -----------------------------------------
 # Obiettivo: Creare scatter plot di displ vs hwy, colorando per drv (tipo trazione)
+# Dataset: mpg
 
 # Il tuo codice qui:
 
@@ -43,6 +44,7 @@ data(mtcars)
 
 # ESERCIZIO 3: Color con Linee ----------------------------------------------
 # Obiettivo: Line plot di economics: date vs unemploy, colorando per anno
+# Dataset: economics
 # Suggerimento: usa lubridate::year() o format(date, "%Y")
 
 # Il tuo codice qui:
@@ -61,6 +63,7 @@ data(mtcars)
 # ESERCIZIO 5: Gradient Personalizzato --------------------------------------
 # Obiettivo: Scatter plot diamonds: carat vs price, color su depth
 #            Usa gradient da "yellow" a "red"
+# Dataset: diamonds
 
 # Il tuo codice qui:
 
@@ -125,6 +128,7 @@ data(mtcars)
 
 # ESERCIZIO 12: Size + Color ------------------------------------------------
 # Obiettivo: Scatter plot wt vs mpg (mtcars), size = hp, color = cyl
+# Dataset: mtcars
 
 # Il tuo codice qui:
 
@@ -163,6 +167,7 @@ data(mtcars)
 # ESERCIZIO 16: Alpha Fisso per Overplotting --------------------------------
 # Obiettivo: Scatter plot di diamonds (tutti i dati): carat vs price
 #            Usa alpha = 0.1 per gestire overplotting
+# Dataset: diamonds
 
 # Il tuo codice qui:
 
@@ -188,6 +193,7 @@ data(mtcars)
 # ESERCIZIO 19: Alpha in Geom_ribbon ----------------------------------------
 # Obiettivo: Line plot economics: date vs unemploy, 
 #            aggiungi ribbon da unemploy-500 a unemploy+500, alpha = 0.3
+# Dataset: economics
 
 # Il tuo codice qui:
 
@@ -238,6 +244,7 @@ data(mtcars)
 # ESERCIZIO 23: Setting Multipli --------------------------------------------
 # Obiettivo: Scatter plot wt vs mpg (mtcars), 
 #            setting: color = "red", size = 4, shape = 17, alpha = 0.6
+# Dataset: mtcars
 
 # Il tuo codice qui:
 
@@ -313,6 +320,7 @@ mpg_centered <- mpg %>%
 # ESERCIZIO 30: Multivariato Completo ---------------------------------------
 # Obiettivo: Visualizzazione completa mtcars:
 #            x = wt, y = mpg, color = factor(cyl), size = hp, shape = factor(am)
+# Dataset: mtcars
 
 # Il tuo codice qui:
 
