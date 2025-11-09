@@ -149,9 +149,9 @@
   {
     "objectID": "materials/05_estetiche_mappature.html",
     "href": "materials/05_estetiche_mappature.html",
-    "title": "Estetiche e Mappature",
+    "title": "Estetiche e Mappature in ggplot2",
     "section": "",
-    "text": "Le estetiche sono le proprietà visive degli oggetti nel grafico."
+    "text": "Cosa impareremo oggi:\n\nComprendere cosa sono le estetiche (aesthetics)\nDistinguere tra mapping e setting\nEsplorare le estetiche principali: color, fill, size, shape, alpha\nApplicare estetiche a diversi tipi di geom\nGestire scale e legende\n\nApproccio:\n\nTeoria delle estetiche\nDifferenza mapping vs setting\nEstetiche specifiche per tipo\nEsercizi pratici"
   },
   {
     "objectID": "materials/05_estetiche_mappature.html#aesthetics-estetiche",
@@ -200,7 +200,7 @@
     "href": "materials/06_recap_giorno1.html",
     "title": "Recap Giorno 1",
     "section": "",
-    "text": "Ripercorriamo insieme i concetti principali appresi ieri."
+    "text": "Oggi iniziamo con un riepilogo del Giorno 1\nCosa abbiamo visto:\n\n✅ Geometrie Base - I mattoni della visualizzazione\n✅ Estetiche e Mappature - Come collegare dati a proprietà visive\n\nObiettivi di questo recap:\n\nConsolidare concetti chiave\nChiarire dubbi\nPreparare la base per argomenti avanzati\nEsercizio pratico di riscaldamento"
   },
   {
     "objectID": "materials/06_recap_giorno1.html#riepilogo-del-giorno-1",
@@ -415,9 +415,9 @@
   {
     "objectID": "materials/07_facets_coordinate.html",
     "href": "materials/07_facets_coordinate.html",
-    "title": "Facets e Coordinate",
+    "title": "Facets e Sistemi di Coordinate",
     "section": "",
-    "text": "I facets permettono di dividere un grafico in più pannelli basati su variabili categoriali."
+    "text": "🏠 Home"
   },
   {
     "objectID": "materials/07_facets_coordinate.html#facets-sottografici",
@@ -513,9 +513,9 @@
   {
     "objectID": "materials/04_geometrie_base.html",
     "href": "materials/04_geometrie_base.html",
-    "title": "Geometrie Base",
+    "title": "Geometrie Base in ggplot2",
     "section": "",
-    "text": "Le geometrie (geoms) definiscono il tipo di visualizzazione che vogliamo creare."
+    "text": "Cosa impareremo oggi:\n\nEsplorare le geometrie fondamentali di ggplot2\nComprendere quando usare ogni tipo di geom\nPraticare con pesercizi su dati reali\nFocus su aesthetics x e y (altri aesthetics: sessioni successive)\n\nApproccio:\n\nTeoria per ogni categoria di geom\nEsempi pratici\nEsercizi guidati"
   },
   {
     "objectID": "materials/04_geometrie_base.html#geometrie-in-ggplot2",
@@ -555,9 +555,9 @@
   {
     "objectID": "materials/10_visualizzazioni_avanzate.html",
     "href": "materials/10_visualizzazioni_avanzate.html",
-    "title": "Visualizzazioni Avanzate",
+    "title": "Visualizzazioni Avanzate in ggplot2",
     "section": "",
-    "text": "Approfondiamo tecniche più sofisticate per creare visualizzazioni efficaci."
+    "text": "🏠 Home"
   },
   {
     "objectID": "materials/10_visualizzazioni_avanzate.html#tecniche-avanzate",
@@ -772,9 +772,9 @@
   {
     "objectID": "materials/11_conclusioni_qa.html",
     "href": "materials/11_conclusioni_qa.html",
-    "title": "Considerazioni Finali e Q&A",
+    "title": "Conclusioni e Q&A",
     "section": "",
-    "text": "Cosa abbiamo imparato in questi due giorni."
+    "text": "🏠 Home"
   },
   {
     "objectID": "materials/11_conclusioni_qa.html#riepilogo-del-corso",
@@ -843,15 +843,15 @@
     "objectID": "materials/02_gestione_tabelle.html#obiettivi",
     "href": "materials/02_gestione_tabelle.html#obiettivi",
     "title": "Formattare Tabelle in Spreadsheet",
-    "section": "Obiettivi",
-    "text": "Obiettivi\n\nDescrivere le best practices per l’inserimento e la formattazione dei dati in spreadsheet\nApplicare le best practices per organizzare variabili e osservazioni\nRiconoscere e risolvere problemi comuni di formattazione"
+    "section": "",
+    "text": "Descrivere le best practices per l’inserimento e la formattazione dei dati in spreadsheet\nApplicare le best practices per organizzare variabili e osservazioni\nRiconoscere e risolvere problemi comuni di formattazione"
   },
   {
     "objectID": "materials/02_gestione_tabelle.html#perché-è-importante",
     "href": "materials/02_gestione_tabelle.html#perché-è-importante",
     "title": "Formattare Tabelle in Spreadsheet",
     "section": "Perché è importante?",
-    "text": "Perché è importante?\n\nL’organizzazione dei dati è il fondamento del vostro progetto di ricerca\nI computer interpretano i dati in modo letterale\nUna buona formattazione iniziale facilita l’analisi futura\nPermette la collaborazione e la riproducibilità"
+    "text": "Perché è importante?\n\n\nL’organizzazione dei dati è il fondamento del vostro progetto di ricerca\nI computer interpretano i dati in modo letterale\nUna buona formattazione iniziale facilita l’analisi futura\nPermette la collaborazione e la riproducibilità"
   },
   {
     "objectID": "materials/02_gestione_tabelle.html#il-problema-principale",
@@ -989,9 +989,9 @@
   {
     "objectID": "materials/09_themes_personalizzazione.html",
     "href": "materials/09_themes_personalizzazione.html",
-    "title": "Themes e Personalizzazione",
+    "title": "Temi e Personalizzazione in ggplot2",
     "section": "",
-    "text": "I temi controllano l’aspetto non-dati del grafico."
+    "text": "🏠 Home"
   },
   {
     "objectID": "materials/09_themes_personalizzazione.html#temi-in-ggplot2",
@@ -1068,7 +1068,7 @@
     "href": "materials/08_scale_trasformazioni.html",
     "title": "Scale e Trasformazioni",
     "section": "",
-    "text": "Le scale controllano come i dati vengono mappati alle proprietà visive."
+    "text": "Cosa impareremo oggi:\n\nComprendere il ruolo delle scale in ggplot2\nPersonalizzare scale continue e discrete\nGestire palette di colori accessibili\nApplicare trasformazioni (log, sqrt, reverse)\nControllare breaks, labels e limiti\nFormattare assi con il package scales\n\nApproccio:\n\nTeoria delle scale\nScale posizionali (x, y)\nScale estetiche (color, fill, size)\nTrasformazioni e formattazione\nEsercizi pratici"
   },
   {
     "objectID": "materials/08_scale_trasformazioni.html#scale-in-ggplot2",
@@ -1124,14 +1124,14 @@
     "href": "materials/day2.html",
     "title": "Giorno 2 - Visualizzazioni Avanzate",
     "section": "",
-    "text": "Oggi ci concentreremo su tecniche avanzate di visualizzazione e personalizzazione."
+    "text": "🏠 Back to Home"
   },
   {
     "objectID": "materials/day2.html#benvenuti-al-giorno-2",
     "href": "materials/day2.html#benvenuti-al-giorno-2",
     "title": "Giorno 2 - Visualizzazioni Avanzate",
-    "section": "",
-    "text": "Oggi ci concentreremo su tecniche avanzate di visualizzazione e personalizzazione."
+    "section": "Benvenuti al Giorno 2! 🚀",
+    "text": "Benvenuti al Giorno 2! 🚀\nOggi ci concentreremo su tecniche avanzate di visualizzazione e personalizzazione."
   },
   {
     "objectID": "materials/day2.html#materiali",
@@ -1166,14 +1166,14 @@
     "href": "materials/day1.html",
     "title": "Giorno 1 - Fondamenti di ggplot2",
     "section": "",
-    "text": "Benvenuti al primo giorno del corso di Data Visualization con ggplot2!"
+    "text": "🏠 Back to Home"
   },
   {
     "objectID": "materials/day1.html#benvenuti",
     "href": "materials/day1.html#benvenuti",
     "title": "Giorno 1 - Fondamenti di ggplot2",
-    "section": "",
-    "text": "Benvenuti al primo giorno del corso di Data Visualization con ggplot2!"
+    "section": "Benvenuti! 🎨",
+    "text": "Benvenuti! 🎨\nBenvenuti al primo giorno del corso di Data Visualization con ggplot2!"
   },
   {
     "objectID": "materials/day1.html#materiali",
@@ -1551,7 +1551,7 @@
     "href": "materials/03_grammar_of_graphics.html",
     "title": "Grammar of Graphics",
     "section": "",
-    "text": "Perché le visualizzazioni contano nella scienza?\n\n\nI grafici sono strumenti di scoperta e comunicazione\nPermettono di esplorare pattern nei dati\nComunicano risultati in modo più efficace del testo\nDevono essere accurati, onesti e chiari\n\n\nPrincipio fondamentale: Un grafico deve rispettare i dati e aiutare il lettore a comprenderli"
+    "text": "Le statistiche riassuntive non bastano!\n\n\n13 dataset con IDENTICHE statistiche:\n\nMedia X: ~54.26\nMedia Y: ~47.83\nDeviazione Standard X: ~16.76\nDeviazione Standard Y: ~26.93\nCorrelazione: ~-0.06\n\nSenza visualizzare, sembrano lo stesso dataset!\nCon la visualizzazione, la verità emerge…\n\n# Install & carica\ninstall.packages(\"datasauRus\")\nlibrary(datasauRus)\n\n# Esplora i dati\nhead(datasaurus_dozen)\n\n# Verifica statistiche identiche\nlibrary(dplyr)\ndatasaurus_dozen %&gt;% \n  group_by(dataset) %&gt;% \n  summarise(\n    mean_x = mean(x),\n    mean_y = mean(y),\n    cor_xy = cor(x, y)\n  )"
   },
   {
     "objectID": "materials/03_grammar_of_graphics.html#dati-non-tidy-esempio-da-evitare",
@@ -3176,5 +3176,12 @@
     "title": "Course Materials Structure Template",
     "section": "",
     "text": "Consistency is key: Students should recognize the pattern across all chapters\nTest everything: Run all code before distributing\nTiming: Plan ~90 minutes per chapter in workshop (theory + practice)\nFlexibility: Adjust exercise count per chapter needs (can be 25-35)\nFeedback: Collect student feedback to improve future chapters\nUpdates: Version control all files, note changes in git commits\n\n\nDocument Version: 1.0\nLast Updated: 27 October 2025\nBased on: Chapter 04 - Geometrie Base\nFor use in: REVELO Training - Data Viz 2025 Course"
+  },
+  {
+    "objectID": "materials/02_gestione_tabelle.html",
+    "href": "materials/02_gestione_tabelle.html",
+    "title": "Formattare Tabelle in Spreadsheet",
+    "section": "",
+    "text": "Descrivere le best practices per l’inserimento e la formattazione dei dati in spreadsheet\nApplicare le best practices per organizzare variabili e osservazioni\nRiconoscere e risolvere problemi comuni di formattazione"
   }
 ]

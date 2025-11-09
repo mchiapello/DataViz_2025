@@ -3,11 +3,11 @@ title: "Esercizi"
 format: 
   revealjs:
     css: presentation-style.css
+    include-after-body: |
+      <div style="position: fixed; right: 30px; top: 30px; z-index: 999">
+        <a href="../../index.html" style="color: white; text-decoration: none; border: 2px solid #4287f5; padding: 8px 15px; border-radius: 5px; background-color: #4287f5;">🏠 Home</a>
+      </div>
 ---
-
-::: {.home-button}
-[🏠 Back to Home](https://mchiapello.github.io/REVELO/DataViz_2025/)
-:::
 
 ## Esercizi Giorno 1
 
