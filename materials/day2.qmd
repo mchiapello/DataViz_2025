@@ -1,6 +1,13 @@
 ---
 title: "Giorno 2 - Visualizzazioni Avanzate"
+format: 
+  revealjs:
+    css: presentation-style.css
 ---
+
+::: {.home-button}
+[🏠 Back to Home](https://mchiapello.github.io/REVELO/DataViz_2025/)
+:::
 
 ## Benvenuti al Giorno 2! 🚀
 

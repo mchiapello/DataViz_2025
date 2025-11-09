@@ -20,6 +20,11 @@ resources:
   - presentation-style.css
 ---
 
+::: {.cell style="position: fixed; right: 30px; top: 30px; z-index: 999;"}
+<a href="../../index.html" style="color: white; text-decoration: none; border: 2px solid #4287f5; padding: 8px 15px; border-radius: 5px; background-color: #4287f5;">🏠 Home</a>
+:::
+---
+
 ## Obiettivi della Sessione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ::: {style="font-size: 0.65em;"}
