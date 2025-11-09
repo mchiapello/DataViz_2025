@@ -464,7 +464,6 @@ Marco Chiapello
 <p><strong>Obiettivo</strong>: Scatter plot <code>displ</code> vs <code>hwy</code>, con color basato su <code>cty</code> (consumo città)</p>
 <p><strong>Suggerimenti</strong>: - Osserva come cambia la legenda con variabile continua - Considera il gradiente di colori</p>
 </div>
-<p>:::</p>
 </section></section>
 <section>
 <section id="estetiche-e-mappature-1" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
@@ -535,16 +534,6 @@ Marco Chiapello
 <p><strong>Dataset</strong>: mpg</p>
 <p><strong>Obiettivo</strong>: Scatter <code>displ</code> vs <code>hwy</code> - Facet grid con <code>drv</code> (righe) e <code>cyl</code> (colonne)</p>
 <p><strong>Suggerimenti</strong>: - Usa <code>facet_grid()</code> - Considera la leggibilità della griglia</p>
-</div>
-<div style="font-size: 0.8em;">
-<p><strong>Dataset</strong>: diamonds</p>
-<p><strong>Obiettivo</strong>: Crea visualizzazioni della distribuzione del peso dei diamanti (<code>carat</code>):</p>
-<ol type="1">
-<li>Crea un istogramma con 30 bins</li>
-<li>Sperimenta con bins diversi (10, 40, 100)</li>
-<li>Aggiungi una curva di densità sovrapposta</li>
-</ol>
-<p><strong>Suggerimenti</strong>: - Usa <code>geom_histogram()</code> - Per la densità, imposta <code>aes(y = after_stat(density))</code></p>
 </div>
 </section></section>
 <section>
@@ -650,17 +639,6 @@ Marco Chiapello
 <p><strong>Dataset</strong>: economics</p>
 <p><strong>Obiettivo</strong>: Line plot con personalizzazione griglia: - Rimuovi griglia minore - Griglia maggiore rossa tratteggiata - Ruota etichette asse x di 45°</p>
 <p><strong>Suggerimenti</strong>: - Usa <code>element_blank()</code> per rimuovere - <code>element_line()</code> per stile linee</p>
-</div>
-<div style="font-size: 0.8em;">
-<p><strong>Dataset</strong>: mpg</p>
-<p><strong>Obiettivo</strong>: Confronta distribuzioni con grafici diversi:</p>
-<ol type="1">
-<li>Crea un boxplot di <code>hwy</code> per ogni <code>class</code></li>
-<li>Aggiungi un violin plot sovrapposto</li>
-<li>Usa colori appropriati per distinguere i gruppi</li>
-<li>Aggiungi punti individuali con jitter</li>
-</ol>
-<p><strong>Suggerimenti</strong>: - Usa <code>geom_boxplot()</code> e <code>geom_violin()</code> - Controlla la trasparenza per la sovrapposizione</p>
 </div>
 </section>
 <section id="visualizzazione-time-series" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">

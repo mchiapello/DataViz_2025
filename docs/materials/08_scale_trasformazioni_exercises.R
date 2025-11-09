@@ -33,7 +33,7 @@ data(mtcars)
 # ============================================================================
 
 ## Esercizio 1.1: Limiti e Breaks ------------------------------------
-# Obiettivo: Creare scatter plot mpg con assi personalizzati
+# Obiettivo: Creare scatter plot con assi personalizzati
 #
 # Dataset: mpg
 # Visualizzazione: scatter plot (displ vs hwy)
@@ -305,6 +305,8 @@ diamonds_sample2 <- sample_n(diamonds, 5000)
 # - Usa geom_tile()
 # - scale_fill_viridis_c(option = "C") # plasma
 # - Osserva: percezione uniforme dei valori
+#
+# Dataset: faithfuld
 
 # Il tuo codice qui:
 data(faithfuld)
@@ -427,6 +429,8 @@ mpg_4class <- filter(mpg, class %in% c("compact", "suv", "midsize", "pickup"))
 # - Usa scale_shape_manual(values = c(21, 22, 23))
 # - Usa scale_fill_brewer(palette = "Set1")
 # - Aggiungi color = "black" e size = 3 in geom_point()
+#
+# Dataset: iris
 
 # Il tuo codice qui:
 
@@ -462,6 +466,8 @@ mpg_4class <- filter(mpg, class %in% c("compact", "suv", "midsize", "pickup"))
 # - Usa scale_y_continuous(labels = scales::comma)
 # - Aggiungi titolo asse y: "Popolazione USA"
 # - Osserva: separatori di migliaia
+#
+# Dataset: economics
 
 # Il tuo codice qui:
 

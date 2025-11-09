@@ -29,6 +29,7 @@ data(faithful)
 # ESERCIZIO 1: Scatter Plot Base ----------------------------------------------
 # Obiettivo: Creare uno scatter plot per esplorare la relazione tra 
 #            cilindrata (displ) e consumo autostrada (hwy)
+# Dataset: mpg
 
 # Il tuo codice qui:
 
@@ -61,6 +62,7 @@ data(faithful)
 
 # ESERCIZIO 5: Time Series con Line ------------------------------------------
 # Obiettivo: Visualizza disoccupazione (unemploy) nel tempo (date) con geom_line()
+# Dataset: economics
 
 # Il tuo codice qui:
 
@@ -81,6 +83,7 @@ data(faithful)
 
 # ESERCIZIO 7: Histogram Base ------------------------------------------------
 # Obiettivo: Crea istogramma di carat (peso diamanti) con bins = 30
+# Dataset: diamonds
 
 # Il tuo codice qui:
 
@@ -127,6 +130,7 @@ data(faithful)
 
 # ESERCIZIO 12: Dotplot per Dataset Piccolo ----------------------------------
 # Obiettivo: Usa geom_dotplot() per waiting in faithful (binwidth = 1)
+# Dataset: faithful
 
 # Il tuo codice qui:
 
@@ -139,6 +143,7 @@ data(faithful)
 
 # ESERCIZIO 13: Bin2D per Big Data -------------------------------------------
 # Obiettivo: Usa geom_bin2d() per carat vs price (bins = 50)
+# Dataset: diamonds
 
 # Il tuo codice qui:
 
@@ -156,6 +161,7 @@ data(faithful)
 
 # ESERCIZIO 15: Density 2D Contours ------------------------------------------
 # Obiettivo: Aggiungi contorni densità 2D a faithful (eruptions vs waiting)
+# Dataset: faithful
 
 # Il tuo codice qui:
 
@@ -176,6 +182,7 @@ data(faithful)
 
 # ESERCIZIO 17: Boxplot per Gruppi -------------------------------------------
 # Obiettivo: Confronta hwy tra classi di auto con geom_boxplot()
+# Dataset: mpg
 
 # Il tuo codice qui:
 
@@ -244,6 +251,7 @@ mpg_summary <- mpg %>%
 
 # ESERCIZIO 24: Ribbon per Time Series ---------------------------------------
 # Obiettivo: Crea banda di confidenza intorno a serie temporale
+# Dataset: economics
 
 # Prepara dati con bande
 economics_ribbon <- economics %>%
@@ -291,6 +299,7 @@ mpg_drv <- mpg %>%
 
 # ESERCIZIO 28: Density 2D + Points ------------------------------------------
 # Obiettivo: Combina geom_density2d_filled() con geom_point() su faithful
+# Dataset: faithful
 
 # Il tuo codice qui:
 

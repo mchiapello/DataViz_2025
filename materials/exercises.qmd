@@ -480,7 +480,6 @@ library(gapminder)
 - Osserva come cambia la legenda con variabile continua
 - Considera il gradiente di colori
 :::
-:::
 
 # 1. Estetiche e Mappature {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
@@ -577,20 +576,6 @@ library(gapminder)
 **Suggerimenti**:
 - Usa `facet_grid()`
 - Considera la leggibilità della griglia
-:::
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: diamonds
-
-**Obiettivo**: Crea visualizzazioni della distribuzione del peso dei diamanti (`carat`):
-
-1. Crea un istogramma con 30 bins
-2. Sperimenta con bins diversi (10, 40, 100)
-3. Aggiungi una curva di densità sovrapposta
-
-**Suggerimenti**:
-- Usa `geom_histogram()`
-- Per la densità, imposta `aes(y = after_stat(density))`
 :::
 
 # 3. Scale e Trasformazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
@@ -759,21 +744,6 @@ library(gapminder)
 **Suggerimenti**:
 - Usa `element_blank()` per rimuovere
 - `element_line()` per stile linee
-:::
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
-
-**Obiettivo**: Confronta distribuzioni con grafici diversi:
-
-1. Crea un boxplot di `hwy` per ogni `class`
-2. Aggiungi un violin plot sovrapposto
-3. Usa colori appropriati per distinguere i gruppi
-4. Aggiungi punti individuali con jitter
-
-**Suggerimenti**:
-- Usa `geom_boxplot()` e `geom_violin()`
-- Controlla la trasparenza per la sovrapposizione
 :::
 
 ## Visualizzazione Time Series {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
