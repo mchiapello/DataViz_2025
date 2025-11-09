@@ -1,394 +1,860 @@
 ---
-title: "Esercizi"
+title: "ggplot2 Exercises"
+subtitle: "Workshop Practice: From Basics to Advanced"
+author: "Marco Chiapello"
 format: 
   revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    chalkboard: true
+    logo: images/ggplot2_logo.jpg
+    footer: "REVELO Training - Data Viz 2025"
     css: presentation-style.css
-    include-after-body: |
-      <div style="position: fixed; right: 30px; top: 30px; z-index: 999">
-        <a href="../../index.html" style="color: white; text-decoration: none; border: 2px solid #4287f5; padding: 8px 15px; border-radius: 5px; background-color: #4287f5;">🏠 Home</a>
-      </div>
+    title-slide-attributes:
+      data-background-image: images/frequency-wave-7776034_1280.jpg
+      data-background-size: cover
+      data-background-opacity: "0.1"
+    menu:
+      side: left
+      width: normal
+      numbers: true
+    include-after-body: 
+      text: |
+        <div class="home-button" style="position: fixed; top: 10px; left: 10px; z-index: 100;">
+          <a href="../../index.html" style="padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; font-size: 16px;">⌂ Home</a>
+        </div>
+resources:
+  - images/
+  - presentation-style.css
 ---
 
-## Esercizi Giorno 1
-
-### Esercizio 1.1: Primo Scatterplot
-
-Usa il dataset `penguins` per creare uno scatterplot che mostri:
-
-- X axis: `flipper_length_mm`
-- Y axis: `body_mass_g`
-- Color: `species`
-- Add appropriate labels
-
-```{r}
-#| eval: false
-library(ggplot2)
-library(palmerpenguins)
-
-# Il tuo codice qui
-```
-
-<details>
-<summary>💡 Soluzione</summary>
-
-```{r}
-#| eval: false
-ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +
-  geom_point(size = 3, alpha = 0.7) +
-  labs(
-    title = "Relazione tra Lunghezza Pinne e Massa Corporea",
-    x = "Lunghezza Pinne (mm)",
-    y = "Massa Corporea (g)",
-    color = "Specie"
-  ) +
-  theme_minimal()
-```
-
-</details>
-
----
-
-### Esercizio 1.2: Bar Chart con Facets
-
-Crea un bar chart che mostri:
-
-- Il conteggio di pinguini per `island`
-- Diviso per `species` usando facets
-- Colora le barre per `sex`
-
-```{r}
-#| eval: false
-# Il tuo codice qui
-```
-
-<details>
-<summary>💡 Soluzione</summary>
-
-```{r}
-#| eval: false
-ggplot(penguins, aes(island, fill = sex)) +
-  geom_bar(position = "dodge") +
-  facet_wrap(~species) +
-  labs(
-    title = "Distribuzione Pinguini per Isola, Specie e Sesso",
-    x = "Isola",
-    y = "Conteggio",
-    fill = "Sesso"
-  ) +
-  theme_minimal()
-```
-
-</details>
-
----
-
-### Esercizio 1.3: Histogram e Density
-
-Crea due grafici della distribuzione di `body_mass_g`:
-
-1. Un histogram con 30 bins
-2. Un density plot colorato per specie
-
-```{r}
-#| eval: false
-# Il tuo codice qui
-```
-
-<details>
-<summary>💡 Soluzione</summary>
-
-```{r}
-#| eval: false
-# Histogram
-ggplot(penguins, aes(body_mass_g)) +
-  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
-  labs(
-    title = "Distribuzione Massa Corporea",
-    x = "Massa Corporea (g)",
-    y = "Conteggio"
-  ) +
-  theme_minimal()
-
-# Density plot
-ggplot(penguins, aes(body_mass_g, fill = species)) +
-  geom_density(alpha = 0.6) +
-  labs(
-    title = "Distribuzione Massa Corporea per Specie",
-    x = "Massa Corporea (g)",
-    y = "Densità",
-    fill = "Specie"
-  ) +
-  theme_minimal()
-```
-
-</details>
-
----
-
-### Esercizio 1.4: Boxplot Complesso
-
-Crea un boxplot che mostri:
-
-- Y axis: `bill_length_mm`
-- X axis: `species`
-- Fill color: `island`
-- Usa `position = "dodge"` per separare i boxplot
-
-```{r}
-#| eval: false
-# Il tuo codice qui
-```
-
-<details>
-<summary>💡 Soluzione</summary>
-
-```{r}
-#| eval: false
-ggplot(penguins, aes(species, bill_length_mm, fill = island)) +
-  geom_boxplot(position = "dodge") +
-  labs(
-    title = "Lunghezza Becco per Specie e Isola",
-    x = "Specie",
-    y = "Lunghezza Becco (mm)",
-    fill = "Isola"
-  ) +
-  theme_minimal()
-```
-
-</details>
-
----
-
-## Esercizi Giorno 2
-
-### Esercizio 2.1: Scale e Trasformazioni
-
-Usando il dataset `diamonds`, crea uno scatterplot di `carat` vs `price`:
-
-- Usa trasformazione logaritmica per entrambi gli assi
-- Colora i punti per `cut`
-- Usa una palette viridis
-- Aggiungi trasparenza ai punti
-
-```{r}
-#| eval: false
-# Il tuo codice qui
-```
-
-<details>
-<summary>💡 Soluzione</summary>
-
-```{r}
-#| eval: false
-ggplot(diamonds, aes(carat, price, color = cut)) +
-  geom_point(alpha = 0.3, size = 1) +
-  scale_x_log10() +
-  scale_y_log10() +
-  scale_color_viridis_d() +
-  labs(
-    title = "Prezzo vs Carati (scala logaritmica)",
-    x = "Carati (log scale)",
-    y = "Prezzo (log scale)",
-    color = "Taglio"
-  ) +
-  theme_minimal()
-```
-
-</details>
-
----
-
-### Esercizio 2.2: Theme Personalizzato
-
-Crea un theme personalizzato chiamato `theme_my_style()` che:
-
-- Usa `theme_minimal()` come base
-- Ha sfondo grigio chiaro
-- Titolo centrato e in grassetto
-- Legenda in basso
-- Rimuove le linee di griglia minori
-
-Applicalo a un grafico a tua scelta.
-
-```{r}
-#| eval: false
-# Il tuo codice qui
-```
-
-<details>
-<summary>💡 Soluzione</summary>
-
-```{r}
-#| eval: false
-theme_my_style <- function() {
-  theme_minimal() +
-    theme(
-      plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
-      panel.background = element_rect(fill = "gray95", color = NA),
-      legend.position = "bottom",
-      panel.grid.minor = element_blank(),
-      axis.title = element_text(face = "bold")
-    )
-}
-
-# Applicarlo
-ggplot(penguins, aes(species, body_mass_g, fill = species)) +
-  geom_boxplot() +
-  labs(title = "Distribuzione Massa Corporea per Specie") +
-  theme_my_style() +
-  theme(legend.position = "none")
-```
-
-</details>
-
----
-
-### Esercizio 2.3: Grafici Combinati
-
-Usando il dataset `penguins`, crea 4 grafici e combinali con `patchwork`:
-
-1. Bar chart del conteggio per specie
-2. Boxplot di body_mass_g per specie
-3. Scatterplot flipper_length vs body_mass_g colorato per specie
-4. Density plot di bill_length_mm per specie
-
-Disponi i grafici in un layout 2x2 con un titolo generale.
-
-```{r}
-#| eval: false
-library(patchwork)
-
-# Il tuo codice qui
-```
-
-<details>
-<summary>💡 Soluzione</summary>
-
-```{r}
-#| eval: false
-library(patchwork)
-
-p1 <- ggplot(penguins, aes(species, fill = species)) +
-  geom_bar() +
-  labs(title = "Conteggio") +
-  theme_minimal() +
-  theme(legend.position = "none")
-
-p2 <- ggplot(penguins, aes(species, body_mass_g, fill = species)) +
-  geom_boxplot() +
-  labs(title = "Massa Corporea") +
-  theme_minimal() +
-  theme(legend.position = "none")
-
-p3 <- ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +
-  geom_point(alpha = 0.6) +
-  labs(title = "Pinne vs Massa") +
-  theme_minimal()
-
-p4 <- ggplot(penguins, aes(bill_length_mm, fill = species)) +
-  geom_density(alpha = 0.6) +
-  labs(title = "Lunghezza Becco") +
-  theme_minimal()
-
-(p1 | p2) / (p3 | p4) +
-  plot_annotation(
-    title = "Analisi Multi-pannello Pinguini Palmer",
-    tag_levels = "A"
-  )
-```
-
-</details>
-
----
-
-### Esercizio 2.4: Visualizzazione Pubblicazione
-
-Crea un grafico publication-ready con:
-
-- Dataset: `mpg`
-- Scatterplot di `displ` vs `hwy`
-- Smooth line per ogni `class` di auto
-- Scala colori ColorBrewer "Set2"
-- Theme pulito e professionale
-- Titolo, sottotitolo e caption
-- Dimensioni appropriate per pubblicazione (width=10, height=6)
-
-```{r}
-#| eval: false
-# Il tuo codice qui
-```
-
-<details>
-<summary>💡 Soluzione</summary>
-
-```{r}
-#| eval: false
-plot_publication <- ggplot(mpg, aes(displ, hwy, color = class)) +
-  geom_point(alpha = 0.6, size = 2) +
-  geom_smooth(method = "lm", se = FALSE, linewidth = 1) +
-  scale_color_brewer(palette = "Set2") +
-  labs(
-    title = "Fuel Economy vs Engine Displacement",
-    subtitle = "Analysis by vehicle class",
-    x = "Engine Displacement (liters)",
-    y = "Highway Miles per Gallon",
-    color = "Vehicle Class",
-    caption = "Data source: EPA (1999-2008)"
-  ) +
-  theme_minimal(base_size = 12) +
-  theme(
-    plot.title = element_text(face = "bold", size = 16),
-    plot.subtitle = element_text(color = "gray40", size = 12),
-    plot.caption = element_text(color = "gray60", hjust = 0),
-    legend.position = "bottom",
-    panel.grid.minor = element_blank(),
-    panel.border = element_rect(color = "gray80", fill = NA)
-  )
-
-# Salvare
-ggsave(
-  "fuel_economy_publication.png",
-  plot = plot_publication,
-  width = 10,
-  height = 6,
-  dpi = 300,
-  bg = "white"
-)
-```
-
-</details>
-
----
-
-## Progetti Challenge 🏆
-
-### Challenge 1: Explorer
-
-Esplora il dataset `diamonds` e crea almeno 5 visualizzazioni diverse che rivelino insights interessanti sui dati.
-
-### Challenge 2: Storyteller
-
-Usando i dataset `gapminder` (pacchetto gapminder), crea una storia visiva che mostri l'evoluzione della vita nel mondo negli ultimi decenni.
-
-```{r}
-#| eval: false
-# install.packages("gapminder")
+# 1. Estetiche e Mappature {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Color Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Creare scatter plot di `displ` vs `hwy`, colorando per `drv` (tipo trazione)
+
+**Suggerimenti**:
+- Usa `aes()` per mappare il colore
+- Considera la leggibilità dei colori
+:::
+
+## Color Continuo {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Scatter plot `displ` vs `hwy`, con color basato su `cty` (consumo città)
+
+**Suggerimenti**:
+- Osserva come cambia la legenda con variabile continua
+- Considera il gradiente di colori
+:::
+
+## Color con Linee {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: economics
+
+**Obiettivo**: Line plot di `date` vs `unemploy`, colorando per anno
+
+**Suggerimenti**:
+- Usa `lubridate::year()` o `format(date, "%Y")`
+- Considera come il colore aiuta a distinguere i periodi
+:::
+
+## Shape e Size {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Scatter plot `displ` vs `hwy`:
+- Shape basato su `drv`
+- Size basato su `cyl`
+- Color basato su `class`
+
+**Suggerimenti**:
+- Combina multiple estetiche
+- Controlla leggibilità con alpha
+:::
+
+## Palette Personalizzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Scatter plot con palette custom:
+1. Usa `scale_color_brewer()` con palette "Set1"
+2. Ripeti con `scale_color_viridis_d()`
+3. Confronta i risultati
+
+**Suggerimenti**:
+- Considera accessibilità colori
+- Valuta efficacia per i tuoi dati
+:::
+
+# 2. Facets e Coordinate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Facet Wrap Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Scatter plot `displ` vs `hwy`, facet per `class`
+
+**Suggerimenti**:
+- Usa `facet_wrap()`
+- Considera layout e leggibilità
+:::
+
+## Facet Grid {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Scatter plot `displ` vs `hwy`:
+- Facet grid con `drv` (righe) e `cyl` (colonne)
+- Colora per `class`
+
+**Suggerimenti**:
+- Usa `facet_grid()`
+- Valuta dimensioni celle
+:::
+
+## Scale Libere {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Confronta comportamento scale:
+1. Facet wrap con scale fisse
+2. Ripeti con `scales = "free_y"`
+3. Ripeti con `scales = "free"`
+
+**Suggerimenti**:
+- Osserva differenze visualizzazione
+- Considera quando usare scale libere
+:::
+
+## Coordinate Flip {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Box plot di `hwy` per `class`:
+- Prima versione verticale
+- Seconda versione con `coord_flip()`
+- Ordina per mediana
+
+**Suggerimenti**:
+- Usa `reorder()` per ordinamento
+- Valuta leggibilità etichette
+:::
+
+## Zoom con Coord Cartesian {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: diamonds
+
+**Obiettivo**: Scatter plot `carat` vs `price`:
+1. Plot completo
+2. Zoom su area interessante con `coord_cartesian()`
+3. Confronta con `xlim()` e `ylim()`
+
+**Suggerimenti**:
+- Osserva differenze tra metodi
+- Considera statistiche calcolate
+:::
+
+# 3. Scale e Trasformazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Scale Logaritmiche {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: diamonds
+
+**Obiettivo**: Scatter plot `carat` vs `price`:
+- Applica scala log10 a entrambi gli assi
+- Aggiungi linea di tendenza
+- Confronta con versione non trasformata
+
+**Suggerimenti**:
+- Usa `scale_*_log10()`
+- Valuta linearizzazione relazione
+:::
+
+## Breaks Personalizzati {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Scatter plot `displ` vs `hwy`:
+- X: breaks ogni 0.5 unità
+- Y: breaks a 15, 20, 25, 30, 35
+- Aggiungi labels informativi
+
+**Suggerimenti**:
+- Usa `breaks` e `labels`
+- Considera spaziatura e leggibilità
+:::
+
+## Scale di Colore {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Bar plot di `class`:
+1. Colora per `drv`
+2. Usa palette "Set2" di RColorBrewer
+3. Personalizza labels della legenda
+
+**Suggerimenti**:
+- Usa `scale_fill_brewer()`
+- Considera armonia colori
+:::
+
+## Scale con Limiti {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: diamonds
+
+**Obiettivo**: Scatter plot `carat` vs `price`:
+- Limita x a 0-3 carati
+- Limita y a 0-15000 dollari
+- Confronta `limits` vs `coord_cartesian()`
+
+**Suggerimenti**:
+- Osserva effetti su outliers
+- Considera statistiche calcolate
+:::
+
+## Transform Data {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: diamonds
+
+**Obiettivo**: Confronta metodi di trasformazione:
+1. `scale_y_log10()`
+2. `coord_trans(y = "log10")`
+3. Trasforma direttamente i dati
+
+**Suggerimenti**:
+- Osserva differenze nei risultati
+- Considera pros e cons
+:::
+
+# 4. Temi e Personalizzazione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Theme Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Confronta temi standard:
+1. `theme_gray()`
+2. `theme_bw()`
+3. `theme_minimal()`
+4. `theme_classic()`
+
+**Suggerimenti**:
+- Osserva differenze estetiche
+- Valuta contesti d'uso
+:::
+
+## Personalizzazione Elementi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Modifica elementi grafici:
+- Aumenta dimensione testo assi
+- Ruota etichette x di 45°
+- Personalizza colore griglia
+- Modifica spessore linee
+
+**Suggerimenti**:
+- Usa `theme()` con `element_text()`
+- Considera leggibilità
+:::
+
+## Titoli e Caption {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: diamonds
+
+**Obiettivo**: Aggiungi elementi testuali:
+- Titolo su due righe
+- Sottotitolo informativo
+- Caption con fonte dati
+- Note laterali
+
+**Suggerimenti**:
+- Usa `labs()` o `ggtitle()`
+- Formatta con `theme()`
+:::
+
+## Theme Completo {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: economics
+
+**Obiettivo**: Crea tema personalizzato:
+- Background colorato chiaro
+- Griglia principale sottile
+- No griglia secondaria
+- Font specifico per titoli
+- Palette colori coerente
+
+**Suggerimenti**:
+- Crea funzione per riuso
+- Mantieni coerenza
+:::
+
+## Legend Styling {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Personalizza legenda:
+- Posizione in basso
+- Orientamento orizzontale
+- Titolo personalizzato
+- Bordo e background
+
+**Suggerimenti**:
+- Usa `theme(legend.*)`
+- Considera spazio disponibile
+:::
+
+# 5. Visualizzazioni Avanzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Density 2D {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: diamonds
+
+**Obiettivo**: Visualizza densità 2D:
+- Base: scatter plot
+- Aggiungi contorni densità
+- Usa filled contours
+- Personalizza palette
+
+**Suggerimenti**:
+- Usa `geom_density2d()`
+- Esplora `geom_density2d_filled()`
+:::
+
+## Plots Combinati {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Combina visualizzazioni:
+- Box plot principale
+- Violin plot sovrapposto
+- Punti jittered
+- Colore per gruppo
+
+**Suggerimenti**:
+- Usa alpha per trasparenza
+- Controlla ordine layer
+:::
+
+## Annotazioni Smart {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: economics
+
+**Obiettivo**: Aggiungi annotazioni:
+- Line plot base
+- Evidenzia punti chiave
+- Aggiungi frecce
+- Testo descrittivo
+
+**Suggerimenti**:
+- Usa `annotate()`
+- Posiziona elementi con cura
+:::
+
+## Time Series Avanzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: economics
+
+**Obiettivo**: Visualizzazione complessa:
+- Trend principale
+- Bande di confidenza
+- Eventi evidenziati
+- Multiple variabili
+
+**Suggerimenti**:
+- Combina geometrie
+- Usa scale appropriate
+:::
+
+## Grafici Statistici {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: diamonds
+
+**Obiettivo**: Aggiungi elementi statistici:
+- Linea di regressione
+- Intervalli di confidenza
+- Barre di errore
+- Test statistici
+
+**Suggerimenti**:
+- Usa `stat_*()` functions
+- Considera incertezza
+:::
+
+
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: diamonds
+
+**Obiettivo**: Crea una dashboard completa:
+1. Almeno 5 grafici diversi
+2. Focus su relazioni interessanti
+3. Combina multiple tecniche
+4. Aggiungi annotazioni informative
+
+**Suggerimenti**:
+- Usa patchwork per layout
+- Mantieni coerenza visiva
+- Racconta una storia
+:::
+
+## Visual Storytelling {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: gapminder
+
+**Obiettivo**: Crea una narrazione visiva:
+1. Trend temporali
+2. Relazioni tra variabili
+3. Confronti tra gruppi
+4. Highlight insights chiave
+
+```r
+# Install if needed
+install.packages("gapminder")
 library(gapminder)
-data(gapminder)
 ```
 
-### Challenge 3: Designer
+**Suggerimenti**:
+- Usa animazioni
+- Sfrutta faceting
+- Aggiungi annotazioni
+:::
 
-Ricrea il tuo grafico preferito da un giornale/pubblicazione usando ggplot2 e dati pubblici.
+## Theme Designer {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
----
+::: {style="font-size: 0.8em;"}
+**Dataset**: A scelta
 
-## Risorse Aggiuntive
+**Obiettivo**: Design sistema grafico:
+1. Palette colori coerente
+2. Sistema typography
+3. Griglia e spaziature
+4. Templates riutilizzabili
 
+**Suggerimenti**:
+- Documenta scelte
+- Testa accessibilità
+- Crea funzioni helper
+:::
+
+## Color Continuo {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Scatter plot `displ` vs `hwy`, con color basato su `cty` (consumo città)
+
+**Suggerimenti**:
+- Osserva come cambia la legenda con variabile continua
+- Considera il gradiente di colori
+:::
+:::
+
+# 1. Estetiche e Mappature {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Color Discreto Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Creare uno scatter plot per esplorare la relazione tra cilindrata (displ) e consumo autostrada (hwy).
+
+**Suggerimenti**:
+- Usa `geom_point()`
+- X axis: `displ`
+- Y axis: `hwy`
+:::
+
+## Scatter Plot Avanzato {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Migliora il grafico precedente:
+
+1. Aggiungi trasparenza per gestire l'overplotting (`alpha = 0.4`)
+2. Aggiungi una linea di tendenza lineare rossa
+3. Aggiungi una linea LOESS blu
+
+**Suggerimenti**:
+- Usa `geom_smooth()` con diversi `method`
+- Imposta i colori appropriati
+:::
+
+# 2. Facets e Coordinate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Facet Wrap Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Creare scatter plot `displ` vs `hwy`, facet per `class`
+
+**Suggerimenti**:
+- Usa `facet_wrap()`
+- Considera il layout automatico
+:::
+
+## Controllo Colonne {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Stesso plot del precedente, ma con esattamente 3 colonne
+
+**Suggerimenti**:
+- Usa il parametro `ncol`
+- Valuta la leggibilità del layout
+:::
+
+## Histogram con Facet {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Histogram di `hwy`, facet per `drv` (tipo trazione)
+- Usa `bins = 15`
+
+**Suggerimenti**:
+- Confronta le distribuzioni tra gruppi
+- Considera se le scale devono essere fisse o libere
+:::
+
+## Facet con Aesthetic {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Scatter `displ` vs `hwy`
+- Color per `drv`
+- Facet per `class`
+
+**Suggerimenti**:
+- Combina color e facets per multidimensionalità
+- Valuta la complessità dell'informazione
+:::
+
+## Facet Grid 2D {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Scatter `displ` vs `hwy`
+- Facet grid con `drv` (righe) e `cyl` (colonne)
+
+**Suggerimenti**:
+- Usa `facet_grid()`
+- Considera la leggibilità della griglia
+:::
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: diamonds
+
+**Obiettivo**: Crea visualizzazioni della distribuzione del peso dei diamanti (`carat`):
+
+1. Crea un istogramma con 30 bins
+2. Sperimenta con bins diversi (10, 40, 100)
+3. Aggiungi una curva di densità sovrapposta
+
+**Suggerimenti**:
+- Usa `geom_histogram()`
+- Per la densità, imposta `aes(y = after_stat(density))`
+:::
+
+# 3. Scale e Trasformazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Limiti e Breaks {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Scatter plot personalizzato:
+- X axis: `displ` (limiti 2-7, breaks ogni 1 unità)
+- Y axis: `hwy` (limiti 15-40)
+- Titoli assi: "Cilindrata (L)" e "Consumo autostrada (mpg)"
+
+**Suggerimenti**:
+- Usa `scale_x_continuous()` e `scale_y_continuous()`
+:::
+
+## Coord Cartesian vs Limits {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Confronta due metodi di zoom:
+1. `scale_y_continuous(limits = c(10, 30))`
+2. `coord_cartesian(ylim = c(10, 30))`
+
+**Suggerimenti**:
+- Osserva le differenze nelle statistiche
+- Considera quando usare l'uno o l'altro
+:::
+
+## Trasformazione Log {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: diamonds
+
+**Obiettivo**: Scatter plot `carat` vs `price`:
+- Applica scala logaritmica a entrambi gli assi
+- Aggiungi trend lineare
+- Imposta `alpha = 0.1` per i punti
+
+**Suggerimenti**:
+- Usa `scale_x_log10()` e `scale_y_log10()`
+- Osserva come cambia la relazione
+:::
+
+## Breaks Custom {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mtcars
+
+**Obiettivo**: Scatter plot `wt` vs `mpg` con breaks personalizzati:
+- X: punti 2, 3, 4, 5
+- Y: ogni 5 unità (10, 15, 20, 25, 30)
+
+**Suggerimenti**:
+- Usa il parametro `breaks` nelle scale
+- Considera la leggibilità degli intervalli
+:::
+
+## Scale Reverse {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mtcars
+
+**Obiettivo**: Bar chart orizzontale di `mpg`:
+- Ordina le auto per consumo
+- Inverti l'ordine con `scale_y_reverse()`
+- Usa `coord_flip()` per orientamento orizzontale
+
+**Suggerimenti**:
+- Usa `reorder()` per l'ordinamento
+- Considera la direzione naturale della lettura
+:::
+
+## Size e Shape {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Combina diverse estetiche:
+
+1. Scatter plot di `displ` vs `hwy`
+2. Dimensione punti basata su `cyl`
+3. Forma punti basata su `drv`
+4. Colore punti basato su `class`
+5. Aggiungi trasparenza appropriata
+
+**Suggerimenti**:
+- Usa `scale_size_continuous()`
+- Imposta limiti di size appropriati
+:::
+
+# 4. Temi e Personalizzazione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Confronto Temi Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Crea due scatter plot identici (`displ` vs `hwy`):
+1. Uno con `theme_gray()`
+2. Uno con `theme_minimal()`
+
+**Suggerimenti**:
+- Confronta differenze estetiche
+- Considera contesti d'uso appropriati
+:::
+
+## Theme Classic per Pubblicazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Boxplot di `hwy` per classe di veicolo:
+- Usa `theme_classic()`
+- Adatta per pubblicazioni scientifiche
+
+**Suggerimenti**:
+- Considera convenzioni accademiche
+- Valuta leggibilità e professionalità
+:::
+
+## Personalizzazione Background {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Partendo da `theme_minimal()`:
+- Plot background: azzurro chiaro
+- Panel background: bianco
+- Panel border: nero, spesso
+
+**Suggerimenti**:
+- Usa `theme()` con `element_rect()`
+- Considera il contrasto visivo
+:::
+
+## Labels e Titoli {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Scatter plot completo con:
+- Titolo su due righe
+- Sottotitolo in grigio
+- Caption allineata a destra
+- Assi con labels descrittivi
+
+**Suggerimenti**:
+- Usa `labs()` per testi
+- `theme()` per formattazione
+:::
+
+## Griglia e Assi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: economics
+
+**Obiettivo**: Line plot con personalizzazione griglia:
+- Rimuovi griglia minore
+- Griglia maggiore rossa tratteggiata
+- Ruota etichette asse x di 45°
+
+**Suggerimenti**:
+- Usa `element_blank()` per rimuovere
+- `element_line()` per stile linee
+:::
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Confronta distribuzioni con grafici diversi:
+
+1. Crea un boxplot di `hwy` per ogni `class`
+2. Aggiungi un violin plot sovrapposto
+3. Usa colori appropriati per distinguere i gruppi
+4. Aggiungi punti individuali con jitter
+
+**Suggerimenti**:
+- Usa `geom_boxplot()` e `geom_violin()`
+- Controlla la trasparenza per la sovrapposizione
+:::
+
+## Visualizzazione Time Series {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: economics
+
+**Obiettivo**: Crea una visualizzazione avanzata dei dati temporali:
+
+1. Line plot di `unemploy` nel tempo
+2. Aggiungi una banda di confidenza (±500)
+3. Usa colori appropriati per linea e banda
+4. Aggiungi etichette informative
+
+**Suggerimenti**:
+- Usa `geom_line()` e `geom_ribbon()`
+- Personalizza la trasparenza della banda
+:::
+
+# 5. Visualizzazioni Avanzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## Density 2D {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: diamonds
+
+**Obiettivo**: Visualizza relazione `carat` vs `price`:
+- Usa `geom_density2d()`
+- Aggiungi mappa di calore con `geom_density2d_filled()`
+- Personalizza scala colori
+
+**Suggerimenti**:
+- Gestisci overplotting
+- Considera la densità dei contorni
+:::
+
+## Annotazioni e Testo {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: mpg
+
+**Obiettivo**: Scatter plot con annotazioni:
+- Evidenzia punti interessanti
+- Aggiungi frecce e testo
+- Posiziona labels senza sovrapposizioni
+
+**Suggerimenti**:
+- Usa `geom_text()` o `geom_label()`
+- `annotate()` per elementi specifici
+:::
+
+## Composizione Grafici {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**Dataset**: diamonds
+
+**Obiettivo**: Crea una dashboard:
+- Scatter plot principale
+- Histogrammi marginali
+- Box plot laterale
+- Titolo comune
+
+**Suggerimenti**:
+- Usa `patchwork`
+- Considera proporzioni e allineamento
+:::
+
+
+
+## Risorse e Riferimenti {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
 - [R Graph Gallery](https://r-graph-gallery.com/) - Esempi e codice
 - [TidyTuesday](https://github.com/rfordatascience/tidytuesday) - Dataset settimanali
-- [Stack Overflow - ggplot2](https://stackoverflow.com/questions/tagged/ggplot2)
+- [ggplot2 Extensions](https://exts.ggplot2.tidyverse.org/)
+- [Data Visualization Society](https://www.datavisualizationsociety.org/)
+- [Coolors](https://coolors.co/) - Generatore palette colori
 
-## Condividi il Tuo Lavoro!
-
-Condividi i tuoi grafici sul canale Slack del corso! 🎨
+### Prossimi Passi
+- Condividi i tuoi grafici sul canale Slack
+- Chiedi e offri feedback
+- Sperimenta con nuove tecniche
+- Costruisci il tuo portfolio 🎨
+:::

@@ -471,9 +471,9 @@
   {
     "objectID": "materials/exercises.html",
     "href": "materials/exercises.html",
-    "title": "Esercizi",
+    "title": "ggplot2 Exercises",
     "section": "",
-    "text": "Usa il dataset penguins per creare uno scatterplot che mostri:\n\nX axis: flipper_length_mm\nY axis: body_mass_g\nColor: species\nAdd appropriate labels\n\n\nlibrary(ggplot2)\nlibrary(palmerpenguins)\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +\n  geom_point(size = 3, alpha = 0.7) +\n  labs(\n    title = \"Relazione tra Lunghezza Pinne e Massa Corporea\",\n    x = \"Lunghezza Pinne (mm)\",\n    y = \"Massa Corporea (g)\",\n    color = \"Specie\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea un bar chart che mostri:\n\nIl conteggio di pinguini per island\nDiviso per species usando facets\nColora le barre per sex\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(island, fill = sex)) +\n  geom_bar(position = \"dodge\") +\n  facet_wrap(~species) +\n  labs(\n    title = \"Distribuzione Pinguini per Isola, Specie e Sesso\",\n    x = \"Isola\",\n    y = \"Conteggio\",\n    fill = \"Sesso\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea due grafici della distribuzione di body_mass_g:\n\nUn histogram con 30 bins\nUn density plot colorato per specie\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\n# Histogram\nggplot(penguins, aes(body_mass_g)) +\n  geom_histogram(bins = 30, fill = \"steelblue\", color = \"white\") +\n  labs(\n    title = \"Distribuzione Massa Corporea\",\n    x = \"Massa Corporea (g)\",\n    y = \"Conteggio\"\n  ) +\n  theme_minimal()\n\n# Density plot\nggplot(penguins, aes(body_mass_g, fill = species)) +\n  geom_density(alpha = 0.6) +\n  labs(\n    title = \"Distribuzione Massa Corporea per Specie\",\n    x = \"Massa Corporea (g)\",\n    y = \"Densità\",\n    fill = \"Specie\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\nCrea un boxplot che mostri:\n\nY axis: bill_length_mm\nX axis: species\nFill color: island\nUsa position = \"dodge\" per separare i boxplot\n\n\n# Il tuo codice qui\n\n\n\n💡 Soluzione\n\n\nggplot(penguins, aes(species, bill_length_mm, fill = island)) +\n  geom_boxplot(position = \"dodge\") +\n  labs(\n    title = \"Lunghezza Becco per Specie e Isola\",\n    x = \"Specie\",\n    y = \"Lunghezza Becco (mm)\",\n    fill = \"Isola\"\n  ) +\n  theme_minimal()"
+    "text": "Dataset: mpg\nObiettivo: Creare scatter plot di displ vs hwy, colorando per drv (tipo trazione)\nSuggerimenti: - Usa aes() per mappare il colore - Considera la leggibilità dei colori\n\n\n\n\n\nDataset: mpg\nObiettivo: Scatter plot displ vs hwy, con color basato su cty (consumo città)\nSuggerimenti: - Osserva come cambia la legenda con variabile continua - Considera il gradiente di colori\n\n\n\n\n\nDataset: economics\nObiettivo: Line plot di date vs unemploy, colorando per anno\nSuggerimenti: - Usa lubridate::year() o format(date, \"%Y\") - Considera come il colore aiuta a distinguere i periodi\n\n\n\n\n\nDataset: mpg\nObiettivo: Scatter plot displ vs hwy: - Shape basato su drv - Size basato su cyl - Color basato su class\nSuggerimenti: - Combina multiple estetiche - Controlla leggibilità con alpha\n\n\n\n\n\nDataset: mpg\nObiettivo: Scatter plot con palette custom: 1. Usa scale_color_brewer() con palette “Set1” 2. Ripeti con scale_color_viridis_d() 3. Confronta i risultati\nSuggerimenti: - Considera accessibilità colori - Valuta efficacia per i tuoi dati"
   },
   {
     "objectID": "materials/exercises.html#esercizi-giorno-1",
@@ -501,7 +501,7 @@
     "href": "materials/exercises.html#risorse-aggiuntive",
     "title": "Esercizi",
     "section": "Risorse Aggiuntive",
-    "text": "Risorse Aggiuntive\n\nR Graph Gallery - Esempi e codice\nTidyTuesday - Dataset settimanali\nStack Overflow - ggplot2"
+    "text": "Risorse Aggiuntive\n\n\nR Graph Gallery - Esempi e codice\nTidyTuesday - Dataset settimanali\nStack Overflow - ggplot2\n\n\nCondividi il Tuo Lavoro!\nCondividi i tuoi grafici sul canale Slack del corso! 🎨"
   },
   {
     "objectID": "materials/exercises.html#condividi-il-tuo-lavoro",
@@ -3183,5 +3183,530 @@
     "title": "Formattare Tabelle in Spreadsheet",
     "section": "",
     "text": "Descrivere le best practices per l’inserimento e la formattazione dei dati in spreadsheet\nApplicare le best practices per organizzare variabili e osservazioni\nRiconoscere e risolvere problemi comuni di formattazione"
+  },
+  {
+    "objectID": "materials/exercises.html#esercizio-1.1-primo-scatterplot",
+    "href": "materials/exercises.html#esercizio-1.1-primo-scatterplot",
+    "title": "Esercizi",
+    "section": "",
+    "text": "Usa il dataset penguins per creare uno scatterplot che mostri:\n\nX axis: flipper_length_mm\nY axis: body_mass_g\nColor: species\nAdd appropriate labels\n\nlibrary(ggplot2)\nlibrary(palmerpenguins)\n\n# Il tuo codice qui"
+  },
+  {
+    "objectID": "materials/exercises.html#esercizio-1.2-bar-chart-con-facets",
+    "href": "materials/exercises.html#esercizio-1.2-bar-chart-con-facets",
+    "title": "Esercizi",
+    "section": "",
+    "text": "Crea un bar chart che mostri:\n\nIl conteggio di pinguini per island\nDiviso per species usando facets\nColora le barre per sex\n\n# Il tuo codice qui"
+  },
+  {
+    "objectID": "materials/exercises.html#esercizio-1.3-histogram-e-density",
+    "href": "materials/exercises.html#esercizio-1.3-histogram-e-density",
+    "title": "Esercizi",
+    "section": "",
+    "text": "Crea due grafici della distribuzione di body_mass_g:\n\nUn histogram con 30 bins\nUn density plot colorato per specie\n\n# Il tuo codice qui"
+  },
+  {
+    "objectID": "materials/exercises.html#esercizio-1.4-boxplot-complesso",
+    "href": "materials/exercises.html#esercizio-1.4-boxplot-complesso",
+    "title": "Esercizi",
+    "section": "",
+    "text": "Crea un boxplot che mostri:\n\nY axis: bill_length_mm\nX axis: species\nFill color: island\nUsa position = \"dodge\" per separare i boxplot\n\n# Il tuo codice qui"
+  },
+  {
+    "objectID": "materials/exercises.html#esercizio-2.1-scale-e-trasformazioni",
+    "href": "materials/exercises.html#esercizio-2.1-scale-e-trasformazioni",
+    "title": "Esercizi",
+    "section": "Esercizio 2.1: Scale e Trasformazioni",
+    "text": "Esercizio 2.1: Scale e Trasformazioni\n\nUsando il dataset diamonds, crea uno scatterplot di carat vs price:\n\nUsa trasformazione logaritmica per entrambi gli assi\nColora i punti per cut\nUsa una palette viridis\nAggiungi trasparenza ai punti\n\n# Il tuo codice qui"
+  },
+  {
+    "objectID": "materials/exercises.html#esercizio-2.2-theme-personalizzato",
+    "href": "materials/exercises.html#esercizio-2.2-theme-personalizzato",
+    "title": "Esercizi",
+    "section": "Esercizio 2.2: Theme Personalizzato",
+    "text": "Esercizio 2.2: Theme Personalizzato\n\nCrea un theme personalizzato chiamato theme_my_style() che:\n\nUsa theme_minimal() come base\nHa sfondo grigio chiaro\nTitolo centrato e in grassetto\nLegenda in basso\nRimuove le linee di griglia minori\n\nApplicalo a un grafico a tua scelta.\n# Il tuo codice qui"
+  },
+  {
+    "objectID": "materials/exercises.html#esercizio-2.3-grafici-combinati",
+    "href": "materials/exercises.html#esercizio-2.3-grafici-combinati",
+    "title": "Esercizi",
+    "section": "Esercizio 2.3: Grafici Combinati",
+    "text": "Esercizio 2.3: Grafici Combinati\n\nUsando il dataset penguins, crea 4 grafici e combinali con patchwork:\n\nBar chart del conteggio per specie\nBoxplot di body_mass_g per specie\nScatterplot flipper_length vs body_mass_g colorato per specie\nDensity plot di bill_length_mm per specie\n\nDisponi i grafici in un layout 2x2 con un titolo generale.\nlibrary(patchwork)\n\n# Il tuo codice qui"
+  },
+  {
+    "objectID": "materials/exercises.html#esercizio-2.4-visualizzazione-pubblicazione",
+    "href": "materials/exercises.html#esercizio-2.4-visualizzazione-pubblicazione",
+    "title": "Esercizi",
+    "section": "Esercizio 2.4: Visualizzazione Pubblicazione",
+    "text": "Esercizio 2.4: Visualizzazione Pubblicazione\n\nCrea un grafico publication-ready con:\n\nDataset: mpg\nScatterplot di displ vs hwy\nSmooth line per ogni class di auto\nScala colori ColorBrewer “Set2”\nTheme pulito e professionale\nTitolo, sottotitolo e caption\nDimensioni appropriate per pubblicazione (width=10, height=6)\n\n# Il tuo codice qui"
+  },
+  {
+    "objectID": "materials/exercises.html#challenge-1-explorer",
+    "href": "materials/exercises.html#challenge-1-explorer",
+    "title": "Esercizi ggplot2",
+    "section": "Challenge 1: Explorer",
+    "text": "Challenge 1: Explorer\n\nDataset: diamonds\nObiettivo: Crea almeno 5 visualizzazioni diverse che rivelino insights interessanti sui dati.\nSuggerimenti: - Esplora relazioni tra prezzo, peso e qualità - Usa diverse geometrie (scatter, box, density) - Combina multiple variabili estetiche - Aggiungi statistiche riassuntive dove appropriato"
+  },
+  {
+    "objectID": "materials/exercises.html#challenge-2-storyteller",
+    "href": "materials/exercises.html#challenge-2-storyteller",
+    "title": "Esercizi ggplot2",
+    "section": "Challenge 2: Storyteller",
+    "text": "Challenge 2: Storyteller\n\nDataset: gapminder\nObiettivo: Crea una storia visiva sull’evoluzione della vita nel mondo.\n# install.packages(\"gapminder\")\nlibrary(gapminder)\ndata(gapminder)\nSuggerimenti: - Mostra trend nel tempo - Confronta regioni e paesi - Usa animazioni o small multiples - Combina diversi indicatori"
+  },
+  {
+    "objectID": "materials/exercises.html#challenge-3-designer",
+    "href": "materials/exercises.html#challenge-3-designer",
+    "title": "Esercizi",
+    "section": "Challenge 3: Designer",
+    "text": "Challenge 3: Designer\n\nRicrea il tuo grafico preferito da un giornale/pubblicazione usando ggplot2 e dati pubblici."
+  },
+  {
+    "objectID": "materials/exercises.html#scatter-plot-base",
+    "href": "materials/exercises.html#scatter-plot-base",
+    "title": "Esercizi ggplot2",
+    "section": "",
+    "text": "Dataset: mpg\nObiettivo: Creare uno scatter plot per esplorare la relazione tra cilindrata (displ) e consumo autostrada (hwy).\nSuggerimenti: - Usa geom_point() - X axis: displ - Y axis: hwy"
+  },
+  {
+    "objectID": "materials/exercises.html#scatter-plot-avanzato",
+    "href": "materials/exercises.html#scatter-plot-avanzato",
+    "title": "ggplot2 Exercises",
+    "section": "Scatter Plot Avanzato",
+    "text": "Scatter Plot Avanzato\n\nDataset: mpg\nObiettivo: Migliora il grafico precedente:\n\nAggiungi trasparenza per gestire l’overplotting (alpha = 0.4)\nAggiungi una linea di tendenza lineare rossa\nAggiungi una linea LOESS blu\n\nSuggerimenti: - Usa geom_smooth() con diversi method - Imposta i colori appropriati"
+  },
+  {
+    "objectID": "materials/exercises.html#istogrammi-e-densità",
+    "href": "materials/exercises.html#istogrammi-e-densità",
+    "title": "Esercizi ggplot2",
+    "section": "Istogrammi e Densità",
+    "text": "Istogrammi e Densità\n\nDataset: diamonds\nObiettivo: Crea visualizzazioni della distribuzione del peso dei diamanti (carat):\n\nCrea un istogramma con 30 bins\nSperimenta con bins diversi (10, 40, 100)\nAggiungi una curva di densità sovrapposta\n\nSuggerimenti: - Usa geom_histogram() - Per la densità, imposta aes(y = after_stat(density))"
+  },
+  {
+    "objectID": "materials/exercises.html#color-e-fill",
+    "href": "materials/exercises.html#color-e-fill",
+    "title": "Esercizi ggplot2",
+    "section": "Color e Fill",
+    "text": "Color e Fill\n\nDataset: mpg\nObiettivo: Esplora l’uso di color e fill:\n\nCrea uno scatter plot di displ vs hwy\nColora i punti per drv (trazione)\nCrea un bar chart di class\nRiempi le barre per drv\nUsa position = \"dodge\" per separare le barre\n\nSuggerimenti: - Usa scale_color_brewer() per colori discreti - Controlla la legenda e le etichette"
+  },
+  {
+    "objectID": "materials/exercises.html#size-e-shape",
+    "href": "materials/exercises.html#size-e-shape",
+    "title": "ggplot2 Exercises",
+    "section": "Size e Shape",
+    "text": "Size e Shape\n\nDataset: mpg\nObiettivo: Combina diverse estetiche:\n\nScatter plot di displ vs hwy\nDimensione punti basata su cyl\nForma punti basata su drv\nColore punti basato su class\nAggiungi trasparenza appropriata\n\nSuggerimenti: - Usa scale_size_continuous() - Imposta limiti di size appropriati"
+  },
+  {
+    "objectID": "materials/exercises.html#boxplot-e-violin-plot",
+    "href": "materials/exercises.html#boxplot-e-violin-plot",
+    "title": "Esercizi ggplot2",
+    "section": "Boxplot e Violin Plot",
+    "text": "Boxplot e Violin Plot\n\nDataset: mpg\nObiettivo: Confronta distribuzioni con grafici diversi:\n\nCrea un boxplot di hwy per ogni class\nAggiungi un violin plot sovrapposto\nUsa colori appropriati per distinguere i gruppi\nAggiungi punti individuali con jitter\n\nSuggerimenti: - Usa geom_boxplot() e geom_violin() - Controlla la trasparenza per la sovrapposizione"
+  },
+  {
+    "objectID": "materials/exercises.html#visualizzazione-time-series",
+    "href": "materials/exercises.html#visualizzazione-time-series",
+    "title": "ggplot2 Exercises",
+    "section": "Visualizzazione Time Series",
+    "text": "Visualizzazione Time Series\n\nDataset: economics\nObiettivo: Crea una visualizzazione avanzata dei dati temporali:\n\nLine plot di unemploy nel tempo\nAggiungi una banda di confidenza (±500)\nUsa colori appropriati per linea e banda\nAggiungi etichette informative\n\nSuggerimenti: - Usa geom_line() e geom_ribbon() - Personalizza la trasparenza della banda"
+  },
+  {
+    "objectID": "materials/exercises.html#risorse-e-ispirazione",
+    "href": "materials/exercises.html#risorse-e-ispirazione",
+    "title": "Esercizi ggplot2",
+    "section": "Risorse e Ispirazione",
+    "text": "Risorse e Ispirazione\n\n\nR Graph Gallery - Esempi e codice\nTidyTuesday - Dataset settimanali\nStack Overflow - ggplot2\nggplot2 Extensions\n\n\nCondividi e Confronta!\n\nCondividi i tuoi grafici sul canale Slack\nChiedi feedback e suggerimenti\nImpara dalle soluzioni degli altri 🎨"
+  },
+  {
+    "objectID": "materials/exercises.html#color-base",
+    "href": "materials/exercises.html#color-base",
+    "title": "ggplot2 Exercises",
+    "section": "Color Base",
+    "text": "Color Base\n\nDataset: mpg\nObiettivo: Creare scatter plot di displ vs hwy, colorando per drv (tipo trazione)\nSuggerimenti: - Usa aes() per mappare il colore - Considera la leggibilità dei colori"
+  },
+  {
+    "objectID": "materials/exercises.html#color-continuo",
+    "href": "materials/exercises.html#color-continuo",
+    "title": "ggplot2 Exercises",
+    "section": "Color Continuo",
+    "text": "Color Continuo\n\nDataset: mpg\nObiettivo: Scatter plot displ vs hwy, con color basato su cty (consumo città)\nSuggerimenti: - Osserva come cambia la legenda con variabile continua - Considera il gradiente di colori"
+  },
+  {
+    "objectID": "materials/exercises.html#color-con-linee",
+    "href": "materials/exercises.html#color-con-linee",
+    "title": "ggplot2 Exercises",
+    "section": "Color con Linee",
+    "text": "Color con Linee\n\nDataset: economics\nObiettivo: Line plot di date vs unemploy, colorando per anno\nSuggerimenti: - Usa lubridate::year() o format(date, \"%Y\") - Considera come il colore aiuta a distinguere i periodi"
+  },
+  {
+    "objectID": "materials/exercises.html#shape-e-size",
+    "href": "materials/exercises.html#shape-e-size",
+    "title": "ggplot2 Exercises",
+    "section": "Shape e Size",
+    "text": "Shape e Size\n\nDataset: mpg\nObiettivo: Scatter plot displ vs hwy: - Shape basato su drv - Size basato su cyl - Color basato su class\nSuggerimenti: - Combina multiple estetiche - Controlla leggibilità con alpha"
+  },
+  {
+    "objectID": "materials/exercises.html#palette-personalizzate",
+    "href": "materials/exercises.html#palette-personalizzate",
+    "title": "ggplot2 Exercises",
+    "section": "Palette Personalizzate",
+    "text": "Palette Personalizzate\n\nDataset: mpg\nObiettivo: Scatter plot con palette custom: 1. Usa scale_color_brewer() con palette “Set1” 2. Ripeti con scale_color_viridis_d() 3. Confronta i risultati\nSuggerimenti: - Considera accessibilità colori - Valuta efficacia per i tuoi dati"
+  },
+  {
+    "objectID": "materials/exercises.html#facet-wrap-base",
+    "href": "materials/exercises.html#facet-wrap-base",
+    "title": "ggplot2 Exercises",
+    "section": "Facet Wrap Base",
+    "text": "Facet Wrap Base\n\nDataset: mpg\nObiettivo: Scatter plot displ vs hwy, facet per class\nSuggerimenti: - Usa facet_wrap() - Considera layout e leggibilità"
+  },
+  {
+    "objectID": "materials/exercises.html#facet-grid",
+    "href": "materials/exercises.html#facet-grid",
+    "title": "ggplot2 Exercises",
+    "section": "Facet Grid",
+    "text": "Facet Grid\n\nDataset: mpg\nObiettivo: Scatter plot displ vs hwy: - Facet grid con drv (righe) e cyl (colonne) - Colora per class\nSuggerimenti: - Usa facet_grid() - Valuta dimensioni celle"
+  },
+  {
+    "objectID": "materials/exercises.html#scale-libere",
+    "href": "materials/exercises.html#scale-libere",
+    "title": "ggplot2 Exercises",
+    "section": "Scale Libere",
+    "text": "Scale Libere\n\nDataset: mpg\nObiettivo: Confronta comportamento scale: 1. Facet wrap con scale fisse 2. Ripeti con scales = \"free_y\" 3. Ripeti con scales = \"free\"\nSuggerimenti: - Osserva differenze visualizzazione - Considera quando usare scale libere"
+  },
+  {
+    "objectID": "materials/exercises.html#coordinate-flip",
+    "href": "materials/exercises.html#coordinate-flip",
+    "title": "ggplot2 Exercises",
+    "section": "Coordinate Flip",
+    "text": "Coordinate Flip\n\nDataset: mpg\nObiettivo: Box plot di hwy per class: - Prima versione verticale - Seconda versione con coord_flip() - Ordina per mediana\nSuggerimenti: - Usa reorder() per ordinamento - Valuta leggibilità etichette"
+  },
+  {
+    "objectID": "materials/exercises.html#zoom-con-coord-cartesian",
+    "href": "materials/exercises.html#zoom-con-coord-cartesian",
+    "title": "ggplot2 Exercises",
+    "section": "Zoom con Coord Cartesian",
+    "text": "Zoom con Coord Cartesian\n\nDataset: diamonds\nObiettivo: Scatter plot carat vs price: 1. Plot completo 2. Zoom su area interessante con coord_cartesian() 3. Confronta con xlim() e ylim()\nSuggerimenti: - Osserva differenze tra metodi - Considera statistiche calcolate"
+  },
+  {
+    "objectID": "materials/exercises.html#scale-logaritmiche",
+    "href": "materials/exercises.html#scale-logaritmiche",
+    "title": "ggplot2 Exercises",
+    "section": "Scale Logaritmiche",
+    "text": "Scale Logaritmiche\n\nDataset: diamonds\nObiettivo: Scatter plot carat vs price: - Applica scala log10 a entrambi gli assi - Aggiungi linea di tendenza - Confronta con versione non trasformata\nSuggerimenti: - Usa scale_*_log10() - Valuta linearizzazione relazione"
+  },
+  {
+    "objectID": "materials/exercises.html#breaks-personalizzati",
+    "href": "materials/exercises.html#breaks-personalizzati",
+    "title": "ggplot2 Exercises",
+    "section": "Breaks Personalizzati",
+    "text": "Breaks Personalizzati\n\nDataset: mpg\nObiettivo: Scatter plot displ vs hwy: - X: breaks ogni 0.5 unità - Y: breaks a 15, 20, 25, 30, 35 - Aggiungi labels informativi\nSuggerimenti: - Usa breaks e labels - Considera spaziatura e leggibilità"
+  },
+  {
+    "objectID": "materials/exercises.html#scale-di-colore",
+    "href": "materials/exercises.html#scale-di-colore",
+    "title": "ggplot2 Exercises",
+    "section": "Scale di Colore",
+    "text": "Scale di Colore\n\nDataset: mpg\nObiettivo: Bar plot di class: 1. Colora per drv 2. Usa palette “Set2” di RColorBrewer 3. Personalizza labels della legenda\nSuggerimenti: - Usa scale_fill_brewer() - Considera armonia colori"
+  },
+  {
+    "objectID": "materials/exercises.html#scale-con-limiti",
+    "href": "materials/exercises.html#scale-con-limiti",
+    "title": "ggplot2 Exercises",
+    "section": "Scale con Limiti",
+    "text": "Scale con Limiti\n\nDataset: diamonds\nObiettivo: Scatter plot carat vs price: - Limita x a 0-3 carati - Limita y a 0-15000 dollari - Confronta limits vs coord_cartesian()\nSuggerimenti: - Osserva effetti su outliers - Considera statistiche calcolate"
+  },
+  {
+    "objectID": "materials/exercises.html#transform-data",
+    "href": "materials/exercises.html#transform-data",
+    "title": "ggplot2 Exercises",
+    "section": "Transform Data",
+    "text": "Transform Data\n\nDataset: diamonds\nObiettivo: Confronta metodi di trasformazione: 1. scale_y_log10() 2. coord_trans(y = \"log10\") 3. Trasforma direttamente i dati\nSuggerimenti: - Osserva differenze nei risultati - Considera pros e cons"
+  },
+  {
+    "objectID": "materials/exercises.html#theme-base",
+    "href": "materials/exercises.html#theme-base",
+    "title": "ggplot2 Exercises",
+    "section": "Theme Base",
+    "text": "Theme Base\n\nDataset: mpg\nObiettivo: Confronta temi standard: 1. theme_gray() 2. theme_bw() 3. theme_minimal() 4. theme_classic()\nSuggerimenti: - Osserva differenze estetiche - Valuta contesti d’uso"
+  },
+  {
+    "objectID": "materials/exercises.html#personalizzazione-elementi",
+    "href": "materials/exercises.html#personalizzazione-elementi",
+    "title": "ggplot2 Exercises",
+    "section": "Personalizzazione Elementi",
+    "text": "Personalizzazione Elementi\n\nDataset: mpg\nObiettivo: Modifica elementi grafici: - Aumenta dimensione testo assi - Ruota etichette x di 45° - Personalizza colore griglia - Modifica spessore linee\nSuggerimenti: - Usa theme() con element_text() - Considera leggibilità"
+  },
+  {
+    "objectID": "materials/exercises.html#titoli-e-caption",
+    "href": "materials/exercises.html#titoli-e-caption",
+    "title": "ggplot2 Exercises",
+    "section": "Titoli e Caption",
+    "text": "Titoli e Caption\n\nDataset: diamonds\nObiettivo: Aggiungi elementi testuali: - Titolo su due righe - Sottotitolo informativo - Caption con fonte dati - Note laterali\nSuggerimenti: - Usa labs() o ggtitle() - Formatta con theme()"
+  },
+  {
+    "objectID": "materials/exercises.html#theme-completo",
+    "href": "materials/exercises.html#theme-completo",
+    "title": "ggplot2 Exercises",
+    "section": "Theme Completo",
+    "text": "Theme Completo\n\nDataset: economics\nObiettivo: Crea tema personalizzato: - Background colorato chiaro - Griglia principale sottile - No griglia secondaria - Font specifico per titoli - Palette colori coerente\nSuggerimenti: - Crea funzione per riuso - Mantieni coerenza"
+  },
+  {
+    "objectID": "materials/exercises.html#legend-styling",
+    "href": "materials/exercises.html#legend-styling",
+    "title": "ggplot2 Exercises",
+    "section": "Legend Styling",
+    "text": "Legend Styling\n\nDataset: mpg\nObiettivo: Personalizza legenda: - Posizione in basso - Orientamento orizzontale - Titolo personalizzato - Bordo e background\nSuggerimenti: - Usa theme(legend.*) - Considera spazio disponibile"
+  },
+  {
+    "objectID": "materials/exercises.html#density-2d",
+    "href": "materials/exercises.html#density-2d",
+    "title": "ggplot2 Exercises",
+    "section": "Density 2D",
+    "text": "Density 2D\n\nDataset: diamonds\nObiettivo: Visualizza densità 2D: - Base: scatter plot - Aggiungi contorni densità - Usa filled contours - Personalizza palette\nSuggerimenti: - Usa geom_density2d() - Esplora geom_density2d_filled()"
+  },
+  {
+    "objectID": "materials/exercises.html#plots-combinati",
+    "href": "materials/exercises.html#plots-combinati",
+    "title": "ggplot2 Exercises",
+    "section": "Plots Combinati",
+    "text": "Plots Combinati\n\nDataset: mpg\nObiettivo: Combina visualizzazioni: - Box plot principale - Violin plot sovrapposto - Punti jittered - Colore per gruppo\nSuggerimenti: - Usa alpha per trasparenza - Controlla ordine layer"
+  },
+  {
+    "objectID": "materials/exercises.html#annotazioni-smart",
+    "href": "materials/exercises.html#annotazioni-smart",
+    "title": "ggplot2 Exercises",
+    "section": "Annotazioni Smart",
+    "text": "Annotazioni Smart\n\nDataset: economics\nObiettivo: Aggiungi annotazioni: - Line plot base - Evidenzia punti chiave - Aggiungi frecce - Testo descrittivo\nSuggerimenti: - Usa annotate() - Posiziona elementi con cura"
+  },
+  {
+    "objectID": "materials/exercises.html#time-series-avanzate",
+    "href": "materials/exercises.html#time-series-avanzate",
+    "title": "ggplot2 Exercises",
+    "section": "Time Series Avanzate",
+    "text": "Time Series Avanzate\n\nDataset: economics\nObiettivo: Visualizzazione complessa: - Trend principale - Bande di confidenza - Eventi evidenziati - Multiple variabili\nSuggerimenti: - Combina geometrie - Usa scale appropriate"
+  },
+  {
+    "objectID": "materials/exercises.html#grafici-statistici",
+    "href": "materials/exercises.html#grafici-statistici",
+    "title": "ggplot2 Exercises",
+    "section": "Grafici Statistici",
+    "text": "Grafici Statistici\n\nDataset: diamonds\nObiettivo: Aggiungi elementi statistici: - Linea di regressione - Intervalli di confidenza - Barre di errore - Test statistici\nSuggerimenti: - Usa stat_*() functions - Considera incertezza\n\n\nDataset: diamonds\nObiettivo: Crea una dashboard completa: 1. Almeno 5 grafici diversi 2. Focus su relazioni interessanti 3. Combina multiple tecniche 4. Aggiungi annotazioni informative\nSuggerimenti: - Usa patchwork per layout - Mantieni coerenza visiva - Racconta una storia"
+  },
+  {
+    "objectID": "materials/exercises.html#data-explorer",
+    "href": "materials/exercises.html#data-explorer",
+    "title": "ggplot2 Exercises",
+    "section": "Data Explorer",
+    "text": "Data Explorer\n\nDataset: diamonds\nObiettivo: Crea almeno 5 visualizzazioni diverse che rivelino insights interessanti sui dati.\nSuggerimenti: - Esplora relazioni tra prezzo, peso e qualità - Usa diverse geometrie (scatter, box, density) - Combina multiple variabili estetiche - Aggiungi statistiche riassuntive dove appropriato"
+  },
+  {
+    "objectID": "materials/exercises.html#visual-storytelling",
+    "href": "materials/exercises.html#visual-storytelling",
+    "title": "ggplot2 Exercises",
+    "section": "Visual Storytelling",
+    "text": "Visual Storytelling\n\nDataset: gapminder\nObiettivo: Crea una narrazione visiva: 1. Trend temporali 2. Relazioni tra variabili 3. Confronti tra gruppi 4. Highlight insights chiave\n# Install if needed\ninstall.packages(\"gapminder\")\nlibrary(gapminder)\nSuggerimenti: - Usa animazioni - Sfrutta faceting - Aggiungi annotazioni"
+  },
+  {
+    "objectID": "materials/exercises.html#theme-designer",
+    "href": "materials/exercises.html#theme-designer",
+    "title": "ggplot2 Exercises",
+    "section": "Theme Designer",
+    "text": "Theme Designer\n\nDataset: A scelta\nObiettivo: Design sistema grafico: 1. Palette colori coerente 2. Sistema typography 3. Griglia e spaziature 4. Templates riutilizzabili\nSuggerimenti: - Documenta scelte - Testa accessibilità - Crea funzioni helper"
+  },
+  {
+    "objectID": "materials/exercises.html#risorse-e-riferimenti",
+    "href": "materials/exercises.html#risorse-e-riferimenti",
+    "title": "ggplot2 Exercises",
+    "section": "Risorse e Riferimenti",
+    "text": "Risorse e Riferimenti\n\n\nR Graph Gallery - Esempi e codice\nTidyTuesday - Dataset settimanali\nggplot2 Extensions\nData Visualization Society\nCoolors - Generatore palette colori\n\nProssimi Passi\n\nCondividi i tuoi grafici sul canale Slack\nChiedi e offri feedback\nSperimenta con nuove tecniche\nCostruisci il tuo portfolio 🎨"
+  },
+  {
+    "objectID": "materials/exercises.html#color-continuo-1",
+    "href": "materials/exercises.html#color-continuo-1",
+    "title": "ggplot2 Exercises",
+    "section": "Color Continuo",
+    "text": "Color Continuo\n\nDataset: mpg\nObiettivo: Scatter plot displ vs hwy, con color basato su cty (consumo città)\nSuggerimenti: - Osserva come cambia la legenda con variabile continua - Considera il gradiente di colori\n\n:::"
+  },
+  {
+    "objectID": "materials/exercises.html#color-con-linee-1",
+    "href": "materials/exercises.html#color-con-linee-1",
+    "title": "ggplot2 Exercises",
+    "section": "Color con Linee",
+    "text": "Color con Linee\n\nDataset: economics\nObiettivo: Line plot di date vs unemploy, colorando per anno\nSuggerimenti: - Usa lubridate::year() o format(date, \"%Y\") - Considera come il colore aiuta a distinguere i periodi"
+  },
+  {
+    "objectID": "materials/exercises.html#palette-viridis",
+    "href": "materials/exercises.html#palette-viridis",
+    "title": "ggplot2 Exercises",
+    "section": "Palette Viridis",
+    "text": "Palette Viridis\n\nDataset: mpg\nObiettivo: Ripeti l’esercizio del color continuo, ma usa scale_color_viridis_c()\nSuggerimenti: - Confronta con i colori precedenti - Considera l’accessibilità della palette"
+  },
+  {
+    "objectID": "materials/exercises.html#gradient-personalizzato",
+    "href": "materials/exercises.html#gradient-personalizzato",
+    "title": "ggplot2 Exercises",
+    "section": "Gradient Personalizzato",
+    "text": "Gradient Personalizzato\n\nDataset: diamonds\nObiettivo: Scatter plot carat vs price, color su depth - Usa gradient da “yellow” a “red”\nSuggerimenti: - Usa scale_color_gradient() - Considera la leggibilità del gradiente ::: From Basics to Advanced” author: “Marco Chiapello” format: revealjs: theme: simple transition: slide slide-number: true chalkboard: true logo: images/ggplot2_logo.jpg footer: “REVELO Training - Data Viz 2025” css: presentation-style.css title-slide-attributes: data-background-image: images/frequency-wave-7776034_1280.jpg data-background-size: cover data-background-opacity: “0.1” menu: side: left width: normal numbers: true include-after-body: text: |\n\n      &lt;a href=\"../../index.html\" style=\"padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; font-size: 16px;\"&gt;⌂ Home&lt;/a&gt;\n    &lt;/div&gt;\nresources: - images/ - presentation-style.css —\n\n1. Estetiche e Mappature\n\nColor Discreto Base\n\nDataset: mpg\nObiettivo: Creare uno scatter plot per esplorare la relazione tra cilindrata (displ) e consumo autostrada (hwy).\nSuggerimenti: - Usa geom_point() - X axis: displ - Y axis: hwy\n\n\n\nScatter Plot Avanzato\n\nDataset: mpg\nObiettivo: Migliora il grafico precedente:\n\nAggiungi trasparenza per gestire l’overplotting (alpha = 0.4)\nAggiungi una linea di tendenza lineare rossa\nAggiungi una linea LOESS blu\n\nSuggerimenti: - Usa geom_smooth() con diversi method - Imposta i colori appropriati\n\n\n\n\n2. Facets e Coordinate\n\nFacet Wrap Base\n\nDataset: mpg\nObiettivo: Creare scatter plot displ vs hwy, facet per class\nSuggerimenti: - Usa facet_wrap() - Considera il layout automatico\n\n\n\nControllo Colonne\n\nDataset: mpg\nObiettivo: Stesso plot del precedente, ma con esattamente 3 colonne\nSuggerimenti: - Usa il parametro ncol - Valuta la leggibilità del layout\n\n\n\nHistogram con Facet\n\nDataset: mpg\nObiettivo: Histogram di hwy, facet per drv (tipo trazione) - Usa bins = 15\nSuggerimenti: - Confronta le distribuzioni tra gruppi - Considera se le scale devono essere fisse o libere\n\n\n\nFacet con Aesthetic\n\nDataset: mpg\nObiettivo: Scatter displ vs hwy - Color per drv - Facet per class\nSuggerimenti: - Combina color e facets per multidimensionalità - Valuta la complessità dell’informazione\n\n\n\nFacet Grid 2D\n\nDataset: mpg\nObiettivo: Scatter displ vs hwy - Facet grid con drv (righe) e cyl (colonne)\nSuggerimenti: - Usa facet_grid() - Considera la leggibilità della griglia\n\n\nDataset: diamonds\nObiettivo: Crea visualizzazioni della distribuzione del peso dei diamanti (carat):\n\nCrea un istogramma con 30 bins\nSperimenta con bins diversi (10, 40, 100)\nAggiungi una curva di densità sovrapposta\n\nSuggerimenti: - Usa geom_histogram() - Per la densità, imposta aes(y = after_stat(density))\n\n\n\n\n3. Scale e Trasformazioni\n\nLimiti e Breaks\n\nDataset: mpg\nObiettivo: Scatter plot personalizzato: - X axis: displ (limiti 2-7, breaks ogni 1 unità) - Y axis: hwy (limiti 15-40) - Titoli assi: “Cilindrata (L)” e “Consumo autostrada (mpg)”\nSuggerimenti: - Usa scale_x_continuous() e scale_y_continuous()\n\n\n\nCoord Cartesian vs Limits\n\nDataset: mpg\nObiettivo: Confronta due metodi di zoom: 1. scale_y_continuous(limits = c(10, 30)) 2. coord_cartesian(ylim = c(10, 30))\nSuggerimenti: - Osserva le differenze nelle statistiche - Considera quando usare l’uno o l’altro\n\n\n\nTrasformazione Log\n\nDataset: diamonds\nObiettivo: Scatter plot carat vs price: - Applica scala logaritmica a entrambi gli assi - Aggiungi trend lineare - Imposta alpha = 0.1 per i punti\nSuggerimenti: - Usa scale_x_log10() e scale_y_log10() - Osserva come cambia la relazione\n\n\n\nBreaks Custom\n\nDataset: mtcars\nObiettivo: Scatter plot wt vs mpg con breaks personalizzati: - X: punti 2, 3, 4, 5 - Y: ogni 5 unità (10, 15, 20, 25, 30)\nSuggerimenti: - Usa il parametro breaks nelle scale - Considera la leggibilità degli intervalli\n\n\n\nScale Reverse\n\nDataset: mtcars\nObiettivo: Bar chart orizzontale di mpg: - Ordina le auto per consumo - Inverti l’ordine con scale_y_reverse() - Usa coord_flip() per orientamento orizzontale\nSuggerimenti: - Usa reorder() per l’ordinamento - Considera la direzione naturale della lettura\n\n\nDataset: mpg\nObiettivo: Esplora l’uso di color e fill:\n\nCrea uno scatter plot di displ vs hwy\nColora i punti per drv (trazione)\nCrea un bar chart di class\nRiempi le barre per drv\nUsa position = \"dodge\" per separare le barre\n\nSuggerimenti: - Usa scale_color_brewer() per colori discreti - Controlla la legenda e le etichette\n\n\n\nSize e Shape\n\nDataset: mpg\nObiettivo: Combina diverse estetiche:\n\nScatter plot di displ vs hwy\nDimensione punti basata su cyl\nForma punti basata su drv\nColore punti basato su class\nAggiungi trasparenza appropriata\n\nSuggerimenti: - Usa scale_size_continuous() - Imposta limiti di size appropriati\n\n\n\n\n4. Temi e Personalizzazione\n\nConfronto Temi Base\n\nDataset: mpg\nObiettivo: Crea due scatter plot identici (displ vs hwy): 1. Uno con theme_gray() 2. Uno con theme_minimal()\nSuggerimenti: - Confronta differenze estetiche - Considera contesti d’uso appropriati\n\n\n\nTheme Classic per Pubblicazioni\n\nDataset: mpg\nObiettivo: Boxplot di hwy per classe di veicolo: - Usa theme_classic() - Adatta per pubblicazioni scientifiche\nSuggerimenti: - Considera convenzioni accademiche - Valuta leggibilità e professionalità\n\n\n\nPersonalizzazione Background\n\nDataset: mpg\nObiettivo: Partendo da theme_minimal(): - Plot background: azzurro chiaro - Panel background: bianco - Panel border: nero, spesso\nSuggerimenti: - Usa theme() con element_rect() - Considera il contrasto visivo\n\n\n\nLabels e Titoli\n\nDataset: mpg\nObiettivo: Scatter plot completo con: - Titolo su due righe - Sottotitolo in grigio - Caption allineata a destra - Assi con labels descrittivi\nSuggerimenti: - Usa labs() per testi - theme() per formattazione\n\n\n\nGriglia e Assi\n\nDataset: economics\nObiettivo: Line plot con personalizzazione griglia: - Rimuovi griglia minore - Griglia maggiore rossa tratteggiata - Ruota etichette asse x di 45°\nSuggerimenti: - Usa element_blank() per rimuovere - element_line() per stile linee\n\n\nDataset: mpg\nObiettivo: Confronta distribuzioni con grafici diversi:\n\nCrea un boxplot di hwy per ogni class\nAggiungi un violin plot sovrapposto\nUsa colori appropriati per distinguere i gruppi\nAggiungi punti individuali con jitter\n\nSuggerimenti: - Usa geom_boxplot() e geom_violin() - Controlla la trasparenza per la sovrapposizione\n\n\n\nVisualizzazione Time Series\n\nDataset: economics\nObiettivo: Crea una visualizzazione avanzata dei dati temporali:\n\nLine plot di unemploy nel tempo\nAggiungi una banda di confidenza (±500)\nUsa colori appropriati per linea e banda\nAggiungi etichette informative\n\nSuggerimenti: - Usa geom_line() e geom_ribbon() - Personalizza la trasparenza della banda\n\n\n\n\n5. Visualizzazioni Avanzate\n\nDensity 2D\n\nDataset: diamonds\nObiettivo: Visualizza relazione carat vs price: - Usa geom_density2d() - Aggiungi mappa di calore con geom_density2d_filled() - Personalizza scala colori\nSuggerimenti: - Gestisci overplotting - Considera la densità dei contorni\n\n\n\nAnnotazioni e Testo\n\nDataset: mpg\nObiettivo: Scatter plot con annotazioni: - Evidenzia punti interessanti - Aggiungi frecce e testo - Posiziona labels senza sovrapposizioni\nSuggerimenti: - Usa geom_text() o geom_label() - annotate() per elementi specifici\n\n\n\nComposizione Grafici\n\nDataset: diamonds\nObiettivo: Crea una dashboard: - Scatter plot principale - Histogrammi marginali - Box plot laterale - Titolo comune\nSuggerimenti: - Usa patchwork - Considera proporzioni e allineamento\n\n\n\n\nProgetti Challenge 🏆\n\nData Explorer\n\nDataset: diamonds\nObiettivo: Crea almeno 5 visualizzazioni diverse che rivelino insights interessanti sui dati.\nSuggerimenti: - Esplora relazioni tra prezzo, peso e qualità - Usa diverse geometrie (scatter, box, density) - Combina multiple variabili estetiche - Aggiungi statistiche riassuntive dove appropriato\n\n\n\nChallenge 2: Visual Storytelling\n\nDataset: gapminder\nObiettivo: Crea una narrazione visiva dell’evoluzione mondiale usando il dataset gapminder: 1. Trend di aspettativa di vita nel tempo 2. Relazioni tra PIL e salute 3. Disparità tra regioni 4. Cambiamenti demografici\ninstall.packages(\"gapminder\")\nlibrary(gapminder)\nSuggerimenti: - Usa animazioni temporali - Combina più indicatori - Evidenzia pattern chiave\n\n\n\nChallenge 3: Theme Designer\n\nDataset: A scelta\nObiettivo: Crea un tema personalizzato professionale: 1. Definisci una palette colori coerente 2. Personalizza tutti gli elementi grafici 3. Crea funzioni helper per applicare il tema 4. Documenta le scelte di design\nSuggerimenti: - Considera accessibilità - Mantieni coerenza - Testa con diversi tipi di grafici\n\n\n\nRisorse e Riferimenti\n\n\nR Graph Gallery - Esempi e codice\nTidyTuesday - Dataset settimanali\nggplot2 Extensions\nData Visualization Society\nCoolors - Generatore palette colori\n\n\nProssimi Passi\n\nCondividi i tuoi grafici sul canale Slack\nChiedi e offri feedback\nSperimenta con nuove tecniche\nCostruisci il tuo portfolio 🎨\n\n\n\n\nChiedi feedback e suggerimenti\nImpara dalle soluzioni degli altri 🎨\n\n:::"
+  },
+  {
+    "objectID": "materials/exercises.html#color-discreto-base",
+    "href": "materials/exercises.html#color-discreto-base",
+    "title": "ggplot2 Exercises",
+    "section": "Color Discreto Base",
+    "text": "Color Discreto Base\n\nDataset: mpg\nObiettivo: Creare uno scatter plot per esplorare la relazione tra cilindrata (displ) e consumo autostrada (hwy).\nSuggerimenti: - Usa geom_point() - X axis: displ - Y axis: hwy"
+  },
+  {
+    "objectID": "materials/exercises.html#facet-wrap-base-1",
+    "href": "materials/exercises.html#facet-wrap-base-1",
+    "title": "ggplot2 Exercises",
+    "section": "Facet Wrap Base",
+    "text": "Facet Wrap Base\n\nDataset: mpg\nObiettivo: Creare scatter plot displ vs hwy, facet per class\nSuggerimenti: - Usa facet_wrap() - Considera il layout automatico"
+  },
+  {
+    "objectID": "materials/exercises.html#controllo-colonne",
+    "href": "materials/exercises.html#controllo-colonne",
+    "title": "ggplot2 Exercises",
+    "section": "Controllo Colonne",
+    "text": "Controllo Colonne\n\nDataset: mpg\nObiettivo: Stesso plot del precedente, ma con esattamente 3 colonne\nSuggerimenti: - Usa il parametro ncol - Valuta la leggibilità del layout"
+  },
+  {
+    "objectID": "materials/exercises.html#histogram-con-facet",
+    "href": "materials/exercises.html#histogram-con-facet",
+    "title": "ggplot2 Exercises",
+    "section": "Histogram con Facet",
+    "text": "Histogram con Facet\n\nDataset: mpg\nObiettivo: Histogram di hwy, facet per drv (tipo trazione) - Usa bins = 15\nSuggerimenti: - Confronta le distribuzioni tra gruppi - Considera se le scale devono essere fisse o libere"
+  },
+  {
+    "objectID": "materials/exercises.html#facet-con-aesthetic",
+    "href": "materials/exercises.html#facet-con-aesthetic",
+    "title": "ggplot2 Exercises",
+    "section": "Facet con Aesthetic",
+    "text": "Facet con Aesthetic\n\nDataset: mpg\nObiettivo: Scatter displ vs hwy - Color per drv - Facet per class\nSuggerimenti: - Combina color e facets per multidimensionalità - Valuta la complessità dell’informazione"
+  },
+  {
+    "objectID": "materials/exercises.html#facet-grid-2d",
+    "href": "materials/exercises.html#facet-grid-2d",
+    "title": "ggplot2 Exercises",
+    "section": "Facet Grid 2D",
+    "text": "Facet Grid 2D\n\nDataset: mpg\nObiettivo: Scatter displ vs hwy - Facet grid con drv (righe) e cyl (colonne)\nSuggerimenti: - Usa facet_grid() - Considera la leggibilità della griglia\n\n\nDataset: diamonds\nObiettivo: Crea visualizzazioni della distribuzione del peso dei diamanti (carat):\n\nCrea un istogramma con 30 bins\nSperimenta con bins diversi (10, 40, 100)\nAggiungi una curva di densità sovrapposta\n\nSuggerimenti: - Usa geom_histogram() - Per la densità, imposta aes(y = after_stat(density))"
+  },
+  {
+    "objectID": "materials/exercises.html#limiti-e-breaks",
+    "href": "materials/exercises.html#limiti-e-breaks",
+    "title": "ggplot2 Exercises",
+    "section": "Limiti e Breaks",
+    "text": "Limiti e Breaks\n\nDataset: mpg\nObiettivo: Scatter plot personalizzato: - X axis: displ (limiti 2-7, breaks ogni 1 unità) - Y axis: hwy (limiti 15-40) - Titoli assi: “Cilindrata (L)” e “Consumo autostrada (mpg)”\nSuggerimenti: - Usa scale_x_continuous() e scale_y_continuous()"
+  },
+  {
+    "objectID": "materials/exercises.html#coord-cartesian-vs-limits",
+    "href": "materials/exercises.html#coord-cartesian-vs-limits",
+    "title": "ggplot2 Exercises",
+    "section": "Coord Cartesian vs Limits",
+    "text": "Coord Cartesian vs Limits\n\nDataset: mpg\nObiettivo: Confronta due metodi di zoom: 1. scale_y_continuous(limits = c(10, 30)) 2. coord_cartesian(ylim = c(10, 30))\nSuggerimenti: - Osserva le differenze nelle statistiche - Considera quando usare l’uno o l’altro"
+  },
+  {
+    "objectID": "materials/exercises.html#trasformazione-log",
+    "href": "materials/exercises.html#trasformazione-log",
+    "title": "ggplot2 Exercises",
+    "section": "Trasformazione Log",
+    "text": "Trasformazione Log\n\nDataset: diamonds\nObiettivo: Scatter plot carat vs price: - Applica scala logaritmica a entrambi gli assi - Aggiungi trend lineare - Imposta alpha = 0.1 per i punti\nSuggerimenti: - Usa scale_x_log10() e scale_y_log10() - Osserva come cambia la relazione"
+  },
+  {
+    "objectID": "materials/exercises.html#breaks-custom",
+    "href": "materials/exercises.html#breaks-custom",
+    "title": "ggplot2 Exercises",
+    "section": "Breaks Custom",
+    "text": "Breaks Custom\n\nDataset: mtcars\nObiettivo: Scatter plot wt vs mpg con breaks personalizzati: - X: punti 2, 3, 4, 5 - Y: ogni 5 unità (10, 15, 20, 25, 30)\nSuggerimenti: - Usa il parametro breaks nelle scale - Considera la leggibilità degli intervalli"
+  },
+  {
+    "objectID": "materials/exercises.html#scale-reverse",
+    "href": "materials/exercises.html#scale-reverse",
+    "title": "ggplot2 Exercises",
+    "section": "Scale Reverse",
+    "text": "Scale Reverse\n\nDataset: mtcars\nObiettivo: Bar chart orizzontale di mpg: - Ordina le auto per consumo - Inverti l’ordine con scale_y_reverse() - Usa coord_flip() per orientamento orizzontale\nSuggerimenti: - Usa reorder() per l’ordinamento - Considera la direzione naturale della lettura"
+  },
+  {
+    "objectID": "materials/exercises.html#confronto-temi-base",
+    "href": "materials/exercises.html#confronto-temi-base",
+    "title": "ggplot2 Exercises",
+    "section": "Confronto Temi Base",
+    "text": "Confronto Temi Base\n\nDataset: mpg\nObiettivo: Crea due scatter plot identici (displ vs hwy): 1. Uno con theme_gray() 2. Uno con theme_minimal()\nSuggerimenti: - Confronta differenze estetiche - Considera contesti d’uso appropriati"
+  },
+  {
+    "objectID": "materials/exercises.html#theme-classic-per-pubblicazioni",
+    "href": "materials/exercises.html#theme-classic-per-pubblicazioni",
+    "title": "ggplot2 Exercises",
+    "section": "Theme Classic per Pubblicazioni",
+    "text": "Theme Classic per Pubblicazioni\n\nDataset: mpg\nObiettivo: Boxplot di hwy per classe di veicolo: - Usa theme_classic() - Adatta per pubblicazioni scientifiche\nSuggerimenti: - Considera convenzioni accademiche - Valuta leggibilità e professionalità"
+  },
+  {
+    "objectID": "materials/exercises.html#personalizzazione-background",
+    "href": "materials/exercises.html#personalizzazione-background",
+    "title": "ggplot2 Exercises",
+    "section": "Personalizzazione Background",
+    "text": "Personalizzazione Background\n\nDataset: mpg\nObiettivo: Partendo da theme_minimal(): - Plot background: azzurro chiaro - Panel background: bianco - Panel border: nero, spesso\nSuggerimenti: - Usa theme() con element_rect() - Considera il contrasto visivo"
+  },
+  {
+    "objectID": "materials/exercises.html#labels-e-titoli",
+    "href": "materials/exercises.html#labels-e-titoli",
+    "title": "ggplot2 Exercises",
+    "section": "Labels e Titoli",
+    "text": "Labels e Titoli\n\nDataset: mpg\nObiettivo: Scatter plot completo con: - Titolo su due righe - Sottotitolo in grigio - Caption allineata a destra - Assi con labels descrittivi\nSuggerimenti: - Usa labs() per testi - theme() per formattazione"
+  },
+  {
+    "objectID": "materials/exercises.html#griglia-e-assi",
+    "href": "materials/exercises.html#griglia-e-assi",
+    "title": "ggplot2 Exercises",
+    "section": "Griglia e Assi",
+    "text": "Griglia e Assi\n\nDataset: economics\nObiettivo: Line plot con personalizzazione griglia: - Rimuovi griglia minore - Griglia maggiore rossa tratteggiata - Ruota etichette asse x di 45°\nSuggerimenti: - Usa element_blank() per rimuovere - element_line() per stile linee\n\n\nDataset: mpg\nObiettivo: Confronta distribuzioni con grafici diversi:\n\nCrea un boxplot di hwy per ogni class\nAggiungi un violin plot sovrapposto\nUsa colori appropriati per distinguere i gruppi\nAggiungi punti individuali con jitter\n\nSuggerimenti: - Usa geom_boxplot() e geom_violin() - Controlla la trasparenza per la sovrapposizione"
+  },
+  {
+    "objectID": "materials/exercises.html#density-2d-1",
+    "href": "materials/exercises.html#density-2d-1",
+    "title": "ggplot2 Exercises",
+    "section": "Density 2D",
+    "text": "Density 2D\n\nDataset: diamonds\nObiettivo: Visualizza relazione carat vs price: - Usa geom_density2d() - Aggiungi mappa di calore con geom_density2d_filled() - Personalizza scala colori\nSuggerimenti: - Gestisci overplotting - Considera la densità dei contorni"
+  },
+  {
+    "objectID": "materials/exercises.html#annotazioni-e-testo",
+    "href": "materials/exercises.html#annotazioni-e-testo",
+    "title": "ggplot2 Exercises",
+    "section": "Annotazioni e Testo",
+    "text": "Annotazioni e Testo\n\nDataset: mpg\nObiettivo: Scatter plot con annotazioni: - Evidenzia punti interessanti - Aggiungi frecce e testo - Posiziona labels senza sovrapposizioni\nSuggerimenti: - Usa geom_text() o geom_label() - annotate() per elementi specifici"
+  },
+  {
+    "objectID": "materials/exercises.html#composizione-grafici",
+    "href": "materials/exercises.html#composizione-grafici",
+    "title": "ggplot2 Exercises",
+    "section": "Composizione Grafici",
+    "text": "Composizione Grafici\n\nDataset: diamonds\nObiettivo: Crea una dashboard: - Scatter plot principale - Histogrammi marginali - Box plot laterale - Titolo comune\nSuggerimenti: - Usa patchwork - Considera proporzioni e allineamento"
+  },
+  {
+    "objectID": "materials/exercises.html#data-explorer-1",
+    "href": "materials/exercises.html#data-explorer-1",
+    "title": "ggplot2 Exercises",
+    "section": "Data Explorer",
+    "text": "Data Explorer\n\nDataset: diamonds\nObiettivo: Crea almeno 5 visualizzazioni diverse che rivelino insights interessanti sui dati.\nSuggerimenti: - Esplora relazioni tra prezzo, peso e qualità - Usa diverse geometrie (scatter, box, density) - Combina multiple variabili estetiche - Aggiungi statistiche riassuntive dove appropriato"
+  },
+  {
+    "objectID": "materials/exercises.html#challenge-2-visual-storytelling",
+    "href": "materials/exercises.html#challenge-2-visual-storytelling",
+    "title": "ggplot2 Exercises",
+    "section": "Challenge 2: Visual Storytelling",
+    "text": "Challenge 2: Visual Storytelling\n\nDataset: gapminder\nObiettivo: Crea una narrazione visiva dell’evoluzione mondiale usando il dataset gapminder: 1. Trend di aspettativa di vita nel tempo 2. Relazioni tra PIL e salute 3. Disparità tra regioni 4. Cambiamenti demografici\ninstall.packages(\"gapminder\")\nlibrary(gapminder)\nSuggerimenti: - Usa animazioni temporali - Combina più indicatori - Evidenzia pattern chiave"
+  },
+  {
+    "objectID": "materials/exercises.html#challenge-3-theme-designer",
+    "href": "materials/exercises.html#challenge-3-theme-designer",
+    "title": "ggplot2 Exercises",
+    "section": "Challenge 3: Theme Designer",
+    "text": "Challenge 3: Theme Designer\n\nDataset: A scelta\nObiettivo: Crea un tema personalizzato professionale: 1. Definisci una palette colori coerente 2. Personalizza tutti gli elementi grafici 3. Crea funzioni helper per applicare il tema 4. Documenta le scelte di design\nSuggerimenti: - Considera accessibilità - Mantieni coerenza - Testa con diversi tipi di grafici"
+  },
+  {
+    "objectID": "materials/exercises.html#risorse-e-riferimenti-1",
+    "href": "materials/exercises.html#risorse-e-riferimenti-1",
+    "title": "ggplot2 Exercises",
+    "section": "Risorse e Riferimenti",
+    "text": "Risorse e Riferimenti\n\n\nR Graph Gallery - Esempi e codice\nTidyTuesday - Dataset settimanali\nggplot2 Extensions\nData Visualization Society\nCoolors - Generatore palette colori\n\nProssimi Passi\n\nCondividi i tuoi grafici sul canale Slack\nChiedi e offri feedback\nSperimenta con nuove tecniche\nCostruisci il tuo portfolio 🎨\n\n\n\nChiedi feedback e suggerimenti\nImpara dalle soluzioni degli altri 🎨 :::"
   }
 ]

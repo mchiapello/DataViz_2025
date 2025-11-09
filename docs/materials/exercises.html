@@ -9,7 +9,8 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.7.32">
 
-  <title>Data Visualization con ggplot2 – Esercizi</title>
+  <meta name="author" content="Marco Chiapello">
+  <title>Data Visualization con ggplot2 – ggplot2 Exercises</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -94,11 +95,13 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2c1b5f745a11cfad616ebade4a4a7d24.css">
   <link rel="stylesheet" href="presentation-style.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -192,358 +195,543 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Esercizi</h1>
+<section id="title-slide" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-opacity="0.1" data-background-size="cover" class="quarto-title-block center">
+  <h1 class="title">ggplot2 Exercises</h1>
+  <p class="subtitle">Workshop Practice: From Basics to Advanced</p>
 
 <div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Marco Chiapello 
+</div>
+</div>
 </div>
 
 </section>
-<section id="esercizi-giorno-1" class="slide level2">
-<h2>Esercizi Giorno 1</h2>
-<h3 id="esercizio-1.1-primo-scatterplot">Esercizio 1.1: Primo Scatterplot</h3>
-<p>Usa il dataset <code>penguins</code> per creare uno scatterplot che mostri:</p>
-<ul>
-<li>X axis: <code>flipper_length_mm</code></li>
-<li>Y axis: <code>body_mass_g</code></li>
-<li>Color: <code>species</code></li>
-<li>Add appropriate labels</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb1-3"><a></a></span>
-<span id="cb1-4"><a></a><span class="co"># Il tuo codice qui</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<details>
-<summary>
-💡 Soluzione
-</summary>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(flipper_length_mm, body_mass_g, <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb2-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb2-3"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb2-4"><a></a>    <span class="at">title =</span> <span class="st">"Relazione tra Lunghezza Pinne e Massa Corporea"</span>,</span>
-<span id="cb2-5"><a></a>    <span class="at">x =</span> <span class="st">"Lunghezza Pinne (mm)"</span>,</span>
-<span id="cb2-6"><a></a>    <span class="at">y =</span> <span class="st">"Massa Corporea (g)"</span>,</span>
-<span id="cb2-7"><a></a>    <span class="at">color =</span> <span class="st">"Specie"</span></span>
-<span id="cb2-8"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb2-9"><a></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</details>
-</section>
-<section class="slide level2">
+<section>
+<section id="estetiche-e-mappature" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>1. Estetiche e Mappature</h1>
 
-<h3 id="esercizio-1.2-bar-chart-con-facets">Esercizio 1.2: Bar Chart con Facets</h3>
-<p>Crea un bar chart che mostri:</p>
-<ul>
-<li>Il conteggio di pinguini per <code>island</code></li>
-<li>Diviso per <code>species</code> usando facets</li>
-<li>Colora le barre per <code>sex</code></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># Il tuo codice qui</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<details>
-<summary>
-💡 Soluzione
-</summary>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(island, <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
-<span id="cb4-2"><a></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb4-3"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species) <span class="sc">+</span></span>
-<span id="cb4-4"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb4-5"><a></a>    <span class="at">title =</span> <span class="st">"Distribuzione Pinguini per Isola, Specie e Sesso"</span>,</span>
-<span id="cb4-6"><a></a>    <span class="at">x =</span> <span class="st">"Isola"</span>,</span>
-<span id="cb4-7"><a></a>    <span class="at">y =</span> <span class="st">"Conteggio"</span>,</span>
-<span id="cb4-8"><a></a>    <span class="at">fill =</span> <span class="st">"Sesso"</span></span>
-<span id="cb4-9"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb4-10"><a></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</details>
 </section>
-<section class="slide level2">
+<section id="color-base" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Color Base</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Creare scatter plot di <code>displ</code> vs <code>hwy</code>, colorando per <code>drv</code> (tipo trazione)</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>aes()</code> per mappare il colore - Considera la leggibilità dei colori</p>
+</div>
+</section>
+<section id="color-continuo" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Color Continuo</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Scatter plot <code>displ</code> vs <code>hwy</code>, con color basato su <code>cty</code> (consumo città)</p>
+<p><strong>Suggerimenti</strong>: - Osserva come cambia la legenda con variabile continua - Considera il gradiente di colori</p>
+</div>
+</section>
+<section id="color-con-linee" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Color con Linee</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: economics</p>
+<p><strong>Obiettivo</strong>: Line plot di <code>date</code> vs <code>unemploy</code>, colorando per anno</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>lubridate::year()</code> o <code>format(date, "%Y")</code> - Considera come il colore aiuta a distinguere i periodi</p>
+</div>
+</section>
+<section id="shape-e-size" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Shape e Size</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Scatter plot <code>displ</code> vs <code>hwy</code>: - Shape basato su <code>drv</code> - Size basato su <code>cyl</code> - Color basato su <code>class</code></p>
+<p><strong>Suggerimenti</strong>: - Combina multiple estetiche - Controlla leggibilità con alpha</p>
+</div>
+</section>
+<section id="palette-personalizzate" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Palette Personalizzate</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Scatter plot con palette custom: 1. Usa <code>scale_color_brewer()</code> con palette “Set1” 2. Ripeti con <code>scale_color_viridis_d()</code> 3. Confronta i risultati</p>
+<p><strong>Suggerimenti</strong>: - Considera accessibilità colori - Valuta efficacia per i tuoi dati</p>
+</div>
+</section></section>
+<section>
+<section id="facets-e-coordinate" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>2. Facets e Coordinate</h1>
 
-<h3 id="esercizio-1.3-histogram-e-density">Esercizio 1.3: Histogram e Density</h3>
-<p>Crea due grafici della distribuzione di <code>body_mass_g</code>:</p>
+</section>
+<section id="facet-wrap-base" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Facet Wrap Base</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Scatter plot <code>displ</code> vs <code>hwy</code>, facet per <code>class</code></p>
+<p><strong>Suggerimenti</strong>: - Usa <code>facet_wrap()</code> - Considera layout e leggibilità</p>
+</div>
+</section>
+<section id="facet-grid" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Facet Grid</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Scatter plot <code>displ</code> vs <code>hwy</code>: - Facet grid con <code>drv</code> (righe) e <code>cyl</code> (colonne) - Colora per <code>class</code></p>
+<p><strong>Suggerimenti</strong>: - Usa <code>facet_grid()</code> - Valuta dimensioni celle</p>
+</div>
+</section>
+<section id="scale-libere" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Scale Libere</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Confronta comportamento scale: 1. Facet wrap con scale fisse 2. Ripeti con <code>scales = "free_y"</code> 3. Ripeti con <code>scales = "free"</code></p>
+<p><strong>Suggerimenti</strong>: - Osserva differenze visualizzazione - Considera quando usare scale libere</p>
+</div>
+</section>
+<section id="coordinate-flip" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Coordinate Flip</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Box plot di <code>hwy</code> per <code>class</code>: - Prima versione verticale - Seconda versione con <code>coord_flip()</code> - Ordina per mediana</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>reorder()</code> per ordinamento - Valuta leggibilità etichette</p>
+</div>
+</section>
+<section id="zoom-con-coord-cartesian" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Zoom con Coord Cartesian</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: diamonds</p>
+<p><strong>Obiettivo</strong>: Scatter plot <code>carat</code> vs <code>price</code>: 1. Plot completo 2. Zoom su area interessante con <code>coord_cartesian()</code> 3. Confronta con <code>xlim()</code> e <code>ylim()</code></p>
+<p><strong>Suggerimenti</strong>: - Osserva differenze tra metodi - Considera statistiche calcolate</p>
+</div>
+</section></section>
+<section>
+<section id="scale-e-trasformazioni" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>3. Scale e Trasformazioni</h1>
+
+</section>
+<section id="scale-logaritmiche" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Scale Logaritmiche</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: diamonds</p>
+<p><strong>Obiettivo</strong>: Scatter plot <code>carat</code> vs <code>price</code>: - Applica scala log10 a entrambi gli assi - Aggiungi linea di tendenza - Confronta con versione non trasformata</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>scale_*_log10()</code> - Valuta linearizzazione relazione</p>
+</div>
+</section>
+<section id="breaks-personalizzati" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Breaks Personalizzati</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Scatter plot <code>displ</code> vs <code>hwy</code>: - X: breaks ogni 0.5 unità - Y: breaks a 15, 20, 25, 30, 35 - Aggiungi labels informativi</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>breaks</code> e <code>labels</code> - Considera spaziatura e leggibilità</p>
+</div>
+</section>
+<section id="scale-di-colore" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Scale di Colore</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Bar plot di <code>class</code>: 1. Colora per <code>drv</code> 2. Usa palette “Set2” di RColorBrewer 3. Personalizza labels della legenda</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>scale_fill_brewer()</code> - Considera armonia colori</p>
+</div>
+</section>
+<section id="scale-con-limiti" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Scale con Limiti</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: diamonds</p>
+<p><strong>Obiettivo</strong>: Scatter plot <code>carat</code> vs <code>price</code>: - Limita x a 0-3 carati - Limita y a 0-15000 dollari - Confronta <code>limits</code> vs <code>coord_cartesian()</code></p>
+<p><strong>Suggerimenti</strong>: - Osserva effetti su outliers - Considera statistiche calcolate</p>
+</div>
+</section>
+<section id="transform-data" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Transform Data</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: diamonds</p>
+<p><strong>Obiettivo</strong>: Confronta metodi di trasformazione: 1. <code>scale_y_log10()</code> 2. <code>coord_trans(y = "log10")</code> 3. Trasforma direttamente i dati</p>
+<p><strong>Suggerimenti</strong>: - Osserva differenze nei risultati - Considera pros e cons</p>
+</div>
+</section></section>
+<section>
+<section id="temi-e-personalizzazione" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>4. Temi e Personalizzazione</h1>
+
+</section>
+<section id="theme-base" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Theme Base</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Confronta temi standard: 1. <code>theme_gray()</code> 2. <code>theme_bw()</code> 3. <code>theme_minimal()</code> 4. <code>theme_classic()</code></p>
+<p><strong>Suggerimenti</strong>: - Osserva differenze estetiche - Valuta contesti d’uso</p>
+</div>
+</section>
+<section id="personalizzazione-elementi" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Personalizzazione Elementi</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Modifica elementi grafici: - Aumenta dimensione testo assi - Ruota etichette x di 45° - Personalizza colore griglia - Modifica spessore linee</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>theme()</code> con <code>element_text()</code> - Considera leggibilità</p>
+</div>
+</section>
+<section id="titoli-e-caption" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Titoli e Caption</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: diamonds</p>
+<p><strong>Obiettivo</strong>: Aggiungi elementi testuali: - Titolo su due righe - Sottotitolo informativo - Caption con fonte dati - Note laterali</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>labs()</code> o <code>ggtitle()</code> - Formatta con <code>theme()</code></p>
+</div>
+</section>
+<section id="theme-completo" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Theme Completo</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: economics</p>
+<p><strong>Obiettivo</strong>: Crea tema personalizzato: - Background colorato chiaro - Griglia principale sottile - No griglia secondaria - Font specifico per titoli - Palette colori coerente</p>
+<p><strong>Suggerimenti</strong>: - Crea funzione per riuso - Mantieni coerenza</p>
+</div>
+</section>
+<section id="legend-styling" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Legend Styling</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Personalizza legenda: - Posizione in basso - Orientamento orizzontale - Titolo personalizzato - Bordo e background</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>theme(legend.*)</code> - Considera spazio disponibile</p>
+</div>
+</section></section>
+<section>
+<section id="visualizzazioni-avanzate" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>5. Visualizzazioni Avanzate</h1>
+
+</section>
+<section id="density-2d" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Density 2D</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: diamonds</p>
+<p><strong>Obiettivo</strong>: Visualizza densità 2D: - Base: scatter plot - Aggiungi contorni densità - Usa filled contours - Personalizza palette</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>geom_density2d()</code> - Esplora <code>geom_density2d_filled()</code></p>
+</div>
+</section>
+<section id="plots-combinati" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Plots Combinati</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Combina visualizzazioni: - Box plot principale - Violin plot sovrapposto - Punti jittered - Colore per gruppo</p>
+<p><strong>Suggerimenti</strong>: - Usa alpha per trasparenza - Controlla ordine layer</p>
+</div>
+</section>
+<section id="annotazioni-smart" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Annotazioni Smart</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: economics</p>
+<p><strong>Obiettivo</strong>: Aggiungi annotazioni: - Line plot base - Evidenzia punti chiave - Aggiungi frecce - Testo descrittivo</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>annotate()</code> - Posiziona elementi con cura</p>
+</div>
+</section>
+<section id="time-series-avanzate" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Time Series Avanzate</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: economics</p>
+<p><strong>Obiettivo</strong>: Visualizzazione complessa: - Trend principale - Bande di confidenza - Eventi evidenziati - Multiple variabili</p>
+<p><strong>Suggerimenti</strong>: - Combina geometrie - Usa scale appropriate</p>
+</div>
+</section>
+<section id="grafici-statistici" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Grafici Statistici</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: diamonds</p>
+<p><strong>Obiettivo</strong>: Aggiungi elementi statistici: - Linea di regressione - Intervalli di confidenza - Barre di errore - Test statistici</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>stat_*()</code> functions - Considera incertezza</p>
+</div>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: diamonds</p>
+<p><strong>Obiettivo</strong>: Crea una dashboard completa: 1. Almeno 5 grafici diversi 2. Focus su relazioni interessanti 3. Combina multiple tecniche 4. Aggiungi annotazioni informative</p>
+<p><strong>Suggerimenti</strong>: - Usa patchwork per layout - Mantieni coerenza visiva - Racconta una storia</p>
+</div>
+</section>
+<section id="visual-storytelling" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Visual Storytelling</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: gapminder</p>
+<p><strong>Obiettivo</strong>: Crea una narrazione visiva: 1. Trend temporali 2. Relazioni tra variabili 3. Confronti tra gruppi 4. Highlight insights chiave</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># Install if needed</span></span>
+<span id="cb1-2"><a></a><span class="fu">install.packages</span>(<span class="st">"gapminder"</span>)</span>
+<span id="cb1-3"><a></a><span class="fu">library</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Suggerimenti</strong>: - Usa animazioni - Sfrutta faceting - Aggiungi annotazioni</p>
+</div>
+</section>
+<section id="theme-designer" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Theme Designer</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: A scelta</p>
+<p><strong>Obiettivo</strong>: Design sistema grafico: 1. Palette colori coerente 2. Sistema typography 3. Griglia e spaziature 4. Templates riutilizzabili</p>
+<p><strong>Suggerimenti</strong>: - Documenta scelte - Testa accessibilità - Crea funzioni helper</p>
+</div>
+</section>
+<section id="color-continuo-1" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Color Continuo</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Scatter plot <code>displ</code> vs <code>hwy</code>, con color basato su <code>cty</code> (consumo città)</p>
+<p><strong>Suggerimenti</strong>: - Osserva come cambia la legenda con variabile continua - Considera il gradiente di colori</p>
+</div>
+<p>:::</p>
+</section></section>
+<section>
+<section id="estetiche-e-mappature-1" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>1. Estetiche e Mappature</h1>
+
+</section>
+<section id="color-discreto-base" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Color Discreto Base</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Creare uno scatter plot per esplorare la relazione tra cilindrata (displ) e consumo autostrada (hwy).</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>geom_point()</code> - X axis: <code>displ</code> - Y axis: <code>hwy</code></p>
+</div>
+</section>
+<section id="scatter-plot-avanzato" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Scatter Plot Avanzato</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Migliora il grafico precedente:</p>
 <ol type="1">
-<li>Un histogram con 30 bins</li>
-<li>Un density plot colorato per specie</li>
+<li>Aggiungi trasparenza per gestire l’overplotting (<code>alpha = 0.4</code>)</li>
+<li>Aggiungi una linea di tendenza lineare rossa</li>
+<li>Aggiungi una linea LOESS blu</li>
 </ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co"># Il tuo codice qui</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Suggerimenti</strong>: - Usa <code>geom_smooth()</code> con diversi <code>method</code> - Imposta i colori appropriati</p>
 </div>
-<details>
-<summary>
-💡 Soluzione
-</summary>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="co"># Histogram</span></span>
-<span id="cb6-2"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(body_mass_g)) <span class="sc">+</span></span>
-<span id="cb6-3"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb6-4"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb6-5"><a></a>    <span class="at">title =</span> <span class="st">"Distribuzione Massa Corporea"</span>,</span>
-<span id="cb6-6"><a></a>    <span class="at">x =</span> <span class="st">"Massa Corporea (g)"</span>,</span>
-<span id="cb6-7"><a></a>    <span class="at">y =</span> <span class="st">"Conteggio"</span></span>
-<span id="cb6-8"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb6-9"><a></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb6-10"><a></a></span>
-<span id="cb6-11"><a></a><span class="co"># Density plot</span></span>
-<span id="cb6-12"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(body_mass_g, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
-<span id="cb6-13"><a></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb6-14"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb6-15"><a></a>    <span class="at">title =</span> <span class="st">"Distribuzione Massa Corporea per Specie"</span>,</span>
-<span id="cb6-16"><a></a>    <span class="at">x =</span> <span class="st">"Massa Corporea (g)"</span>,</span>
-<span id="cb6-17"><a></a>    <span class="at">y =</span> <span class="st">"Densità"</span>,</span>
-<span id="cb6-18"><a></a>    <span class="at">fill =</span> <span class="st">"Specie"</span></span>
-<span id="cb6-19"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb6-20"><a></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</details>
-</section>
-<section class="slide level2">
+</section></section>
+<section>
+<section id="facets-e-coordinate-1" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>2. Facets e Coordinate</h1>
 
-<h3 id="esercizio-1.4-boxplot-complesso">Esercizio 1.4: Boxplot Complesso</h3>
-<p>Crea un boxplot che mostri:</p>
-<ul>
-<li>Y axis: <code>bill_length_mm</code></li>
-<li>X axis: <code>species</code></li>
-<li>Fill color: <code>island</code></li>
-<li>Usa <code>position = "dodge"</code> per separare i boxplot</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="co"># Il tuo codice qui</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<details>
-<summary>
-💡 Soluzione
-</summary>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(species, bill_length_mm, <span class="at">fill =</span> island)) <span class="sc">+</span></span>
-<span id="cb8-2"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb8-3"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb8-4"><a></a>    <span class="at">title =</span> <span class="st">"Lunghezza Becco per Specie e Isola"</span>,</span>
-<span id="cb8-5"><a></a>    <span class="at">x =</span> <span class="st">"Specie"</span>,</span>
-<span id="cb8-6"><a></a>    <span class="at">y =</span> <span class="st">"Lunghezza Becco (mm)"</span>,</span>
-<span id="cb8-7"><a></a>    <span class="at">fill =</span> <span class="st">"Isola"</span></span>
-<span id="cb8-8"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb8-9"><a></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</details>
 </section>
-<section id="esercizi-giorno-2" class="slide level2">
-<h2>Esercizi Giorno 2</h2>
-<h3 id="esercizio-2.1-scale-e-trasformazioni">Esercizio 2.1: Scale e Trasformazioni</h3>
-<p>Usando il dataset <code>diamonds</code>, crea uno scatterplot di <code>carat</code> vs <code>price</code>:</p>
-<ul>
-<li>Usa trasformazione logaritmica per entrambi gli assi</li>
-<li>Colora i punti per <code>cut</code></li>
-<li>Usa una palette viridis</li>
-<li>Aggiungi trasparenza ai punti</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="co"># Il tuo codice qui</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="facet-wrap-base-1" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Facet Wrap Base</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Creare scatter plot <code>displ</code> vs <code>hwy</code>, facet per <code>class</code></p>
+<p><strong>Suggerimenti</strong>: - Usa <code>facet_wrap()</code> - Considera il layout automatico</p>
 </div>
-<details>
-<summary>
-💡 Soluzione
-</summary>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(carat, price, <span class="at">color =</span> cut)) <span class="sc">+</span></span>
-<span id="cb10-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb10-3"><a></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
-<span id="cb10-4"><a></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span></span>
-<span id="cb10-5"><a></a>  <span class="fu">scale_color_viridis_d</span>() <span class="sc">+</span></span>
-<span id="cb10-6"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb10-7"><a></a>    <span class="at">title =</span> <span class="st">"Prezzo vs Carati (scala logaritmica)"</span>,</span>
-<span id="cb10-8"><a></a>    <span class="at">x =</span> <span class="st">"Carati (log scale)"</span>,</span>
-<span id="cb10-9"><a></a>    <span class="at">y =</span> <span class="st">"Prezzo (log scale)"</span>,</span>
-<span id="cb10-10"><a></a>    <span class="at">color =</span> <span class="st">"Taglio"</span></span>
-<span id="cb10-11"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb10-12"><a></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</details>
 </section>
-<section class="slide level2">
-
-<h3 id="esercizio-2.2-theme-personalizzato">Esercizio 2.2: Theme Personalizzato</h3>
-<p>Crea un theme personalizzato chiamato <code>theme_my_style()</code> che:</p>
-<ul>
-<li>Usa <code>theme_minimal()</code> come base</li>
-<li>Ha sfondo grigio chiaro</li>
-<li>Titolo centrato e in grassetto</li>
-<li>Legenda in basso</li>
-<li>Rimuove le linee di griglia minori</li>
-</ul>
-<p>Applicalo a un grafico a tua scelta.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="co"># Il tuo codice qui</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="controllo-colonne" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Controllo Colonne</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Stesso plot del precedente, ma con esattamente 3 colonne</p>
+<p><strong>Suggerimenti</strong>: - Usa il parametro <code>ncol</code> - Valuta la leggibilità del layout</p>
 </div>
-<details>
-<summary>
-💡 Soluzione
-</summary>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>theme_my_style <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb12-2"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb12-3"><a></a>    <span class="fu">theme</span>(</span>
-<span id="cb12-4"><a></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>),</span>
-<span id="cb12-5"><a></a>      <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"gray95"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
-<span id="cb12-6"><a></a>      <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb12-7"><a></a>      <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb12-8"><a></a>      <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>)</span>
-<span id="cb12-9"><a></a>    )</span>
-<span id="cb12-10"><a></a>}</span>
-<span id="cb12-11"><a></a></span>
-<span id="cb12-12"><a></a><span class="co"># Applicarlo</span></span>
-<span id="cb12-13"><a></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(species, body_mass_g, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
-<span id="cb12-14"><a></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb12-15"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribuzione Massa Corporea per Specie"</span>) <span class="sc">+</span></span>
-<span id="cb12-16"><a></a>  <span class="fu">theme_my_style</span>() <span class="sc">+</span></span>
-<span id="cb12-17"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</details>
 </section>
-<section class="slide level2">
-
-<h3 id="esercizio-2.3-grafici-combinati">Esercizio 2.3: Grafici Combinati</h3>
-<p>Usando il dataset <code>penguins</code>, crea 4 grafici e combinali con <code>patchwork</code>:</p>
+<section id="histogram-con-facet" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Histogram con Facet</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Histogram di <code>hwy</code>, facet per <code>drv</code> (tipo trazione) - Usa <code>bins = 15</code></p>
+<p><strong>Suggerimenti</strong>: - Confronta le distribuzioni tra gruppi - Considera se le scale devono essere fisse o libere</p>
+</div>
+</section>
+<section id="facet-con-aesthetic" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Facet con Aesthetic</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Scatter <code>displ</code> vs <code>hwy</code> - Color per <code>drv</code> - Facet per <code>class</code></p>
+<p><strong>Suggerimenti</strong>: - Combina color e facets per multidimensionalità - Valuta la complessità dell’informazione</p>
+</div>
+</section>
+<section id="facet-grid-2d" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Facet Grid 2D</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Scatter <code>displ</code> vs <code>hwy</code> - Facet grid con <code>drv</code> (righe) e <code>cyl</code> (colonne)</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>facet_grid()</code> - Considera la leggibilità della griglia</p>
+</div>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: diamonds</p>
+<p><strong>Obiettivo</strong>: Crea visualizzazioni della distribuzione del peso dei diamanti (<code>carat</code>):</p>
 <ol type="1">
-<li>Bar chart del conteggio per specie</li>
-<li>Boxplot di body_mass_g per specie</li>
-<li>Scatterplot flipper_length vs body_mass_g colorato per specie</li>
-<li>Density plot di bill_length_mm per specie</li>
+<li>Crea un istogramma con 30 bins</li>
+<li>Sperimenta con bins diversi (10, 40, 100)</li>
+<li>Aggiungi una curva di densità sovrapposta</li>
 </ol>
-<p>Disponi i grafici in un layout 2x2 con un titolo generale.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb13-2"><a></a></span>
-<span id="cb13-3"><a></a><span class="co"># Il tuo codice qui</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Suggerimenti</strong>: - Usa <code>geom_histogram()</code> - Per la densità, imposta <code>aes(y = after_stat(density))</code></p>
 </div>
-<details>
-<summary>
-💡 Soluzione
-</summary>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb14-2"><a></a></span>
-<span id="cb14-3"><a></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(species, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
-<span id="cb14-4"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb14-5"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Conteggio"</span>) <span class="sc">+</span></span>
-<span id="cb14-6"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb14-7"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
-<span id="cb14-8"><a></a></span>
-<span id="cb14-9"><a></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(species, body_mass_g, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
-<span id="cb14-10"><a></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb14-11"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Massa Corporea"</span>) <span class="sc">+</span></span>
-<span id="cb14-12"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb14-13"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
-<span id="cb14-14"><a></a></span>
-<span id="cb14-15"><a></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(flipper_length_mm, body_mass_g, <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb14-16"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb14-17"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Pinne vs Massa"</span>) <span class="sc">+</span></span>
-<span id="cb14-18"><a></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb14-19"><a></a></span>
-<span id="cb14-20"><a></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(bill_length_mm, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
-<span id="cb14-21"><a></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb14-22"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Lunghezza Becco"</span>) <span class="sc">+</span></span>
-<span id="cb14-23"><a></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb14-24"><a></a></span>
-<span id="cb14-25"><a></a>(p1 <span class="sc">|</span> p2) <span class="sc">/</span> (p3 <span class="sc">|</span> p4) <span class="sc">+</span></span>
-<span id="cb14-26"><a></a>  <span class="fu">plot_annotation</span>(</span>
-<span id="cb14-27"><a></a>    <span class="at">title =</span> <span class="st">"Analisi Multi-pannello Pinguini Palmer"</span>,</span>
-<span id="cb14-28"><a></a>    <span class="at">tag_levels =</span> <span class="st">"A"</span></span>
-<span id="cb14-29"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</details>
-</section>
-<section class="slide level2">
+</section></section>
+<section>
+<section id="scale-e-trasformazioni-1" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>3. Scale e Trasformazioni</h1>
 
-<h3 id="esercizio-2.4-visualizzazione-pubblicazione">Esercizio 2.4: Visualizzazione Pubblicazione</h3>
-<p>Crea un grafico publication-ready con:</p>
-<ul>
-<li>Dataset: <code>mpg</code></li>
-<li>Scatterplot di <code>displ</code> vs <code>hwy</code></li>
-<li>Smooth line per ogni <code>class</code> di auto</li>
-<li>Scala colori ColorBrewer “Set2”</li>
-<li>Theme pulito e professionale</li>
-<li>Titolo, sottotitolo e caption</li>
-<li>Dimensioni appropriate per pubblicazione (width=10, height=6)</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="co"># Il tuo codice qui</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<details>
-<summary>
-💡 Soluzione
-</summary>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>plot_publication <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb16-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb16-3"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb16-4"><a></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set2"</span>) <span class="sc">+</span></span>
-<span id="cb16-5"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb16-6"><a></a>    <span class="at">title =</span> <span class="st">"Fuel Economy vs Engine Displacement"</span>,</span>
-<span id="cb16-7"><a></a>    <span class="at">subtitle =</span> <span class="st">"Analysis by vehicle class"</span>,</span>
-<span id="cb16-8"><a></a>    <span class="at">x =</span> <span class="st">"Engine Displacement (liters)"</span>,</span>
-<span id="cb16-9"><a></a>    <span class="at">y =</span> <span class="st">"Highway Miles per Gallon"</span>,</span>
-<span id="cb16-10"><a></a>    <span class="at">color =</span> <span class="st">"Vehicle Class"</span>,</span>
-<span id="cb16-11"><a></a>    <span class="at">caption =</span> <span class="st">"Data source: EPA (1999-2008)"</span></span>
-<span id="cb16-12"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb16-13"><a></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb16-14"><a></a>  <span class="fu">theme</span>(</span>
-<span id="cb16-15"><a></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>),</span>
-<span id="cb16-16"><a></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"gray40"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb16-17"><a></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"gray60"</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
-<span id="cb16-18"><a></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb16-19"><a></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb16-20"><a></a>    <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">"gray80"</span>, <span class="at">fill =</span> <span class="cn">NA</span>)</span>
-<span id="cb16-21"><a></a>  )</span>
-<span id="cb16-22"><a></a></span>
-<span id="cb16-23"><a></a><span class="co"># Salvare</span></span>
-<span id="cb16-24"><a></a><span class="fu">ggsave</span>(</span>
-<span id="cb16-25"><a></a>  <span class="st">"fuel_economy_publication.png"</span>,</span>
-<span id="cb16-26"><a></a>  <span class="at">plot =</span> plot_publication,</span>
-<span id="cb16-27"><a></a>  <span class="at">width =</span> <span class="dv">10</span>,</span>
-<span id="cb16-28"><a></a>  <span class="at">height =</span> <span class="dv">6</span>,</span>
-<span id="cb16-29"><a></a>  <span class="at">dpi =</span> <span class="dv">300</span>,</span>
-<span id="cb16-30"><a></a>  <span class="at">bg =</span> <span class="st">"white"</span></span>
-<span id="cb16-31"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</details>
 </section>
-<section id="progetti-challenge" class="slide level2">
-<h2>Progetti Challenge 🏆</h2>
-<h3 id="challenge-1-explorer">Challenge 1: Explorer</h3>
-<p>Esplora il dataset <code>diamonds</code> e crea almeno 5 visualizzazioni diverse che rivelino insights interessanti sui dati.</p>
-<h3 id="challenge-2-storyteller">Challenge 2: Storyteller</h3>
-<p>Usando i dataset <code>gapminder</code> (pacchetto gapminder), crea una storia visiva che mostri l’evoluzione della vita nel mondo negli ultimi decenni.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="co"># install.packages("gapminder")</span></span>
-<span id="cb17-2"><a></a><span class="fu">library</span>(gapminder)</span>
-<span id="cb17-3"><a></a><span class="fu">data</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="limiti-e-breaks" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Limiti e Breaks</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Scatter plot personalizzato: - X axis: <code>displ</code> (limiti 2-7, breaks ogni 1 unità) - Y axis: <code>hwy</code> (limiti 15-40) - Titoli assi: “Cilindrata (L)” e “Consumo autostrada (mpg)”</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>scale_x_continuous()</code> e <code>scale_y_continuous()</code></p>
 </div>
-<h3 id="challenge-3-designer">Challenge 3: Designer</h3>
-<p>Ricrea il tuo grafico preferito da un giornale/pubblicazione usando ggplot2 e dati pubblici.</p>
 </section>
-<section id="risorse-aggiuntive" class="slide level2">
-<h2>Risorse Aggiuntive</h2>
+<section id="coord-cartesian-vs-limits" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Coord Cartesian vs Limits</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Confronta due metodi di zoom: 1. <code>scale_y_continuous(limits = c(10, 30))</code> 2. <code>coord_cartesian(ylim = c(10, 30))</code></p>
+<p><strong>Suggerimenti</strong>: - Osserva le differenze nelle statistiche - Considera quando usare l’uno o l’altro</p>
+</div>
+</section>
+<section id="trasformazione-log" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Trasformazione Log</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: diamonds</p>
+<p><strong>Obiettivo</strong>: Scatter plot <code>carat</code> vs <code>price</code>: - Applica scala logaritmica a entrambi gli assi - Aggiungi trend lineare - Imposta <code>alpha = 0.1</code> per i punti</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>scale_x_log10()</code> e <code>scale_y_log10()</code> - Osserva come cambia la relazione</p>
+</div>
+</section>
+<section id="breaks-custom" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Breaks Custom</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mtcars</p>
+<p><strong>Obiettivo</strong>: Scatter plot <code>wt</code> vs <code>mpg</code> con breaks personalizzati: - X: punti 2, 3, 4, 5 - Y: ogni 5 unità (10, 15, 20, 25, 30)</p>
+<p><strong>Suggerimenti</strong>: - Usa il parametro <code>breaks</code> nelle scale - Considera la leggibilità degli intervalli</p>
+</div>
+</section>
+<section id="scale-reverse" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Scale Reverse</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mtcars</p>
+<p><strong>Obiettivo</strong>: Bar chart orizzontale di <code>mpg</code>: - Ordina le auto per consumo - Inverti l’ordine con <code>scale_y_reverse()</code> - Usa <code>coord_flip()</code> per orientamento orizzontale</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>reorder()</code> per l’ordinamento - Considera la direzione naturale della lettura</p>
+</div>
+</section>
+<section id="size-e-shape" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Size e Shape</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Combina diverse estetiche:</p>
+<ol type="1">
+<li>Scatter plot di <code>displ</code> vs <code>hwy</code></li>
+<li>Dimensione punti basata su <code>cyl</code></li>
+<li>Forma punti basata su <code>drv</code></li>
+<li>Colore punti basato su <code>class</code></li>
+<li>Aggiungi trasparenza appropriata</li>
+</ol>
+<p><strong>Suggerimenti</strong>: - Usa <code>scale_size_continuous()</code> - Imposta limiti di size appropriati</p>
+</div>
+</section></section>
+<section>
+<section id="temi-e-personalizzazione-1" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>4. Temi e Personalizzazione</h1>
+
+</section>
+<section id="confronto-temi-base" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Confronto Temi Base</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Crea due scatter plot identici (<code>displ</code> vs <code>hwy</code>): 1. Uno con <code>theme_gray()</code> 2. Uno con <code>theme_minimal()</code></p>
+<p><strong>Suggerimenti</strong>: - Confronta differenze estetiche - Considera contesti d’uso appropriati</p>
+</div>
+</section>
+<section id="theme-classic-per-pubblicazioni" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Theme Classic per Pubblicazioni</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Boxplot di <code>hwy</code> per classe di veicolo: - Usa <code>theme_classic()</code> - Adatta per pubblicazioni scientifiche</p>
+<p><strong>Suggerimenti</strong>: - Considera convenzioni accademiche - Valuta leggibilità e professionalità</p>
+</div>
+</section>
+<section id="personalizzazione-background" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Personalizzazione Background</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Partendo da <code>theme_minimal()</code>: - Plot background: azzurro chiaro - Panel background: bianco - Panel border: nero, spesso</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>theme()</code> con <code>element_rect()</code> - Considera il contrasto visivo</p>
+</div>
+</section>
+<section id="labels-e-titoli" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Labels e Titoli</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Scatter plot completo con: - Titolo su due righe - Sottotitolo in grigio - Caption allineata a destra - Assi con labels descrittivi</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>labs()</code> per testi - <code>theme()</code> per formattazione</p>
+</div>
+</section>
+<section id="griglia-e-assi" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Griglia e Assi</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: economics</p>
+<p><strong>Obiettivo</strong>: Line plot con personalizzazione griglia: - Rimuovi griglia minore - Griglia maggiore rossa tratteggiata - Ruota etichette asse x di 45°</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>element_blank()</code> per rimuovere - <code>element_line()</code> per stile linee</p>
+</div>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Confronta distribuzioni con grafici diversi:</p>
+<ol type="1">
+<li>Crea un boxplot di <code>hwy</code> per ogni <code>class</code></li>
+<li>Aggiungi un violin plot sovrapposto</li>
+<li>Usa colori appropriati per distinguere i gruppi</li>
+<li>Aggiungi punti individuali con jitter</li>
+</ol>
+<p><strong>Suggerimenti</strong>: - Usa <code>geom_boxplot()</code> e <code>geom_violin()</code> - Controlla la trasparenza per la sovrapposizione</p>
+</div>
+</section>
+<section id="visualizzazione-time-series" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Visualizzazione Time Series</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: economics</p>
+<p><strong>Obiettivo</strong>: Crea una visualizzazione avanzata dei dati temporali:</p>
+<ol type="1">
+<li>Line plot di <code>unemploy</code> nel tempo</li>
+<li>Aggiungi una banda di confidenza (±500)</li>
+<li>Usa colori appropriati per linea e banda</li>
+<li>Aggiungi etichette informative</li>
+</ol>
+<p><strong>Suggerimenti</strong>: - Usa <code>geom_line()</code> e <code>geom_ribbon()</code> - Personalizza la trasparenza della banda</p>
+</div>
+</section></section>
+<section>
+<section id="visualizzazioni-avanzate-1" class="title-slide slide level1 center" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h1>5. Visualizzazioni Avanzate</h1>
+
+</section>
+<section id="density-2d-1" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Density 2D</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: diamonds</p>
+<p><strong>Obiettivo</strong>: Visualizza relazione <code>carat</code> vs <code>price</code>: - Usa <code>geom_density2d()</code> - Aggiungi mappa di calore con <code>geom_density2d_filled()</code> - Personalizza scala colori</p>
+<p><strong>Suggerimenti</strong>: - Gestisci overplotting - Considera la densità dei contorni</p>
+</div>
+</section>
+<section id="annotazioni-e-testo" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Annotazioni e Testo</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: mpg</p>
+<p><strong>Obiettivo</strong>: Scatter plot con annotazioni: - Evidenzia punti interessanti - Aggiungi frecce e testo - Posiziona labels senza sovrapposizioni</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>geom_text()</code> o <code>geom_label()</code> - <code>annotate()</code> per elementi specifici</p>
+</div>
+</section>
+<section id="composizione-grafici" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Composizione Grafici</h2>
+<div style="font-size: 0.8em;">
+<p><strong>Dataset</strong>: diamonds</p>
+<p><strong>Obiettivo</strong>: Crea una dashboard: - Scatter plot principale - Histogrammi marginali - Box plot laterale - Titolo comune</p>
+<p><strong>Suggerimenti</strong>: - Usa <code>patchwork</code> - Considera proporzioni e allineamento</p>
+</div>
+</section>
+<section id="risorse-e-riferimenti" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
+<h2>Risorse e Riferimenti</h2>
+<div style="font-size: 0.8em;">
 <ul>
 <li><a href="https://r-graph-gallery.com/">R Graph Gallery</a> - Esempi e codice</li>
 <li><a href="https://github.com/rfordatascience/tidytuesday">TidyTuesday</a> - Dataset settimanali</li>
-<li><a href="https://stackoverflow.com/questions/tagged/ggplot2">Stack Overflow - ggplot2</a></li>
+<li><a href="https://exts.ggplot2.tidyverse.org/">ggplot2 Extensions</a></li>
+<li><a href="https://www.datavisualizationsociety.org/">Data Visualization Society</a></li>
+<li><a href="https://coolors.co/">Coolors</a> - Generatore palette colori</li>
 </ul>
-</section>
-<section id="condividi-il-tuo-lavoro" class="slide level2">
-<h2>Condividi il Tuo Lavoro!</h2>
-<p>Condividi i tuoi grafici sul canale Slack del corso! 🎨</p>
+<h3 id="prossimi-passi">Prossimi Passi</h3>
+<ul>
+<li>Condividi i tuoi grafici sul canale Slack</li>
+<li>Chiedi e offri feedback</li>
+<li>Sperimenta con nuove tecniche</li>
+<li>Costruisci il tuo portfolio 🎨</li>
+</ul>
+</div>
 
 
-</section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="images/ggplot2_logo.jpg" class="slide-logo"></p>
 <div class="footer footer-default">
-
+<p>REVELO Training - Data Viz 2025</p>
 </div>
 </div></div>
 
@@ -554,6 +742,7 @@
   <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
   <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -575,7 +764,8 @@
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true,"width":"normal","numbers":true},
+'chalkboard': {"buttons":true},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -596,7 +786,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -701,7 +891,7 @@
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'none',
+        transition: 'slide',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',
@@ -746,7 +936,7 @@
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
 
           RevealMath,
           RevealNotes,
@@ -922,6 +1112,9 @@
         }
       });
       </script>
+    <div class="home-button" style="position: fixed; top: 10px; left: 10px; z-index: 100;">
+      <a href="../../index.html" style="padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; font-size: 16px;">⌂ Home</a>
+    </div>
     
 
 </body></html>
