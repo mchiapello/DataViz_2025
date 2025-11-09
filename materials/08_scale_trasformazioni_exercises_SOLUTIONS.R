@@ -44,7 +44,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   )
 
 # Note: limits rimuove dati fuori range (warning). Per zoom, usa coord_cartesian()
-
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  coord_cartesian(xlim = c(2, 7), ylim = c(15, 40))
 
 ## Esercizio 1.2: coord_cartesian vs limits --------------------------
 # Obiettivo: Comprendere la differenza tra zoom e filtraggio
