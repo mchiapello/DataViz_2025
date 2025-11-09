@@ -11,10 +11,11 @@ format:
     logo: images/ggplot2_logo.jpg
     footer: "REVELO Training - Data Viz 2025"
     css: presentation-style.css
-    include-after-body: |
-      <div style="position: fixed; right: 30px; top: 30px; z-index: 999">
-        <a href="../../index.html" style="color: white; text-decoration: none; border: 2px solid #4287f5; padding: 8px 15px; border-radius: 5px; background-color: #4287f5;">🏠 Home</a>
-      </div>
+    include-after-body: 
+      text: |
+        <div class="home-button" style="position: fixed; top: 10px; left: 10px; z-index: 100;">
+          <a href="../../index.html" style="padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; font-size: 16px;">⌂ Home</a>
+        </div>
     title-slide-attributes:
       data-background-image: images/frequency-wave-7776034_1280.jpg
       data-background-size: cover
