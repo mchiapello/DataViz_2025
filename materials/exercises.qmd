@@ -1,6 +1,6 @@
 ---
-title: "ggplot2 Exercises"
-subtitle: "Workshop Practice: From Basics to Advanced"
+title: "Data Visualization con ggplot2"
+subtitle: "Guida agli Esercizi Pratici"
 author: "Marco Chiapello"
 format: 
   revealjs:
@@ -29,802 +29,926 @@ resources:
   - presentation-style.css
 ---
 
-# 1. Estetiche e Mappature {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Benvenuti agli Esercizi! {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-## Color Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+::: {style="font-size: 0.85em;"}
+Questa presentazione vi guiderà attraverso gli esercizi pratici del corso.
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+**Struttura:**
 
-**Obiettivo**: Creare scatter plot di `displ` vs `hwy`, colorando per `drv` (tipo trazione)
+- 📁 File `.R` con esercizi pratici
+- 📁 File `_SOLUTIONS.R` con le soluzioni
+- 🎯 Obiettivi chiari per ogni esercizio
+- 💡 Suggerimenti per aiutarvi
 
-**Suggerimenti**:
-- Usa `aes()` per mappare il colore
-- Considera la leggibilità dei colori
+**Come procedere:**
+
+1. Aprite il file R corrispondente
+2. Leggete l'obiettivo dell'esercizio
+3. Scrivete il codice
+4. Verificate il risultato
+5. Confrontate con le soluzioni
 :::
 
-## Color Continuo {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Approccio Pratico {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+::: {style="font-size: 0.85em;"}
+**Imparare Facendo**
 
-**Obiettivo**: Scatter plot `displ` vs `hwy`, con color basato su `cty` (consumo città)
-
-**Suggerimenti**:
-- Osserva come cambia la legenda con variabile continua
-- Considera il gradiente di colori
+::: {.incremental}
+- Non abbiate paura di sbagliare
+- Sperimentate con variazioni
+- Chiedete aiuto quando necessario
+- Confrontatevi con i compagni
+- Le soluzioni sono una guida, non l'unica via
 :::
 
-## Color con Linee {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+**Ricordate:**
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: economics
-
-**Obiettivo**: Line plot di `date` vs `unemploy`, colorando per anno
-
-**Suggerimenti**:
-- Usa `lubridate::year()` o `format(date, "%Y")`
-- Considera come il colore aiuta a distinguere i periodi
+> "La pratica rende perfetti. Ogni errore è un'opportunità di apprendimento!"
 :::
 
-## Shape e Size {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+# Modulo 4: Geometrie Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## File: `04_geometrie_base_exercises.R` {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+**30 esercizi suddivisi in 6 parti:**
 
-**Obiettivo**: Scatter plot `displ` vs `hwy`:
-- Shape basato su `drv`
-- Size basato su `cyl`
-- Color basato su `class`
+1. **Relazioni tra Variabili** (Es. 1-6)
+   - Scatter plots, trend lines, time series
 
-**Suggerimenti**:
-- Combina multiple estetiche
-- Controlla leggibilità con alpha
+2. **Distribuzioni - 1 Variabile** (Es. 7-12)
+   - Histograms, density plots, frequency polygons
+
+3. **Distribuzioni - 2 Variabili** (Es. 13-16)
+   - Bin2D, hexbin, density 2D
+
+4. **Statistiche Riassuntive** (Es. 17-21)
+   - Boxplots, violin plots, bar charts
+
+5. **Incertezza e Intervalli** (Es. 22-24)
+   - Error bars, pointrange, ribbons
+
+6. **Combinazioni Avanzate** (Es. 25-30)
 :::
 
-## Palette Personalizzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 1: Relazioni tra Variabili {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+::: {style="font-size: 0.75em;"}
+**Esercizi 1-4: Scatter Plots**
 
-**Obiettivo**: Scatter plot con palette custom:
-1. Usa `scale_color_brewer()` con palette "Set1"
-2. Ripeti con `scale_color_viridis_d()`
-3. Confronta i risultati
+- Es. 1: Scatter plot base (`displ` vs `hwy`)
+- Es. 2: Ridurre overplotting con `alpha`
+- Es. 3: Aggiungere trend lineare
+- Es. 4: Confrontare trend lineare vs LOESS
 
-**Suggerimenti**:
-- Considera accessibilità colori
-- Valuta efficacia per i tuoi dati
+**Esercizi 5-6: Series Temporali**
+
+- Es. 5: Line plot con `economics`
+- Es. 6: `geom_path()` vs `geom_line()`
+
+**Obiettivo:** Imparare a visualizzare relazioni tra variabili continue
 :::
 
-# 2. Facets e Coordinate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 2: Distribuzioni (1 Variabile) {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-## Facet Wrap Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+::: {style="font-size: 0.75em;"}
+**Esercizi 7-12: Visualizzare Distribuzioni**
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+- Es. 7-8: Histograms e sperimentare con `bins`
+- Es. 9-10: Density plots e combinazioni
+- Es. 11: Frequency polygon
+- Es. 12: Dotplot per dataset piccoli
 
-**Obiettivo**: Scatter plot `displ` vs `hwy`, facet per `class`
+**Concetti chiave:**
 
-**Suggerimenti**:
-- Usa `facet_wrap()`
-- Considera layout e leggibilità
+- Scegliere il numero giusto di bins
+- Quando usare density vs histogram
+- Combinare geometrie diverse
+
+**Dataset:** `diamonds`, `mpg`, `faithful`
 :::
 
-## Facet Grid {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 3: Distribuzioni (2 Variabili) {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+::: {style="font-size: 0.75em;"}
+**Esercizi 13-16: Big Data Solutions**
 
-**Obiettivo**: Scatter plot `displ` vs `hwy`:
-- Facet grid con `drv` (righe) e `cyl` (colonne)
-- Colora per `class`
+- Es. 13: `geom_bin2d()` per dati densi
+- Es. 14: `geom_hex()` come alternativa
+- Es. 15: Contorni di densità 2D
+- Es. 16: Mappe di calore con densità
 
-**Suggerimenti**:
-- Usa `facet_grid()`
-- Valuta dimensioni celle
+**Quando usare:**
+
+- Dataset molto grandi
+- Overplotting severo
+- Identificare zone di alta densità
+
+**Attenzione:** Es. 14 richiede il pacchetto `hexbin`
 :::
 
-## Scale Libere {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 4: Statistiche Riassuntive {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+::: {style="font-size: 0.75em;"}
+**Esercizi 17-21: Confronti tra Gruppi**
 
-**Obiettivo**: Confronta comportamento scale:
-1. Facet wrap con scale fisse
-2. Ripeti con `scales = "free_y"`
-3. Ripeti con `scales = "free"`
+- Es. 17-18: Boxplot vs Violin plot
+- Es. 19: Combinare geometrie (violin + boxplot)
+- Es. 20: Bar chart per conteggi
+- Es. 21: `geom_col()` per dati aggregati
 
-**Suggerimenti**:
-- Osserva differenze visualizzazione
-- Considera quando usare scale libere
+**Abilità da acquisire:**
+
+- Scegliere visualizzazione appropriata
+- Interpretare mediane e quartili
+- Preparare dati per `geom_col()`
+
+**Tip:** `geom_bar()` conta automaticamente, `geom_col()` usa valori già aggregati
 :::
 
-## Coordinate Flip {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 5: Incertezza e Intervalli {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+::: {style="font-size: 0.75em;"}
+**Esercizi 22-24: Visualizzare l'Incertezza**
 
-**Obiettivo**: Box plot di `hwy` per `class`:
-- Prima versione verticale
-- Seconda versione con `coord_flip()`
-- Ordina per mediana
+- Es. 22: Error bars con deviazione standard
+- Es. 23: `geom_pointrange()` compatto
+- Es. 24: `geom_ribbon()` per serie temporali
 
-**Suggerimenti**:
-- Usa `reorder()` per ordinamento
-- Valuta leggibilità etichette
+**Importanza:**
+
+- Comunicare l'incertezza nei dati
+- Mostrare intervalli di confidenza
+- Visualizzare range di valori
+
+**Dataset:** Utilizza dati aggregati con statistiche riassuntive
 :::
 
-## Zoom con Coord Cartesian {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 6: Combinazioni Avanzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: diamonds
+::: {style="font-size: 0.75em;"}
+**Esercizi 25-30: Multi-layer Plots**
 
-**Obiettivo**: Scatter plot `carat` vs `price`:
-1. Plot completo
-2. Zoom su area interessante con `coord_cartesian()`
-3. Confronta con `xlim()` e `ylim()`
+- Es. 25: `geom_rug()` + punti + smooth
+- Es. 26: Histogram sovrapposti con frequency polygon
+- Es. 27: Boxplot orizzontale
+- Es. 28: Density 2D + punti
+- Es. 29: Smooth con CI personalizzato
+- Es. 30: Boxplot con notch
 
-**Suggerimenti**:
-- Osserva differenze tra metodi
-- Considera statistiche calcolate
+**Challenge:** Combinare 3+ geometrie in modo efficace e leggibile
 :::
 
-# 3. Scale e Trasformazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+# Modulo 5: Estetiche e Mappature {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-## Scale Logaritmiche {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## File: `05_estetiche_mappature_exercises.R` {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ::: {style="font-size: 0.8em;"}
-**Dataset**: diamonds
+**30 esercizi suddivisi in 6 parti:**
 
-**Obiettivo**: Scatter plot `carat` vs `price`:
-- Applica scala log10 a entrambi gli assi
-- Aggiungi linea di tendenza
-- Confronta con versione non trasformata
+1. **Color Aesthetic** (Es. 1-5)
+   - Discreto, continuo, palette
 
-**Suggerimenti**:
-- Usa `scale_*_log10()`
-- Valuta linearizzazione relazione
+2. **Fill Aesthetic** (Es. 6-10)
+   - Bar charts, density, histograms
+
+3. **Size e Shape** (Es. 11-15)
+   - Mappature multiple
+
+4. **Alpha (Trasparenza)** (Es. 16-21)
+   - Gestire overplotting
+
+5. **Mapping vs Setting** (Es. 22-25)
+   - Differenze fondamentali
+
+6. **Combinazioni Avanzate** (Es. 26-30)
 :::
 
-## Breaks Personalizzati {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 1: Color Aesthetic {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+::: {style="font-size: 0.75em;"}
+**Esercizi 1-5: Colore come Variabile Visiva**
 
-**Obiettivo**: Scatter plot `displ` vs `hwy`:
-- X: breaks ogni 0.5 unità
-- Y: breaks a 15, 20, 25, 30, 35
-- Aggiungi labels informativi
+- Es. 1: Color per variabile discreta (`drv`)
+- Es. 2: Color per variabile continua (`cty`)
+- Es. 3: Colorare linee per anno
+- Es. 4: Palette Viridis
+- Es. 5: Gradient personalizzato
 
-**Suggerimenti**:
-- Usa `breaks` e `labels`
-- Considera spaziatura e leggibilità
+**Concetti:**
+
+- Differenza tra colore discreto e continuo
+- Scegliere palette appropriate
+- Accessibilità dei colori
+
+**Scale:** `scale_color_*()` per punti e linee
 :::
 
-## Scale di Colore {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 2: Fill Aesthetic {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+::: {style="font-size: 0.75em;"}
+**Esercizi 6-10: Riempimento per Aree**
 
-**Obiettivo**: Bar plot di `class`:
-1. Colora per `drv`
-2. Usa palette "Set2" di RColorBrewer
-3. Personalizza labels della legenda
+- Es. 6: Fill per bar chart
+- Es. 7: Density con fill + alpha
+- Es. 8: Color (bordo) e fill insieme
+- Es. 9: Histogram con position dodge
+- Es. 10: Boxplot con fill
 
-**Suggerimenti**:
-- Usa `scale_fill_brewer()`
-- Considera armonia colori
+**Differenza fondamentale:**
+
+- `color`: bordi di forme e colore di punti/linee
+- `fill`: riempimento interno di aree
+
+**Scale:** `scale_fill_*()` per aree
 :::
 
-## Scale con Limiti {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 3: Size e Shape {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: diamonds
+::: {style="font-size: 0.75em;"}
+**Esercizi 11-15: Dimensione e Forma**
 
-**Obiettivo**: Scatter plot `carat` vs `price`:
-- Limita x a 0-3 carati
-- Limita y a 0-15000 dollari
-- Confronta `limits` vs `coord_cartesian()`
+- Es. 11: Size continuo basato su `cyl`
+- Es. 12: Combinare size + color
+- Es. 13: Shape discreto per `drv`
+- Es. 14: Ridondanza shape + color
+- Es. 15: Shape personalizzato (21-25)
 
-**Suggerimenti**:
-- Osserva effetti su outliers
-- Considera statistiche calcolate
+**Best Practices:**
+
+- Size per variabili quantitative
+- Shape per max 6 categorie
+- Forme 21-25 hanno bordo E riempimento
+
+**Accessibilità:** Ridondanza aiuta daltonici
 :::
 
-## Transform Data {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 4: Alpha (Trasparenza) {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: diamonds
+::: {style="font-size: 0.75em;"}
+**Esercizi 16-21: Gestire la Trasparenza**
 
-**Obiettivo**: Confronta metodi di trasformazione:
-1. `scale_y_log10()`
-2. `coord_trans(y = "log10")`
-3. Trasforma direttamente i dati
+- Es. 16: Alpha fisso per overplotting massivo
+- Es. 17: Alpha come variabile
+- Es. 18: Alpha con density plots
+- Es. 19: Alpha in ribbons
+- Es. 20: Jitter con alpha
+- Es. 21: Boxplot + punti sovrapposti
 
-**Suggerimenti**:
-- Osserva differenze nei risultati
-- Considera pros e cons
+**Uso strategico:**
+
+- Alpha basso (0.1-0.3) per dati densi
+- Alpha medio (0.4-0.6) per sovrapposizioni
+- Alpha come variabile (raro ma possibile)
 :::
 
-# 4. Temi e Personalizzazione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 5: Mapping vs Setting {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-## Theme Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+::: {style="font-size: 0.7em;"}
+**Esercizi 22-25: Errore Comune da Evitare!**
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+- Es. 22: Identificare l'errore `color = "blue"` in `aes()`
+- Es. 23: Mapping corretto + setting
+- Es. 24: Mix di mapping e setting
+- Es. 25: Position dodge con fill
 
-**Obiettivo**: Confronta temi standard:
-1. `theme_gray()`
-2. `theme_bw()`
-3. `theme_minimal()`
-4. `theme_classic()`
+**Regola d'oro:**
 
-**Suggerimenti**:
-- Osserva differenze estetiche
-- Valuta contesti d'uso
-:::
+::: {.callout-important}
+## DENTRO vs FUORI aes()
 
-## Personalizzazione Elementi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
-
-**Obiettivo**: Modifica elementi grafici:
-- Aumenta dimensione testo assi
-- Ruota etichette x di 45°
-- Personalizza colore griglia
-- Modifica spessore linee
-
-**Suggerimenti**:
-- Usa `theme()` con `element_text()`
-- Considera leggibilità
-:::
-
-## Titoli e Caption {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: diamonds
-
-**Obiettivo**: Aggiungi elementi testuali:
-- Titolo su due righe
-- Sottotitolo informativo
-- Caption con fonte dati
-- Note laterali
-
-**Suggerimenti**:
-- Usa `labs()` o `ggtitle()`
-- Formatta con `theme()`
-:::
-
-## Theme Completo {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: economics
-
-**Obiettivo**: Crea tema personalizzato:
-- Background colorato chiaro
-- Griglia principale sottile
-- No griglia secondaria
-- Font specifico per titoli
-- Palette colori coerente
-
-**Suggerimenti**:
-- Crea funzione per riuso
-- Mantieni coerenza
-:::
-
-## Legend Styling {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
-
-**Obiettivo**: Personalizza legenda:
-- Posizione in basso
-- Orientamento orizzontale
-- Titolo personalizzato
-- Bordo e background
-
-**Suggerimenti**:
-- Usa `theme(legend.*)`
-- Considera spazio disponibile
-:::
-
-# 5. Visualizzazioni Avanzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-## Density 2D {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: diamonds
-
-**Obiettivo**: Visualizza densità 2D:
-- Base: scatter plot
-- Aggiungi contorni densità
-- Usa filled contours
-- Personalizza palette
-
-**Suggerimenti**:
-- Usa `geom_density2d()`
-- Esplora `geom_density2d_filled()`
-:::
-
-## Plots Combinati {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
-
-**Obiettivo**: Combina visualizzazioni:
-- Box plot principale
-- Violin plot sovrapposto
-- Punti jittered
-- Colore per gruppo
-
-**Suggerimenti**:
-- Usa alpha per trasparenza
-- Controlla ordine layer
-:::
-
-## Annotazioni Smart {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: economics
-
-**Obiettivo**: Aggiungi annotazioni:
-- Line plot base
-- Evidenzia punti chiave
-- Aggiungi frecce
-- Testo descrittivo
-
-**Suggerimenti**:
-- Usa `annotate()`
-- Posiziona elementi con cura
-:::
-
-## Time Series Avanzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: economics
-
-**Obiettivo**: Visualizzazione complessa:
-- Trend principale
-- Bande di confidenza
-- Eventi evidenziati
-- Multiple variabili
-
-**Suggerimenti**:
-- Combina geometrie
-- Usa scale appropriate
-:::
-
-## Grafici Statistici {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: diamonds
-
-**Obiettivo**: Aggiungi elementi statistici:
-- Linea di regressione
-- Intervalli di confidenza
-- Barre di errore
-- Test statistici
-
-**Suggerimenti**:
-- Usa `stat_*()` functions
-- Considera incertezza
-:::
-
-
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: diamonds
-
-**Obiettivo**: Crea una dashboard completa:
-1. Almeno 5 grafici diversi
-2. Focus su relazioni interessanti
-3. Combina multiple tecniche
-4. Aggiungi annotazioni informative
-
-**Suggerimenti**:
-- Usa patchwork per layout
-- Mantieni coerenza visiva
-- Racconta una storia
-:::
-
-## Visual Storytelling {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: gapminder
-
-**Obiettivo**: Crea una narrazione visiva:
-1. Trend temporali
-2. Relazioni tra variabili
-3. Confronti tra gruppi
-4. Highlight insights chiave
+- **DENTRO `aes()`**: Mapping da **variabile** a estetica
+- **FUORI `aes()`**: Setting di valore **fisso**
 
 ```r
-# Install if needed
-install.packages("gapminder")
-library(gapminder)
+# CORRETTO
+aes(x = displ, color = class) + geom_point(size = 3)
+
+# SBAGLIATO
+aes(x = displ, color = "blue") + geom_point()
+```
+:::
+:::
+
+## Parte 6: Combinazioni Avanzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Esercizi 26-30: Multidimensionalità**
+
+- Es. 26: Quattro variabili (x, y, color, size)
+- Es. 27: Ridondanza per accessibilità
+- Es. 28: Bubble chart
+- Es. 29: Gradient divergente con punto centrale
+- Es. 30: Massima complessità (5 variabili)
+
+**Attenzione:**
+
+- Non sovraccaricare il grafico
+- Mantenere leggibilità
+- Considerare il pubblico
+
+**Limite consigliato:** Max 4-5 estetiche mappate
+:::
+
+# Modulo 7: Facets e Coordinate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## File: `07_facets_coordinate_exercises.R` {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**30 esercizi suddivisi in 6 parti:**
+
+1. **Facet Wrap Basics** (Es. 1-5)
+2. **Facet Grid** (Es. 6-10)
+3. **Scale Control** (Es. 11-15)
+4. **Coordinate Systems** (Es. 16-20)
+5. **Coordinate Transformations** (Es. 21-25)
+6. **Combinazioni Avanzate** (Es. 26-30)
+
+**Concetto chiave:** Small multiples per confronti efficaci
+:::
+
+## Parte 1-2: Faceting {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Facet Wrap (Es. 1-5):**
+
+- Layout automatico flessibile
+- Controllo numero colonne
+- Una variabile di faceting
+- Esempi: time series per decade
+
+**Facet Grid (Es. 6-10):**
+
+- Layout matriciale strutturato
+- Due variabili (righe × colonne)
+- Formula: `righe ~ colonne`
+- Alternativa: `vars()` notation
+
+**Quando usare cosa:**
+
+- Wrap: numero variabile di pannelli
+- Grid: confronti strutturati 2D
+:::
+
+## Parte 3: Scale Control {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Esercizi 11-15: Gestire gli Assi**
+
+- Es. 11: Scale fisse (default)
+- Es. 12: `scales = "free"` (X e Y liberi)
+- Es. 13: `scales = "free_x"` (solo X)
+- Es. 14: `scales = "free_y"` (solo Y)
+- Es. 15: Quando NON usare free scales
+
+**Trade-off importante:**
+
+- Scale fisse: facile confronto tra pannelli
+- Scale libere: dettaglio ottimizzato per pannello
+- Dipende dall'obiettivo analitico
+
+**Attenzione:** Free scales può ingannare!
+:::
+
+## Parte 4: Coordinate Systems {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Esercizi 16-20: Sistemi di Coordinate**
+
+- Es. 16: `coord_flip()` per labels lunghe
+- Es. 17: `coord_cartesian()` per zoom corretto
+- Es. 18: `coord_fixed()` per aspect ratio 1:1
+- Es. 19: `coord_polar()` per pie chart
+- Es. 20: Radar/bullseye chart
+
+**Funzioni chiave:**
+
+- `coord_flip()`: scambia X e Y
+- `coord_cartesian()`: zoom senza perdere dati
+- `coord_fixed()`: aspect ratio fisso
+- `coord_polar()`: coordinate polari
+
+**Nota:** Evitate pie charts quando possibile!
+:::
+
+## Parte 5: Trasformazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Esercizi 21-25: Scale vs Coord**
+
+- Es. 21: `scale_*_log10()` 
+- Es. 22: `coord_trans()` alternativa
+- Es. 23: Trasformazione sqrt
+- Es. 24: Impatto su smooth lines
+- Es. 25: `xlim()` vs `coord_cartesian()`
+
+**Differenza critica:**
+
+- `scale_*()`: trasforma PRIMA delle statistiche
+- `coord_trans()`: trasforma DOPO le statistiche
+- `xlim()`: **rimuove** dati fuori range
+- `coord_cartesian()`: **zoom** visivo
+
+**Regola:** Usate `coord_cartesian()` per zoom sicuro
+:::
+
+## Parte 6: Combinazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Esercizi 26-30: Tecniche Integrate**
+
+- Es. 26: Facets + coord_flip
+- Es. 27: Facets + zoom
+- Es. 28: Facets + free scales + log
+- Es. 29: Grid + multiple aesthetics
+- Es. 30: Best practice showcase
+
+**Best Practice Finale:**
+
+- Combinate tecniche con criterio
+- Mantenete leggibilità
+- Usate annotazioni (vlines, hlines)
+- Testate su pubblico reale
+
+**Challenge:** Creare small multiples informativi e belli
+:::
+
+# Modulo 8: Scale e Trasformazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## File: `08_scale_trasformazioni_exercises.R` {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.8em;"}
+**30+ esercizi suddivisi in 6 parti:**
+
+1. **Scale Continue** (5 esercizi)
+2. **Trasformazioni** (5 esercizi)
+3. **Scale Colore Discrete** (5 esercizi)
+4. **Scale Colore Continue** (5 esercizi)
+5. **Scale Dimensione e Forma** (5 esercizi)
+6. **Formattazione Avanzata** (5 esercizi + bonus)
+
+**Richiede:** `library(scales)` per formattazione
+:::
+
+## Parte 1: Scale Continue {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Esercizi 1-5: Controllare Assi Numerici**
+
+- Limiti e breaks personalizzati
+- `coord_cartesian()` vs `limits`
+- Expand e padding
+- Breaks custom
+- Combinare più parametri
+
+**Parametri chiave:**
+
+- `limits`: range dell'asse
+- `breaks`: posizione tick marks
+- `labels`: testo etichette
+- `expand`: padding ai bordi
+
+**Ricorda:** `coord_cartesian()` non altera statistiche!
+:::
+
+## Parte 2: Trasformazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Esercizi 6-10: Trasformare i Dati**
+
+- Log10 per relazioni esponenziali
+- Sqrt per conteggi
+- Reverse per ranking
+- Trasformazioni con breaks custom
+
+**Quando usare:**
+
+- **Log**: crescita esponenziale, ordini di grandezza
+- **Sqrt**: varianza proporzionale a media (conteggi)
+- **Reverse**: classifiche (migliore → peggiore)
+
+**Best Practice:** Mantenere interpretabilità delle scale
+:::
+
+## Parte 3-4: Scale Colori {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.7em;"}
+**Discrete (Es. 11-15):**
+
+- ColorBrewer qualitative
+- Viridis discrete
+- Colori manuali
+- Invertire palette
+- Consistenza color + fill
+
+**Continue (Es. 16-20):**
+
+- Gradient 2 colori
+- Viridis continuous
+- Diverging (gradient2)
+- Gradientn (multipli colori)
+- Limiti e breaks colori
+
+**Accessibilità:**
+
+::: {.callout-tip}
+## Palette Consigliate
+- **Viridis**: ottima per daltonici + stampa B/N
+- **ColorBrewer**: testata per accessibilità
+- **Evitare:** rosso-verde classico
+:::
+:::
+
+## Parte 5: Size e Shape {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Esercizi 21-25: Dimensioni e Forme**
+
+- `scale_size()` vs `scale_size_area()`
+- Gestire valori zero
+- Shape manual
+- Filled shapes (21-25)
+- Combinare size + color
+
+**Percettività:**
+
+- `scale_size_area()` è **sempre** preferibile
+- Area proporzionale al valore (non raggio)
+- Verifica che zero → zero area
+
+**Forme speciali:** 21-25 hanno bordo + riempimento (doppio controllo)
+:::
+
+## Parte 6: Formattazione Avanzata {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+::: {style="font-size: 0.75em;"}
+**Esercizi 26-30: Package `scales`**
+
+- `scales::comma` per separatori migliaia
+- `scales::percent` per percentuali
+- `scales::dollar` per valute
+- Formattazione date
+- Labels custom con funzioni
+
+**Funzioni utili:**
+
+```r
+scale_y_continuous(labels = scales::comma)
+scale_y_continuous(labels = scales::percent)
+scale_y_continuous(labels = scales::dollar)
+scale_x_date(date_labels = "%b %Y")
 ```
 
-**Suggerimenti**:
-- Usa animazioni
-- Sfrutta faceting
-- Aggiungi annotazioni
+**Esercizi Bonus:** Grafici publication-ready completi
 :::
 
-## Theme Designer {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+# Modulo 9: Temi e Personalizzazione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## File: `09_themes_personalizzazione_exercises.R` {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ::: {style="font-size: 0.8em;"}
-**Dataset**: A scelta
+**30 esercizi suddivisi in 6 parti:**
 
-**Obiettivo**: Design sistema grafico:
-1. Palette colori coerente
-2. Sistema typography
-3. Griglia e spaziature
-4. Templates riutilizzabili
+1. **Temi Predefiniti** (5 esercizi)
+2. **Funzione theme() Basics** (5 esercizi)
+3. **Funzioni element_*()** (5 esercizi)
+4. **Labels e Titoli** (5 esercizi)
+5. **Personalizzazione Legende** (5 esercizi)
+6. **Temi Custom e Export** (5 esercizi)
 
-**Suggerimenti**:
-- Documenta scelte
-- Testa accessibilità
-- Crea funzioni helper
+**Focus:** Aspetto professionale dei grafici
 :::
 
-## Color Continuo {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 1: Temi Predefiniti {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+::: {style="font-size: 0.75em;"}
+**Esercizi 1-5: Temi Built-in**
 
-**Obiettivo**: Scatter plot `displ` vs `hwy`, con color basato su `cty` (consumo città)
+- `theme_gray()`: default di ggplot2
+- `theme_minimal()`: pulito, moderno
+- `theme_classic()`: pubblicazioni scientifiche
+- `theme_bw()`: bianco e nero, stampa
+- `theme_void()`: minimalista estremo
+- `theme_dark()`: presentazioni
 
-**Suggerimenti**:
-- Osserva come cambia la legenda con variabile continua
-- Considera il gradiente di colori
+**Contesti d'uso:**
+
+- Pubblicazioni: `theme_classic()` o `theme_bw()`
+- Presentazioni: `theme_minimal()` o `theme_dark()`
+- Web: `theme_minimal()`
+- Esplorativa: default va bene
+
+**Tip:** Tutti accettano `base_size` per scala globale
 :::
 
-# 1. Estetiche e Mappature {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 2-3: theme() e element_*() {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-## Color Discreto Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+::: {style="font-size: 0.7em;"}
+**Anatomia della Funzione theme():**
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+Ogni elemento grafico controllabile con `element_*()`:
 
-**Obiettivo**: Creare uno scatter plot per esplorare la relazione tra cilindrata (displ) e consumo autostrada (hwy).
+- `element_text()`: testo (size, face, color, angle, hjust, vjust)
+- `element_line()`: linee (color, size, linetype)
+- `element_rect()`: rettangoli (fill, color, size)
+- `element_blank()`: rimuovere elemento
 
-**Suggerimenti**:
-- Usa `geom_point()`
-- X axis: `displ`
-- Y axis: `hwy`
+**Elementi principali:**
+
+```r
+theme(
+  plot.title = element_text(...),      # Titolo
+  axis.text.x = element_text(...),     # Labels asse X
+  axis.line = element_line(...),       # Linee assi
+  panel.background = element_rect(...), # Sfondo pannello
+  panel.grid.major = element_line(...), # Griglia
+  legend.position = "bottom"            # Posizione legenda
+)
+```
 :::
 
-## Scatter Plot Avanzato {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 4: Labels e Titoli {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+::: {style="font-size: 0.75em;"}
+**Esercizi 14-18: Annotazioni Complete**
 
-**Obiettivo**: Migliora il grafico precedente:
+Funzione `labs()` per tutti i testi:
 
-1. Aggiungi trasparenza per gestire l'overplotting (`alpha = 0.4`)
-2. Aggiungi una linea di tendenza lineare rossa
-3. Aggiungi una linea LOESS blu
+```r
+labs(
+  title = "Titolo Principale",
+  subtitle = "Sottotitolo descrittivo",
+  caption = "Fonte: Dataset X",
+  x = "Asse X",
+  y = "Asse Y",
+  color = "Legenda colori",
+  fill = "Legenda riempimento"
+)
+```
 
-**Suggerimenti**:
-- Usa `geom_smooth()` con diversi `method`
-- Imposta i colori appropriati
+**Best Practices:**
+
+- Titolo: chiaro e informativo
+- Subtitle: contesto aggiuntivo
+- Caption: fonte dati, note metodologiche
+- Assi: unità di misura incluse
 :::
 
-# 2. Facets e Coordinate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 5: Legende {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-## Facet Wrap Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+::: {style="font-size: 0.75em;"}
+**Esercizi 19-23: Controllo Legende**
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+**Posizionamento:**
 
-**Obiettivo**: Creare scatter plot `displ` vs `hwy`, facet per `class`
+- `legend.position = "none"`: rimuovi
+- `"top"`, `"bottom"`, `"left"`, `"right"`: bordi
+- `c(x, y)`: coordinate 0-1 dentro il plot
 
-**Suggerimenti**:
-- Usa `facet_wrap()`
-- Considera il layout automatico
+**Personalizzazione:**
+
+- `legend.direction`: "horizontal" o "vertical"
+- `legend.title`: element_text() per titolo
+- `legend.text`: element_text() per labels
+- `legend.background`: element_rect() per sfondo
+
+**guides():** override aesthetics nelle chiavi
 :::
 
-## Controllo Colonne {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 6: Temi Custom e Export {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+::: {style="font-size: 0.75em;"}
+**Esercizi 24-30: Professionalità**
 
-**Obiettivo**: Stesso plot del precedente, ma con esattamente 3 colonne
+**Creare tema riutilizzabile:**
 
-**Suggerimenti**:
-- Usa il parametro `ncol`
-- Valuta la leggibilità del layout
+```r
+theme_mio <- function() {
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    axis.text = element_text(size = 12),
+    legend.position = "bottom"
+  )
+}
+```
+
+**Export con ggsave():**
+
+```r
+ggsave("plot.png", width = 10, height = 6, dpi = 300)
+ggsave("plot.pdf", width = 10, height = 6)
+```
+
+**DPI consigliati:** 72 (web), 150 (presentazioni), 300 (pubblicazioni)
 :::
 
-## Histogram con Facet {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+# Modulo 10: Visualizzazioni Avanzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+
+## File: `10_visualizzazioni_avanzate_exercises.R` {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+**30 esercizi suddivisi in 6 parti:**
 
-**Obiettivo**: Histogram di `hwy`, facet per `drv` (tipo trazione)
-- Usa `bins = 15`
+1. **Patchwork Base** (6 esercizi)
+2. **Patchwork Avanzato** (6 esercizi)
+3. **ggrepel** (4 esercizi)
+4. **Heatmaps** (6 esercizi)
+5. **Volcano Plots** (6 esercizi)
+6. **Combinazioni Avanzate** (2 esercizi)
 
-**Suggerimenti**:
-- Confronta le distribuzioni tra gruppi
-- Considera se le scale devono essere fisse o libere
+**Pacchetti richiesti:** `patchwork`, `ggrepel`
 :::
 
-## Facet con Aesthetic {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 1-2: Patchwork {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+::: {style="font-size: 0.75em;"}
+**Combinare Grafici - Sintassi Intuitiva:**
 
-**Obiettivo**: Scatter `displ` vs `hwy`
-- Color per `drv`
-- Facet per `class`
+```r
+# Operatori base
+p1 + p2           # Affiancati
+p1 / p2           # Sovrapposti
+(p1 + p2) / p3    # Layout complesso
 
-**Suggerimenti**:
-- Combina color e facets per multidimensionalità
-- Valuta la complessità dell'informazione
+# Controllo layout
+p1 + p2 + plot_layout(widths = c(2, 1))
+p1 + p2 + plot_layout(guides = "collect")
+
+# Annotazioni globali
+(p1 + p2) + plot_annotation(
+  title = "Multi-panel",
+  tag_levels = "A"
+)
+
+# Tema globale
+(p1 + p2) & theme_minimal()
+```
+
+**Es. 10:** Design custom con stringhe `"AAB\nCCC"`
 :::
 
-## Facet Grid 2D {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 3: ggrepel {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+::: {style="font-size: 0.75em;"}
+**Esercizi 13-16: Labels Senza Sovrapposizioni**
 
-**Obiettivo**: Scatter `displ` vs `hwy`
-- Facet grid con `drv` (righe) e `cyl` (colonne)
+**Problema:** `geom_text()` sovrappone le etichette
 
-**Suggerimenti**:
-- Usa `facet_grid()`
-- Considera la leggibilità della griglia
+**Soluzione:** `ggrepel` con algoritmi intelligenti
+
+```r
+# Testo semplice
+geom_text_repel(aes(label = name))
+
+# Box con sfondo
+geom_label_repel(aes(label = name),
+                 box.padding = 0.5,
+                 point.padding = 0.3)
+
+# Controllo direzione
+geom_text_repel(direction = "y")  # solo verticale
+```
+
+**Use case:** Scatter plots con molti punti da etichettare
 :::
 
-# 3. Scale e Trasformazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 4: Heatmaps {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-## Limiti e Breaks {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+::: {style="font-size: 0.75em;"}
+**Esercizi 17-22: Mappe di Calore**
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+**Pipeline completa:**
 
-**Obiettivo**: Scatter plot personalizzato:
-- X axis: `displ` (limiti 2-7, breaks ogni 1 unità)
-- Y axis: `hwy` (limiti 15-40)
-- Titoli assi: "Cilindrata (L)" e "Consumo autostrada (mpg)"
+1. Dati → formato long (`pivot_longer()`)
+2. Scalare per variabile (Z-score)
+3. `geom_tile()` per heatmap
+4. Scala colori divergente
+5. Personalizzazione estetica
 
-**Suggerimenti**:
-- Usa `scale_x_continuous()` e `scale_y_continuous()`
+```r
+data_long %>%
+  group_by(variable) %>%
+  mutate(value_scaled = scale(value)[,1]) %>%
+  ggplot(aes(x = variable, y = id, fill = value_scaled)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red")
+```
+
+**Tip:** Ruotare labels asse X per leggibilità
 :::
 
-## Coord Cartesian vs Limits {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 5: Volcano Plots {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+::: {style="font-size: 0.7em;"}
+**Esercizi 23-28: Gene Expression Analysis**
 
-**Obiettivo**: Confronta due metodi di zoom:
-1. `scale_y_continuous(limits = c(10, 30))`
-2. `coord_cartesian(ylim = c(10, 30))`
+**Anatomia Volcano Plot:**
 
-**Suggerimenti**:
-- Osserva le differenze nelle statistiche
-- Considera quando usare l'uno o l'altro
+- **Asse X:** log2(Fold Change)
+- **Asse Y:** -log10(p-value adjusted)
+- **Colore:** Significatività
+
+```r
+volcano_data %>%
+  mutate(
+    significant = abs(log2FC) > 1 & padj < 0.05,
+    regulation = case_when(
+      log2FC > 1 & padj < 0.05 ~ "Up",
+      log2FC < -1 & padj < 0.05 ~ "Down",
+      TRUE ~ "NS"
+    )
+  ) %>%
+  ggplot(aes(x = log2FC, y = -log10(padj), color = regulation)) +
+  geom_point(alpha = 0.5) +
+  geom_vline(xintercept = c(-1, 1), linetype = "dashed") +
+  geom_hline(yintercept = -log10(0.05), linetype = "dashed")
+```
+
+**Es. 28:** Etichettare top genes con `ggrepel`
 :::
 
-## Trasformazione Log {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Parte 6: Integrazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: diamonds
+::: {style="font-size: 0.75em;"}
+**Esercizi 29-30: Dashboard Completi**
 
-**Obiettivo**: Scatter plot `carat` vs `price`:
-- Applica scala logaritmica a entrambi gli assi
-- Aggiungi trend lineare
-- Imposta `alpha = 0.1` per i punti
+**Challenge finale:**
 
-**Suggerimenti**:
-- Usa `scale_x_log10()` e `scale_y_log10()`
-- Osserva come cambia la relazione
+- Combinare volcano plot + bar chart categorie
+- Multi-panel con 4+ grafici
+- Layout custom con patchwork
+- Tema unificato
+- Annotazioni globali
+
+**Obiettivo:**
+
+Creare visualizzazioni publication-ready che raccontano una storia completa con i dati
+
+**Esempi:** Supplementary figures per paper scientifici
 :::
 
-## Breaks Custom {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Suggerimenti per il Successo {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ::: {style="font-size: 0.8em;"}
-**Dataset**: mtcars
+**Workflow Consigliato:**
 
-**Obiettivo**: Scatter plot `wt` vs `mpg` con breaks personalizzati:
-- X: punti 2, 3, 4, 5
-- Y: ogni 5 unità (10, 15, 20, 25, 30)
+1. **Leggete l'obiettivo** prima di guardare i suggerimenti
+2. **Provate da soli** - l'errore è apprendimento
+3. **Consultate la documentazione** (`?funzione`)
+4. **Chiedete aiuto** ai compagni o istruttore
+5. **Confrontate con le soluzioni** dopo aver provato
+6. **Sperimentate variazioni** - non fermatevi alla soluzione
 
-**Suggerimenti**:
-- Usa il parametro `breaks` nelle scale
-- Considera la leggibilità degli intervalli
+::: {.callout-tip}
+## Ricordate
+"The best way to learn ggplot2 is to learn by doing, make mistakes, google the error messages, and keep trying!" - Hadley Wickham
+:::
 :::
 
-## Scale Reverse {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Risorse Aggiuntive {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mtcars
+::: {style="font-size: 0.75em;"}
+**Documentazione:**
 
-**Obiettivo**: Bar chart orizzontale di `mpg`:
-- Ordina le auto per consumo
-- Inverti l'ordine con `scale_y_reverse()`
-- Usa `coord_flip()` per orientamento orizzontale
+- [ggplot2 documentation](https://ggplot2.tidyverse.org/)
+- [R Graph Gallery](https://r-graph-gallery.com/)
+- [ggplot2 extensions](https://exts.ggplot2.tidyverse.org/)
 
-**Suggerimenti**:
-- Usa `reorder()` per l'ordinamento
-- Considera la direzione naturale della lettura
+**Cheat Sheets:**
+
+- [ggplot2 Cheat Sheet](https://github.com/rstudio/cheatsheets)
+- [scales Cheat Sheet](https://scales.r-lib.org/)
+
+**Libri:**
+
+- "ggplot2: Elegant Graphics for Data Analysis" - Hadley Wickham
+- "R Graphics Cookbook" - Winston Chang
+
+**Community:**
+
+- Stack Overflow tag `[ggplot2]`
+- RStudio Community
 :::
 
-## Size e Shape {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+## Domande? {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+::: {style="font-size: 1.2em; text-align: center;"}
+<br><br>
 
-**Obiettivo**: Combina diverse estetiche:
+**Buon lavoro con gli esercizi!**
 
-1. Scatter plot di `displ` vs `hwy`
-2. Dimensione punti basata su `cyl`
-3. Forma punti basata su `drv`
-4. Colore punti basato su `class`
-5. Aggiungi trasparenza appropriata
+<br>
 
-**Suggerimenti**:
-- Usa `scale_size_continuous()`
-- Imposta limiti di size appropriati
-:::
+💻 Aprite i file `.R` e iniziate a sperimentare
 
-# 4. Temi e Personalizzazione {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+🎯 Ricordate: la pratica è essenziale
 
-## Confronto Temi Base {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
+🤝 Collaborate e condividete
 
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
+<br><br>
 
-**Obiettivo**: Crea due scatter plot identici (`displ` vs `hwy`):
-1. Uno con `theme_gray()`
-2. Uno con `theme_minimal()`
-
-**Suggerimenti**:
-- Confronta differenze estetiche
-- Considera contesti d'uso appropriati
-:::
-
-## Theme Classic per Pubblicazioni {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
-
-**Obiettivo**: Boxplot di `hwy` per classe di veicolo:
-- Usa `theme_classic()`
-- Adatta per pubblicazioni scientifiche
-
-**Suggerimenti**:
-- Considera convenzioni accademiche
-- Valuta leggibilità e professionalità
-:::
-
-## Personalizzazione Background {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
-
-**Obiettivo**: Partendo da `theme_minimal()`:
-- Plot background: azzurro chiaro
-- Panel background: bianco
-- Panel border: nero, spesso
-
-**Suggerimenti**:
-- Usa `theme()` con `element_rect()`
-- Considera il contrasto visivo
-:::
-
-## Labels e Titoli {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
-
-**Obiettivo**: Scatter plot completo con:
-- Titolo su due righe
-- Sottotitolo in grigio
-- Caption allineata a destra
-- Assi con labels descrittivi
-
-**Suggerimenti**:
-- Usa `labs()` per testi
-- `theme()` per formattazione
-:::
-
-## Griglia e Assi {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: economics
-
-**Obiettivo**: Line plot con personalizzazione griglia:
-- Rimuovi griglia minore
-- Griglia maggiore rossa tratteggiata
-- Ruota etichette asse x di 45°
-
-**Suggerimenti**:
-- Usa `element_blank()` per rimuovere
-- `element_line()` per stile linee
-:::
-
-## Visualizzazione Time Series {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: economics
-
-**Obiettivo**: Crea una visualizzazione avanzata dei dati temporali:
-
-1. Line plot di `unemploy` nel tempo
-2. Aggiungi una banda di confidenza (±500)
-3. Usa colori appropriati per linea e banda
-4. Aggiungi etichette informative
-
-**Suggerimenti**:
-- Usa `geom_line()` e `geom_ribbon()`
-- Personalizza la trasparenza della banda
-:::
-
-# 5. Visualizzazioni Avanzate {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-## Density 2D {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: diamonds
-
-**Obiettivo**: Visualizza relazione `carat` vs `price`:
-- Usa `geom_density2d()`
-- Aggiungi mappa di calore con `geom_density2d_filled()`
-- Personalizza scala colori
-
-**Suggerimenti**:
-- Gestisci overplotting
-- Considera la densità dei contorni
-:::
-
-## Annotazioni e Testo {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: mpg
-
-**Obiettivo**: Scatter plot con annotazioni:
-- Evidenzia punti interessanti
-- Aggiungi frecce e testo
-- Posiziona labels senza sovrapposizioni
-
-**Suggerimenti**:
-- Usa `geom_text()` o `geom_label()`
-- `annotate()` per elementi specifici
-:::
-
-## Composizione Grafici {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-**Dataset**: diamonds
-
-**Obiettivo**: Crea una dashboard:
-- Scatter plot principale
-- Histogrammi marginali
-- Box plot laterale
-- Titolo comune
-
-**Suggerimenti**:
-- Usa `patchwork`
-- Considera proporzioni e allineamento
-:::
-
-
-
-## Risorse e Riferimenti {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.8em;"}
-- [R Graph Gallery](https://r-graph-gallery.com/) - Esempi e codice
-- [TidyTuesday](https://github.com/rfordatascience/tidytuesday) - Dataset settimanali
-- [ggplot2 Extensions](https://exts.ggplot2.tidyverse.org/)
-- [Data Visualization Society](https://www.datavisualizationsociety.org/)
-- [Coolors](https://coolors.co/) - Generatore palette colori
-
-### Prossimi Passi
-- Condividi i tuoi grafici sul canale Slack
-- Chiedi e offri feedback
-- Sperimenta con nuove tecniche
-- Costruisci il tuo portfolio 🎨
+**Ci vediamo per la discussione delle soluzioni!**
 :::
