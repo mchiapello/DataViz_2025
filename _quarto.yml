@@ -35,9 +35,6 @@ website:
             href: materials/10_visualizzazioni_avanzate.qmd
           - text: "Conclusioni e Q&A"
             href: materials/11_conclusioni_qa.qmd
-          - text: "---"
-          - text: "Esercizi"
-            href: materials/exercises.qmd
       - text: "Risorse"
         href: resources.qmd
       - text: "Setup"
