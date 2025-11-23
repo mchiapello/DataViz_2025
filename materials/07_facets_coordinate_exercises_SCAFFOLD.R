@@ -1,15 +1,14 @@
 # =============================================================================
-# SOLUZIONI: Facets e Sistemi di Coordinate in ggplot2
+# ESERCIZI: Facets e Sistemi di Coordinate in ggplot2
 # REVELO Training - Data Viz 2025
 # =============================================================================
 # 
-# Questo file contiene le soluzioni complete di tutti gli esercizi.
-# Usa questo per:
-# - Verificare le tue soluzioni
-# - Capire approcci alternativi
-# - Studiare pattern di codice ggplot2
+# Istruzioni:
+# - Completa ogni esercizio scrivendo il codice richiesto
+# - Esegui il codice per verificare che funzioni
+# - Confronta con le soluzioni a fine corso
+# - Sperimenta con variazioni!
 #
-# NON condividere con gli studenti durante il corso!
 # =============================================================================
 
 # SETUP -----------------------------------------------------------------------
@@ -31,7 +30,7 @@ data(mtcars)
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
-  facet_wrap(~ class)
+  ___(~ ___)
 
 
 # ESERCIZIO 2: Controllo Colonne ----------------------------------------------
@@ -39,7 +38,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
-  facet_wrap(~ class, ncol = 3)
+  facet_wrap(~ class, ncol = ___)
 
 
 # ESERCIZIO 3: Histogram con Facet -------------------------------------------
@@ -47,17 +46,17 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 #            bins = 15
 
 ggplot(mpg, aes(x = hwy)) +
-  geom_histogram(bins = 15, fill = "steelblue", color = "black") +
-  facet_wrap(~ drv)
+  ___(bins = ___, fill = "steelblue", color = "black") +
+  facet_wrap(~ ___)
 
 
 # ESERCIZIO 4: Facet con Aesthetic -------------------------------------------
 # Obiettivo: Scatter displ vs hwy, color = drv, facet per class
 #            Così combini color E facets
 
-ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
+ggplot(mpg, aes(x = displ, y = hwy, color = ___)) +
   geom_point() +
-  facet_wrap(~ class)
+  facet_wrap(~ ___)
 
 # Nota: color aggiunge dimensione extra - utile quando facets non bastano
 
@@ -71,8 +70,8 @@ economics_decade <- economics %>%
   mutate(decade = floor(lubridate::year(date)/10)*10)
 
 ggplot(economics_decade, aes(x = date, y = unemploy)) +
-  geom_line() +
-  facet_wrap(~ decade, scales = "free_x")
+  ___() +
+  facet_wrap(~ ___, scales = "___")
 
 # Nota: scales = "free_x" perché ogni decade ha diverso time range
 
@@ -87,7 +86,7 @@ ggplot(economics_decade, aes(x = date, y = unemploy)) +
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
-  facet_grid(drv ~ cyl)
+  ___(___~ ___)
 
 # Interpretazione: Confronti drv verticalmente, cyl orizzontalmente
 
@@ -98,12 +97,12 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ggplot(mpg, aes(x = class, y = hwy)) +
   geom_boxplot() +
-  facet_grid(rows = vars(year))
+  facet_grid(rows = vars(___))
 
 # Alternativa con formula:
 ggplot(mpg, aes(x = class, y = hwy)) +
   geom_boxplot() +
-  facet_grid(year ~ .)
+  facet_grid(___ ~ .)
 
 
 # ESERCIZIO 8: Grid Solo Colonne ----------------------------------------------
@@ -111,13 +110,13 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 #            Facet grid solo colonne per drv
 
 ggplot(mpg, aes(x = cty)) +
-  geom_density(fill = "lightblue", alpha = 0.7) +
-  facet_grid(cols = vars(drv))
+  ___(fill = "lightblue", alpha = 0.7) +
+  facet_grid(cols = vars(___))
 
 # Alternativa con formula:
 ggplot(mpg, aes(x = cty)) +
   geom_density(fill = "lightblue", alpha = 0.7) +
-  facet_grid(. ~ drv)
+  facet_grid(. ~ ___)
 
 
 # ESERCIZIO 9: Grid con Formula ----------------------------------------------
@@ -129,7 +128,7 @@ diamonds_sample <- diamonds %>% sample_n(1000)
 
 ggplot(diamonds_sample, aes(x = carat, y = price)) +
   geom_point(alpha = 0.5) +
-  facet_grid(cut ~ color)
+  facet_grid(___ ~ ___)
 
 
 # ESERCIZIO 10: Grid con vars() ----------------------------------------------
@@ -137,7 +136,7 @@ ggplot(diamonds_sample, aes(x = carat, y = price)) +
 
 ggplot(diamonds_sample, aes(x = carat, y = price)) +
   geom_point(alpha = 0.5) +
-  facet_grid(rows = vars(cut), cols = vars(color))
+  facet_grid(rows = vars(___), cols = vars(___))
 
 # vars() notation è più moderna e flessibile
 
@@ -152,7 +151,7 @@ ggplot(diamonds_sample, aes(x = carat, y = price)) +
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
-  facet_wrap(~ class, scales = "fixed")
+  facet_wrap(~ class, scales = "___")
 
 # "fixed" è default - facilita confronti diretti
 
@@ -162,7 +161,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
-  facet_wrap(~ class, scales = "free")
+  facet_wrap(~ class, scales = "___")
 
 # Ogni pannello ottimizzato - pattern più chiari MA confronti più difficili
 
@@ -172,7 +171,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
-  facet_wrap(~ class, scales = "free_x")
+  facet_wrap(~ class, scales = "___")
 
 # Y condiviso → confronti verticali facili, X ottimizzato per ogni classe
 
@@ -182,8 +181,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 #            Facet per year, scales = "free_y"
 
 ggplot(mpg, aes(x = manufacturer, y = hwy)) +
-  geom_boxplot() +
-  facet_wrap(~ year, scales = "free_y") +
+  ___() +
+  facet_wrap(~ year, scales = "___") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
@@ -194,12 +193,12 @@ ggplot(mpg, aes(x = manufacturer, y = hwy)) +
 # Scales fixed (MIGLIORE per confronti):
 ggplot(mpg, aes(x = class)) +
   geom_bar(fill = "steelblue") +
-  facet_wrap(~ year, scales = "fixed")
+  facet_wrap(~ year, scales = "___")
 
 # Scales free_y (INGANNA - sembra simile conteggio):
 ggplot(mpg, aes(x = class)) +
   geom_bar(fill = "coral") +
-  facet_wrap(~ year, scales = "free_y")
+  facet_wrap(~ year, scales = "___")
 
 # Conclusione: per confrontare magnitudini, usa scales fisse!
 
@@ -213,10 +212,10 @@ ggplot(mpg, aes(x = class)) +
 
 ggplot(mpg, aes(x = class, y = hwy)) +
   geom_boxplot() +
-  coord_flip()
+  ___()
 
 # Alternativa moderna (scambia aesthetic):
-ggplot(mpg, aes(x = hwy, y = class)) +
+ggplot(mpg, aes(x = ___, y = ___)) +
   geom_boxplot()
 
 
@@ -229,7 +228,7 @@ diamonds_sample <- diamonds %>% sample_n(1000)
 ggplot(diamonds_sample, aes(x = carat, y = price)) +
   geom_point(alpha = 0.5) +
   geom_smooth() +
-  coord_cartesian(xlim = c(0, 2), ylim = c(0, 10000))
+  ___(xlim = c(___, ___), ylim = c(0, 10000))
 
 # smooth calcolato su TUTTI i dati, poi zoom applicato
 
@@ -239,9 +238,9 @@ ggplot(diamonds_sample, aes(x = carat, y = price)) +
 
 ggplot(mtcars, aes(x = drat, y = wt)) +
   geom_point(size = 3) +
-  coord_fixed(ratio = 1)
+  ___(ratio = ___)
 
-# 1 unità asse X = 1 unità asse Y (visualmente)
+# 1 unità asse X = 1 unità asse Y (visivamente)
 
 
 # ESERCIZIO 19: coord_polar() Pie Chart --------------------------------------
@@ -249,7 +248,7 @@ ggplot(mtcars, aes(x = drat, y = wt)) +
 
 ggplot(mpg, aes(x = "", fill = class)) +
   geom_bar(width = 1) +
-  coord_polar(theta = "y") +
+  ___(theta = "___") +
   theme_void()
 
 # Nota: theta = "y" mappa Y (height) ad angolo
@@ -260,7 +259,7 @@ ggplot(mpg, aes(x = "", fill = class)) +
 
 ggplot(mpg, aes(x = class, fill = class)) +
   geom_bar() +
-  coord_polar(theta = "x") +
+  coord_polar(theta = "___") +
   theme_minimal()
 
 # theta = "x" mappa X (categories) ad angolo
@@ -275,8 +274,8 @@ ggplot(mpg, aes(x = class, fill = class)) +
 
 ggplot(diamonds_sample, aes(x = carat, y = price)) +
   geom_point(alpha = 0.5) +
-  scale_x_log10() +
-  scale_y_log10()
+  ___() +
+  ___()
 
 
 # ESERCIZIO 22: coord_trans() -----------------------------------------------
@@ -284,7 +283,7 @@ ggplot(diamonds_sample, aes(x = carat, y = price)) +
 
 ggplot(diamonds_sample, aes(x = carat, y = price)) +
   geom_point(alpha = 0.5) +
-  coord_trans(x = "log10", y = "log10")
+  ___(x = "___", y = "___")
 
 # Visivamente simile ma matematicamente diverso per geoms complessi
 
@@ -294,7 +293,7 @@ ggplot(diamonds_sample, aes(x = carat, y = price)) +
 
 ggplot(diamonds_sample, aes(x = carat, y = price)) +
   geom_point(alpha = 0.5) +
-  scale_y_sqrt()
+  ___()
 
 
 # ESERCIZIO 24: coord_trans() con smooth ------------------------------------
@@ -304,13 +303,13 @@ ggplot(diamonds_sample, aes(x = carat, y = price)) +
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  scale_x_log10()
+  ___()
 
 # Con coord_trans (smooth su dati originali, poi trasformato):
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  coord_trans(x = "log10")
+  coord_trans(x = "___")
 
 # Nota: linee smooth DIVERSE! scale_* trasforma prima
 
@@ -322,13 +321,13 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   geom_smooth(color = "red") +
-  xlim(3, 6)
+  xlim(___, ___)
 
 # Con coord_cartesian (solo zoom - smooth su tutti i dati):
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   geom_smooth(color = "blue") +
-  coord_cartesian(xlim = c(3, 6))
+  ___(xlim = c(3, 6))
 
 # Conclusione: usa coord_cartesian() per zoom!
 
@@ -342,8 +341,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ggplot(mpg, aes(x = class, y = hwy)) +
   geom_boxplot() +
-  facet_wrap(~ year) +
-  coord_flip()
+  facet_wrap(~ ___) +
+  ___()
 
 
 # ESERCIZIO 27: Facets + Zoom -----------------------------------------------
@@ -351,8 +350,8 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
-  facet_wrap(~ drv) +
-  coord_cartesian(xlim = c(2, 5), ylim = c(15, 35))
+  facet_wrap(~ ___) +
+  ___(xlim = c(2, 5), ylim = c(15, 35))
 
 
 # ESERCIZIO 28: Facets + Free Scales + Log ----------------------------------
@@ -360,9 +359,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ggplot(diamonds_sample, aes(x = carat, y = price)) +
   geom_point(alpha = 0.3) +
-  facet_wrap(~ cut, scales = "free") +
+  facet_wrap(~ ___, scales = "___") +
   scale_x_log10() +
-  scale_y_log10()
+  ___()
 
 # Pattern simili, magnitudini diverse
 
@@ -370,9 +369,9 @@ ggplot(diamonds_sample, aes(x = carat, y = price)) +
 # ESERCIZIO 29: Grid + Multiple Aesthetics ----------------------------------
 # Obiettivo: Troppe dimensioni!
 
-ggplot(mpg, aes(x = displ, y = hwy, color = class, size = cyl)) +
+ggplot(mpg, aes(x = displ, y = hwy, color = ___, size = ___)) +
   geom_point(alpha = 0.6) +
-  facet_grid(drv ~ year)
+  facet_grid(___ ~ ___)
 
 # Troppo complesso! Meglio semplificare
 
@@ -382,16 +381,16 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class, size = cyl)) +
 
 # Calcola mediane
 hwy_medians <- mpg %>%
-  group_by(drv) %>%
-  summarise(median_hwy = median(hwy))
+  group_by(___) %>%
+  summarise(median_hwy = median(___))
 
 ggplot(mpg, aes(x = hwy)) +
-  geom_histogram(bins = 20, fill = "steelblue", color = "black", alpha = 0.7) +
+  ___(bins = 20, fill = "steelblue", color = "black", alpha = 0.7) +
   geom_vline(data = hwy_medians, 
-             aes(xintercept = median_hwy),
+             aes(xintercept = ___),
              color = "red", linetype = "dashed", linewidth = 1) +
-  facet_wrap(~ drv, 
-             ncol = 1,
+  facet_wrap(~ ___, 
+             ncol = ___,
              labeller = labeller(drv = c(
                "4" = "4WD",
                "f" = "Front-wheel",
@@ -407,32 +406,10 @@ ggplot(mpg, aes(x = hwy)) +
 
 
 # =============================================================================
-# FINE SOLUZIONI
+# FINE ESERCIZI
 # =============================================================================
 # 
-# Best Practices Recap:
-# 
-# 1. FACETING
-#    - Usa facet_wrap() per 1 variabile, layout automatico
-#    - Usa facet_grid() per 2 variabili, confronti precisi
-#    - Scale fisse per confronti, libere per pattern
-#    - Max 20-30 pannelli per leggibilità
-#
-# 2. COORDINATE SYSTEMS
-#    - coord_cartesian() per zoom (non rimuove dati)
-#    - coord_flip() per labels lunghi
-#    - coord_fixed() per mappe/distanze
-#    - coord_polar() raramente (quasi sempre alternativa migliore)
-#
-# 3. TRASFORMAZIONI
-#    - Preferisci scale_*_log10() a coord_trans()
-#    - Trasforma prima di stat/smooth
-#    - coord_cartesian() non rimuove dati (vs xlim/ylim)
-#
-# 4. COMBINAZIONI
-#    - Facets organizzano, coordinates trasformano
-#    - Max 2-3 dimensioni (facets + color + shape)
-#    - Chiarezza > complessità
-#    - Labels chiari sempre
+# Completa gli esercizi sopra per praticare facets e coordinate systems!
+# Confronta poi con le soluzioni.
 #
 # =============================================================================
