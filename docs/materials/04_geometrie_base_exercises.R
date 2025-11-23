@@ -32,6 +32,8 @@ data(faithful)
 # Dataset: mpg
 
 # Il tuo codice qui:
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point()  # <-- Completa questa riga
 
 
 
@@ -40,6 +42,8 @@ data(faithful)
 # Obiettivo: Usa la trasparenza (alpha = 0.4) per migliorare la visualizzazione
 
 # Il tuo codice qui:
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(alpha = )  # <-- Aggiungi il valore alpha
 
 
 
@@ -48,6 +52,9 @@ data(faithful)
 # Obiettivo: Aggiungi una linea di trend lineare usando geom_smooth(method = "lm")
 
 # Il tuo codice qui:
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth()  # <-- Aggiungi il parametro method
 
 
 
@@ -56,6 +63,10 @@ data(faithful)
 # Obiettivo: Confronta trend lineare (rosso) con LOESS (blu)
 
 # Il tuo codice qui:
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = ) +  # <-- Aggiungi colore
+  geom_smooth(method = "loess", color = )  # <-- Aggiungi colore
 
 
 
@@ -65,6 +76,8 @@ data(faithful)
 # Dataset: economics
 
 # Il tuo codice qui:
+ggplot(economics, aes(x = , y = )) +  # <-- Inserisci le variabili
+  geom_line()
 
 
 
@@ -86,6 +99,8 @@ data(faithful)
 # Dataset: diamonds
 
 # Il tuo codice qui:
+ggplot(diamonds, aes(x = )) +  # <-- Inserisci la variabile
+  geom_histogram(bins = )  # <-- Inserisci il numero di bins
 
 
 
@@ -108,6 +123,8 @@ data(faithful)
 # Obiettivo: Crea curva di densità per hwy (consumo autostrada)
 
 # Il tuo codice qui:
+ggplot(mpg, aes(x = hwy)) +
+  geom_density()  # <-- Completa con la geometria corretta
 
 
 
@@ -116,6 +133,9 @@ data(faithful)
 # Obiettivo: Combina histogram e density. Usa aes(y = after_stat(density))!
 
 # Il tuo codice qui:
+ggplot(mpg, aes(x = hwy)) +
+  geom_histogram(aes(y = after_stat()), bins = 30) +  # <-- Completa after_stat
+  geom_density(color = "red", size = 1)
 
 
 
@@ -146,6 +166,8 @@ data(faithful)
 # Dataset: diamonds
 
 # Il tuo codice qui:
+ggplot(diamonds, aes(x = , y = )) +  # <-- Inserisci le variabili
+  geom_bin2d(bins = )  # <-- Inserisci il numero di bins
 
 
 
@@ -185,6 +207,8 @@ data(faithful)
 # Dataset: mpg
 
 # Il tuo codice qui:
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot()  # <-- Completa con la geometria corretta
 
 
 
@@ -209,6 +233,8 @@ data(faithful)
 # Obiettivo: Conta auto per classe con geom_bar() (solo x, no y!)
 
 # Il tuo codice qui:
+ggplot(mpg, aes(x = )) +  # <-- Inserisci la variabile categorica
+  geom_bar()
 
 
 
