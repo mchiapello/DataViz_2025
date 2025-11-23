@@ -1,6 +1,12 @@
 # ============================================================================ #
 # REVELO Training - Data Viz 2025
-# Visualizzazioni Avanzate - SOLUZIONI
+# Visualizzazioni Avanzate - ESERCIZI
+# ============================================================================ #
+# 
+# Istruzioni:
+# - Completa ogni esercizio scrivendo il codice richiesto
+# - Esegui il codice per verificare che funzioni
+# - Sperimenta con variazioni!
 # ============================================================================ #
 
 # SETUP ----------------------------------------------------------------------
@@ -34,17 +40,17 @@ volcano_data <- data.frame(
 # - p3: histogram di mtcars (mpg)
 
 p1 <- ggplot(mtcars, aes(x = wt, y = mpg)) +
-  geom_point(aes(color = factor(cyl)), size = 3) +
+  ___(aes(color = factor(cyl)), size = 3) +
   labs(title = "MPG vs Weight", color = "Cylinders") +
   theme_minimal()
 
 p2 <- ggplot(mtcars, aes(x = factor(cyl), y = mpg)) +
-  geom_boxplot(aes(fill = factor(cyl)), show.legend = FALSE) +
+  ___(aes(fill = factor(cyl)), show.legend = FALSE) +
   labs(title = "MPG by Cylinders", x = "Cylinders") +
   theme_minimal()
 
 p3 <- ggplot(mtcars, aes(x = mpg)) +
-  geom_histogram(bins = 15, fill = "steelblue", color = "white") +
+  ___(bins = 15, fill = "steelblue", color = "white") +
   labs(title = "MPG Distribution") +
   theme_minimal()
 
@@ -55,7 +61,7 @@ p3 <- ggplot(mtcars, aes(x = mpg)) +
 # --- Esercizio 2 -------------------------------------------------------------
 # Obiettivo: Combinare i tre grafici affiancati con operatore +
 
-p1 + p2 + p3
+p1 ___ p2 ___ p3
 
 # Interpretazione: L'operatore + dispone automaticamente i grafici in griglia.
 # Con 3 grafici, default è 2 nella prima riga, 1 nella seconda.
@@ -64,7 +70,7 @@ p1 + p2 + p3
 # --- Esercizio 3 -------------------------------------------------------------
 # Obiettivo: Combinare i grafici in layout verticale con operatore /
 
-p1 / p2 / p3
+p1 ___ p2 ___ p3
 
 # Interpretazione: L'operatore / crea stack verticale. Ogni grafico occupa 
 # una riga separata con stessa larghezza.
@@ -74,7 +80,7 @@ p1 / p2 / p3
 # Obiettivo: Creare layout con p1 e p2 affiancati sopra, p3 sotto occupando 
 # tutta la larghezza usando parentesi: (p1 + p2) / p3
 
-(p1 + p2) / p3
+(___ + ___) ___ ___
 
 # Interpretazione: Le parentesi controllano precedenza operatori. Prima 
 # combina p1 + p2 in riga, poi mette p3 sotto occupando tutta larghezza.
@@ -85,7 +91,7 @@ p1 / p2 / p3
 # Affianca p1 e p2 con widths = c(2, 1)
 
 p1 + p2 +
-  plot_layout(widths = c(2, 1))
+  ___(widths = c(___, ___))
 
 # Interpretazione: widths controlla proporzioni relative. c(2, 1) significa 
 # p1 occupa 2/3 dello spazio, p2 occupa 1/3.
@@ -96,7 +102,7 @@ p1 + p2 +
 # Usa plot_layout(guides = "collect")
 
 p1 + p2 + p3 +
-  plot_layout(guides = "collect")
+  ___(guides = "___")
 
 # Interpretazione: guides = "collect" raccoglie tutte le legende duplicate 
 # in una posizione unica, riducendo ridondanza visiva.
@@ -111,11 +117,11 @@ p1 + p2 + p3 +
 # Usa plot_annotation() per titolo, sottotitolo e tag_levels = "A"
 
 p1 + p2 + p3 +
-  plot_annotation(
+  ___(
     title = "Analisi Completa del Dataset mtcars",
     subtitle = "Relazioni tra consumo, peso e cilindri",
     caption = "Fonte: Motor Trend 1974",
-    tag_levels = "A"
+    tag_levels = "___"
   )
 
 # Interpretazione: plot_annotation() aggiunge elementi globali all'intera 
@@ -125,8 +131,8 @@ p1 + p2 + p3 +
 # --- Esercizio 8 -------------------------------------------------------------
 # Obiettivo: Applicare theme_minimal() a tutti i subplot usando operatore &
 
-p1 + p2 + p3 &
-  theme_minimal()
+p1 + p2 + p3 ___
+  ___()
 
 # Interpretazione: L'operatore & applica l'elemento a TUTTI i subplot della 
 # composizione. Diverso da +, che applica solo all'ultimo grafico.
@@ -136,9 +142,9 @@ p1 + p2 + p3 &
 # Obiettivo: Applicare legend.position = "bottom" globalmente con &, poi 
 # aggiungere plot_annotation con titolo "Multi-Panel Analysis"
 
-p1 + p2 + p3 &
-  theme(legend.position = "bottom") +
-  plot_annotation(
+p1 + p2 + p3 ___
+  theme(legend.position = "___") +
+  ___(
     title = "Multi-Panel Analysis"
   )
 
@@ -154,12 +160,12 @@ p1 + p2 + p3 &
 # Dove A = p1, B = p2, C = p3
 
 design <- "
-  AAB
-  CCC
+  ___
+  ___
 "
 
 p1 + p2 + p3 +
-  plot_layout(design = design)
+  ___(design = ___)
 
 # Interpretazione: Il design testuale permette layouts arbitrari. Lettere 
 # uguali = stesso plot espanso. A occupa 2 celle, B 1 cella in prima riga,
@@ -170,7 +176,7 @@ p1 + p2 + p3 +
 # Obiettivo: Usare plot_spacer() per inserire spazio vuoto
 # Layout: p1 affiancato a spacer affiancato a p2
 
-p1 + plot_spacer() + p2
+p1 + ___() + p2
 
 # Interpretazione: plot_spacer() crea spazio bianco tra grafici, utile per 
 # separazione visiva o allineamento con altre righe di layout complessi.
@@ -180,15 +186,15 @@ p1 + plot_spacer() + p2
 # Obiettivo: Combinare tutto - layout custom, tema globale, annotazioni
 # (p1 + p2) / p3, tema bw, titolo "Complete Analysis", tags A/B/C
 
-(p1 + p2) / p3 &
-  theme_bw() &
+(p1 + p2) / p3 ___
+  ___() ___
   theme(
     legend.position = "bottom",
     plot.title = element_text(face = "bold")
   ) +
-  plot_annotation(
+  ___(
     title = "Complete Analysis",
-    tag_levels = "A"
+    tag_levels = "___"
   )
 
 # Interpretazione: Esempio completo che integra layout nesting, temi globali
@@ -205,7 +211,7 @@ p1 + plot_spacer() + p2
 
 ggplot(mtcars, aes(x = wt, y = mpg, label = rownames(mtcars))) +
   geom_point(color = "steelblue", size = 3) +
-  geom_text_repel(size = 3) +
+  ___(size = 3) +
   labs(title = "Car Models by Weight and MPG") +
   theme_minimal()
 
@@ -219,10 +225,10 @@ ggplot(mtcars, aes(x = wt, y = mpg, label = rownames(mtcars))) +
 
 ggplot(mtcars, aes(x = wt, y = mpg, label = rownames(mtcars))) +
   geom_point(color = "steelblue", size = 3) +
-  geom_label_repel(
+  ___(
     size = 3,
-    box.padding = 0.5,
-    point.padding = 0.3,
+    box.padding = ___,
+    point.padding = ___,
     segment.color = "grey50"
   ) +
   labs(title = "Car Models with Label Boxes") +
@@ -237,12 +243,12 @@ ggplot(mtcars, aes(x = wt, y = mpg, label = rownames(mtcars))) +
 # Obiettivo: Etichettare solo auto con mpg > 25
 # Crea subset e usa geom_text_repel() solo per quel subset
 
-mtcars_efficient <- mtcars[mtcars$mpg > 25, ]
+mtcars_efficient <- mtcars[mtcars$mpg > ___, ]
 
 ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point(aes(color = mpg > 25), size = 3) +
-  geom_text_repel(
-    data = mtcars_efficient,
+  ___(
+    data = ___,
     aes(label = rownames(mtcars_efficient)),
     color = "red",
     fontface = "bold"
@@ -264,7 +270,7 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
 ggplot(mtcars, aes(x = wt, y = mpg, label = rownames(mtcars))) +
   geom_point(color = "steelblue", size = 3) +
   geom_text_repel(
-    direction = "y",
+    direction = "___",
     hjust = 0,
     nudge_x = 0.1
   ) +
@@ -286,10 +292,10 @@ ggplot(mtcars, aes(x = wt, y = mpg, label = rownames(mtcars))) +
 
 mtcars_long <- mtcars %>%
   rownames_to_column("car") %>%
-  pivot_longer(
+  ___(
     cols = -car,
-    names_to = "variable",
-    values_to = "value"
+    names_to = "___",
+    values_to = "___"
   )
 
 # Interpretazione: Le heatmaps in ggplot2 richiedono formato long: ogni riga
@@ -662,14 +668,10 @@ design <- "
 
 
 # ============================================================================ #
-# FINE SOLUZIONI
-# Congratulazioni! Hai completato tutte le soluzioni per le visualizzazioni 
-# avanzate. Questi pattern sono fondamentali per pubblicazioni scientifiche 
-# e report professionali.
+# FINE ESERCIZI
+# ============================================================================ #
+# 
+# Completa gli esercizi sopra per praticare visualizzazioni avanzate!
+# Confronta poi con le soluzioni.
 #
-# PROSSIMI PASSI:
-# - Applica questi pattern ai tuoi dati reali
-# - Sperimenta con palette colori custom
-# - Esplora altri pacchetti: gganimate, plotly, ggforce
-# - Studia esempi di figure pubblicate in letteratura
 # ============================================================================ #
