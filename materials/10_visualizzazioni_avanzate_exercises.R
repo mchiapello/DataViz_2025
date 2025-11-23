@@ -33,11 +33,22 @@ volcano_data <- data.frame(
 # - p2: boxplot di mtcars (cyl vs mpg)
 # - p3: histogram di mtcars (mpg)
 
+p1 <- ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point()
+
+p2 <- ggplot(mtcars, aes(x = factor(cyl), y = mpg)) +
+  geom_boxplot()
+
+p3 <- ggplot(mtcars, aes(x = mpg)) +
+  geom_histogram(bins = 15)
+
 
 
 
 # --- Esercizio 2 -------------------------------------------------------------
 # Obiettivo: Combinare i tre grafici affiancati con operatore +
+
+p1 + p2 + p3  # <-- Usa l'operatore + per combinare
 
 
 
@@ -51,6 +62,8 @@ volcano_data <- data.frame(
 # --- Esercizio 4 -------------------------------------------------------------
 # Obiettivo: Creare layout con p1 e p2 affiancati sopra, p3 sotto occupando 
 # tutta la larghezza usando parentesi: (p1 + p2) / p3
+
+(p1 + p2) / p3  # <-- Layout con parentesi
 
 
 
