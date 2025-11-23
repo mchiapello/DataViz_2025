@@ -1,14 +1,15 @@
 # =============================================================================
-# ESERCIZI: Geometrie Base in ggplot2
+# SOLUZIONI: Geometrie Base in ggplot2
 # REVELO Training - Data Viz 2025
 # =============================================================================
 # 
-# Istruzioni:
-# - Completa ogni esercizio scrivendo il codice richiesto
-# - Esegui il codice per verificare che funzioni
-# - Confronta con le soluzioni a fine corso
-# - Sperimenta con variazioni!
+# Questo file contiene le soluzioni complete di tutti gli esercizi.
+# Usa questo per:
+# - Verificare le tue soluzioni
+# - Capire approcci alternativi
+# - Studiare pattern di codice ggplot2
 #
+# NON condividere con gli studenti durante il corso!
 # =============================================================================
 
 # SETUP -----------------------------------------------------------------------
@@ -29,68 +30,53 @@ data(faithful)
 # ESERCIZIO 1: Scatter Plot Base ----------------------------------------------
 # Obiettivo: Creare uno scatter plot per esplorare la relazione tra 
 #            cilindrata (displ) e consumo autostrada (hwy)
-# Dataset: mpg
 
-# Il tuo codice qui:
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point()  # <-- scatter plot base
+  geom_point()
 
-
+# Interpretazione: Relazione negativa - più cilindrata, meno consumo
 
 
 # ESERCIZIO 2: Ridurre Overplotting ------------------------------------------
 # Obiettivo: Usa la trasparenza (alpha = 0.4) per migliorare la visualizzazione
 
-# Il tuo codice qui:
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(alpha = 0.4)  # <-- aggiungi anche size = 2.5 se vuoi
-
-
+  geom_point(alpha = 0.4, size = 2.5)
 
 
 # ESERCIZIO 3: Aggiungere Trend Line -----------------------------------------
 # Obiettivo: Aggiungi una linea di trend lineare usando geom_smooth(method = "lm")
 
-# Il tuo codice qui:
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(alpha = 0.4) +
-  geom_smooth(method = "lm")  # <-- aggiungi se = TRUE per intervallo confidenza
-
-
+  geom_smooth(method = "lm", se = TRUE, color = "red")
 
 
 # ESERCIZIO 4: LOESS vs Linear -----------------------------------------------
 # Obiettivo: Confronta trend lineare (rosso) con LOESS (blu)
 
-# Il tuo codice qui:
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(alpha = 0.3, size = 1.5) +
-  geom_smooth(method = "lm", se = FALSE, color = "red") +  # <-- trend lineare
-  geom_smooth(method = "loess", se = TRUE, color = "blue")  # <-- trend LOESS
-
-
+  geom_smooth(method = "lm", se = FALSE, color = "red", linetype = "dashed") +
+  geom_smooth(method = "loess", se = TRUE, color = "blue")
 
 
 # ESERCIZIO 5: Time Series con Line ------------------------------------------
 # Obiettivo: Visualizza disoccupazione (unemploy) nel tempo (date) con geom_line()
-# Dataset: economics
 
-# Il tuo codice qui:
 ggplot(economics, aes(x = date, y = unemploy)) +
-  geom_line()  # <-- aggiungi color e linewidth se vuoi personalizzare
-
-
+  geom_line(color = "steelblue", linewidth = 1)
 
 
 # ESERCIZIO 6: Path vs Line --------------------------------------------------
 # Obiettivo: Usa geom_path() per tracciare unemploy vs psavert + aggiungi punti
 
-# Il tuo codice qui:
 ggplot(economics, aes(x = unemploy, y = psavert)) +
   geom_path(color = "darkgreen", linewidth = 0.8, alpha = 0.7) +
-  geom_point(alpha = 0.3, size = 1)  # <-- path connette in ordine dati, line ordina per x
+  geom_point(alpha = 0.3, size = 1)
 
-
+# Differenza: geom_path() connette nell'ordine dei dati (temporale)
+#             geom_line() ordinerebbe per x
 
 
 # =============================================================================
@@ -99,70 +85,65 @@ ggplot(economics, aes(x = unemploy, y = psavert)) +
 
 # ESERCIZIO 7: Histogram Base ------------------------------------------------
 # Obiettivo: Crea istogramma di carat (peso diamanti) con bins = 30
-# Dataset: diamonds
 
-# Il tuo codice qui:
 ggplot(diamonds, aes(x = carat)) +
-  geom_histogram(bins = 30)  # <-- aggiungi fill e color per personalizzare
+  geom_histogram(bins = 30, fill = "skyblue", color = "black")
 
-
+# Interpretazione: Distribuzione skewed a destra con picchi a valori rotondi
 
 
 # ESERCIZIO 8: Sperimentare con Bins -----------------------------------------
 # Obiettivo: Prova bins = 10, bins = 100, e bins = 40. Quale è migliore?
 
 # bins = 10 (troppo grossolano)
-
+ggplot(diamonds, aes(x = carat)) +
+  geom_histogram(bins = 10, fill = "coral", color = "black")
 
 # bins = 100 (troppo dettagliato)
-
+ggplot(diamonds, aes(x = carat)) +
+  geom_histogram(bins = 100, fill = "lightgreen", color = "black")
 
 # bins = 40 (equilibrato)
+ggplot(diamonds, aes(x = carat)) +
+  geom_histogram(bins = 40, fill = "skyblue", color = "black")
 
-
+# Conclusione: bins = 30-50 bilancia bene dettaglio e leggibilità
 
 
 # ESERCIZIO 9: Density Plot --------------------------------------------------
 # Obiettivo: Crea curva di densità per hwy (consumo autostrada)
 
-# Il tuo codice qui:
 ggplot(mpg, aes(x = hwy)) +
-  geom_density()  # <-- Completa con la geometria corretta
-
-
+  geom_density(fill = "purple", alpha = 0.4, color = "purple4", linewidth = 1)
 
 
 # ESERCIZIO 10: Histogram + Density Sovrapposti ------------------------------
 # Obiettivo: Combina histogram e density. Usa aes(y = after_stat(density))!
 
-# Il tuo codice qui:
 ggplot(mpg, aes(x = hwy)) +
-  geom_histogram(aes(y = after_stat(density)), bins = 30, 
-                 fill = "lightblue", color = "black", alpha = 0.6) +
-  geom_density(color = "red", linewidth = 1.2)  # <-- after_stat converte a densità
+  geom_histogram(aes(y = after_stat(density)), 
+                 bins = 30, fill = "lightblue", color = "black", alpha = 0.6) +
+  geom_density(color = "red", linewidth = 1.2)
 
-
+# after_stat(density) converte frequenze in densità per allineamento
 
 
 # ESERCIZIO 11: Frequency Polygon --------------------------------------------
 # Obiettivo: Usa geom_freqpoly() per visualizzare distribuzione di price (bins = 50)
 
-# Il tuo codice qui:
 ggplot(diamonds, aes(x = price)) +
-  geom_freqpoly(bins = 50)  # <-- linea invece di barre
-
-
+  geom_freqpoly(bins = 50, color = "darkblue", linewidth = 1)
 
 
 # ESERCIZIO 12: Dotplot per Dataset Piccolo ----------------------------------
 # Obiettivo: Usa geom_dotplot() per waiting in faithful (binwidth = 1)
-# Dataset: faithful
 
-# Il tuo codice qui:
 ggplot(faithful, aes(x = waiting)) +
-  geom_dotplot(binwidth = 1)  # <-- ogni punto è un'osservazione
+  geom_dotplot(binwidth = 1, fill = "orange", color = "black") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
 
-
+# Rivela chiaramente la bimodalità
 
 
 # =============================================================================
@@ -171,47 +152,43 @@ ggplot(faithful, aes(x = waiting)) +
 
 # ESERCIZIO 13: Bin2D per Big Data -------------------------------------------
 # Obiettivo: Usa geom_bin2d() per carat vs price (bins = 50)
-# Dataset: diamonds
 
-# Il tuo codice qui:
-ggplot(diamonds, aes(x = , y = )) +  # <-- Inserisci le variabili
-  geom_bin2d(bins = )  # <-- Inserisci il numero di bins
-
-
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_bin2d(bins = 50) +
+  scale_fill_gradient(low = "lightblue", high = "darkred")
 
 
 # ESERCIZIO 14: Hexbin Alternative -------------------------------------------
 # Obiettivo: Ricrea con geom_hex() e scale_fill_viridis_c()
 # Nota: Richiede install.packages("hexbin") se non installato
 
-# Il tuo codice qui:
+# Installa hexbin se necessario
+if (!require("hexbin", quietly = TRUE)) {
+  install.packages("hexbin")
+  library(hexbin)
+}
+
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_hex(bins = 50) +
-  scale_fill_viridis_c(option = "plasma")  # <-- esagoni + palette accessibile
-
-
+  scale_fill_viridis_c(option = "plasma")
 
 
 # ESERCIZIO 15: Density 2D Contours ------------------------------------------
 # Obiettivo: Aggiungi contorni densità 2D a faithful (eruptions vs waiting)
-# Dataset: faithful
 
-# Il tuo codice qui:
 ggplot(faithful, aes(x = eruptions, y = waiting)) +
   geom_point(alpha = 0.4, size = 2) +
-  geom_density2d(color = "red", linewidth = 0.8)  # <-- contorni densità
+  geom_density2d(color = "red", linewidth = 0.8)
 
-
+# Due cluster distinti (eruzioni brevi e lunghe)
 
 
 # ESERCIZIO 16: Filled Density 2D --------------------------------------------
 # Obiettivo: Usa geom_density2d_filled() per mappa di calore
 
-# Il tuo codice qui:
 ggplot(faithful, aes(x = eruptions, y = waiting)) +
-  geom_density2d_filled(alpha = 0.8)  # <-- versione riempita
-
-
+  geom_density2d_filled(alpha = 0.8) +
+  theme_minimal()
 
 
 # =============================================================================
@@ -220,44 +197,42 @@ ggplot(faithful, aes(x = eruptions, y = waiting)) +
 
 # ESERCIZIO 17: Boxplot per Gruppi -------------------------------------------
 # Obiettivo: Confronta hwy tra classi di auto con geom_boxplot()
-# Dataset: mpg
 
-# Il tuo codice qui:
 ggplot(mpg, aes(x = class, y = hwy)) +
-  geom_boxplot()  # <-- aggiungi fill, outlier.color se vuoi personalizzare
+  geom_boxplot(fill = "lightgreen", outlier.color = "red", outlier.size = 2) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-
+# Pickup e SUV: consumo inferiore; compact e subcompact: migliori
 
 
 # ESERCIZIO 18: Violin Plot --------------------------------------------------
 # Obiettivo: Ricrea il grafico precedente con geom_violin()
 
-# Il tuo codice qui:
 ggplot(mpg, aes(x = class, y = hwy)) +
-  geom_violin()  # <-- mostra forma completa della distribuzione
+  geom_violin(fill = "coral", alpha = 0.6) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-
+# Violin mostra forma completa della distribuzione (alcuni bimodali)
 
 
 # ESERCIZIO 19: Violin + Boxplot Combinati -----------------------------------
 # Obiettivo: Sovrapponi boxplot (width = 0.15) dentro violin plot
 
-# Il tuo codice qui:
 ggplot(mpg, aes(x = class, y = hwy)) +
   geom_violin(fill = "skyblue", alpha = 0.5) +
-  geom_boxplot(width = 0.15, fill = "white")  # <-- combina violin e boxplot
-
-
+  geom_boxplot(width = 0.15, fill = "white", outlier.color = "red") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
 # ESERCIZIO 20: Bar Chart - Conteggi -----------------------------------------
 # Obiettivo: Conta auto per classe con geom_bar() (solo x, no y!)
 
-# Il tuo codice qui:
 ggplot(mpg, aes(x = class)) +
-  geom_bar()  # <-- geom_bar conta automaticamente (stat = "count")
+  geom_bar(fill = "steelblue", color = "black") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-
+# geom_bar() conta automaticamente (stat = "count")
 
 
 # ESERCIZIO 21: Preparare Dati Aggregati per geom_col() ---------------------
@@ -274,9 +249,10 @@ mpg_summary <- mpg %>%
 
 # Visualizza con geom_col
 ggplot(mpg_summary, aes(x = class, y = mean_hwy)) +
-  geom_col()  # <-- geom_col usa valori y esistenti, non conta
+  geom_col(fill = "darkgreen", alpha = 0.7) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-
+# Differenza: geom_col() usa valori y esistenti, non conta
 
 
 # =============================================================================
@@ -286,29 +262,36 @@ ggplot(mpg_summary, aes(x = class, y = mean_hwy)) +
 # ESERCIZIO 22: Barre + Error Bars -------------------------------------------
 # Obiettivo: Aggiungi barre di errore (± SD) usando geom_errorbar()
 
-# Il tuo codice qui (usa mpg_summary dall'esercizio 21):
 ggplot(mpg_summary, aes(x = class, y = mean_hwy)) +
   geom_col(fill = "darkgreen", alpha = 0.7) +
-  geom_errorbar(aes(ymin = mean_hwy - sd_hwy, ymax = mean_hwy + sd_hwy),
-                width = 0.3)  # <-- barre di errore mostrano variabilità
+  geom_errorbar(
+    aes(ymin = mean_hwy - sd_hwy, ymax = mean_hwy + sd_hwy),
+    width = 0.3,
+    linewidth = 0.8
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-
+# Le barre mostrano la variabilità dentro ogni gruppo
 
 
 # ESERCIZIO 23: Pointrange ---------------------------------------------------
 # Obiettivo: Usa geom_pointrange() invece di col + errorbar
 
-# Il tuo codice qui:
 ggplot(mpg_summary, aes(x = class, y = mean_hwy)) +
-  geom_pointrange(aes(ymin = mean_hwy - sd_hwy, ymax = mean_hwy + sd_hwy),
-                  size = 0.8)  # <-- combina punto e intervallo in un geom
+  geom_pointrange(
+    aes(ymin = mean_hwy - sd_hwy, ymax = mean_hwy + sd_hwy),
+    color = "darkblue",
+    size = 0.8,
+    fatten = 3
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-
+# Più compatto e chiaro per confronti
 
 
 # ESERCIZIO 24: Ribbon per Time Series ---------------------------------------
 # Obiettivo: Crea banda di confidenza intorno a serie temporale
-# Dataset: economics
 
 # Prepara dati con bande
 economics_ribbon <- economics %>%
@@ -319,10 +302,11 @@ economics_ribbon <- economics %>%
 
 # Crea grafico con geom_ribbon() + geom_line()
 ggplot(economics_ribbon, aes(x = date, y = unemploy)) +
-  geom_ribbon(aes(ymin = lower, ymax = upper), fill = "lightblue", alpha = 0.4) +
-  geom_line(color = "darkblue", linewidth = 1)  # <-- ribbon per incertezza su time series
+  geom_ribbon(aes(ymin = lower, ymax = upper), 
+              fill = "lightblue", alpha = 0.4) +
+  geom_line(color = "darkblue", linewidth = 1)
 
-
+# Uso reale: intervalli di previsione, errori standard su time series
 
 
 # =============================================================================
@@ -332,13 +316,13 @@ ggplot(economics_ribbon, aes(x = date, y = unemploy)) +
 # ESERCIZIO 25: Multi-layer Scatter ------------------------------------------
 # Obiettivo: Combina geom_rug() + geom_point() + geom_smooth()
 
-# Il tuo codice qui:
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_rug(alpha = 0.3) +
+  geom_rug(alpha = 0.3, color = "gray40") +
   geom_point(alpha = 0.3, size = 2) +
-  geom_smooth(method = "lm", se = TRUE)  # <-- rug mostra distribuzione marginale
+  geom_smooth(method = "lm", se = TRUE, color = "red", fill = "pink") +
+  theme_minimal()
 
-
+# geom_rug() aggiunge tacche sui margini mostrando distribuzione marginale
 
 
 # ESERCIZIO 26: Histogram Sovrapposti (Freq Poly) ----------------------------
@@ -350,66 +334,82 @@ mpg_drv <- mpg %>%
 
 # Crea grafico con color = is_4wd
 ggplot(mpg_drv, aes(x = hwy, color = is_4wd)) +
-  geom_freqpoly(bins = 30, linewidth = 1.2)  # <-- freqpoly per confronti tra gruppi
+  geom_freqpoly(bins = 30, linewidth = 1.2) +
+  theme_minimal()
 
-
+# Freqpoly: sovrapposizioni chiare senza occludere i dati
 
 
 # ESERCIZIO 27: Boxplot Orizzontale ------------------------------------------
 # Obiettivo: Boxplot class vs hwy + coord_flip()
 
-# Il tuo codice qui:
 ggplot(mpg, aes(x = class, y = hwy)) +
-  geom_boxplot() +
-  coord_flip()  # <-- coord_flip rende orizzontale per leggibilità
+  geom_boxplot(fill = "lightcoral") +
+  coord_flip()
 
-
+# coord_flip(): utile per etichette lunghe, migliore leggibilità
 
 
 # ESERCIZIO 28: Density 2D + Points ------------------------------------------
 # Obiettivo: Combina geom_density2d_filled() con geom_point() su faithful
-# Dataset: faithful
 
-# Il tuo codice qui:
 ggplot(faithful, aes(x = eruptions, y = waiting)) +
   geom_density2d_filled(alpha = 0.6) +
-  geom_point(size = 1, alpha = 0.4)  # <-- mappa densità + dati raw
+  geom_point(size = 1, alpha = 0.4, color = "white") +
+  theme_dark()
 
-
+# Mappa densità + verifica con dati raw
 
 
 # ESERCIZIO 29: Smooth con Intervallo Personalizzato -------------------------
 # Obiettivo: Smooth con CI 99% invece del 95% (level = 0.99)
 
-# Il tuo codice qui:
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(alpha = 0.3) +
-  geom_smooth(method = "loess", level = 0.99)  # <-- level controlla ampiezza CI
+  geom_smooth(method = "loess", level = 0.99, fill = "orange", color = "red")
 
-
+# Banda più ampia = maggiore incertezza catturata (99% vs default 95%)
 
 
 # ESERCIZIO 30: Boxplot con Notch --------------------------------------------
 # Obiettivo: Usa notch = TRUE per mostrare CI della mediana
 
-# Il tuo codice qui:
 ggplot(mpg, aes(x = class, y = hwy)) +
-  geom_boxplot(notch = TRUE)  # <-- notch mostra CI della mediana (95%)
+  geom_boxplot(notch = TRUE, fill = "skyblue", outlier.color = "red") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-
+# Se le notch di due box non si sovrappongono, le mediane sono 
+# significativamente diverse (CI 95%)
 
 
 # =============================================================================
-# FINE ESERCIZI
+# FINE SOLUZIONI
 # =============================================================================
 # 
-# Congratulazioni! Hai completato tutti gli esercizi.
+# Best Practices Recap:
 # 
-# Prossimi passi:
-# - Rivedi gli esercizi dove hai avuto difficoltà
-# - Sperimenta con altri dataset (iris, mtcars, ToothGrowth)
-# - Prova a combinare 3+ geom in un grafico
-# - Esplora la documentazione: ?geom_point, ?geom_histogram, etc.
-# 
-# Le soluzioni saranno fornite a fine corso!
+# 1. Scegli il geom giusto per il tipo di dati
+#    - Continuous x continuous → geom_point(), geom_smooth()
+#    - Time series → geom_line()
+#    - 1 var continua → geom_histogram(), geom_density()
+#    - Categorico x continuo → geom_boxplot(), geom_violin()
+#    - Big data → geom_hex(), geom_bin2d()
+#
+# 2. Gestisci overplotting
+#    - alpha basso
+#    - geom_jitter()
+#    - Binning (hex, bin2d)
+#
+# 3. Combina geom per maggiore informazione
+#    - Points + smooth
+#    - Violin + boxplot
+#    - Histogram + density
+#    - Ribbon + line
+#
+# 4. Sperimenta con parametri
+#    - bins, binwidth per histogram
+#    - adjust per density
+#    - method per smooth
+#
 # =============================================================================
