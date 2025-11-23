@@ -804,16 +804,16 @@ ggplot(diamonds_avg, aes(x = cut, y = avg_price)) +
 ## Soluzione 6.4: Formattazione Date ---------------------------------
 ggplot(economics, aes(x = date, y = unemploy)) +
   geom_line(color = "steelblue", size = 1) +
-  scale_x_date(
-    date_labels = "%b %Y",
-    date_breaks = "5 years",
+  ___(
+    date_labels = "___",
+    date_breaks = "___ years",
     name = "Data"
   ) +
   scale_y_continuous(
-    labels = comma,
+    labels = ___,
     name = "Disoccupati (migliaia)"
   ) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme(axis.text.x = element_text(angle = ___, hjust = 1)) +
   labs(title = "Disoccupazione USA nel tempo",
        subtitle = "Date formattate come Mese Anno")
 
@@ -836,11 +836,11 @@ ggplot(economics, aes(x = date, y = unemploy)) +
 ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point(size = 3, color = "steelblue") +
   scale_x_continuous(
-    labels = ~ paste0(.x * 0.5, " ton"),
+    labels = ~ paste0(.x * ___, " ___"),
     name = "Peso"
   ) +
   scale_y_continuous(
-    labels = ~ paste0(.x * 0.425, " km/L"),
+    labels = ~ paste0(.x * ___, " ___"),
     name = "Consumo"
   ) +
   labs(title = "Conversione unità custom",
@@ -873,20 +873,20 @@ diamonds_sample_bonus <- sample_n(diamonds, 5000)
 
 ggplot(diamonds_sample_bonus, aes(x = carat, y = price, color = cut, size = depth)) +
   geom_point(alpha = 0.5) +
-  scale_x_log10(
+  ___(
     breaks = c(0.3, 0.5, 1, 2, 3, 5),
     name = "Carati (scala log)"
   ) +
-  scale_y_log10(
-    labels = dollar,
+  ___(
+    labels = ___,
     breaks = c(500, 1000, 2000, 5000, 10000, 20000),
     name = "Prezzo"
   ) +
-  scale_color_brewer(
-    palette = "Set1",
+  ___(
+    palette = "___",
     name = "Taglio"
   ) +
-  scale_size_area(
+  ___(
     max_size = 5,
     name = "Profondità\n(%)"
   ) +
@@ -895,7 +895,7 @@ ggplot(diamonds_sample_bonus, aes(x = carat, y = price, color = cut, size = dept
     subtitle = "Diamanti campione (n=5000), scale logaritmiche",
     caption = "Fonte: ggplot2::diamonds dataset"
   ) +
-  theme_minimal() +
+  ___() +
   theme(
     plot.title = element_text(face = "bold", size = 14),
     legend.position = "right"
@@ -932,17 +932,17 @@ p_a <- p_base + labs(title = "A: Default (hue)")
 
 # Versione B (ColorBrewer):
 p_b <- p_base + 
-  scale_color_brewer(palette = "Set1") +
+  ___(palette = "___") +
   labs(title = "B: ColorBrewer Set1")
 
 # Versione C (Viridis):
 p_c <- p_base + 
-  scale_color_viridis_d() +
+  ___() +
   labs(title = "C: Viridis D")
 
 # Versione D (Greyscale):
 p_d <- p_base + 
-  scale_color_grey() +
+  ___() +
   labs(title = "D: Greyscale")
 
 # Visualizza tutti (richiede patchwork o gridExtra):
@@ -987,15 +987,15 @@ economics_scaled <- economics %>%
 ggplot(economics_scaled, aes(x = date)) +
   geom_line(aes(y = unemploy_scaled, color = "Disoccupati"), size = 1) +
   geom_line(aes(y = pop_scaled, color = "Popolazione"), size = 1) +
-  scale_x_date(
-    date_labels = "%Y",
-    date_breaks = "10 years"
+  ___(
+    date_labels = "___",
+    date_breaks = "___ years"
   ) +
   scale_y_continuous(
-    labels = comma,
+    labels = ___,
     name = "Valori (scale diverse)"
   ) +
-  scale_color_manual(
+  ___(
     name = "Variabile",
     values = c("Disoccupati" = "#E41A1C", "Popolazione" = "#377EB8")
   ) +
@@ -1004,8 +1004,8 @@ ggplot(economics_scaled, aes(x = date)) +
     subtitle = "Due variabili con scale diverse (normalizzate per visualizzazione)",
     x = "Anno"
   ) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+  ___() +
+  theme(legend.position = "___")
 
 # Note: Due assi y separati sono controversi (misleading)
 # Meglio: normalizzare, usare facets, o grafici separati

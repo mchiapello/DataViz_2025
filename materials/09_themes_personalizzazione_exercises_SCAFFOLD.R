@@ -434,7 +434,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
   ) +
   theme_minimal() +
   theme(
-    legend.position = "bottom"  # "top", "bottom", "left", "right", "none"
+    legend.position = "___"  # "top", "bottom", "left", "right", "none"
   )
 
 # Posizione bottom è ideale per grafici larghi
@@ -450,10 +450,10 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
   labs(title = "Legenda Interna") +
   theme_minimal() +
   theme(
-    legend.position = c(0.85, 0.25),  # Coordinate (x, y) da 0 a 1
+    legend.position = c(___, ___),  # Coordinate (x, y) da 0 a 1
     legend.background = element_rect(
-      fill = "white",
-      color = "black",
+      fill = "___",
+      color = "___",
       size = 0.5
     )
   )
@@ -472,7 +472,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
   theme_minimal() +
   theme(
     legend.position = "bottom",
-    legend.direction = "horizontal"  # "vertical" è il default
+    legend.direction = "___"  # "vertical" è il default
   )
 
 # Orizzontale salva spazio verticale - ottimo per presentazioni
@@ -489,13 +489,13 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
   theme_minimal() +
   theme(
     legend.title = element_text(
-      face = "bold",
-      size = 14,
+      face = "___",
+      size = ___,
       color = "navy"
     ),
     legend.text = element_text(
-      face = "italic",
-      size = 11
+      face = "___",
+      size = ___
     )
   )
 
@@ -515,11 +515,11 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
     color = "Classe"
   ) +
   theme_minimal() +
-  guides(
+  ___(
     color = guide_legend(
       override.aes = list(
-        size = 4,    # Punti grandi nella legenda
-        alpha = 1    # Completamente opachi nella legenda
+        size = ___,    # Punti grandi nella legenda
+        alpha = ___    # Completamente opachi nella legenda
       )
     )
   )
@@ -538,40 +538,40 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
 
 ## Soluzione 6.1:
 theme_mio <- function(base_size = 12) {
-  theme_minimal(base_size = base_size) +
+  ___(base_size = base_size) +
     theme(
       # Titolo grande e bold
       plot.title = element_text(
-        size = base_size * 1.5,
-        face = "bold",
-        hjust = 0,  # Allinea a sinistra
+        size = base_size * ___,
+        face = "___",
+        hjust = ___,  # Allinea a sinistra
         margin = margin(b = 10)
       ),
       
       # Sottotitolo grigio
       plot.subtitle = element_text(
         size = base_size * 1.1,
-        color = "gray40",
+        color = "___",
         margin = margin(b = 15)
       ),
       
       # Rimuove griglia minore
-      panel.grid.minor = element_blank(),
+      panel.grid.minor = ___(),
       
       # Griglia maggiore sottile
       panel.grid.major = element_line(
-        color = "gray90",
+        color = "___",
         size = 0.5
       ),
       
       # Legenda in alto senza titolo
-      legend.position = "top",
-      legend.title = element_blank(),
+      legend.position = "___",
+      legend.title = ___(),
       
       # Assi bold
       axis.title = element_text(
         size = base_size * 1.1,
-        face = "bold"
+        face = "___"
       )
     )
 }
@@ -591,7 +591,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
     x = "Cilindrata (L)",
     y = "MPG Highway"
   ) +
-  theme_mio()  # Applica il tema custom
+  ___()  # Applica il tema custom
 
 # Altro esempio con base_size diverso
 ggplot(economics, aes(x = date, y = unemploy/1000)) +
@@ -600,7 +600,7 @@ ggplot(economics, aes(x = date, y = unemploy/1000)) +
     title = "Disoccupazione USA",
     subtitle = "1967-2015"
   ) +
-  theme_mio(base_size = 16)  # Testo più grande
+  ___(base_size = ___)  # Testo più grande
 
 
 ## Esercizio 6.3: Theme Set Globale
@@ -609,7 +609,7 @@ ggplot(economics, aes(x = date, y = unemploy/1000)) +
 
 ## Soluzione 6.3:
 # Imposta tema globale
-theme_set(theme_minimal(base_size = 14))
+___(theme_minimal(base_size = ___))
 
 # Ora TUTTI i grafici useranno theme_minimal automaticamente
 ggplot(mpg, aes(x = class)) +
@@ -645,13 +645,13 @@ p <- ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
   theme(legend.position = "bottom")
 
 # Salva con alta risoluzione per pubblicazione
-ggsave(
+___(
   filename = "plot_highres.png",
   plot = p,
-  width = 10,
-  height = 6,
+  width = ___,
+  height = ___,
   units = "in",
-  dpi = 300,      # 300 DPI = standard pubblicazioni scientifiche
+  dpi = ___,      # 300 DPI = standard pubblicazioni scientifiche
   bg = "white"    # Sfondo bianco
 )
 
@@ -686,13 +686,13 @@ ggsave(
   plot = p_final,
   width = 1200,
   height = 800,
-  units = "px",
-  dpi = 72
+  units = "___",
+  dpi = ___
 )
 
 # 2. PDF vettoriale (scalabile senza perdita qualità)
 ggsave(
-  "unemployment_vector.pdf",
+  "unemployment_vector.___",
   plot = p_final,
   width = 10,
   height = 6,
@@ -706,7 +706,7 @@ ggsave(
   width = 10,
   height = 6,
   units = "in",
-  dpi = 300,
+  dpi = ___,
   bg = "white"
 )
 

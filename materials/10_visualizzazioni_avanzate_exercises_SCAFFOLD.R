@@ -398,7 +398,7 @@ ggplot(mtcars_scaled, aes(x = variable, y = car, fill = value_scaled)) +
 # x = log2FC, y = -log10(padj), usa geom_point()
 
 ggplot(volcano_data, aes(x = log2FC, y = -log10(padj))) +
-  geom_point(alpha = 0.6) +
+  ___(alpha = 0.6) +
   labs(
     title = "Volcano Plot - Differential Expression",
     x = "log2 Fold Change",
@@ -418,13 +418,13 @@ ggplot(volcano_data, aes(x = log2FC, y = -log10(padj))) +
 
 volcano_data <- volcano_data %>%
   mutate(
-    significant = abs(log2FC) > 1 & padj < 0.05
+    significant = abs(log2FC) > ___ & padj < ___
   )
 
 ggplot(volcano_data, aes(x = log2FC, y = -log10(padj), color = significant)) +
   geom_point(alpha = 0.6, size = 1.5) +
-  scale_color_manual(
-    values = c("grey70", "red3"),
+  ___(
+    values = c("___", "___"),
     labels = c("Not Significant", "Significant")
   ) +
   labs(
@@ -445,8 +445,8 @@ ggplot(volcano_data, aes(x = log2FC, y = -log10(padj), color = significant)) +
 
 ggplot(volcano_data, aes(x = log2FC, y = -log10(padj), color = significant)) +
   geom_point(alpha = 0.6, size = 1.5) +
-  geom_vline(xintercept = c(-1, 1), linetype = "dashed", color = "grey30") +
-  geom_hline(yintercept = -log10(0.05), linetype = "dashed", color = "grey30") +
+  ___(xintercept = c(___, ___), linetype = "dashed", color = "grey30") +
+  ___(yintercept = -log10(___), linetype = "dashed", color = "grey30") +
   scale_color_manual(values = c("grey70", "red3")) +
   labs(
     title = "Volcano Plot with Thresholds",
@@ -470,8 +470,8 @@ ggplot(volcano_data, aes(x = log2FC, y = -log10(padj), color = significant)) +
 volcano_data <- volcano_data %>%
   mutate(
     regulation = case_when(
-      log2FC > 1 & padj < 0.05 ~ "Up-regulated",
-      log2FC < -1 & padj < 0.05 ~ "Down-regulated",
+      log2FC > ___ & padj < ___ ~ "Up-regulated",
+      log2FC < ___ & padj < ___ ~ "Down-regulated",
       TRUE ~ "Not Significant"
     ),
     regulation = factor(regulation, levels = c("Up-regulated", "Down-regulated", "Not Significant"))
@@ -479,8 +479,8 @@ volcano_data <- volcano_data %>%
 
 ggplot(volcano_data, aes(x = log2FC, y = -log10(padj), color = regulation)) +
   geom_point(alpha = 0.7, size = 1.8) +
-  scale_color_manual(
-    values = c("Up-regulated" = "red3", "Down-regulated" = "blue3", "Not Significant" = "grey70")
+  ___(
+    values = c("Up-regulated" = "___", "Down-regulated" = "___", "Not Significant" = "___")
   ) +
   geom_vline(xintercept = c(-1, 1), linetype = "dashed", alpha = 0.5) +
   geom_hline(yintercept = -log10(0.05), linetype = "dashed", alpha = 0.5) +
@@ -520,9 +520,9 @@ print(top_genes)
 ggplot(volcano_data, aes(x = log2FC, y = -log10(padj))) +
   geom_point(aes(color = regulation), alpha = 0.5, size = 1.5) +
   geom_point(data = top_genes, color = "black", size = 3, shape = 21, fill = "yellow") +
-  geom_text_repel(
+  ___(
     data = top_genes,
-    aes(label = gene),
+    aes(label = ___),
     size = 3.5,
     fontface = "bold",
     box.padding = 0.5,
@@ -588,8 +588,8 @@ p_bars <- ggplot(volcano_data, aes(x = regulation, fill = regulation)) +
   )
 
 p_volcano + p_bars +
-  plot_layout(widths = c(2, 1)) +
-  plot_annotation(
+  ___(widths = c(___, ___)) +
+  ___(
     title = "Differential Expression Analysis Summary",
     theme = theme(plot.title = element_text(size = 14, face = "bold"))
   )
@@ -643,18 +643,18 @@ design <- "
 "
 
 (p1_hist + p2_density + p3_bars + p4_volcano) +
-  plot_layout(design = design, guides = "collect") &
+  ___(design = design, guides = "___") &
   theme(
-    legend.position = "bottom",
+    legend.position = "___",
     plot.title = element_text(size = 11, face = "bold")
   ) +
-  plot_annotation(
+  ___(
     title = "Comprehensive Differential Expression Analysis",
     subtitle = "Multi-Panel Overview of 1000 Genes",
     caption = "Thresholds: |log2FC| > 1, adjusted p-value < 0.05",
     theme = theme(
-      plot.title = element_text(size = 16, face = "bold"),
-      plot.subtitle = element_text(size = 12)
+      plot.title = element_text(size = ___, face = "___"),
+      plot.subtitle = element_text(size = ___)
     )
   )
 
