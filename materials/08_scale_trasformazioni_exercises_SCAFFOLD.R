@@ -1,8 +1,14 @@
 # ============================================================================
-# SCALE E TRASFORMAZIONI - SOLUZIONI
+# SCALE E TRASFORMAZIONI - ESERCIZI
 # ============================================================================
 # Corso: REVELO Training - Data Viz 2025
 # Modulo: 08 - Scale e Trasformazioni
+# ============================================================================
+# 
+# Istruzioni:
+# - Completa ogni esercizio scrivendo il codice richiesto
+# - Esegui il codice per verificare che funzioni
+# - Sperimenta con variazioni!
 # ============================================================================
 
 # Setup -------------------------------------------------------------------
@@ -34,19 +40,19 @@ data(mtcars)
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   scale_x_continuous(
-    name = "Cilindrata (L)",
-    limits = c(2, 7),
-    breaks = seq(2, 7, 1)
+    name = "___",
+    limits = c(___, ___),
+    breaks = seq(2, 7, ___)
   ) +
   scale_y_continuous(
-    name = "Consumo autostrada (mpg)",
-    limits = c(15, 40)
+    name = "___",
+    limits = c(___, ___)
   )
 
 # Note: limits rimuove dati fuori range (warning). Per zoom, usa coord_cartesian()
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
-  coord_cartesian(xlim = c(2, 7), ylim = c(15, 40))
+  ___(xlim = c(2, 7), ylim = c(15, 40))
 
 ## Esercizio 1.2: coord_cartesian vs limits --------------------------
 # Obiettivo: Comprendere la differenza tra zoom e filtraggio
@@ -63,13 +69,13 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 # Grafico A (scale limits - SBAGLIATO per statistiche):
 ggplot(mpg, aes(x = class, y = hwy)) +
   geom_boxplot() +
-  scale_y_continuous(limits = c(10, 30)) +
+  ___(limits = c(___, ___)) +
   labs(title = "A: scale_y_continuous(limits) - Statistiche ERRATE")
 
 # Grafico B (coord zoom - CORRETTO):
 ggplot(mpg, aes(x = class, y = hwy)) +
   geom_boxplot() +
-  coord_cartesian(ylim = c(10, 30)) +
+  ___(ylim = c(10, 30)) +
   labs(title = "B: coord_cartesian(ylim) - Statistiche CORRETTE")
 
 # Spiegazione:
@@ -94,8 +100,8 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 ## Soluzione 1.3: Expand e Padding -----------------------------------
 ggplot(economics, aes(x = date, y = unemploy)) +
   geom_line() +
-  scale_x_date(expand = expansion(mult = c(0, 0))) +
-  scale_y_continuous(expand = expansion(mult = c(0, 0))) +
+  scale_x_date(expand = expansion(mult = c(___, ___))) +
+  scale_y_continuous(expand = expansion(mult = c(___, ___))) +
   labs(title = "Linea tocca i bordi - nessun padding")
 
 # Note: expansion(mult = c(0, 0)) rimuove padding
@@ -118,11 +124,11 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point(size = 3) +
   scale_x_continuous(
     name = "Peso (1000 lbs)",
-    breaks = c(2, 3, 4, 5)
+    breaks = c(___, ___, ___, ___)
   ) +
   scale_y_continuous(
     name = "Miglia per gallone",
-    breaks = seq(10, 30, 5)
+    breaks = seq(___, ___, ___)
   )
 
 # Note: breaks controlla dove appaiono tick marks e numeri
@@ -147,14 +153,14 @@ diamonds_si1 <- filter(diamonds, clarity == "SI1")
 ggplot(diamonds_si1, aes(x = carat, y = price)) +
   geom_point(alpha = 0.3) +
   scale_x_continuous(
-    name = "Carati",
-    limits = c(0.5, 2.5),
-    breaks = seq(0.5, 2.5, 0.5)
+    name = "___",
+    limits = c(___, ___),
+    breaks = seq(0.5, 2.5, ___)
   ) +
   scale_y_continuous(
-    name = "Prezzo ($)",
-    limits = c(1000, 10000),
-    breaks = c(2000, 5000, 8000)
+    name = "___",
+    limits = c(___, ___),
+    breaks = c(___, ___, ___)
   ) +
   labs(title = "Diamanti con clarità SI1")
 
@@ -180,8 +186,8 @@ ggplot(diamonds_si1, aes(x = carat, y = price)) +
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(alpha = 0.1) +
   geom_smooth(method = "lm", color = "red", se = FALSE) +
-  scale_x_log10() +
-  scale_y_log10() +
+  ___() +
+  ___() +
   labs(title = "Relazione log-log tra carati e prezzo",
        subtitle = "Più lineare dopo trasformazione logaritmica")
 
@@ -211,7 +217,7 @@ ggplot(economics, aes(x = date, y = pop)) +
 # Grafico B (log):
 ggplot(economics, aes(x = date, y = pop)) +
   geom_line(color = "steelblue") +
-  scale_y_log10(labels = comma) +
+  ___(labels = comma) +
   labs(title = "B: Scala log10 - crescita costante in %",
        y = "Popolazione USA (scala log)")
 
@@ -234,7 +240,7 @@ ggplot(economics, aes(x = date, y = pop)) +
 ## Soluzione 2.3: Trasformazione Sqrt --------------------------------
 ggplot(diamonds, aes(x = price)) +
   geom_histogram(bins = 50, fill = "steelblue", color = "white") +
-  scale_y_sqrt() +
+  ___() +
   labs(title = "Distribuzione prezzi con scala sqrt sui conteggi",
        subtitle = "Evidenzia meglio code della distribuzione",
        y = "Conteggio (scala sqrt)")
@@ -259,8 +265,8 @@ mtcars_named <- mtcars %>% mutate(car = rownames(mtcars))
 
 ggplot(mtcars_named, aes(x = reorder(car, mpg), y = mpg)) +
   geom_col(fill = "steelblue") +
-  coord_flip() +
-  scale_y_reverse() +
+  ___() +
+  ___() +
   labs(title = "Automobili ordinate per consumo (peggiore in alto)",
        x = NULL,
        y = "Miglia per gallone")
@@ -283,9 +289,9 @@ ggplot(mtcars_named, aes(x = reorder(car, mpg), y = mpg)) +
 ## Soluzione 2.5: Trasformazione con Breaks Custom -------------------
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(alpha = 0.2, color = "steelblue") +
-  scale_y_log10(
-    breaks = c(500, 1000, 2000, 5000, 10000, 20000),
-    labels = dollar
+  ___(
+    breaks = c(___, ___, ___, ___, ___, ___),
+    labels = ___
   ) +
   labs(title = "Prezzo vs Carati (scala log con breaks custom)",
        x = "Carati",
@@ -312,8 +318,8 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 ## Soluzione 3.1: ColorBrewer Qualitative ----------------------------
 ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
   geom_point(size = 3) +
-  scale_color_brewer(
-    palette = "Set1",
+  ___(
+    palette = "___",
     name = "Tipo di auto"
   ) +
   labs(title = "Consumo per tipo di auto",
@@ -336,7 +342,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
 ## Soluzione 3.2: Viridis Discrete -----------------------------------
 ggplot(mpg, aes(x = class, y = hwy, fill = class)) +
   geom_boxplot(show.legend = FALSE) +
-  scale_fill_viridis_d(option = "D") +
+  ___(option = "___") +
   labs(title = "Consumo per categoria (palette viridis)",
        x = "Categoria",
        y = "Miglia per gallone (autostrada)")
@@ -360,10 +366,10 @@ mpg_drv <- filter(mpg, drv %in% c("f", "r", "4"))
 
 ggplot(mpg_drv, aes(x = class, fill = drv)) +
   geom_bar(position = "dodge") +
-  scale_fill_manual(
+  ___(
     name = "Trazione",
     values = c("f" = "#E41A1C", "r" = "#377EB8", "4" = "#4DAF4A"),
-    labels = c("f" = "Trazione anteriore", "r" = "Posteriore", "4" = "4x4")
+    labels = c("f" = "___", "r" = "___", "4" = "___")
   ) +
   labs(title = "Distribuzione tipi di trazione per categoria")
 
@@ -386,9 +392,9 @@ diamonds_sample <- sample_n(diamonds, 1000)
 
 ggplot(diamonds_sample, aes(x = carat, y = price, color = cut)) +
   geom_point(alpha = 0.6, size = 2) +
-  scale_color_brewer(
-    palette = "Spectral",
-    direction = -1,
+  ___(
+    palette = "___",
+    direction = ___,
     name = "Taglio"
   ) +
   labs(title = "Palette Spectral invertita (direction = -1)")
@@ -410,9 +416,9 @@ ggplot(diamonds_sample, aes(x = carat, y = price, color = cut)) +
 
 ## Soluzione 3.5: Consistenza Color e Fill ---------------------------
 ggplot(mpg, aes(x = class, y = hwy)) +
-  geom_boxplot(aes(fill = class, color = class), outlier.size = 2) +
-  scale_fill_brewer(palette = "Set2", name = "Categoria") +
-  scale_color_brewer(palette = "Set2", name = "Categoria") +
+  geom_boxplot(aes(fill = ___, color = ___), outlier.size = 2) +
+  ___(palette = "Set2", name = "Categoria") +
+  ___(palette = "Set2", name = "Categoria") +
   labs(title = "Consistenza tra fill e color",
        subtitle = "Stessa palette per riempimento e bordi")
 
@@ -439,9 +445,9 @@ diamonds_sample2 <- sample_n(diamonds, 5000)
 
 ggplot(diamonds_sample2, aes(x = carat, y = price, color = depth)) +
   geom_point(alpha = 0.5) +
-  scale_color_gradient(
-    low = "lightblue",
-    high = "darkblue",
+  ___(
+    low = "___",
+    high = "___",
     name = "Profondità (%)"
   ) +
   labs(title = "Gradient semplice (2 colori)")
@@ -465,7 +471,7 @@ data(faithfuld)
 
 ggplot(faithfuld, aes(x = waiting, y = eruptions, fill = density)) +
   geom_tile() +
-  scale_fill_viridis_c(option = "C", name = "Densità") +
+  ___(option = "___", name = "Densità") +
   labs(title = "Old Faithful - Densità 2D",
        subtitle = "Palette Viridis (plasma)",
        x = "Tempo di attesa (min)",
@@ -488,15 +494,15 @@ ggplot(faithfuld, aes(x = waiting, y = eruptions, fill = density)) +
 ## Soluzione 4.3: Diverging Scale (Gradient2) ------------------------
 mtcars_centered <- mtcars %>% 
   mutate(car = rownames(mtcars),
-         mpg_centered = mpg - mean(mpg))
+         mpg_centered = mpg - mean(___))
 
 ggplot(mtcars_centered, aes(x = reorder(car, mpg_centered), y = mpg_centered, fill = mpg_centered)) +
   geom_col() +
-  scale_fill_gradient2(
-    low = "red",
-    mid = "white",
-    high = "blue",
-    midpoint = 0,
+  ___(
+    low = "___",
+    mid = "___",
+    high = "___",
+    midpoint = ___,
     name = "Deviazione\ndalla media"
   ) +
   coord_flip() +
@@ -522,8 +528,8 @@ ggplot(mtcars_centered, aes(x = reorder(car, mpg_centered), y = mpg_centered, fi
 ## Soluzione 4.4: Gradientn (Multiple Colors) ------------------------
 ggplot(sample_n(diamonds, 5000), aes(x = carat, y = price, color = price)) +
   geom_point(alpha = 0.6) +
-  scale_color_gradientn(
-    colors = c("blue", "cyan", "yellow", "orange", "red"),
+  ___(
+    colors = c("___", "___", "___", "___", "___"),
     name = "Prezzo ($)"
   ) +
   labs(title = "Gradient con 5 colori",
@@ -547,10 +553,10 @@ ggplot(sample_n(diamonds, 5000), aes(x = carat, y = price, color = price)) +
 ## Soluzione 4.5: Limiti e Breaks per Colori -------------------------
 ggplot(diamonds, aes(x = carat, y = price, color = price)) +
   geom_point(alpha = 0.3) +
-  scale_color_viridis_c(
-    limits = c(2000, 15000),
-    breaks = c(2000, 5000, 10000, 15000),
-    labels = dollar,
+  ___(
+    limits = c(___, ___),
+    breaks = c(___, ___, ___, ___),
+    labels = ___,
     name = "Prezzo"
   ) +
   labs(title = "Scala colori con limiti e breaks custom")
@@ -577,13 +583,13 @@ ggplot(diamonds, aes(x = carat, y = price, color = price)) +
 # Grafico A (radius scaling - SBAGLIATO):
 ggplot(mtcars, aes(x = wt, y = mpg, size = hp)) +
   geom_point(alpha = 0.6, color = "steelblue") +
-  scale_size(range = c(1, 15), name = "Cavalli") +
+  ___(range = c(1, 15), name = "Cavalli") +
   labs(title = "A: scale_size (radius) - Grandi sembrano TROPPO grandi")
 
 # Grafico B (area scaling - CORRETTO):
 ggplot(mtcars, aes(x = wt, y = mpg, size = hp)) +
   geom_point(alpha = 0.6, color = "steelblue") +
-  scale_size_area(max_size = 15, name = "Cavalli") +
+  ___(max_size = 15, name = "Cavalli") +
   labs(title = "B: scale_size_area - Percezione corretta")
 
 # Spiegazione:
@@ -611,7 +617,7 @@ data_with_zeros <- data.frame(
 
 ggplot(data_with_zeros, aes(x = x, y = y, size = size_val)) +
   geom_point(color = "steelblue", alpha = 0.7) +
-  scale_size_area(max_size = 15, name = "Valore") +
+  ___(max_size = 15, name = "Valore") +
   labs(title = "scale_size_area con valori zero",
        subtitle = "Zero → zero area (punti invisibili)")
 
@@ -634,8 +640,8 @@ mpg_4class <- filter(mpg, class %in% c("compact", "suv", "midsize", "pickup"))
 
 ggplot(mpg_4class, aes(x = displ, y = hwy, shape = class)) +
   geom_point(size = 3, color = "steelblue") +
-  scale_shape_manual(
-    values = c(16, 17, 15, 18),
+  ___(
+    values = c(___, ___, ___, ___),
     name = "Categoria"
   ) +
   labs(title = "Forme personalizzate per 4 categorie")
@@ -657,8 +663,8 @@ ggplot(mpg_4class, aes(x = displ, y = hwy, shape = class)) +
 ## Soluzione 5.4: Filled Shapes (21-25) ------------------------------
 ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, shape = Species, fill = Species)) +
   geom_point(size = 3, color = "black") +
-  scale_shape_manual(values = c(21, 22, 23), name = "Specie") +
-  scale_fill_brewer(palette = "Set1", name = "Specie") +
+  ___(values = c(___, ___, ___), name = "Specie") +
+  ___(palette = "Set1", name = "Specie") +
   labs(title = "Forme filled (21-25)",
        subtitle = "Bordo nero, riempimento colorato")
 
@@ -680,8 +686,8 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, shape = Species, fill = Spec
 ## Soluzione 5.5: Combinare Size e Color -----------------------------
 ggplot(mtcars, aes(x = wt, y = mpg, size = hp, color = factor(cyl))) +
   geom_point(alpha = 0.7) +
-  scale_size_area(max_size = 10, name = "Cavalli") +
-  scale_color_viridis_d(name = "Cilindri") +
+  ___(max_size = 10, name = "Cavalli") +
+  ___(name = "Cilindri") +
   labs(title = "Tre variabili: peso, consumo, cavalli, cilindri",
        subtitle = "Size = hp, Color = cyl",
        x = "Peso (1000 lbs)",
@@ -709,7 +715,7 @@ ggplot(mtcars, aes(x = wt, y = mpg, size = hp, color = factor(cyl))) +
 ggplot(economics, aes(x = date, y = pop)) +
   geom_line(color = "steelblue", size = 1) +
   scale_y_continuous(
-    labels = comma,
+    labels = ___,
     name = "Popolazione USA"
   ) +
   labs(title = "Crescita popolazione USA",
@@ -738,7 +744,7 @@ data_prop <- data.frame(
 ggplot(data_prop, aes(x = category, y = proportion)) +
   geom_col(fill = "steelblue") +
   scale_y_continuous(
-    labels = percent,
+    labels = ___,
     name = "Percentuale"
   ) +
   labs(title = "Distribuzione per categoria",
@@ -767,7 +773,7 @@ diamonds_avg <- diamonds %>%
 ggplot(diamonds_avg, aes(x = cut, y = avg_price)) +
   geom_col(fill = "steelblue") +
   scale_y_continuous(
-    labels = dollar,
+    labels = ___,
     name = "Prezzo medio"
   ) +
   labs(title = "Prezzo medio per taglio (Dollar)")
@@ -776,7 +782,7 @@ ggplot(diamonds_avg, aes(x = cut, y = avg_price)) +
 ggplot(diamonds_avg, aes(x = cut, y = avg_price)) +
   geom_col(fill = "steelblue") +
   scale_y_continuous(
-    labels = dollar_format(prefix = "€ ", big.mark = ".", decimal.mark = ","),
+    labels = dollar_format(prefix = "___ ", big.mark = ".", decimal.mark = ","),
     name = "Prezzo medio"
   ) +
   labs(title = "Prezzo medio per taglio (Euro)")
@@ -1007,39 +1013,11 @@ ggplot(economics_scaled, aes(x = date)) +
 
 
 # ============================================================================
-# SUMMARY - BEST PRACTICES
+# FINE ESERCIZI
 # ============================================================================
-
-# 1. SCALE CONTINUE:
-#    - coord_cartesian() per zoom (non limits)
-#    - Breaks significativi (3-7 tick marks)
-#    - Labels chiari con unità
-
-# 2. TRASFORMAZIONI:
-#    - scale_*_log10() per dati con range ampio
-#    - scale_*_sqrt() per conteggi
-#    - Trasformazione nella scala (non coord) per stat corrette
-
-# 3. COLORI:
-#    - ColorBrewer o Viridis (accessibili)
-#    - MAI rainbow
-#    - Consistenza tra color e fill
-
-# 4. DIMENSIONE:
-#    - scale_size_area() quasi sempre
-#    - Max 6 shapes distinguibili
-
-# 5. FORMATTAZIONE:
-#    - Package scales per numeri, date, valuta
-#    - Labels informativi
-#    - Considera pubblico e contesto
-
-# 6. GENERALE:
-#    - Defaults ggplot2 spesso ottimi
-#    - Modifica con scopo preciso
-#    - Testa accessibilità (daltonismo, stampa B&W)
-#    - Documentazione: ?scale_color_brewer, vignette("ggplot2-specs")
-
+# 
+# Completa gli esercizi sopra per praticare scale e trasformazioni!
+# Confronta poi con le soluzioni.
+#
 # ============================================================================
-# FINE SOLUZIONI
 # ============================================================================
