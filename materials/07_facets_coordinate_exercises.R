@@ -30,9 +30,6 @@ data(mtcars)
 # Dataset: mpg
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  facet_wrap(~ class)  # <-- Modifica 'class' con la variabile desiderata
 
 
 
@@ -41,9 +38,6 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 # Obiettivo: Stesso plot, ma con 3 colonne (ncol = 3)
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  facet_wrap(~ class, ncol = 3)  # <-- Modifica il numero di colonne
 
 
 
@@ -91,9 +85,6 @@ economics_decade <- economics %>%
 #            Facet grid con drv (righe) e cyl (colonne)
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  facet_grid(drv ~ cyl)  # <-- Modifica la formula rows ~ cols
 
 
 
@@ -156,9 +147,6 @@ diamonds_sample <- diamonds %>% sample_n(1000)
 #            Osserva differenza - ogni pannello ottimizza range
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  facet_wrap(~ class, scales = "free")  # <-- Prova anche "free_x" o "free_y"
 
 
 
@@ -203,9 +191,6 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 #            Usa coord_flip() per labels leggibili
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = class, y = hwy)) +
-  geom_boxplot() +
-  coord_flip()  # <-- Aggiungi coordinata flip
 
 
 
@@ -236,9 +221,6 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 #            2. coord_polar(theta = "y")
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = "", fill = class)) +
-  geom_bar() +
-  coord_polar(theta = "y")  # <-- Modifica theta se necessario
 
 
 

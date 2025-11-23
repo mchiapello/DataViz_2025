@@ -44,16 +44,6 @@ data(mtcars)
 # - Aggiungi titoli agli assi: "Cilindrata (L)" e "Consumo autostrada (mpg)"
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  scale_x_continuous(
-    limits = c(2, 7),
-    breaks = seq(2, 7, 1)
-  ) +
-  scale_y_continuous(
-    limits = c(15, 40)
-  ) +
-  labs(x = "Cilindrata (L)", y = "Consumo autostrada (mpg)")
 
 
 

@@ -41,20 +41,12 @@ data(iris)
 ## Obiettivo: Crea due scatter plot identici del dataset mpg (displ vs hwy),
 ##            uno con theme_gray() e uno con theme_minimal(), per vedere le differenze.
 
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  theme_gray()  # <-- Prova anche theme_minimal()
-
 
 
 
 ## Esercizio 1.2: Theme Classic per Pubblicazioni
 ## Obiettivo: Crea un boxplot di hwy per classe di veicolo usando theme_classic().
 ##            Questo tema è ideale per pubblicazioni scientifiche.
-
-ggplot(mpg, aes(x = class, y = hwy)) +
-  geom_boxplot() +
-  theme_classic()  # <-- Tema per pubblicazioni
 
 
 
@@ -87,14 +79,6 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 ## Esercizio 2.1: Modificare Background del Plot
 ## Obiettivo: Parti da theme_minimal() e modifica plot.background per avere
 ##            fill = "lightblue" e panel.background con fill = "white".
-
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  theme_minimal() +
-  theme(
-    plot.background = element_rect(fill = "lightblue"),
-    panel.background = element_rect(fill = "white")
-  )
 
 
 

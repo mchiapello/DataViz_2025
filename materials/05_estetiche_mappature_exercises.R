@@ -30,8 +30,6 @@ data(mtcars)
 # Dataset: mpg
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = displ, y = hwy, color = )) +  # <-- Aggiungi l'estetica color
-  geom_point()
 
 
 
@@ -40,8 +38,6 @@ ggplot(mpg, aes(x = displ, y = hwy, color = )) +  # <-- Aggiungi l'estetica colo
 # Obiettivo: Scatter plot displ vs hwy, con color basato su cty (consumo città)
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = displ, y = hwy, color = )) +  # <-- Aggiungi variabile continua
-  geom_point()
 
 
 
@@ -60,9 +56,6 @@ ggplot(mpg, aes(x = displ, y = hwy, color = )) +  # <-- Aggiungi variabile conti
 # Obiettivo: Ripeti esercizio 2, ma usa scale_color_viridis_c()
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = displ, y = hwy, color = cty)) +
-  geom_point() +
-  scale_color_viridis_c()  # <-- Aggiungi la scala viridis
 
 
 
@@ -85,8 +78,6 @@ ggplot(mpg, aes(x = displ, y = hwy, color = cty)) +
 # Obiettivo: Bar chart di mpg per class, riempimento per drv
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = class, fill = )) +  # <-- Aggiungi l'estetica fill
-  geom_bar()
 
 
 
@@ -131,8 +122,6 @@ ggplot(mpg, aes(x = class, fill = )) +  # <-- Aggiungi l'estetica fill
 # Obiettivo: Scatter plot displ vs hwy, size basato su cyl
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = displ, y = hwy, size = )) +  # <-- Aggiungi l'estetica size
-  geom_point()
 
 
 
@@ -181,8 +170,6 @@ ggplot(mpg, aes(x = displ, y = hwy, size = )) +  # <-- Aggiungi l'estetica size
 # Dataset: diamonds
 
 # Il tuo codice qui:
-ggplot(diamonds, aes(x = carat, y = price)) +
-  geom_point(alpha = )  # <-- Aggiungi il valore alpha
 
 
 
@@ -241,8 +228,6 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 # ggplot(mpg, aes(x = displ, y = hwy, color = "blue")) + geom_point()
 
 # Codice corretto:
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(color = )  # <-- Sposta il colore fuori da aes()
 
 
 
