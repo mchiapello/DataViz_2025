@@ -1,15 +1,14 @@
 # =============================================================================
-# SOLUZIONI: Estetiche e Mappature in ggplot2
+# ESERCIZI: Estetiche e Mappature in ggplot2
 # REVELO Training - Data Viz 2025
 # =============================================================================
 # 
-# Questo file contiene le soluzioni complete di tutti gli esercizi.
-# Usa questo per:
-# - Verificare le tue soluzioni
-# - Capire approcci alternativi
-# - Studiare pattern di codice ggplot2
+# Istruzioni:
+# - Completa ogni esercizio scrivendo il codice richiesto
+# - Esegui il codice per verificare che funzioni
+# - Confronta con le soluzioni a fine corso
+# - Sperimenta con variazioni!
 #
-# NON condividere con gli studenti durante il corso!
 # =============================================================================
 
 # SETUP -----------------------------------------------------------------------
@@ -29,7 +28,7 @@ data(mtcars)
 # ESERCIZIO 1: Color Discreto Base -----------------------------------------
 # Obiettivo: Creare scatter plot di displ vs hwy, colorando per drv (tipo trazione)
 
-ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
+ggplot(mpg, aes(x = displ, y = hwy, color = ___)) +
   geom_point()
 
 # Interpretazione: Ogni tipo di trazione ha un colore distinto
@@ -38,7 +37,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
 # ESERCIZIO 2: Color Continuo -----------------------------------------------
 # Obiettivo: Scatter plot displ vs hwy, con color basato su cty (consumo città)
 
-ggplot(mpg, aes(x = displ, y = hwy, color = cty)) +
+ggplot(mpg, aes(x = displ, y = hwy, color = ___)) +
   geom_point()
 
 # Nota: Gradient continuo da blu scuro a blu chiaro (default)
@@ -49,23 +48,23 @@ ggplot(mpg, aes(x = displ, y = hwy, color = cty)) +
 
 # Soluzione 1: con lubridate
 library(lubridate)
-ggplot(economics, aes(x = date, y = unemploy, color = factor(year(date)))) +
+ggplot(economics, aes(x = date, y = unemploy, color = factor(___(___)))) +
   geom_line()
 
 # Soluzione 2: senza lubridate
 economics_year <- economics %>%
   mutate(year = format(date, "%Y"))
 
-ggplot(economics_year, aes(x = date, y = unemploy, color = year)) +
-  geom_line()
+ggplot(economics_year, aes(x = date, y = ___, color = ___)) +
+  ___()
 
 
 # ESERCIZIO 4: Palette Viridis ----------------------------------------------
 # Obiettivo: Ripeti esercizio 2, ma usa scale_color_viridis_c()
 
-ggplot(mpg, aes(x = displ, y = hwy, color = cty)) +
+ggplot(mpg, aes(x = displ, y = hwy, color = ___)) +
   geom_point() +
-  scale_color_viridis_c()
+  ___()
 
 # Viridis è percettualmente uniforme e colorblind-friendly
 
@@ -74,9 +73,9 @@ ggplot(mpg, aes(x = displ, y = hwy, color = cty)) +
 # Obiettivo: Scatter plot diamonds: carat vs price, color su depth
 #            Usa gradient da "yellow" a "red"
 
-ggplot(diamonds, aes(x = carat, y = price, color = depth)) +
+ggplot(diamonds, aes(x = carat, y = price, color = ___)) +
   geom_point(alpha = 0.3) +
-  scale_color_gradient(low = "yellow", high = "red")
+  scale_color_gradient(low = "___", high = "___")
 
 
 # =============================================================================
@@ -86,8 +85,8 @@ ggplot(diamonds, aes(x = carat, y = price, color = depth)) +
 # ESERCIZIO 6: Fill per Bar Chart -------------------------------------------
 # Obiettivo: Bar chart di mpg per class, riempimento per drv
 
-ggplot(mpg, aes(x = class, fill = drv)) +
-  geom_bar()
+ggplot(mpg, aes(x = class, fill = ___)) +
+  ___()
 
 # Default: stacked bars
 
@@ -95,8 +94,8 @@ ggplot(mpg, aes(x = class, fill = drv)) +
 # ESERCIZIO 7: Fill con Density ---------------------------------------------
 # Obiettivo: Density plot di hwy, con fill per drv e alpha = 0.5
 
-ggplot(mpg, aes(x = hwy, fill = drv)) +
-  geom_density(alpha = 0.5)
+ggplot(mpg, aes(x = hwy, fill = ___)) +
+  ___(alpha = ___)
 
 # Alpha permette di vedere sovrapposizioni
 
@@ -104,8 +103,8 @@ ggplot(mpg, aes(x = hwy, fill = drv)) +
 # ESERCIZIO 8: Color e Fill Insieme -----------------------------------------
 # Obiettivo: Bar chart di class, fill per class, bordo nero
 
-ggplot(mpg, aes(x = class, fill = class)) +
-  geom_bar(color = "black")
+ggplot(mpg, aes(x = class, fill = ___)) +
+  geom_bar(color = "___")
 
 # fill = mapping (varia), color = setting (fisso)
 
@@ -113,8 +112,8 @@ ggplot(mpg, aes(x = class, fill = class)) +
 # ESERCIZIO 9: Histogram con Fill -------------------------------------------
 # Obiettivo: Histogram di carat (diamonds), fill per cut, position = "dodge"
 
-ggplot(diamonds, aes(x = carat, fill = cut)) +
-  geom_histogram(bins = 30, position = "dodge")
+ggplot(diamonds, aes(x = carat, fill = ___)) +
+  ___(bins = 30, position = "___")
 
 # position = "dodge" mette barre affiancate invece di stacked
 
@@ -122,8 +121,8 @@ ggplot(diamonds, aes(x = carat, fill = cut)) +
 # ESERCIZIO 10: Boxplot con Fill --------------------------------------------
 # Obiettivo: Boxplot di hwy per class, fill per class, bordo "darkgray"
 
-ggplot(mpg, aes(x = class, y = hwy, fill = class)) +
-  geom_boxplot(color = "darkgray")
+ggplot(mpg, aes(x = class, y = hwy, fill = ___)) +
+  ___(color = "___")
 
 
 # =============================================================================
@@ -133,7 +132,7 @@ ggplot(mpg, aes(x = class, y = hwy, fill = class)) +
 # ESERCIZIO 11: Size Continuo -----------------------------------------------
 # Obiettivo: Scatter plot displ vs hwy, size basato su cyl
 
-ggplot(mpg, aes(x = displ, y = hwy, size = cyl)) +
+ggplot(mpg, aes(x = displ, y = hwy, size = ___)) +
   geom_point(alpha = 0.6)
 
 # Size scala automaticamente con la variabile
@@ -142,7 +141,7 @@ ggplot(mpg, aes(x = displ, y = hwy, size = cyl)) +
 # ESERCIZIO 12: Size + Color ------------------------------------------------
 # Obiettivo: Scatter plot wt vs mpg (mtcars), size = hp, color = cyl
 
-ggplot(mtcars, aes(x = wt, y = mpg, size = hp, color = cyl)) +
+ggplot(mtcars, aes(x = wt, y = mpg, size = ___, color = ___)) +
   geom_point(alpha = 0.7)
 
 # Visualizza 4 variabili contemporaneamente
@@ -151,8 +150,8 @@ ggplot(mtcars, aes(x = wt, y = mpg, size = hp, color = cyl)) +
 # ESERCIZIO 13: Shape Discreto ----------------------------------------------
 # Obiettivo: Scatter plot displ vs hwy, shape basato su drv, size = 3
 
-ggplot(mpg, aes(x = displ, y = hwy, shape = drv)) +
-  geom_point(size = 3)
+ggplot(mpg, aes(x = displ, y = hwy, shape = ___)) +
+  geom_point(size = ___)
 
 # Shape varia solo con variabili discrete (fattori)
 
@@ -160,7 +159,7 @@ ggplot(mpg, aes(x = displ, y = hwy, shape = drv)) +
 # ESERCIZIO 14: Shape + Color (Ridondanza) ----------------------------------
 # Obiettivo: Scatter plot displ vs hwy, shape E color entrambi per drv
 
-ggplot(mpg, aes(x = displ, y = hwy, shape = drv, color = drv)) +
+ggplot(mpg, aes(x = displ, y = hwy, shape = ___, color = ___)) +
   geom_point(size = 3)
 
 # Ridondanza utile per accessibilità (colorblindness, stampa B/N)
@@ -171,7 +170,7 @@ ggplot(mpg, aes(x = displ, y = hwy, shape = drv, color = drv)) +
 #            color = "black", fill = "steelblue", size = 3
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(shape = 21, color = "black", fill = "steelblue", size = 3)
+  geom_point(shape = ___, color = "___", fill = "___", size = ___)
 
 # Shape 21-24 supportano sia color (bordo) che fill (interno)
 
@@ -185,7 +184,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 #            Usa alpha = 0.1 per gestire overplotting
 
 ggplot(diamonds, aes(x = carat, y = price)) +
-  geom_point(alpha = 0.1, size = 0.5)
+  geom_point(alpha = ___, size = 0.5)
 
 # Con 53,940 punti, alpha basso essenziale per vedere densità
 
@@ -193,7 +192,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 # ESERCIZIO 17: Alpha Variabile ---------------------------------------------
 # Obiettivo: Scatter plot mpg: displ vs hwy, alpha basato su cty
 
-ggplot(mpg, aes(x = displ, y = hwy, alpha = cty)) +
+ggplot(mpg, aes(x = displ, y = hwy, alpha = ___)) +
   geom_point(size = 3)
 
 # Alpha mapping crea legenda (spesso non ideale)
@@ -202,8 +201,8 @@ ggplot(mpg, aes(x = displ, y = hwy, alpha = cty)) +
 # ESERCIZIO 18: Alpha con Density -------------------------------------------
 # Obiettivo: Density plot di hwy, fill per drv, alpha = 0.4
 
-ggplot(mpg, aes(x = hwy, fill = drv)) +
-  geom_density(alpha = 0.4)
+ggplot(mpg, aes(x = hwy, fill = ___)) +
+  ___(alpha = ___)
 
 # Alpha setting (non mapping) per overlay pulito
 
@@ -213,9 +212,9 @@ ggplot(mpg, aes(x = hwy, fill = drv)) +
 #            aggiungi ribbon da unemploy-500 a unemploy+500, alpha = 0.3
 
 ggplot(economics, aes(x = date, y = unemploy)) +
-  geom_ribbon(aes(ymin = unemploy - 500, ymax = unemploy + 500),
-              alpha = 0.3, fill = "blue") +
-  geom_line(color = "darkblue")
+  ___(aes(ymin = unemploy - 500, ymax = unemploy + 500),
+              alpha = ___, fill = "blue") +
+  ___(color = "darkblue")
 
 # Ribbon per incertezza/intervallo di confidenza
 
@@ -224,7 +223,7 @@ ggplot(economics, aes(x = date, y = unemploy)) +
 # Obiettivo: geom_jitter di class vs hwy, alpha = 0.5, width = 0.2
 
 ggplot(mpg, aes(x = class, y = hwy)) +
-  geom_jitter(alpha = 0.5, width = 0.2)
+  ___(alpha = ___, width = ___)
 
 # Jitter + alpha gestisce overplotting in variabili discrete
 
@@ -235,14 +234,14 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 #            In questo modo i punti sono visibili attraverso i boxplot
 
 ggplot(mpg, aes(x = class, y = hwy)) +
-  geom_boxplot(alpha = 0.5, fill = "lightblue") +
-  geom_point(alpha = 0.6)
+  ___(alpha = ___, fill = "lightblue") +
+  ___(alpha = 0.6)
 
 # Alpha sul boxplot permette di vedere i punti sottostanti
 # Variante con jitter per evitare sovrapposizione punti:
 ggplot(mpg, aes(x = class, y = hwy)) +
   geom_boxplot(alpha = 0.3, fill = "steelblue") +
-  geom_jitter(alpha = 0.5, width = 0.2, color = "darkred")
+  ___(alpha = 0.5, width = 0.2, color = "darkred")
 
 
 # =============================================================================
@@ -260,15 +259,15 @@ ggplot(mpg, aes(x = displ, y = hwy, color = "blue")) +
 
 # ✅ CORRETTO: setting fuori da aes()
 ggplot(mpg, aes(x = displ, y = hwy)) + 
-  geom_point(color = "blue")
+  geom_point(color = "___")
 
 
 # ESERCIZIO 23: Mapping Corretto --------------------------------------------
 # Obiettivo: Scatter plot displ vs hwy, mapping color a class,
 #            setting size = 3 e alpha = 0.7
 
-ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
-  geom_point(size = 3, alpha = 0.7)
+ggplot(mpg, aes(x = displ, y = hwy, color = ___)) +
+  geom_point(size = ___, alpha = ___)
 
 # color dentro aes() = mapping, size/alpha fuori = setting
 
@@ -278,7 +277,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
 #            setting: color = "red", size = 4, shape = 17, alpha = 0.6
 
 ggplot(mtcars, aes(x = wt, y = mpg)) +
-  geom_point(color = "red", size = 4, shape = 17, alpha = 0.6)
+  geom_point(color = "___", size = ___, shape = ___, alpha = ___)
 
 # Tutti setting = valori fissi, nessuna legenda
 
@@ -288,8 +287,8 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
 #            mapping: color = class, size = cyl
 #            setting: alpha = 0.6
 
-ggplot(mpg, aes(x = displ, y = hwy, color = class, size = cyl)) +
-  geom_point(alpha = 0.6)
+ggplot(mpg, aes(x = displ, y = hwy, color = ___, size = ___)) +
+  geom_point(alpha = ___)
 
 # Mixing correttamente: mapping in aes(), setting in geom
 
@@ -297,8 +296,8 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class, size = cyl)) +
 # ESERCIZIO 25: Position = "dodge" con Fill ---------------------------------
 # Obiettivo: Bar chart di class, fill per drv, position = "dodge"
 
-ggplot(mpg, aes(x = class, fill = drv)) +
-  geom_bar(position = "dodge")
+ggplot(mpg, aes(x = class, fill = ___)) +
+  geom_bar(position = "___")
 
 # Try to use the different positions: stack, fill, dodge, identity
 # Barre affiancate facilitano confronto tra gruppi
@@ -312,8 +311,8 @@ ggplot(mpg, aes(x = class, fill = drv)) +
 # Obiettivo: Scatter plot displ vs hwy, 
 #            color = class, size = cyl, alpha = 0.6
 
-ggplot(mpg, aes(x = displ, y = hwy, color = class, size = cyl)) +
-  geom_point(alpha = 0.6)
+ggplot(mpg, aes(x = displ, y = hwy, color = ___, size = ___)) +
+  geom_point(alpha = ___)
 
 # 4 variabili: x, y, color, size
 
@@ -323,8 +322,8 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class, size = cyl)) +
 #            color E shape entrambi per drv (stessa variabile),
 #            size = 3, per migliorare accessibilità
 
-ggplot(mpg, aes(x = displ, y = hwy, color = drv, shape = drv)) +
-  geom_point(size = 3)
+ggplot(mpg, aes(x = displ, y = hwy, color = ___, shape = ___)) +
+  geom_point(size = ___)
 
 # Ridondanza (color + shape per stessa var) aiuta colorblind users
 
@@ -336,8 +335,8 @@ ggplot(mpg, aes(x = displ, y = hwy, color = drv, shape = drv)) +
 # Sample dei dati
 diamonds_sample <- diamonds %>% sample_n(1000)
 
-ggplot(diamonds_sample, aes(x = carat, y = price, size = depth, color = cut)) +
-  geom_point(alpha = 0.5)
+ggplot(diamonds_sample, aes(x = carat, y = price, size = ___, color = ___)) +
+  geom_point(alpha = ___)
 
 # 5 variabili in un plot! (ma complesso da interpretare)
 
@@ -351,9 +350,9 @@ mpg_centered <- mpg %>%
 
 # Scatter plot: displ vs hwy_diff, color = hwy_diff,
 # usa scale_color_gradient2
-ggplot(mpg_centered, aes(x = displ, y = hwy_diff, color = hwy_diff)) +
+ggplot(mpg_centered, aes(x = displ, y = hwy_diff, color = ___)) +
   geom_point(size = 3) +
-  scale_color_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0)
+  ___(low = "___", mid = "___", high = "___", midpoint = 0)
 
 # Gradient divergente utile per valori positivi/negativi centrati su 0
 
@@ -363,9 +362,9 @@ ggplot(mpg_centered, aes(x = displ, y = hwy_diff, color = hwy_diff)) +
 #            x = wt, y = mpg, color = factor(cyl), size = hp, shape = factor(am)
 
 ggplot(mtcars, aes(x = wt, y = mpg, 
-                   color = factor(cyl), 
-                   size = hp, 
-                   shape = factor(am))) +
+                   color = factor(___), 
+                   size = ___, 
+                   shape = factor(___))) +
   geom_point(alpha = 0.7)
 
 # 6 variabili! Limite pratico di leggibilità
@@ -373,37 +372,16 @@ ggplot(mtcars, aes(x = wt, y = mpg,
 
 
 # =============================================================================
-# FINE SOLUZIONI
+# FINE ESERCIZI
 # =============================================================================
 # 
-# Best Practices Recap:
+# Congratulazioni! Hai completato tutti gli esercizi.
 # 
-# 1. MAPPING vs SETTING
-#    - Mapping (in aes): variabile → aesthetic → crea scala/legenda
-#    - Setting (in geom): valore fisso → nessuna scala/legenda
-#
-# 2. COLOR vs FILL
-#    - color: bordi, linee, punti
-#    - fill: aree interne (bar, density, boxplot, ribbon)
-#
-# 3. ESTETICHE PER TIPO VARIABILE
-#    - Discrete: color, fill, shape (max 6-7 categorie)
-#    - Continue: color, fill (gradient), size, alpha
-#
-# 4. GESTIRE OVERPLOTTING
-#    - Alpha basso (0.1-0.5)
-#    - geom_jitter()
-#    - Size piccolo
-#    - Binning (hex, bin2d)
-#
-# 5. ACCESSIBILITÀ
-#    - Viridis palette (colorblind-friendly)
-#    - Color + shape ridondanza
-#    - Evita solo rosso/verde
-#
-# 6. QUANTE ESTETICHE?
-#    - Max 3-4 mappate per leggibilità
-#    - Usa facets per variabili aggiuntive
-#    - Priorità: posizione > color > size > shape
-#
+# Prossimi passi:
+# - Rivedi gli esercizi dove hai avuto difficoltà
+# - Sperimenta con altre palette di colori (RColorBrewer, ggsci)
+# - Prova a combinare estetiche in modi creativi
+# - Esplora la documentazione: ?aes, ?scale_color_manual, etc.
+# 
+# Le soluzioni saranno fornite a fine corso!
 # =============================================================================
