@@ -1,12 +1,11 @@
 # ============================================================================
-# SOLUZIONI: Temi e Personalizzazione in ggplot2
+# ESERCIZI: Temi e Personalizzazione in ggplot2
 # ============================================================================
 #
-# Questo file contiene le soluzioni complete per tutti i 30 esercizi.
-# Ogni soluzione include:
-# - La domanda originale dell'esercizio
-# - Codice completo e funzionante
-# - Commenti esplicativi sulle scelte fatte
+# Istruzioni:
+# - Completa ogni esercizio scrivendo il codice richiesto
+# - Esegui il codice per verificare che funzioni
+# - Sperimenta con variazioni!
 #
 # ============================================================================
 
@@ -35,13 +34,13 @@ data(iris)
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
   labs(title = "Con theme_gray()") +
-  theme_gray()
+  ___()
 
 # Theme minimal - sfondo bianco, griglia sottile
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
   labs(title = "Con theme_minimal()") +
-  theme_minimal()
+  ___()
 
 # Il gray background fa "pop" i colori, il minimal è più pulito e moderno
 
@@ -58,7 +57,7 @@ ggplot(mpg, aes(x = class, y = hwy)) +
     x = "Classe Veicolo",
     y = "Miglia per Gallone (Highway)"
   ) +
-  theme_classic()  # No griglia, assi tradizionali - perfetto per paper
+  ___()  # No griglia, assi tradizionali - perfetto per paper
 
 
 ## Esercizio 1.3: Theme BW per Stampa
@@ -73,7 +72,7 @@ ggplot(mpg, aes(x = class)) +
     x = "Classe",
     y = "Conteggio"
   ) +
-  theme_bw(base_size = 14)  # Black & White, testo grande per stampa
+  ___(base_size = ___)  # Black & White, testo grande per stampa
 
 
 ## Esercizio 1.4: Theme Void per Visualizzazioni Minimali
@@ -83,7 +82,7 @@ ggplot(mpg, aes(x = class)) +
 ## Soluzione 1.4:
 ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
   geom_point(size = 3, alpha = 0.7) +
-  theme_void()  # Rimuove tutto - solo dati puri, utile per mappe o network
+  ___()  # Rimuove tutto - solo dati puri, utile per mappe o network
 
 
 ## Esercizio 1.5: Theme Dark per Presentazioni
@@ -98,7 +97,7 @@ ggplot(diamonds, aes(x = carat)) +
     x = "Carati",
     y = "Densità"
   ) +
-  theme_dark()  # Sfondo scuro - riduce affaticamento in presentazioni buie
+  ___()  # Sfondo scuro - riduce affaticamento in presentazioni buie
 
 
 # ============================================================================
@@ -115,8 +114,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   labs(title = "Background Personalizzati") +
   theme_minimal() +
   theme(
-    plot.background = element_rect(fill = "lightblue"),  # Intero plot
-    panel.background = element_rect(fill = "white")       # Solo area dati
+    plot.background = element_rect(fill = "___"),  # Intero plot
+    panel.background = element_rect(fill = "___")       # Solo area dati
   )
 
 # plot.background include tutto (titolo, legenda), panel solo i dati
@@ -131,10 +130,10 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
   theme_minimal() +
   theme(
-    panel.border = element_rect(
-      color = "black",
-      fill = NA,  # NA = trasparente, non riempie
-      size = 2
+    panel.border = ___(
+      color = "___",
+      fill = ___,  # NA = trasparente, non riempie
+      size = ___
     )
   )
 
@@ -155,7 +154,7 @@ ggplot(economics, aes(x = date, y = unemploy/1000)) +
   ) +
   theme_minimal() +
   theme(
-    panel.grid.minor = element_blank()  # Rimuove solo griglia minore
+    panel.grid.minor = ___()  # Rimuove solo griglia minore
   )
 
 # Griglia maggiore aiuta a leggere valori, minore spesso solo rumore visivo
@@ -175,8 +174,8 @@ ggplot(mpg, aes(x = class)) +
   ) +
   theme_minimal() +
   theme(
-    panel.grid.major.x = element_blank(),  # Rimuove griglia verticale
-    panel.grid.minor = element_blank()      # Rimuove tutta la minore
+    panel.grid.major.x = ___(),  # Rimuove griglia verticale
+    panel.grid.minor = ___()      # Rimuove tutta la minore
   )
 
 # Per bar charts verticali, solo le linee orizzontali sono utili
@@ -191,9 +190,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   theme_minimal() +
   theme(
-    panel.grid.major = element_line(
-      color = "red",
-      linetype = "dashed",
+    panel.grid.major = ___(
+      color = "___",
+      linetype = "___",
       size = 0.5
     ),
     panel.grid.minor = element_blank()
@@ -220,9 +219,9 @@ ggplot(mpg, aes(x = manufacturer)) +
   ) +
   theme_minimal() +
   theme(
-    axis.text.x = element_text(
-      angle = 45,   # Rotazione 45 gradi
-      hjust = 1,    # Allineamento orizzontale a destra
+    axis.text.x = ___(
+      angle = ___,   # Rotazione 45 gradi
+      hjust = ___,    # Allineamento orizzontale a destra
       vjust = 1     # Allineamento verticale in alto (opzionale)
     )
   )
@@ -240,10 +239,10 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   labs(title = "Mio Grafico") +
   theme_minimal() +
   theme(
-    plot.title = element_text(
-      size = 20,
-      face = "bold",
-      color = "navy",
+    plot.title = ___(
+      size = ___,
+      face = "___",
+      color = "___",
       hjust = 0.5  # Opzionale: centra il titolo
     )
   )
@@ -261,11 +260,11 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   labs(title = "Assi Personalizzati") +
   theme_minimal() +
   theme(
-    axis.line = element_line(
-      color = "black",
-      size = 1
+    axis.line = ___(
+      color = "___",
+      size = ___
     ),
-    panel.grid = element_blank()  # Rimuove tutta la griglia
+    panel.grid = ___()  # Rimuove tutta la griglia
   )
 
 # Combinazione comune per look pulito e classico
@@ -281,10 +280,10 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
   labs(title = "Legenda Personalizzata") +
   theme_minimal() +
   theme(
-    legend.background = element_rect(
-      fill = "gray95",
-      color = "black",
-      size = 0.5
+    legend.background = ___(
+      fill = "___",
+      color = "___",
+      size = ___
     ),
     legend.key = element_rect(fill = "white")  # Background delle chiavi
   )
@@ -299,6 +298,10 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
 ## Soluzione 3.5:
 ggplot(mpg, aes(x = class, y = hwy)) +
   geom_boxplot(fill = "steelblue") +
+  theme_minimal() +
+  theme(
+    axis.ticks = ___()  # Rimuove tutti i tick marks
+  )
   labs(title = "Senza Tick Marks") +
   theme_minimal() +
   theme(
@@ -764,10 +767,11 @@ ggsave(
 #    - Presentazioni: 150 DPI, PNG/PDF
 #    - Pubblicazioni: 300 DPI, PDF/TIFF
 #    - Vettoriali: PDF, SVG (scalabili)
+# ============================================================================
+# FINE ESERCIZI
+# ============================================================================
 #
-# 8. RIUSABILITÀ:
-#    - Crea funzioni theme_*() custom
-#    - Usa theme_set() per consistenza globale
-#    - Salva temi in file separati
+# Completa gli esercizi sopra per praticare temi e personalizzazione!
+# Confronta poi con le soluzioni.
 #
 # ============================================================================
