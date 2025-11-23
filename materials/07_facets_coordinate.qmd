@@ -48,7 +48,7 @@ resources:
 
 ## Esercizi Pratici {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.70em;"}
+::: {style="font-size: 0.65em;"}
 **Scarica il file esercizi:** 
 
 - 📝 [Esercizi completi](07_facets_coordinate_exercises.R) 

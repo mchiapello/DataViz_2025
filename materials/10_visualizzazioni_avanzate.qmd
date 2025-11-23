@@ -46,7 +46,7 @@ resources:
 
 ## Esercizi Pratici {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
+::: {style="font-size: 0.7em;"}
 **Scarica il file esercizi:** 
 
 - 📝 [Esercizi completi](10_visualizzazioni_avanzate_exercises.R) 
