@@ -651,12 +651,25 @@ ggplot(deg_data,
 
 ::: {style="font-size: 0.7em;"}
 ```r
-# Simula dati DEG
+# Simula dati DEG realistici
 set.seed(123)
+n_genes <- 1000
+n_up <- 80      # Up-regulated genes
+n_down <- 70    # Down-regulated genes
+n_nonsig <- n_genes - n_up - n_down
+
 volcano_data <- data.frame(
-  gene = paste0("Gene_", 1:1000),
-  log2FC = rnorm(1000, mean = 0, sd = 2),
-  pvalue = runif(1000, 0, 1)
+  gene = paste0("Gene_", 1:n_genes),
+  log2FC = c(
+    rnorm(n_up, mean = 2.5, sd = 1),      # Up-regulated: positive FC
+    rnorm(n_down, mean = -2.5, sd = 1),   # Down-regulated: negative FC
+    rnorm(n_nonsig, mean = 0, sd = 0.7)   # Non-significant: centered at 0
+  ),
+  pvalue = c(
+    runif(n_up, 0, 0.01),                 # Up: very low p-values
+    runif(n_down, 0, 0.01),               # Down: very low p-values
+    runif(n_nonsig, 0.05, 1)              # Non-sig: high p-values
+  )
 ) %>%
   mutate(
     padj = p.adjust(pvalue, method = "BH"),
