@@ -49,7 +49,10 @@ resources:
 ## Esercizi Pratici {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ::: {style="font-size: 0.70em;"}
-**Scarica il file esercizi:** [07_facets_coordinate_exercises.R](07_facets_coordinate_exercises.R)
+**Scarica il file esercizi:** 
+
+- 📝 [Esercizi completi](07_facets_coordinate_exercises.R) 
+- 🎯 [Versione SCAFFOLD (con blanks)](07_facets_coordinate_exercises_SCAFFOLD.R)
 
 **30 esercizi organizzati in 6 parti:**
 

@@ -52,7 +52,10 @@ resources:
 ::: {style="font-size: 0.7em;"}
 **Struttura degli Esercizi:**
 
-📁 **File:** [09_themes_personalizzazione_exercises.R](09_themes_personalizzazione_exercises.R)
+📁 **File:** 
+
+- 📝 [Esercizi completi](09_themes_personalizzazione_exercises.R) 
+- 🎯 [Versione SCAFFOLD (con blanks)](09_themes_personalizzazione_exercises_SCAFFOLD.R)
 
 **30 esercizi organizzati in 6 parti:**
 

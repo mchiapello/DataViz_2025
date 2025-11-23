@@ -52,7 +52,10 @@ resources:
 ## Esercizi Pratici {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ::: {style="font-size: 0.70em;"}
-**Scarica il file esercizi:** [05_estetiche_mappature_exercises.R](05_estetiche_mappature_exercises.R)
+**Scarica il file esercizi:** 
+
+- 📝 [Esercizi completi](05_estetiche_mappature_exercises.R) 
+- 🎯 [Versione SCAFFOLD (con blanks)](05_estetiche_mappature_exercises_SCAFFOLD.R)
 
 **30 esercizi organizzati in 6 parti:**
 
