@@ -33,7 +33,7 @@ data(faithful)
 
 # Il tuo codice qui:
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point()  # <-- Completa questa riga
+  geom_point()  # <-- scatter plot base
 
 
 
@@ -43,7 +43,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 # Il tuo codice qui:
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(alpha = )  # <-- Aggiungi il valore alpha
+  geom_point(alpha = 0.4)  # <-- aggiungi anche size = 2.5 se vuoi
 
 
 
@@ -53,8 +53,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 # Il tuo codice qui:
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  geom_smooth()  # <-- Aggiungi il parametro method
+  geom_point(alpha = 0.4) +
+  geom_smooth(method = "lm")  # <-- aggiungi se = TRUE per intervallo confidenza
 
 
 
@@ -64,9 +64,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 # Il tuo codice qui:
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  geom_smooth(method = "lm", color = ) +  # <-- Aggiungi colore
-  geom_smooth(method = "loess", color = )  # <-- Aggiungi colore
+  geom_point(alpha = 0.3, size = 1.5) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +  # <-- trend lineare
+  geom_smooth(method = "loess", se = TRUE, color = "blue")  # <-- trend LOESS
 
 
 
@@ -76,8 +76,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 # Dataset: economics
 
 # Il tuo codice qui:
-ggplot(economics, aes(x = , y = )) +  # <-- Inserisci le variabili
-  geom_line()
+ggplot(economics, aes(x = date, y = unemploy)) +
+  geom_line()  # <-- aggiungi color e linewidth se vuoi personalizzare
 
 
 
@@ -86,6 +86,9 @@ ggplot(economics, aes(x = , y = )) +  # <-- Inserisci le variabili
 # Obiettivo: Usa geom_path() per tracciare unemploy vs psavert + aggiungi punti
 
 # Il tuo codice qui:
+ggplot(economics, aes(x = unemploy, y = psavert)) +
+  geom_path(color = "darkgreen", linewidth = 0.8, alpha = 0.7) +
+  geom_point(alpha = 0.3, size = 1)  # <-- path connette in ordine dati, line ordina per x
 
 
 
@@ -99,8 +102,8 @@ ggplot(economics, aes(x = , y = )) +  # <-- Inserisci le variabili
 # Dataset: diamonds
 
 # Il tuo codice qui:
-ggplot(diamonds, aes(x = )) +  # <-- Inserisci la variabile
-  geom_histogram(bins = )  # <-- Inserisci il numero di bins
+ggplot(diamonds, aes(x = carat)) +
+  geom_histogram(bins = 30)  # <-- aggiungi fill e color per personalizzare
 
 
 
@@ -134,8 +137,9 @@ ggplot(mpg, aes(x = hwy)) +
 
 # Il tuo codice qui:
 ggplot(mpg, aes(x = hwy)) +
-  geom_histogram(aes(y = after_stat()), bins = 30) +  # <-- Completa after_stat
-  geom_density(color = "red", size = 1)
+  geom_histogram(aes(y = after_stat(density)), bins = 30, 
+                 fill = "lightblue", color = "black", alpha = 0.6) +
+  geom_density(color = "red", linewidth = 1.2)  # <-- after_stat converte a densità
 
 
 
@@ -144,6 +148,8 @@ ggplot(mpg, aes(x = hwy)) +
 # Obiettivo: Usa geom_freqpoly() per visualizzare distribuzione di price (bins = 50)
 
 # Il tuo codice qui:
+ggplot(diamonds, aes(x = price)) +
+  geom_freqpoly(bins = 50)  # <-- linea invece di barre
 
 
 
@@ -153,6 +159,8 @@ ggplot(mpg, aes(x = hwy)) +
 # Dataset: faithful
 
 # Il tuo codice qui:
+ggplot(faithful, aes(x = waiting)) +
+  geom_dotplot(binwidth = 1)  # <-- ogni punto è un'osservazione
 
 
 
@@ -177,6 +185,9 @@ ggplot(diamonds, aes(x = , y = )) +  # <-- Inserisci le variabili
 # Nota: Richiede install.packages("hexbin") se non installato
 
 # Il tuo codice qui:
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_hex(bins = 50) +
+  scale_fill_viridis_c(option = "plasma")  # <-- esagoni + palette accessibile
 
 
 
@@ -186,6 +197,9 @@ ggplot(diamonds, aes(x = , y = )) +  # <-- Inserisci le variabili
 # Dataset: faithful
 
 # Il tuo codice qui:
+ggplot(faithful, aes(x = eruptions, y = waiting)) +
+  geom_point(alpha = 0.4, size = 2) +
+  geom_density2d(color = "red", linewidth = 0.8)  # <-- contorni densità
 
 
 
@@ -194,6 +208,8 @@ ggplot(diamonds, aes(x = , y = )) +  # <-- Inserisci le variabili
 # Obiettivo: Usa geom_density2d_filled() per mappa di calore
 
 # Il tuo codice qui:
+ggplot(faithful, aes(x = eruptions, y = waiting)) +
+  geom_density2d_filled(alpha = 0.8)  # <-- versione riempita
 
 
 
@@ -208,7 +224,7 @@ ggplot(diamonds, aes(x = , y = )) +  # <-- Inserisci le variabili
 
 # Il tuo codice qui:
 ggplot(mpg, aes(x = class, y = hwy)) +
-  geom_boxplot()  # <-- Completa con la geometria corretta
+  geom_boxplot()  # <-- aggiungi fill, outlier.color se vuoi personalizzare
 
 
 
@@ -217,6 +233,8 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 # Obiettivo: Ricrea il grafico precedente con geom_violin()
 
 # Il tuo codice qui:
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_violin()  # <-- mostra forma completa della distribuzione
 
 
 
@@ -225,6 +243,9 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 # Obiettivo: Sovrapponi boxplot (width = 0.15) dentro violin plot
 
 # Il tuo codice qui:
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_violin(fill = "skyblue", alpha = 0.5) +
+  geom_boxplot(width = 0.15, fill = "white")  # <-- combina violin e boxplot
 
 
 
@@ -233,8 +254,8 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 # Obiettivo: Conta auto per classe con geom_bar() (solo x, no y!)
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = )) +  # <-- Inserisci la variabile categorica
-  geom_bar()
+ggplot(mpg, aes(x = class)) +
+  geom_bar()  # <-- geom_bar conta automaticamente (stat = "count")
 
 
 
@@ -247,10 +268,13 @@ mpg_summary <- mpg %>%
   group_by(class) %>%
   summarise(
     mean_hwy = mean(hwy),
-    sd_hwy = sd(hwy)
+    sd_hwy = sd(hwy),
+    n = n()
   )
 
 # Visualizza con geom_col
+ggplot(mpg_summary, aes(x = class, y = mean_hwy)) +
+  geom_col()  # <-- geom_col usa valori y esistenti, non conta
 
 
 
@@ -263,6 +287,10 @@ mpg_summary <- mpg %>%
 # Obiettivo: Aggiungi barre di errore (± SD) usando geom_errorbar()
 
 # Il tuo codice qui (usa mpg_summary dall'esercizio 21):
+ggplot(mpg_summary, aes(x = class, y = mean_hwy)) +
+  geom_col(fill = "darkgreen", alpha = 0.7) +
+  geom_errorbar(aes(ymin = mean_hwy - sd_hwy, ymax = mean_hwy + sd_hwy),
+                width = 0.3)  # <-- barre di errore mostrano variabilità
 
 
 
@@ -271,6 +299,9 @@ mpg_summary <- mpg %>%
 # Obiettivo: Usa geom_pointrange() invece di col + errorbar
 
 # Il tuo codice qui:
+ggplot(mpg_summary, aes(x = class, y = mean_hwy)) +
+  geom_pointrange(aes(ymin = mean_hwy - sd_hwy, ymax = mean_hwy + sd_hwy),
+                  size = 0.8)  # <-- combina punto e intervallo in un geom
 
 
 
@@ -287,6 +318,9 @@ economics_ribbon <- economics %>%
   )
 
 # Crea grafico con geom_ribbon() + geom_line()
+ggplot(economics_ribbon, aes(x = date, y = unemploy)) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), fill = "lightblue", alpha = 0.4) +
+  geom_line(color = "darkblue", linewidth = 1)  # <-- ribbon per incertezza su time series
 
 
 
@@ -299,6 +333,10 @@ economics_ribbon <- economics %>%
 # Obiettivo: Combina geom_rug() + geom_point() + geom_smooth()
 
 # Il tuo codice qui:
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_rug(alpha = 0.3) +
+  geom_point(alpha = 0.3, size = 2) +
+  geom_smooth(method = "lm", se = TRUE)  # <-- rug mostra distribuzione marginale
 
 
 
@@ -311,6 +349,8 @@ mpg_drv <- mpg %>%
   mutate(is_4wd = ifelse(drv == "4", "4WD", "Non-4WD"))
 
 # Crea grafico con color = is_4wd
+ggplot(mpg_drv, aes(x = hwy, color = is_4wd)) +
+  geom_freqpoly(bins = 30, linewidth = 1.2)  # <-- freqpoly per confronti tra gruppi
 
 
 
@@ -319,6 +359,9 @@ mpg_drv <- mpg %>%
 # Obiettivo: Boxplot class vs hwy + coord_flip()
 
 # Il tuo codice qui:
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot() +
+  coord_flip()  # <-- coord_flip rende orizzontale per leggibilità
 
 
 
@@ -328,6 +371,9 @@ mpg_drv <- mpg %>%
 # Dataset: faithful
 
 # Il tuo codice qui:
+ggplot(faithful, aes(x = eruptions, y = waiting)) +
+  geom_density2d_filled(alpha = 0.6) +
+  geom_point(size = 1, alpha = 0.4)  # <-- mappa densità + dati raw
 
 
 
@@ -336,6 +382,9 @@ mpg_drv <- mpg %>%
 # Obiettivo: Smooth con CI 99% invece del 95% (level = 0.99)
 
 # Il tuo codice qui:
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "loess", level = 0.99)  # <-- level controlla ampiezza CI
 
 
 
@@ -344,6 +393,8 @@ mpg_drv <- mpg %>%
 # Obiettivo: Usa notch = TRUE per mostrare CI della mediana
 
 # Il tuo codice qui:
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot(notch = TRUE)  # <-- notch mostra CI della mediana (95%)
 
 
 
