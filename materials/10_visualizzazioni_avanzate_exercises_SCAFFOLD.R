@@ -35,6 +35,7 @@ volcano_data <- data.frame(
 
 # --- Esercizio 1 -------------------------------------------------------------
 # Obiettivo: Creare tre grafici separati da combinare
+# Dataset: mtcars
 # - p1: scatterplot di mtcars (mpg vs wt)
 # - p2: boxplot di mtcars (cyl vs mpg)
 # - p3: histogram di mtcars (mpg)
@@ -60,6 +61,7 @@ p3 <- ggplot(mtcars, aes(x = mpg)) +
 
 # --- Esercizio 2 -------------------------------------------------------------
 # Obiettivo: Combinare i tre grafici affiancati con operatore +
+# Dataset: mtcars (p1, p2, p3 from exercise 1)
 
 p1 ___ p2 ___ p3
 
@@ -69,6 +71,7 @@ p1 ___ p2 ___ p3
 
 # --- Esercizio 3 -------------------------------------------------------------
 # Obiettivo: Combinare i grafici in layout verticale con operatore /
+# Dataset: mtcars (p1, p2, p3 from exercise 1)
 
 p1 ___ p2 ___ p3
 
@@ -79,6 +82,7 @@ p1 ___ p2 ___ p3
 # --- Esercizio 4 -------------------------------------------------------------
 # Obiettivo: Creare layout con p1 e p2 affiancati sopra, p3 sotto occupando 
 # tutta la larghezza usando parentesi: (p1 + p2) / p3
+# Dataset: mtcars (p1, p2, p3 from exercise 1)
 
 (___ + ___) ___ ___
 
@@ -89,6 +93,7 @@ p1 ___ p2 ___ p3
 # --- Esercizio 5 -------------------------------------------------------------
 # Obiettivo: Usare plot_layout() per controllare proporzioni delle colonne
 # Affianca p1 e p2 con widths = c(2, 1)
+# Dataset: mtcars (p1, p2 from exercise 1)
 
 p1 + p2 +
   ___(widths = c(___, ___))
@@ -100,6 +105,7 @@ p1 + p2 +
 # --- Esercizio 6 -------------------------------------------------------------
 # Obiettivo: Combinare p1, p2, p3 affiancati con legende collettive
 # Usa plot_layout(guides = "collect")
+# Dataset: mtcars (p1, p2, p3 from exercise 1)
 
 p1 + p2 + p3 +
   ___(guides = "___")
@@ -115,6 +121,7 @@ p1 + p2 + p3 +
 # --- Esercizio 7 -------------------------------------------------------------
 # Obiettivo: Aggiungere annotazioni globali a una composizione
 # Usa plot_annotation() per titolo, sottotitolo e tag_levels = "A"
+# Dataset: mtcars (p1, p2, p3 from exercise 1)
 
 p1 + p2 + p3 +
   ___(
@@ -130,6 +137,7 @@ p1 + p2 + p3 +
 
 # --- Esercizio 8 -------------------------------------------------------------
 # Obiettivo: Applicare theme_minimal() a tutti i subplot usando operatore &
+# Dataset: mtcars (p1, p2, p3 from exercise 1)
 
 p1 + p2 + p3 ___
   ___()
@@ -141,6 +149,7 @@ p1 + p2 + p3 ___
 # --- Esercizio 9 -------------------------------------------------------------
 # Obiettivo: Applicare legend.position = "bottom" globalmente con &, poi 
 # aggiungere plot_annotation con titolo "Multi-Panel Analysis"
+# Dataset: mtcars (p1, p2, p3 from exercise 1)
 
 p1 + p2 + p3 ___
   theme(legend.position = "___") +
@@ -158,6 +167,7 @@ p1 + p2 + p3 ___
 #   AAB
 #   CCC
 # Dove A = p1, B = p2, C = p3
+# Dataset: mtcars (p1, p2, p3 from exercise 1)
 
 design <- "
   ___
@@ -175,6 +185,7 @@ p1 + p2 + p3 +
 # --- Esercizio 11 ------------------------------------------------------------
 # Obiettivo: Usare plot_spacer() per inserire spazio vuoto
 # Layout: p1 affiancato a spacer affiancato a p2
+# Dataset: mtcars (p1, p2 from exercise 1)
 
 p1 + ___() + p2
 
@@ -185,6 +196,7 @@ p1 + ___() + p2
 # --- Esercizio 12 ------------------------------------------------------------
 # Obiettivo: Combinare tutto - layout custom, tema globale, annotazioni
 # (p1 + p2) / p3, tema bw, titolo "Complete Analysis", tags A/B/C
+# Dataset: mtcars (p1, p2, p3 from exercise 1)
 
 (p1 + p2) / p3 ___
   ___() ___
@@ -208,6 +220,7 @@ p1 + ___() + p2
 # --- Esercizio 13 ------------------------------------------------------------
 # Obiettivo: Creare scatterplot mtcars (wt vs mpg) con geom_text_repel()
 # per etichettare tutte le auto (rownames)
+# Dataset: mtcars
 
 ggplot(mtcars, aes(x = wt, y = mpg, label = rownames(mtcars))) +
   geom_point(color = "steelblue", size = 3) +
@@ -222,6 +235,7 @@ ggplot(mtcars, aes(x = wt, y = mpg, label = rownames(mtcars))) +
 # --- Esercizio 14 ------------------------------------------------------------
 # Obiettivo: Usare geom_label_repel() invece di geom_text_repel()
 # Impostare box.padding = 0.5, point.padding = 0.3
+# Dataset: mtcars
 
 ggplot(mtcars, aes(x = wt, y = mpg, label = rownames(mtcars))) +
   geom_point(color = "steelblue", size = 3) +
@@ -242,6 +256,7 @@ ggplot(mtcars, aes(x = wt, y = mpg, label = rownames(mtcars))) +
 # --- Esercizio 15 ------------------------------------------------------------
 # Obiettivo: Etichettare solo auto con mpg > 25
 # Crea subset e usa geom_text_repel() solo per quel subset
+# Dataset: mtcars_efficient (subset of mtcars)
 
 mtcars_efficient <- mtcars[mtcars$mpg > ___, ]
 
@@ -266,6 +281,7 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
 
 # --- Esercizio 16 ------------------------------------------------------------
 # Obiettivo: Controllare direzione repulsione - solo verticale (direction = "y")
+# Dataset: mtcars
 
 ggplot(mtcars, aes(x = wt, y = mpg, label = rownames(mtcars))) +
   geom_point(color = "steelblue", size = 3) +
@@ -289,6 +305,7 @@ ggplot(mtcars, aes(x = wt, y = mpg, label = rownames(mtcars))) +
 # --- Esercizio 17 ------------------------------------------------------------
 # Obiettivo: Trasformare mtcars in formato long per heatmap
 # Usa pivot_longer() per tutte le colonne eccetto rownames
+# Dataset: mtcars
 
 mtcars_long <- mtcars %>%
   rownames_to_column("car") %>%
@@ -305,6 +322,7 @@ mtcars_long <- mtcars %>%
 # --- Esercizio 18 ------------------------------------------------------------
 # Obiettivo: Creare heatmap base con geom_tile()
 # x = variable, y = car (rownames), fill = value
+# Dataset: mtcars_long
 
 ggplot(mtcars_long, aes(x = variable, y = car, fill = value)) +
   geom_tile() +
@@ -318,6 +336,7 @@ ggplot(mtcars_long, aes(x = variable, y = car, fill = value)) +
 # --- Esercizio 19 ------------------------------------------------------------
 # Obiettivo: Scalare i valori per variabile (Z-score) prima di plottare
 # Usa group_by(variable) e mutate(value_scaled = scale(value)[,1])
+# Dataset: mtcars_scaled (derived from mtcars_long)
 
 mtcars_scaled <- mtcars_long %>%
   group_by(variable) %>%
@@ -337,6 +356,7 @@ ggplot(mtcars_scaled, aes(x = variable, y = car, fill = value_scaled)) +
 # --- Esercizio 20 ------------------------------------------------------------
 # Obiettivo: Applicare scala colori divergente (gradient2)
 # low = "blue", mid = "white", high = "red", midpoint = 0
+# Dataset: mtcars_scaled
 
 ggplot(mtcars_scaled, aes(x = variable, y = car, fill = value_scaled)) +
   geom_tile() +
@@ -359,6 +379,7 @@ ggplot(mtcars_scaled, aes(x = variable, y = car, fill = value_scaled)) +
 # --- Esercizio 21 ------------------------------------------------------------
 # Obiettivo: Ruotare etichette asse x (45 gradi)
 # Usa theme(axis.text.x = element_text(angle = 45, hjust = 1))
+# Dataset: mtcars_scaled
 
 ggplot(mtcars_scaled, aes(x = variable, y = car, fill = value_scaled)) +
   geom_tile() +
@@ -377,6 +398,7 @@ ggplot(mtcars_scaled, aes(x = variable, y = car, fill = value_scaled)) +
 # --- Esercizio 22 ------------------------------------------------------------
 # Obiettivo: Aggiungere bordi bianchi alle tiles
 # geom_tile(color = "white", size = 0.5)
+# Dataset: mtcars_scaled
 
 ggplot(mtcars_scaled, aes(x = variable, y = car, fill = value_scaled)) +
   geom_tile(color = "white", size = 0.5) +
@@ -396,6 +418,7 @@ ggplot(mtcars_scaled, aes(x = variable, y = car, fill = value_scaled)) +
 # --- Esercizio 23 ------------------------------------------------------------
 # Obiettivo: Creare volcano plot base
 # x = log2FC, y = -log10(padj), usa geom_point()
+# Dataset: volcano_data
 
 ggplot(volcano_data, aes(x = log2FC, y = -log10(padj))) +
   ___(alpha = 0.6) +
@@ -415,6 +438,7 @@ ggplot(volcano_data, aes(x = log2FC, y = -log10(padj))) +
 # Obiettivo: Aggiungere categoria "significant" ai dati
 # significant = TRUE se abs(log2FC) > 1 AND padj < 0.05
 # Colorare punti in base a significant
+# Dataset: volcano_data
 
 volcano_data <- volcano_data %>%
   mutate(
@@ -442,6 +466,7 @@ ggplot(volcano_data, aes(x = log2FC, y = -log10(padj), color = significant)) +
 # Obiettivo: Aggiungere linee soglia
 # geom_vline() a x = -1 e x = 1 (dashed)
 # geom_hline() a y = -log10(0.05) (dashed)
+# Dataset: volcano_data
 
 ggplot(volcano_data, aes(x = log2FC, y = -log10(padj), color = significant)) +
   geom_point(alpha = 0.6, size = 1.5) +
@@ -466,6 +491,7 @@ ggplot(volcano_data, aes(x = log2FC, y = -log10(padj), color = significant)) +
 # Down-regulated: log2FC < -1 & padj < 0.05
 # Not Significant: altri
 # Usare scale_color_manual() con colori rosso, blu, grigio
+# Dataset: volcano_data
 
 volcano_data <- volcano_data %>%
   mutate(
@@ -500,6 +526,7 @@ ggplot(volcano_data, aes(x = log2FC, y = -log10(padj), color = regulation)) +
 # --- Esercizio 27 ------------------------------------------------------------
 # Obiettivo: Identificare top 10 geni per significatività
 # filter(significant == TRUE) %>% arrange(padj) %>% slice_head(n = 10)
+# Dataset: top_genes (derived from volcano_data)
 
 top_genes <- volcano_data %>%
   filter(significant == TRUE) %>%
@@ -516,6 +543,7 @@ print(top_genes)
 # --- Esercizio 28 ------------------------------------------------------------
 # Obiettivo: Aggiungere etichette ai top 10 geni con geom_text_repel()
 # Evidenziare top genes con geom_point() di colore diverso
+# Dataset: volcano_data, top_genes
 
 ggplot(volcano_data, aes(x = log2FC, y = -log10(padj))) +
   geom_point(aes(color = regulation), alpha = 0.5, size = 1.5) +
@@ -553,6 +581,7 @@ ggplot(volcano_data, aes(x = log2FC, y = -log10(padj))) +
 # p_volcano: volcano plot completo
 # p_bars: geom_bar() delle categorie di regolazione
 # Combinare con patchwork in layout 2:1
+# Dataset: volcano_data
 
 p_volcano <- ggplot(volcano_data, aes(x = log2FC, y = -log10(padj), color = regulation)) +
   geom_point(alpha = 0.7, size = 1.5) +
@@ -607,6 +636,7 @@ p_volcano + p_bars +
 # 3. Barplot delle categorie
 # 4. Volcano plot
 # Combinare con layout custom, tema unificato, annotazioni globali
+# Dataset: volcano_data
 
 p1_hist <- ggplot(volcano_data, aes(x = log2FC, fill = regulation)) +
   geom_histogram(bins = 50, position = "stack") +

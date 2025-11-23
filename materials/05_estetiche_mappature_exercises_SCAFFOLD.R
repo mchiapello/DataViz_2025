@@ -27,6 +27,7 @@ data(mtcars)
 
 # ESERCIZIO 1: Color Discreto Base -----------------------------------------
 # Obiettivo: Creare scatter plot di displ vs hwy, colorando per drv (tipo trazione)
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = hwy, color = ___)) +
   geom_point()
@@ -36,6 +37,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = ___)) +
 
 # ESERCIZIO 2: Color Continuo -----------------------------------------------
 # Obiettivo: Scatter plot displ vs hwy, con color basato su cty (consumo città)
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = hwy, color = ___)) +
   geom_point()
@@ -45,6 +47,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = ___)) +
 
 # ESERCIZIO 3: Color con Linee ----------------------------------------------
 # Obiettivo: Line plot di economics: date vs unemploy, colorando per anno
+# Dataset: economics
 
 # Soluzione 1: con lubridate
 library(lubridate)
@@ -61,6 +64,7 @@ ggplot(economics_year, aes(x = date, y = ___, color = ___)) +
 
 # ESERCIZIO 4: Palette Viridis ----------------------------------------------
 # Obiettivo: Ripeti esercizio 2, ma usa scale_color_viridis_c()
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = hwy, color = ___)) +
   geom_point() +
@@ -72,6 +76,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = ___)) +
 # ESERCIZIO 5: Gradient Personalizzato --------------------------------------
 # Obiettivo: Scatter plot diamonds: carat vs price, color su depth
 #            Usa gradient da "yellow" a "red"
+# Dataset: diamonds
 
 ggplot(diamonds, aes(x = carat, y = price, color = ___)) +
   geom_point(alpha = 0.3) +
@@ -84,6 +89,7 @@ ggplot(diamonds, aes(x = carat, y = price, color = ___)) +
 
 # ESERCIZIO 6: Fill per Bar Chart -------------------------------------------
 # Obiettivo: Bar chart di mpg per class, riempimento per drv
+# Dataset: mpg
 
 ggplot(mpg, aes(x = class, fill = ___)) +
   ___()
@@ -93,6 +99,7 @@ ggplot(mpg, aes(x = class, fill = ___)) +
 
 # ESERCIZIO 7: Fill con Density ---------------------------------------------
 # Obiettivo: Density plot di hwy, con fill per drv e alpha = 0.5
+# Dataset: mpg
 
 ggplot(mpg, aes(x = hwy, fill = ___)) +
   ___(alpha = ___)
@@ -102,6 +109,7 @@ ggplot(mpg, aes(x = hwy, fill = ___)) +
 
 # ESERCIZIO 8: Color e Fill Insieme -----------------------------------------
 # Obiettivo: Bar chart di class, fill per class, bordo nero
+# Dataset: mpg
 
 ggplot(mpg, aes(x = class, fill = ___)) +
   geom_bar(color = "___")
@@ -111,6 +119,7 @@ ggplot(mpg, aes(x = class, fill = ___)) +
 
 # ESERCIZIO 9: Histogram con Fill -------------------------------------------
 # Obiettivo: Histogram di carat (diamonds), fill per cut, position = "dodge"
+# Dataset: diamonds
 
 ggplot(diamonds, aes(x = carat, fill = ___)) +
   ___(bins = 30, position = "___")
@@ -120,6 +129,7 @@ ggplot(diamonds, aes(x = carat, fill = ___)) +
 
 # ESERCIZIO 10: Boxplot con Fill --------------------------------------------
 # Obiettivo: Boxplot di hwy per class, fill per class, bordo "darkgray"
+# Dataset: mpg
 
 ggplot(mpg, aes(x = class, y = hwy, fill = ___)) +
   ___(color = "___")
@@ -131,6 +141,7 @@ ggplot(mpg, aes(x = class, y = hwy, fill = ___)) +
 
 # ESERCIZIO 11: Size Continuo -----------------------------------------------
 # Obiettivo: Scatter plot displ vs hwy, size basato su cyl
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = hwy, size = ___)) +
   geom_point(alpha = 0.6)
@@ -140,6 +151,7 @@ ggplot(mpg, aes(x = displ, y = hwy, size = ___)) +
 
 # ESERCIZIO 12: Size + Color ------------------------------------------------
 # Obiettivo: Scatter plot wt vs mpg (mtcars), size = hp, color = cyl
+# Dataset: mtcars
 
 ggplot(mtcars, aes(x = wt, y = mpg, size = ___, color = ___)) +
   geom_point(alpha = 0.7)
@@ -149,6 +161,7 @@ ggplot(mtcars, aes(x = wt, y = mpg, size = ___, color = ___)) +
 
 # ESERCIZIO 13: Shape Discreto ----------------------------------------------
 # Obiettivo: Scatter plot displ vs hwy, shape basato su drv, size = 3
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = hwy, shape = ___)) +
   geom_point(size = ___)
@@ -158,6 +171,7 @@ ggplot(mpg, aes(x = displ, y = hwy, shape = ___)) +
 
 # ESERCIZIO 14: Shape + Color (Ridondanza) ----------------------------------
 # Obiettivo: Scatter plot displ vs hwy, shape E color entrambi per drv
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = hwy, shape = ___, color = ___)) +
   geom_point(size = 3)
@@ -168,6 +182,7 @@ ggplot(mpg, aes(x = displ, y = hwy, shape = ___, color = ___)) +
 # ESERCIZIO 15: Shape Personalizzato ----------------------------------------
 # Obiettivo: Scatter plot displ vs hwy, usa shape = 21, 
 #            color = "black", fill = "steelblue", size = 3
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(shape = ___, color = "___", fill = "___", size = ___)
@@ -182,6 +197,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 # ESERCIZIO 16: Alpha Fisso per Overplotting --------------------------------
 # Obiettivo: Scatter plot di diamonds (tutti i dati): carat vs price
 #            Usa alpha = 0.1 per gestire overplotting
+# Dataset: diamonds
 
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(alpha = ___, size = 0.5)
@@ -191,6 +207,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 
 # ESERCIZIO 17: Alpha Variabile ---------------------------------------------
 # Obiettivo: Scatter plot mpg: displ vs hwy, alpha basato su cty
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = hwy, alpha = ___)) +
   geom_point(size = 3)
@@ -200,6 +217,7 @@ ggplot(mpg, aes(x = displ, y = hwy, alpha = ___)) +
 
 # ESERCIZIO 18: Alpha con Density -------------------------------------------
 # Obiettivo: Density plot di hwy, fill per drv, alpha = 0.4
+# Dataset: mpg
 
 ggplot(mpg, aes(x = hwy, fill = ___)) +
   ___(alpha = ___)
@@ -210,6 +228,7 @@ ggplot(mpg, aes(x = hwy, fill = ___)) +
 # ESERCIZIO 19: Alpha in Geom_ribbon ----------------------------------------
 # Obiettivo: Line plot economics: date vs unemploy, 
 #            aggiungi ribbon da unemploy-500 a unemploy+500, alpha = 0.3
+# Dataset: economics
 
 ggplot(economics, aes(x = date, y = unemploy)) +
   ___(aes(ymin = unemploy - 500, ymax = unemploy + 500),
@@ -221,6 +240,7 @@ ggplot(economics, aes(x = date, y = unemploy)) +
 
 # ESERCIZIO 20: Jitter con Alpha --------------------------------------------
 # Obiettivo: geom_jitter di class vs hwy, alpha = 0.5, width = 0.2
+# Dataset: mpg
 
 ggplot(mpg, aes(x = class, y = hwy)) +
   ___(alpha = ___, width = ___)
@@ -232,6 +252,7 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 # Obiettivo: Sovrapporre boxplot e punti per class vs hwy
 #            Usa geom_boxplot con alpha = 0.5, poi geom_point sopra
 #            In questo modo i punti sono visibili attraverso i boxplot
+# Dataset: mpg
 
 ggplot(mpg, aes(x = class, y = hwy)) +
   ___(alpha = ___, fill = "lightblue") +
@@ -252,6 +273,7 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 # Obiettivo: IDENTIFICA L'ERRORE e correggilo
 # Questo codice è sbagliato:
 # ggplot(mpg, aes(x = displ, y = hwy, color = "blue")) + geom_point()
+# Dataset: mpg
 
 # ❌ SBAGLIATO: crea variabile letterale "blue"
 ggplot(mpg, aes(x = displ, y = hwy, color = "blue")) + 
@@ -265,6 +287,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 # ESERCIZIO 23: Mapping Corretto --------------------------------------------
 # Obiettivo: Scatter plot displ vs hwy, mapping color a class,
 #            setting size = 3 e alpha = 0.7
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = hwy, color = ___)) +
   geom_point(size = ___, alpha = ___)
@@ -275,6 +298,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = ___)) +
 # ESERCIZIO 23: Setting Multipli --------------------------------------------
 # Obiettivo: Scatter plot wt vs mpg (mtcars), 
 #            setting: color = "red", size = 4, shape = 17, alpha = 0.6
+# Dataset: mtcars
 
 ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point(color = "___", size = ___, shape = ___, alpha = ___)
@@ -286,6 +310,7 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
 # Obiettivo: Scatter plot displ vs hwy,
 #            mapping: color = class, size = cyl
 #            setting: alpha = 0.6
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = hwy, color = ___, size = ___)) +
   geom_point(alpha = ___)
@@ -295,6 +320,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = ___, size = ___)) +
 
 # ESERCIZIO 25: Position = "dodge" con Fill ---------------------------------
 # Obiettivo: Bar chart di class, fill per drv, position = "dodge"
+# Dataset: mpg
 
 ggplot(mpg, aes(x = class, fill = ___)) +
   geom_bar(position = "___")
@@ -310,6 +336,7 @@ ggplot(mpg, aes(x = class, fill = ___)) +
 # ESERCIZIO 26: Quattro Variabili -------------------------------------------
 # Obiettivo: Scatter plot displ vs hwy, 
 #            color = class, size = cyl, alpha = 0.6
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = hwy, color = ___, size = ___)) +
   geom_point(alpha = ___)
@@ -321,6 +348,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = ___, size = ___)) +
 # Obiettivo: Scatter plot displ vs hwy,
 #            color E shape entrambi per drv (stessa variabile),
 #            size = 3, per migliorare accessibilità
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = hwy, color = ___, shape = ___)) +
   geom_point(size = ___)
@@ -331,6 +359,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = ___, shape = ___)) +
 # ESERCIZIO 28: Bubble Chart ------------------------------------------------
 # Obiettivo: Scatter plot diamonds (sample di 1000 righe):
 #            x = carat, y = price, size = depth, color = cut, alpha = 0.5
+# Dataset: diamonds_sample
 
 # Sample dei dati
 diamonds_sample <- diamonds %>% sample_n(1000)
@@ -343,6 +372,7 @@ ggplot(diamonds_sample, aes(x = carat, y = price, size = ___, color = ___)) +
 
 # ESERCIZIO 29: Gradient Divergente -----------------------------------------
 # Obiettivo: Prepara dati con variabile centrata, poi visualizza con gradient divergente
+# Dataset: mpg_centered
 
 # Prepara dati
 mpg_centered <- mpg %>%
@@ -360,6 +390,7 @@ ggplot(mpg_centered, aes(x = displ, y = hwy_diff, color = ___)) +
 # ESERCIZIO 30: Multivariato Completo ---------------------------------------
 # Obiettivo: Visualizzazione completa mtcars:
 #            x = wt, y = mpg, color = factor(cyl), size = hp, shape = factor(am)
+# Dataset: mtcars
 
 ggplot(mtcars, aes(x = wt, y = mpg, 
                    color = factor(___), 
