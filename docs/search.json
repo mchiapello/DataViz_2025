@@ -389,7 +389,7 @@
     "href": "materials/03_grammar_of_graphics.html#perché-visualizzare-il-datasaurus-dozen",
     "title": "Grammar of Graphics",
     "section": "Perché Visualizzare? Il Datasaurus Dozen",
-    "text": "Perché Visualizzare? Il Datasaurus Dozen\n\nLe statistiche riassuntive non bastano!\n\n\n13 dataset con IDENTICHE statistiche:\n\nMedia X: ~54.26\nMedia Y: ~47.83\nDeviazione Standard X: ~16.76\nDeviazione Standard Y: ~26.93\nCorrelazione: ~-0.06\n\nSenza visualizzare, sembrano lo stesso dataset!\nCon la visualizzazione, la verità emerge…\n\n# Install & carica\ninstall.packages(\"datasauRus\")\nlibrary(datasauRus)\n\n# Esplora i dati\nhead(datasaurus_dozen)\n\n# Verifica statistiche identiche\nlibrary(dplyr)\ndatasaurus_dozen %&gt;% \n  group_by(dataset) %&gt;% \n  summarise(\n    mean_x = mean(x),\n    mean_y = mean(y),\n    cor_xy = cor(x, y)\n  )"
+    "text": "Perché Visualizzare? Il Datasaurus Dozen\n\nLe statistiche riassuntive non bastano!\n\n\n13 dataset con IDENTICHE statistiche:\n\nMedia X: ~54.26\nMedia Y: ~47.83\nDeviazione Standard X: ~16.76\nDeviazione Standard Y: ~26.93\nCorrelazione: ~-0.06\n\nSenza visualizzare, sembrano lo stesso dataset!\nCon la visualizzazione, la verità emerge…\n\n# Install & carica\ninstall.packages(\"datasauRus\")\nlibrary(datasauRus)\n\n# Esplora i dati\nhead(datasaurus_dozen)\n\n# Verifica statistiche identiche\nlibrary(dplyr)\ndatasaurus_dozen %&gt;% \n  group_by(dataset) %&gt;% \n  summarise(\n    mean_x = mean(x),\n    mean_y = mean(y),\n    sd_x = sd(x),\n    sd_y = sd(y),\n    cor_xy = cor(x, y)\n  )"
   },
   {
     "objectID": "materials/03_grammar_of_graphics.html#il-datasaurus-dozen-visualizzato",
@@ -529,7 +529,7 @@
     "href": "materials/03_grammar_of_graphics.html#template-base-di-ggplot2",
     "title": "Grammar of Graphics",
     "section": "Template base di ggplot2",
-    "text": "Template base di ggplot2\n\nStruttura completa di un plot ggplot2:\nggplot(data = &lt;DATA&gt;, mapping = aes(&lt;MAPPINGS&gt;)) + \n  &lt;GEOM_FUNCTION&gt;(\n     mapping = aes(&lt;MAPPINGS&gt;),\n     stat = &lt;STAT&gt;, \n     position = &lt;POSITION&gt;\n  ) +\n  &lt;COORDINATE_FUNCTION&gt; +\n  &lt;FACET_FUNCTION&gt; +\n  &lt;SCALE_FUNCTION&gt; +\n  &lt;THEME_FUNCTION&gt;\nIn pratica (esempio reale):\nggplot(mpg, aes(x = displ, y = hwy)) +       # Data + Aesthetics\n  geom_point(aes(color = class)) +            # Geometries\n  facet_wrap(~ year) +                        # Facets\n  scale_color_brewer(palette = \"Set1\") +      # Scales\n  coord_cartesian(ylim = c(10, 45)) +         # Coordinates\n  theme_minimal()                             # Theme"
+    "text": "Template base di ggplot2\n\nStruttura completa di un plot ggplot2:\nggplot(data = &lt;DATA&gt;, mapping = aes(&lt;MAPPINGS&gt;)) + \n  &lt;GEOM_FUNCTION&gt;(\n     mapping = aes(&lt;MAPPINGS&gt;),\n     stat = &lt;STAT&gt;, \n     position = &lt;POSITION&gt;\n  ) +\n  &lt;COORDINATE_FUNCTION&gt; +\n  &lt;FACET_FUNCTION&gt; +\n  &lt;SCALE_FUNCTION&gt; +\n  &lt;THEME_FUNCTION&gt;\nIn pratica (esempio reale):\nggplot(mpg, aes(x = displ, y = hwy)) +       # Data + Aesthetics\n  geom_point(aes(color = class)) +            # Geometries\n  facet_wrap(~ year) +                        # Facets\n  scale_color_brewer(palette = \"Set1\") +      # Scales\n  coord_cartesian(ylim = c(10, 45)) +         # Coordinates\n  theme_bw()                                  # Theme"
   },
   {
     "objectID": "materials/03_grammar_of_graphics.html#layer-1-data",
@@ -613,7 +613,7 @@
     "href": "materials/03_grammar_of_graphics.html#layer-4-facets-1",
     "title": "Grammar of Graphics",
     "section": "Layer 4: Facets",
-    "text": "Layer 4: Facets\n\nOpzioni di personalizzazione:\n# Scale libere per ogni panel\nfacet_wrap(~ class, scales = \"free\")     # entrambi liberi\nfacet_wrap(~ class, scales = \"free_x\")   # solo x libero\nfacet_wrap(~ class, scales = \"free_y\")   # solo y libero\n\n# Etichette personalizzate\nfacet_wrap(~ class, labeller = label_both)  # mostra \"class: suv\"\n\n# Margini\nfacet_grid(drv ~ cyl, margins = TRUE)  # aggiunge totali marginali\nBest practice: Mantieni scale fisse quando possibile per facilitare confronti!"
+    "text": "Layer 4: Facets\n\nOpzioni di personalizzazione:\n# Scale libere per ogni panel\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  facet_wrap(~ class, scales = \"free\")     # entrambi liberi\n\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  facet_wrap(~ class, scales = \"free_x\")   # solo x libero\n\n# Etichette personalizzate\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  facet_wrap(~ class, labeller = label_both)  # mostra \"class: suv\"\n\n# Margini\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  facet_grid(drv ~ cyl, margins = TRUE)  # aggiunge totali marginali\nBest practice: Mantieni scale fisse quando possibile per facilitare confronti!"
   },
   {
     "objectID": "materials/03_grammar_of_graphics.html#layer-5-stats-trasformazioni",
@@ -627,7 +627,7 @@
     "href": "materials/03_grammar_of_graphics.html#layer-5-stats",
     "title": "Grammar of Graphics",
     "section": "Layer 5: Stats",
-    "text": "Layer 5: Stats\n\nUsare stats direttamente (invece di geoms):\n# Equivalenti\ngeom_bar(stat = \"count\")\nstat_count(geom = \"bar\")\n\n# Cambio di stat\ngeom_bar(stat = \"identity\")  # usa valori y così come sono\n\n# Summary personalizzate\nstat_summary(fun = mean, geom = \"point\", size = 4)\nstat_summary(fun.data = mean_se, geom = \"errorbar\")\nVariabili calcolate: Gli stats creano nuove variabili accessibili con after_stat():\n# Istogramma con densità invece di conteggi\ngeom_histogram(aes(y = after_stat(density)))\n\n\n\n\n\n\nScoprire le variabili calcolate\n\n\nPer vedere quali variabili sono disponibili con after_stat(), consulta la sezione Computed variables nella documentazione di ogni stat: ?stat_bin, ?stat_count, ?stat_smooth, etc."
+    "text": "Layer 5: Stats\n\nUsare stats direttamente (invece di geoms):\n# Equivalenti\nggplot(mpg, aes(x = class)) + \n  geom_bar(stat = \"count\")\n\nggplot(mpg, aes(x = class)) + \n  stat_count(geom = \"bar\")\n\n# Cambio di stat - usa valori y così come sono\nggplot(data.frame(x = c(\"A\", \"B\", \"C\"), y = c(10, 20, 15)), \n       aes(x = x, y = y)) +\n  geom_bar(stat = \"identity\")\n\n# Summary personalizzate\nggplot(mpg, aes(x = class, y = hwy)) + \n  stat_summary(fun = mean, geom = \"point\", size = 4)\n\nggplot(mpg, aes(x = class, y = hwy)) + \n  stat_summary(fun.data = mean_se, geom = \"errorbar\")\nVariabili calcolate: Gli stats creano nuove variabili accessibili con after_stat():\n# Istogramma con densità invece di conteggi\ngeom_histogram(aes(y = after_stat(density)))\n\n\n\n\n\n\nScoprire le variabili calcolate\n\n\nPer vedere quali variabili sono disponibili con after_stat(), consulta la sezione Computed variables nella documentazione di ogni stat: ?stat_bin, ?stat_count, ?stat_smooth, etc."
   },
   {
     "objectID": "materials/03_grammar_of_graphics.html#layer-6-coordinates",
@@ -690,7 +690,7 @@
     "href": "materials/03_grammar_of_graphics.html#position-adjustments",
     "title": "Grammar of Graphics",
     "section": "Position adjustments",
-    "text": "Position adjustments\n\nModifica posizione elementi dentro un layer (risolve overlapping):\n# Identity - nessun aggiustamento (dati sovrapposti)\ngeom_bar(position = \"identity\", alpha = 0.5)\n\n# Stack - impilati (default per barre)\ngeom_bar(position = \"stack\")\n\n# Dodge - affiancati (gruppi side-by-side)\ngeom_bar(position = \"dodge\")\n\n# Fill - impilati a 100%\ngeom_bar(position = \"fill\")\n\n# Jitter - rumore casuale (scatter plot con sovrapposizione)\ngeom_point(position = \"jitter\")\ngeom_point(position = position_jitter(width = 0.2, height = 0))\nFondamentale per visualizzare correttamente dati sovrapposti!"
+    "text": "Position adjustments\n\nModifica posizione elementi dentro un layer (risolve overlapping):\n# Identity - nessun aggiustamento (dati sovrapposti)\nggplot(mpg, aes(x = class, fill = drv)) +\n  geom_bar(position = \"identity\", alpha = 0.5)\n\n# Stack - impilati (default per barre)\nggplot(mpg, aes(x = class, fill = drv)) +\n  geom_bar(position = \"stack\")\n\n# Dodge - affiancati (gruppi side-by-side)\nggplot(mpg, aes(x = class, fill = drv)) +\n  geom_bar(position = \"dodge\")\n\n# Fill - impilati a 100%\nggplot(mpg, aes(x = class, fill = drv)) +\n  geom_bar(position = \"fill\")\n\n# Jitter - rumore casuale (scatter plot con sovrapposizione)\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(position = \"jitter\")\n\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(position = position_jitter(width = 0.2, height = 0))\nFondamentale per visualizzare correttamente dati sovrapposti!"
   },
   {
     "objectID": "materials/03_grammar_of_graphics.html#layer-multipli",

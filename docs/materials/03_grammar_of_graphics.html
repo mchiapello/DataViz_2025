@@ -239,8 +239,10 @@ Marco Chiapello
 <span id="cb1-12"><a></a>  <span class="fu">summarise</span>(</span>
 <span id="cb1-13"><a></a>    <span class="at">mean_x =</span> <span class="fu">mean</span>(x),</span>
 <span id="cb1-14"><a></a>    <span class="at">mean_y =</span> <span class="fu">mean</span>(y),</span>
-<span id="cb1-15"><a></a>    <span class="at">cor_xy =</span> <span class="fu">cor</span>(x, y)</span>
-<span id="cb1-16"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-15"><a></a>    <span class="at">sd_x =</span> <span class="fu">sd</span>(x),</span>
+<span id="cb1-16"><a></a>    <span class="at">sd_y =</span> <span class="fu">sd</span>(y),</span>
+<span id="cb1-17"><a></a>    <span class="at">cor_xy =</span> <span class="fu">cor</span>(x, y)</span>
+<span id="cb1-18"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 </div>
 </section>
@@ -278,47 +280,6 @@ Marco Chiapello
 <div class="callout-content">
 <p><strong>Mai fidarsi solo delle statistiche!</strong></p>
 <p>La visualizzazione rivela pattern, outlier, distribuzioni che i numeri nascondono.</p>
-</div>
-</div>
-</div>
-</div></div>
-</div>
-</section>
-<section id="anscombes-quartet-il-predecessore" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
-<h2>Anscombe’s Quartet: Il Predecessore</h2>
-<div style="font-size: 0.75em;">
-<p><strong>Prima del Datasaurus, c’era Anscombe (1973)</strong></p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p>4 dataset con statistiche IDENTICHE:</p>
-<ul>
-<li>Media X: 9.0</li>
-<li>Media Y: 7.5</li>
-<li>Varianza X: 11.0</li>
-<li>Varianza Y: 4.12</li>
-<li>Correlazione: 0.816</li>
-<li>Equazione regressione: y = 3 + 0.5x</li>
-</ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># Built-in in R</span></span>
-<span id="cb3-2"><a></a><span class="fu">data</span>(anscombe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column" style="width:50%;">
-<p><strong>Ma visualizzati sono completamente diversi:</strong></p>
-<ol type="1">
-<li>Relazione lineare perfetta</li>
-<li>Relazione non-lineare (quadratica)</li>
-<li>Relazione lineare con outlier</li>
-<li>Outlier influente (high leverage)</li>
-</ol>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Il messaggio</strong></p>
-</div>
-<div class="callout-content">
-<p>Sempre visualizzare prima di analizzare statisticamente!</p>
 </div>
 </div>
 </div>
@@ -392,9 +353,9 @@ Marco Chiapello
 <p><strong>1. Accessibilità<br>
 - Color blindness</strong> ~8% uomini, ~0.5% donne hanno daltonismo<br>
 - <strong>Soluzione</strong>: palette colorblind-safe (viridis, ColorBrewer)</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">scale_color_viridis_d</span>()           <span class="co"># discreto</span></span>
-<span id="cb4-2"><a></a><span class="fu">scale_color_viridis_c</span>()           <span class="co"># continuo</span></span>
-<span id="cb4-3"><a></a><span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set2"</span>)  <span class="co"># ColorBrewer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">scale_color_viridis_d</span>()           <span class="co"># discreto</span></span>
+<span id="cb3-2"><a></a><span class="fu">scale_color_viridis_c</span>()           <span class="co"># continuo</span></span>
+<span id="cb3-3"><a></a><span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set2"</span>)  <span class="co"># ColorBrewer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>2. Tipi di scale cromatiche</strong><br>
 - <strong>Qualitativa</strong>: categorie non ordinate (Set1, Set2, Dark2)<br>
 - <strong>Sequenziale</strong>: valori ordinati (Blues, Greens, Viridis)<br>
@@ -434,12 +395,12 @@ Marco Chiapello
 <h2>Titoli, Didascalie e Annotazioni</h2>
 <div style="font-size: 0.75em;">
 <p><strong>Anatomia di una figura pubblicabile:</strong></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>    title <span class="ot">=</span> <span class="st">"Breve e informativo"</span>,         <span class="co"># opzionale per paper</span></span>
-<span id="cb5-2"><a></a>    subtitle <span class="ot">=</span> <span class="st">"Dettagli aggiuntivi"</span>,      <span class="co"># opzionale</span></span>
-<span id="cb5-3"><a></a>    x <span class="ot">=</span> <span class="st">"Variabile esplicativa [unità]"</span>,   <span class="co"># SEMPRE con unità</span></span>
-<span id="cb5-4"><a></a>    y <span class="ot">=</span> <span class="st">"Variabile risposta [unità]"</span>,      <span class="co"># SEMPRE con unità</span></span>
-<span id="cb5-5"><a></a>    color <span class="ot">=</span> <span class="st">"Gruppo"</span>,                       <span class="co"># etichetta legenda</span></span>
-<span id="cb5-6"><a></a>    caption <span class="ot">=</span> <span class="st">"Fonte: Studio XYZ (2024)"</span>   <span class="co"># fonte dati</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>    title <span class="ot">=</span> <span class="st">"Breve e informativo"</span>,         <span class="co"># opzionale per paper</span></span>
+<span id="cb4-2"><a></a>    subtitle <span class="ot">=</span> <span class="st">"Dettagli aggiuntivi"</span>,      <span class="co"># opzionale</span></span>
+<span id="cb4-3"><a></a>    x <span class="ot">=</span> <span class="st">"Variabile esplicativa [unità]"</span>,   <span class="co"># SEMPRE con unità</span></span>
+<span id="cb4-4"><a></a>    y <span class="ot">=</span> <span class="st">"Variabile risposta [unità]"</span>,      <span class="co"># SEMPRE con unità</span></span>
+<span id="cb4-5"><a></a>    color <span class="ot">=</span> <span class="st">"Gruppo"</span>,                       <span class="co"># etichetta legenda</span></span>
+<span id="cb4-6"><a></a>    caption <span class="ot">=</span> <span class="st">"Fonte: Studio XYZ (2024)"</span>   <span class="co"># fonte dati</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Per pubblicazioni scientifiche:</strong></p>
 <ul>
 <li><strong>Caption nella rivista</strong>, non nel grafico stesso</li>
@@ -591,23 +552,23 @@ Marco Chiapello
 <h2>Template base di ggplot2</h2>
 <div style="font-size: 0.8em;">
 <p><strong>Struttura completa di un plot ggplot2:</strong></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="sc">&lt;</span>DATA<span class="sc">&gt;</span>, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="sc">&lt;</span>MAPPINGS<span class="sc">&gt;</span>)) <span class="sc">+</span> </span>
-<span id="cb6-2"><a></a>  <span class="er">&lt;</span>GEOM_FUNCTION<span class="sc">&gt;</span>(</span>
-<span id="cb6-3"><a></a>     <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="sc">&lt;</span>MAPPINGS<span class="sc">&gt;</span>),</span>
-<span id="cb6-4"><a></a>     <span class="at">stat =</span> <span class="sc">&lt;</span>STAT<span class="sc">&gt;</span>, </span>
-<span id="cb6-5"><a></a>     <span class="at">position =</span> <span class="sc">&lt;</span>POSITION<span class="sc">&gt;</span></span>
-<span id="cb6-6"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb6-7"><a></a>  <span class="er">&lt;</span>COORDINATE_FUNCTION<span class="sc">&gt;</span> <span class="sc">+</span></span>
-<span id="cb6-8"><a></a>  <span class="er">&lt;</span>FACET_FUNCTION<span class="sc">&gt;</span> <span class="sc">+</span></span>
-<span id="cb6-9"><a></a>  <span class="er">&lt;</span>SCALE_FUNCTION<span class="sc">&gt;</span> <span class="sc">+</span></span>
-<span id="cb6-10"><a></a>  <span class="er">&lt;</span>THEME_FUNCTION<span class="sc">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="sc">&lt;</span>DATA<span class="sc">&gt;</span>, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="sc">&lt;</span>MAPPINGS<span class="sc">&gt;</span>)) <span class="sc">+</span> </span>
+<span id="cb5-2"><a></a>  <span class="er">&lt;</span>GEOM_FUNCTION<span class="sc">&gt;</span>(</span>
+<span id="cb5-3"><a></a>     <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="sc">&lt;</span>MAPPINGS<span class="sc">&gt;</span>),</span>
+<span id="cb5-4"><a></a>     <span class="at">stat =</span> <span class="sc">&lt;</span>STAT<span class="sc">&gt;</span>, </span>
+<span id="cb5-5"><a></a>     <span class="at">position =</span> <span class="sc">&lt;</span>POSITION<span class="sc">&gt;</span></span>
+<span id="cb5-6"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb5-7"><a></a>  <span class="er">&lt;</span>COORDINATE_FUNCTION<span class="sc">&gt;</span> <span class="sc">+</span></span>
+<span id="cb5-8"><a></a>  <span class="er">&lt;</span>FACET_FUNCTION<span class="sc">&gt;</span> <span class="sc">+</span></span>
+<span id="cb5-9"><a></a>  <span class="er">&lt;</span>SCALE_FUNCTION<span class="sc">&gt;</span> <span class="sc">+</span></span>
+<span id="cb5-10"><a></a>  <span class="er">&lt;</span>THEME_FUNCTION<span class="sc">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>In pratica</strong> (esempio reale):</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span>       <span class="co"># Data + Aesthetics</span></span>
-<span id="cb7-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span>            <span class="co"># Geometries</span></span>
-<span id="cb7-3"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> year) <span class="sc">+</span>                        <span class="co"># Facets</span></span>
-<span id="cb7-4"><a></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span>      <span class="co"># Scales</span></span>
-<span id="cb7-5"><a></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">45</span>)) <span class="sc">+</span>         <span class="co"># Coordinates</span></span>
-<span id="cb7-6"><a></a>  <span class="fu">theme_minimal</span>()                             <span class="co"># Theme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span>       <span class="co"># Data + Aesthetics</span></span>
+<span id="cb6-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span>            <span class="co"># Geometries</span></span>
+<span id="cb6-3"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> year) <span class="sc">+</span>                        <span class="co"># Facets</span></span>
+<span id="cb6-4"><a></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span>      <span class="co"># Scales</span></span>
+<span id="cb6-5"><a></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">45</span>)) <span class="sc">+</span>         <span class="co"># Coordinates</span></span>
+<span id="cb6-6"><a></a>  <span class="fu">theme_bw</span>()                                  <span class="co"># Theme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="layer-1-data" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
@@ -765,9 +726,9 @@ Marco Chiapello
 <div style="font-size: 0.7em;">
 <p><strong>La funzione <code>aes()</code>:</strong></p>
 <p>Il “motore” delle mappature estetiche</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb8-2"><a></a>    <span class="at">y =</span> hwy, </span>
-<span id="cb8-3"><a></a>    <span class="at">color =</span> class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
+<span id="cb7-2"><a></a>    <span class="at">y =</span> hwy, </span>
+<span id="cb7-3"><a></a>    <span class="at">color =</span> class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Crea il <strong>link esplicito</strong> tra colonne del dataset e proprietà visive</p>
 </div>
 </div></div>
@@ -781,10 +742,10 @@ Marco Chiapello
 <div class="column" style="width:50%;">
 <p><strong>MAPPING (dentro <code>aes()</code>)</strong></p>
 <p>Proprietà visiva <strong>dipende dai dati</strong></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb9-2"><a></a>                <span class="at">y =</span> hwy, </span>
-<span id="cb9-3"><a></a>                <span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb9-4"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
+<span id="cb8-2"><a></a>                <span class="at">y =</span> hwy, </span>
+<span id="cb8-3"><a></a>                <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb8-4"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>✅ <strong>Risultato:</strong></p>
 <ul>
 <li>Colore varia per ogni punto</li>
@@ -796,11 +757,11 @@ Marco Chiapello
 </div><div class="column" style="width:50%;">
 <p><strong>SETTING (fuori <code>aes()</code>)</strong></p>
 <p>Proprietà visiva <strong>costante</strong></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb10-2"><a></a>                <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb10-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>, </span>
-<span id="cb10-4"><a></a>             <span class="at">size =</span> <span class="dv">3</span>, </span>
-<span id="cb10-5"><a></a>             <span class="at">alpha =</span> <span class="fl">0.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
+<span id="cb9-2"><a></a>                <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb9-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>, </span>
+<span id="cb9-4"><a></a>             <span class="at">size =</span> <span class="dv">3</span>, </span>
+<span id="cb9-5"><a></a>             <span class="at">alpha =</span> <span class="fl">0.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>✅ <strong>Risultato:</strong></p>
 <ul>
 <li>Tutti i punti blu, stessa dimensione</li>
@@ -816,9 +777,9 @@ Marco Chiapello
 <h2>Aesthetics: L’Errore Comune</h2>
 <div style="font-size: 0.7em;">
 <p><strong>Perché <code>aes(color = "blue")</code> NON produce punti blu?</strong></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="co"># ❌ ERRORE COMUNE - Non produce punti blu!</span></span>
-<span id="cb11-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb11-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"blue"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="co"># ❌ ERRORE COMUNE - Non produce punti blu!</span></span>
+<span id="cb10-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb10-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"blue"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>La logica formale dietro questo comportamento:</strong></p>
 <div style="font-size: 0.75em;">
 <ol type="1">
@@ -958,16 +919,16 @@ Marco Chiapello
 <div style="font-size: 0.8em;">
 <p><strong>Due aesthetic per il colore:</strong></p>
 <p><strong><code>color</code></strong> - Bordi, linee, punti (contorni):</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"red"</span>)      <span class="co"># punti rossi</span></span>
-<span id="cb12-2"><a></a><span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"blue"</span>)      <span class="co"># linea blu</span></span>
-<span id="cb12-3"><a></a><span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"black"</span>)      <span class="co"># bordo barre nero</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"red"</span>)      <span class="co"># punti rossi</span></span>
+<span id="cb11-2"><a></a><span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"blue"</span>)      <span class="co"># linea blu</span></span>
+<span id="cb11-3"><a></a><span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"black"</span>)      <span class="co"># bordo barre nero</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong><code>fill</code></strong> - Riempimento interno (aree):</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>)           <span class="co"># barre riempite</span></span>
-<span id="cb13-2"><a></a><span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightgreen"</span>)      <span class="co"># box riempiti</span></span>
-<span id="cb13-3"><a></a><span class="fu">geom_violin</span>(<span class="at">fill =</span> <span class="st">"orange"</span>)           <span class="co"># violin riempiti</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>)           <span class="co"># barre riempite</span></span>
+<span id="cb12-2"><a></a><span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightgreen"</span>)      <span class="co"># box riempiti</span></span>
+<span id="cb12-3"><a></a><span class="fu">geom_violin</span>(<span class="at">fill =</span> <span class="st">"orange"</span>)           <span class="co"># violin riempiti</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Entrambi insieme</strong>:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>)</span>
-<span id="cb14-2"><a></a><span class="co"># → Barre blu con bordo nero</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>)</span>
+<span id="cb13-2"><a></a><span class="co"># → Barre blu con bordo nero</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Regola pratica</strong>: Geoms con area interna usano <code>fill</code>, geoms 1D usano <code>color</code></p>
 </div>
 </section>
@@ -1002,18 +963,18 @@ Marco Chiapello
 <h2>Layer 3: Geometries</h2>
 <div style="font-size: 0.8em;">
 <p><strong>Ogni geom ha parametri specifici:</strong></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="co"># Point: shape, size, alpha</span></span>
-<span id="cb15-2"><a></a><span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">16</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>)</span>
-<span id="cb15-3"><a></a></span>
-<span id="cb15-4"><a></a><span class="co"># Line: linetype, linewidth</span></span>
-<span id="cb15-5"><a></a><span class="fu">geom_line</span>(<span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>)</span>
-<span id="cb15-6"><a></a></span>
-<span id="cb15-7"><a></a><span class="co"># Smooth: method, se (standard error)</span></span>
-<span id="cb15-8"><a></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="co"># Point: shape, size, alpha</span></span>
+<span id="cb14-2"><a></a><span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">16</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>)</span>
+<span id="cb14-3"><a></a></span>
+<span id="cb14-4"><a></a><span class="co"># Line: linetype, linewidth</span></span>
+<span id="cb14-5"><a></a><span class="fu">geom_line</span>(<span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>)</span>
+<span id="cb14-6"><a></a></span>
+<span id="cb14-7"><a></a><span class="co"># Smooth: method, se (standard error)</span></span>
+<span id="cb14-8"><a></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>I geom ereditano le aesthetics da <code>ggplot()</code></strong> ma possono avere le proprie:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span>  <span class="co"># aesthetics globali</span></span>
-<span id="cb16-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span>       <span class="co"># solo per i punti</span></span>
-<span id="cb16-3"><a></a>  <span class="fu">geom_smooth</span>()                           <span class="co"># usa solo x e y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span>  <span class="co"># aesthetics globali</span></span>
+<span id="cb15-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span>       <span class="co"># solo per i punti</span></span>
+<span id="cb15-3"><a></a>  <span class="fu">geom_smooth</span>()                           <span class="co"># usa solo x e y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="layer-4-facets" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
@@ -1038,16 +999,24 @@ Marco Chiapello
 <h2>Layer 4: Facets</h2>
 <div style="font-size: 0.75em;">
 <p><strong>Opzioni di personalizzazione:</strong></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="co"># Scale libere per ogni panel</span></span>
-<span id="cb17-2"><a></a><span class="fu">facet_wrap</span>(<span class="sc">~</span> class, <span class="at">scales =</span> <span class="st">"free"</span>)     <span class="co"># entrambi liberi</span></span>
-<span id="cb17-3"><a></a><span class="fu">facet_wrap</span>(<span class="sc">~</span> class, <span class="at">scales =</span> <span class="st">"free_x"</span>)   <span class="co"># solo x libero</span></span>
-<span id="cb17-4"><a></a><span class="fu">facet_wrap</span>(<span class="sc">~</span> class, <span class="at">scales =</span> <span class="st">"free_y"</span>)   <span class="co"># solo y libero</span></span>
-<span id="cb17-5"><a></a></span>
-<span id="cb17-6"><a></a><span class="co"># Etichette personalizzate</span></span>
-<span id="cb17-7"><a></a><span class="fu">facet_wrap</span>(<span class="sc">~</span> class, <span class="at">labeller =</span> label_both)  <span class="co"># mostra "class: suv"</span></span>
-<span id="cb17-8"><a></a></span>
-<span id="cb17-9"><a></a><span class="co"># Margini</span></span>
-<span id="cb17-10"><a></a><span class="fu">facet_grid</span>(drv <span class="sc">~</span> cyl, <span class="at">margins =</span> <span class="cn">TRUE</span>)  <span class="co"># aggiunge totali marginali</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="co"># Scale libere per ogni panel</span></span>
+<span id="cb16-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb16-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb16-4"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> class, <span class="at">scales =</span> <span class="st">"free"</span>)     <span class="co"># entrambi liberi</span></span>
+<span id="cb16-5"><a></a></span>
+<span id="cb16-6"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb16-7"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb16-8"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> class, <span class="at">scales =</span> <span class="st">"free_x"</span>)   <span class="co"># solo x libero</span></span>
+<span id="cb16-9"><a></a></span>
+<span id="cb16-10"><a></a><span class="co"># Etichette personalizzate</span></span>
+<span id="cb16-11"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb16-12"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb16-13"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> class, <span class="at">labeller =</span> label_both)  <span class="co"># mostra "class: suv"</span></span>
+<span id="cb16-14"><a></a></span>
+<span id="cb16-15"><a></a><span class="co"># Margini</span></span>
+<span id="cb16-16"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb16-17"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb16-18"><a></a>  <span class="fu">facet_grid</span>(drv <span class="sc">~</span> cyl, <span class="at">margins =</span> <span class="cn">TRUE</span>)  <span class="co"># aggiunge totali marginali</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Best practice</strong>: Mantieni scale fisse quando possibile per facilitare confronti!</p>
 </div>
 </section>
@@ -1066,9 +1035,9 @@ Marco Chiapello
 <li><code>stat_summary()</code> - Funzioni custom (media, mediana, etc.)</li>
 </ul>
 <p>Ogni geom ha uno <strong>stat di default</strong>:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">geom_histogram</span>()  <span class="co"># stat = "bin"</span></span>
-<span id="cb18-2"><a></a><span class="fu">geom_bar</span>()        <span class="co"># stat = "count"</span></span>
-<span id="cb18-3"><a></a><span class="fu">geom_smooth</span>()     <span class="co"># stat = "smooth"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">geom_histogram</span>()  <span class="co"># stat = "bin"</span></span>
+<span id="cb17-2"><a></a><span class="fu">geom_bar</span>()        <span class="co"># stat = "count"</span></span>
+<span id="cb17-3"><a></a><span class="fu">geom_smooth</span>()     <span class="co"># stat = "smooth"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <p><img data-src="images/ggplot2_layers.png" style="width:100.0%"></p>
@@ -1076,21 +1045,29 @@ Marco Chiapello
 </section>
 <section id="layer-5-stats" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2>Layer 5: Stats</h2>
-<div style="font-size: 0.75em;">
+<div style="font-size: 0.55em;">
 <p><strong>Usare stats direttamente</strong> (invece di geoms):</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="co"># Equivalenti</span></span>
-<span id="cb19-2"><a></a><span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"count"</span>)</span>
-<span id="cb19-3"><a></a><span class="fu">stat_count</span>(<span class="at">geom =</span> <span class="st">"bar"</span>)</span>
-<span id="cb19-4"><a></a></span>
-<span id="cb19-5"><a></a><span class="co"># Cambio di stat</span></span>
-<span id="cb19-6"><a></a><span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>)  <span class="co"># usa valori y così come sono</span></span>
-<span id="cb19-7"><a></a></span>
-<span id="cb19-8"><a></a><span class="co"># Summary personalizzate</span></span>
-<span id="cb19-9"><a></a><span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"point"</span>, <span class="at">size =</span> <span class="dv">4</span>)</span>
-<span id="cb19-10"><a></a><span class="fu">stat_summary</span>(<span class="at">fun.data =</span> mean_se, <span class="at">geom =</span> <span class="st">"errorbar"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="co"># Equivalenti</span></span>
+<span id="cb18-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class)) <span class="sc">+</span> </span>
+<span id="cb18-3"><a></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"count"</span>)</span>
+<span id="cb18-4"><a></a></span>
+<span id="cb18-5"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class)) <span class="sc">+</span> </span>
+<span id="cb18-6"><a></a>  <span class="fu">stat_count</span>(<span class="at">geom =</span> <span class="st">"bar"</span>)</span>
+<span id="cb18-7"><a></a></span>
+<span id="cb18-8"><a></a><span class="co"># Cambio di stat - usa valori y così come sono</span></span>
+<span id="cb18-9"><a></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">15</span>)), </span>
+<span id="cb18-10"><a></a>       <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb18-11"><a></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>)</span>
+<span id="cb18-12"><a></a></span>
+<span id="cb18-13"><a></a><span class="co"># Summary personalizzate</span></span>
+<span id="cb18-14"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> hwy)) <span class="sc">+</span> </span>
+<span id="cb18-15"><a></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"point"</span>, <span class="at">size =</span> <span class="dv">4</span>)</span>
+<span id="cb18-16"><a></a></span>
+<span id="cb18-17"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> hwy)) <span class="sc">+</span> </span>
+<span id="cb18-18"><a></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> mean_se, <span class="at">geom =</span> <span class="st">"errorbar"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Variabili calcolate</strong>: Gli stats creano nuove variabili accessibili con <code>after_stat()</code>:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="co"># Istogramma con densità invece di conteggi</span></span>
-<span id="cb20-2"><a></a><span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="co"># Istogramma con densità invece di conteggi</span></span>
+<span id="cb19-2"><a></a><span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1122,8 +1099,8 @@ Marco Chiapello
 <li><code>coord_trans()</code> - Trasformazioni non-lineari</li>
 </ul>
 <p><strong>Zoom senza rimuovere dati:</strong></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>),</span>
-<span id="cb21-2"><a></a>                <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>),</span>
+<span id="cb20-2"><a></a>                <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <p><img data-src="images/ggplot2_layers.png" style="width:100.0%"></p>
@@ -1145,15 +1122,15 @@ Marco Chiapello
 </ul>
 </div><div class="column" style="width:50%;">
 <p><strong>Ogni aesthetics ha la sua scala:</strong></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> date, </span>
-<span id="cb22-2"><a></a>                 <span class="at">y =</span> temp,</span>
-<span id="cb22-3"><a></a>                 <span class="at">color =</span> city)) <span class="sc">+</span></span>
-<span id="cb22-4"><a></a>  <span class="fu">geom_line</span>()</span>
-<span id="cb22-5"><a></a>  </span>
-<span id="cb22-6"><a></a><span class="co"># ggplot2 applica AUTOMATICAMENTE:</span></span>
-<span id="cb22-7"><a></a><span class="co"># scale_x_date()       # per x</span></span>
-<span id="cb22-8"><a></a><span class="co"># scale_y_continuous() # per y</span></span>
-<span id="cb22-9"><a></a><span class="co"># scale_color_discrete() # per color</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> date, </span>
+<span id="cb21-2"><a></a>                 <span class="at">y =</span> temp,</span>
+<span id="cb21-3"><a></a>                 <span class="at">color =</span> city)) <span class="sc">+</span></span>
+<span id="cb21-4"><a></a>  <span class="fu">geom_line</span>()</span>
+<span id="cb21-5"><a></a>  </span>
+<span id="cb21-6"><a></a><span class="co"># ggplot2 applica AUTOMATICAMENTE:</span></span>
+<span id="cb21-7"><a></a><span class="co"># scale_x_date()       # per x</span></span>
+<span id="cb21-8"><a></a><span class="co"># scale_y_continuous() # per y</span></span>
+<span id="cb21-9"><a></a><span class="co"># scale_color_discrete() # per color</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1178,44 +1155,44 @@ Marco Chiapello
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Per POSIZIONI (x, y):</strong></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="co"># Continuous</span></span>
-<span id="cb23-2"><a></a><span class="fu">scale_x_continuous</span>()</span>
-<span id="cb23-3"><a></a><span class="fu">scale_y_continuous</span>()</span>
-<span id="cb23-4"><a></a></span>
-<span id="cb23-5"><a></a><span class="co"># Trasformazioni</span></span>
-<span id="cb23-6"><a></a><span class="fu">scale_x_log10</span>()      <span class="co"># scala logaritmica</span></span>
-<span id="cb23-7"><a></a><span class="fu">scale_y_sqrt</span>()       <span class="co"># radice quadrata</span></span>
-<span id="cb23-8"><a></a><span class="fu">scale_x_reverse</span>()    <span class="co"># inverte direzione</span></span>
-<span id="cb23-9"><a></a></span>
-<span id="cb23-10"><a></a><span class="co"># Tipi speciali</span></span>
-<span id="cb23-11"><a></a><span class="fu">scale_x_date</span>()       <span class="co"># date/datetime</span></span>
-<span id="cb23-12"><a></a><span class="fu">scale_x_discrete</span>()   <span class="co"># categorie</span></span>
-<span id="cb23-13"><a></a><span class="fu">scale_x_binned</span>()     <span class="co"># bins per continuous</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="co"># Continuous</span></span>
+<span id="cb22-2"><a></a><span class="fu">scale_x_continuous</span>()</span>
+<span id="cb22-3"><a></a><span class="fu">scale_y_continuous</span>()</span>
+<span id="cb22-4"><a></a></span>
+<span id="cb22-5"><a></a><span class="co"># Trasformazioni</span></span>
+<span id="cb22-6"><a></a><span class="fu">scale_x_log10</span>()      <span class="co"># scala logaritmica</span></span>
+<span id="cb22-7"><a></a><span class="fu">scale_y_sqrt</span>()       <span class="co"># radice quadrata</span></span>
+<span id="cb22-8"><a></a><span class="fu">scale_x_reverse</span>()    <span class="co"># inverte direzione</span></span>
+<span id="cb22-9"><a></a></span>
+<span id="cb22-10"><a></a><span class="co"># Tipi speciali</span></span>
+<span id="cb22-11"><a></a><span class="fu">scale_x_date</span>()       <span class="co"># date/datetime</span></span>
+<span id="cb22-12"><a></a><span class="fu">scale_x_discrete</span>()   <span class="co"># categorie</span></span>
+<span id="cb22-13"><a></a><span class="fu">scale_x_binned</span>()     <span class="co"># bins per continuous</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Per COLORE (color/fill):</strong></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="co"># Continuous</span></span>
-<span id="cb24-2"><a></a><span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">high =</span> <span class="st">"red"</span>)</span>
-<span id="cb24-3"><a></a><span class="fu">scale_color_gradient2</span>(<span class="at">mid =</span> <span class="st">"white"</span>)  <span class="co"># divergente</span></span>
-<span id="cb24-4"><a></a><span class="fu">scale_color_viridis_c</span>()  <span class="co"># perceptually uniform</span></span>
-<span id="cb24-5"><a></a></span>
-<span id="cb24-6"><a></a><span class="co"># Discrete</span></span>
-<span id="cb24-7"><a></a><span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)</span>
-<span id="cb24-8"><a></a><span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>))</span>
-<span id="cb24-9"><a></a><span class="fu">scale_fill_grey</span>()    <span class="co"># scala di grigi</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="co"># Continuous</span></span>
+<span id="cb23-2"><a></a><span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">high =</span> <span class="st">"red"</span>)</span>
+<span id="cb23-3"><a></a><span class="fu">scale_color_gradient2</span>(<span class="at">mid =</span> <span class="st">"white"</span>)  <span class="co"># divergente</span></span>
+<span id="cb23-4"><a></a><span class="fu">scale_color_viridis_c</span>()  <span class="co"># perceptually uniform</span></span>
+<span id="cb23-5"><a></a></span>
+<span id="cb23-6"><a></a><span class="co"># Discrete</span></span>
+<span id="cb23-7"><a></a><span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)</span>
+<span id="cb23-8"><a></a><span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>))</span>
+<span id="cb23-9"><a></a><span class="fu">scale_fill_grey</span>()    <span class="co"># scala di grigi</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:50%;">
 <p><strong>Per ALTRE AESTHETICS:</strong></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="co"># Size</span></span>
-<span id="cb25-2"><a></a><span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>))</span>
-<span id="cb25-3"><a></a><span class="fu">scale_size_area</span>()  <span class="co"># area proporzionale al valore</span></span>
-<span id="cb25-4"><a></a></span>
-<span id="cb25-5"><a></a><span class="co"># Shape</span></span>
-<span id="cb25-6"><a></a><span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>))</span>
-<span id="cb25-7"><a></a><span class="fu">scale_shape_discrete</span>()</span>
-<span id="cb25-8"><a></a></span>
-<span id="cb25-9"><a></a><span class="co"># Alpha (trasparenza)</span></span>
-<span id="cb25-10"><a></a><span class="fu">scale_alpha_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>))</span>
-<span id="cb25-11"><a></a></span>
-<span id="cb25-12"><a></a><span class="co"># Linetype</span></span>
-<span id="cb25-13"><a></a><span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"solid"</span>, <span class="st">"dashed"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="co"># Size</span></span>
+<span id="cb24-2"><a></a><span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>))</span>
+<span id="cb24-3"><a></a><span class="fu">scale_size_area</span>()  <span class="co"># area proporzionale al valore</span></span>
+<span id="cb24-4"><a></a></span>
+<span id="cb24-5"><a></a><span class="co"># Shape</span></span>
+<span id="cb24-6"><a></a><span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>))</span>
+<span id="cb24-7"><a></a><span class="fu">scale_shape_discrete</span>()</span>
+<span id="cb24-8"><a></a></span>
+<span id="cb24-9"><a></a><span class="co"># Alpha (trasparenza)</span></span>
+<span id="cb24-10"><a></a><span class="fu">scale_alpha_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>))</span>
+<span id="cb24-11"><a></a></span>
+<span id="cb24-12"><a></a><span class="co"># Linetype</span></span>
+<span id="cb24-13"><a></a><span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"solid"</span>, <span class="st">"dashed"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Suffissi importanti:</strong></p>
 <ul>
 <li><code>_manual</code> → valori completamente custom</li>
@@ -1230,40 +1207,40 @@ Marco Chiapello
 <p><strong>Componenti comuni a tutte le scale</strong> (tutti opzionali):</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">scale_color_gradient</span>(</span>
-<span id="cb26-2"><a></a>  <span class="at">name =</span> <span class="st">"Temperatura (°C)"</span>,  <span class="co"># Titolo legenda/asse</span></span>
-<span id="cb26-3"><a></a>  <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>),         <span class="co"># Range dei dati</span></span>
-<span id="cb26-4"><a></a>  <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">25</span>),   <span class="co"># Tick marks</span></span>
-<span id="cb26-5"><a></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0°"</span>, <span class="st">"25°"</span>, <span class="st">"50°"</span>, <span class="st">"75°"</span>, <span class="st">"100°"</span>),</span>
-<span id="cb26-6"><a></a>  <span class="at">trans =</span> <span class="st">"log10"</span>,            <span class="co"># Trasformazione</span></span>
-<span id="cb26-7"><a></a>  <span class="at">guide =</span> <span class="fu">guide_colorbar</span>(     <span class="co"># Tipo di guida</span></span>
-<span id="cb26-8"><a></a>    <span class="at">barwidth =</span> <span class="dv">15</span>,</span>
-<span id="cb26-9"><a></a>    <span class="at">barheight =</span> <span class="fl">0.5</span></span>
-<span id="cb26-10"><a></a>  )</span>
-<span id="cb26-11"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">scale_color_gradient</span>(</span>
+<span id="cb25-2"><a></a>  <span class="at">name =</span> <span class="st">"Temperatura (°C)"</span>,  <span class="co"># Titolo legenda/asse</span></span>
+<span id="cb25-3"><a></a>  <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>),         <span class="co"># Range dei dati</span></span>
+<span id="cb25-4"><a></a>  <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">25</span>),   <span class="co"># Tick marks</span></span>
+<span id="cb25-5"><a></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0°"</span>, <span class="st">"25°"</span>, <span class="st">"50°"</span>, <span class="st">"75°"</span>, <span class="st">"100°"</span>),</span>
+<span id="cb25-6"><a></a>  <span class="at">trans =</span> <span class="st">"log10"</span>,            <span class="co"># Trasformazione</span></span>
+<span id="cb25-7"><a></a>  <span class="at">guide =</span> <span class="fu">guide_colorbar</span>(     <span class="co"># Tipo di guida</span></span>
+<span id="cb25-8"><a></a>    <span class="at">barwidth =</span> <span class="dv">15</span>,</span>
+<span id="cb25-9"><a></a>    <span class="at">barheight =</span> <span class="fl">0.5</span></span>
+<span id="cb25-10"><a></a>  )</span>
+<span id="cb25-11"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Controllo delle legende/assi:</strong></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="co"># Rimuovi legenda per una aesthetic</span></span>
-<span id="cb27-2"><a></a><span class="fu">scale_color_continuous</span>(<span class="at">guide =</span> <span class="st">"none"</span>)</span>
-<span id="cb27-3"><a></a></span>
-<span id="cb27-4"><a></a><span class="co"># Multiple guide types</span></span>
-<span id="cb27-5"><a></a><span class="fu">guide_legend</span>()     <span class="co"># legenda discreta</span></span>
-<span id="cb27-6"><a></a><span class="fu">guide_colorbar</span>()   <span class="co"># barra continua</span></span>
-<span id="cb27-7"><a></a><span class="fu">guide_bins</span>()       <span class="co"># bins</span></span>
-<span id="cb27-8"><a></a><span class="fu">guide_axis</span>()       <span class="co"># assi personalizzati</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="co"># Rimuovi legenda per una aesthetic</span></span>
+<span id="cb26-2"><a></a><span class="fu">scale_color_continuous</span>(<span class="at">guide =</span> <span class="st">"none"</span>)</span>
+<span id="cb26-3"><a></a></span>
+<span id="cb26-4"><a></a><span class="co"># Multiple guide types</span></span>
+<span id="cb26-5"><a></a><span class="fu">guide_legend</span>()     <span class="co"># legenda discreta</span></span>
+<span id="cb26-6"><a></a><span class="fu">guide_colorbar</span>()   <span class="co"># barra continua</span></span>
+<span id="cb26-7"><a></a><span class="fu">guide_bins</span>()       <span class="co"># bins</span></span>
+<span id="cb26-8"><a></a><span class="fu">guide_axis</span>()       <span class="co"># assi personalizzati</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:50%;">
 <p><strong>Trasformazioni comuni:</strong></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="co"># Coordinate vs Scale transforms</span></span>
-<span id="cb28-2"><a></a><span class="fu">scale_x_log10</span>()  <span class="co"># trasforma DATI (prima stats)</span></span>
-<span id="cb28-3"><a></a><span class="fu">coord_trans</span>(<span class="at">x =</span> <span class="st">"log10"</span>)  <span class="co"># trasforma VISUAL</span></span>
-<span id="cb28-4"><a></a></span>
-<span id="cb28-5"><a></a><span class="co"># Differenza cruciale:</span></span>
-<span id="cb28-6"><a></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb28-7"><a></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb28-8"><a></a>  <span class="fu">scale_x_log10</span>()  <span class="co"># smooth su dati log-transformed</span></span>
-<span id="cb28-9"><a></a></span>
-<span id="cb28-10"><a></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb28-11"><a></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb28-12"><a></a>  <span class="fu">coord_trans</span>(<span class="at">x =</span> <span class="st">"log10"</span>)  <span class="co"># smooth su dati originali</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="co"># Coordinate vs Scale transforms</span></span>
+<span id="cb27-2"><a></a><span class="fu">scale_x_log10</span>()  <span class="co"># trasforma DATI (prima stats)</span></span>
+<span id="cb27-3"><a></a><span class="fu">coord_trans</span>(<span class="at">x =</span> <span class="st">"log10"</span>)  <span class="co"># trasforma VISUAL</span></span>
+<span id="cb27-4"><a></a></span>
+<span id="cb27-5"><a></a><span class="co"># Differenza cruciale:</span></span>
+<span id="cb27-6"><a></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb27-7"><a></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb27-8"><a></a>  <span class="fu">scale_x_log10</span>()  <span class="co"># smooth su dati log-transformed</span></span>
+<span id="cb27-9"><a></a></span>
+<span id="cb27-10"><a></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb27-11"><a></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb27-12"><a></a>  <span class="fu">coord_trans</span>(<span class="at">x =</span> <span class="st">"log10"</span>)  <span class="co"># smooth su dati originali</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1289,12 +1266,12 @@ Marco Chiapello
 <div style="font-size: 0.75em;">
 <p>Controllo completo su elementi <strong>non-data</strong> (tutto ciò che non rappresenta dati):</p>
 <p><strong>Temi built-in</strong>:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">theme_gray</span>()      <span class="co"># default</span></span>
-<span id="cb29-2"><a></a><span class="fu">theme_minimal</span>()   <span class="co"># minimalista</span></span>
-<span id="cb29-3"><a></a><span class="fu">theme_classic</span>()   <span class="co"># assi classici</span></span>
-<span id="cb29-4"><a></a><span class="fu">theme_bw</span>()        <span class="co"># bianco e nero</span></span>
-<span id="cb29-5"><a></a><span class="fu">theme_dark</span>()      <span class="co"># sfondo scuro</span></span>
-<span id="cb29-6"><a></a><span class="fu">theme_void</span>()      <span class="co"># vuoto (solo dati)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">theme_gray</span>()      <span class="co"># default</span></span>
+<span id="cb28-2"><a></a><span class="fu">theme_minimal</span>()   <span class="co"># minimalista</span></span>
+<span id="cb28-3"><a></a><span class="fu">theme_classic</span>()   <span class="co"># assi classici</span></span>
+<span id="cb28-4"><a></a><span class="fu">theme_bw</span>()        <span class="co"># bianco e nero</span></span>
+<span id="cb28-5"><a></a><span class="fu">theme_dark</span>()      <span class="co"># sfondo scuro</span></span>
+<span id="cb28-6"><a></a><span class="fu">theme_void</span>()      <span class="co"># vuoto (solo dati)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Pacchetti con temi extra:</strong></p>
 <ul>
 <li><code>ggthemes</code>: Economist, FiveThirtyEight, Tufte</li>
@@ -1310,25 +1287,25 @@ Marco Chiapello
 <h2>Layer 7: Theme</h2>
 <div style="font-size: 0.7em;">
 <p><strong>Personalizzazione con <code>theme()</code></strong> - Categorie principali:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">theme</span>(</span>
-<span id="cb30-2"><a></a>  <span class="co"># Testo</span></span>
-<span id="cb30-3"><a></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb30-4"><a></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb30-5"><a></a>  <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">10</span>)),</span>
-<span id="cb30-6"><a></a>  </span>
-<span id="cb30-7"><a></a>  <span class="co"># Linee</span></span>
-<span id="cb30-8"><a></a>  <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>),</span>
-<span id="cb30-9"><a></a>  <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"gray90"</span>),</span>
-<span id="cb30-10"><a></a>  <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),  <span class="co"># rimuovi</span></span>
-<span id="cb30-11"><a></a>  </span>
-<span id="cb30-12"><a></a>  <span class="co"># Rettangoli/Sfondi</span></span>
-<span id="cb30-13"><a></a>  <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>),</span>
-<span id="cb30-14"><a></a>  <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"gray95"</span>),</span>
-<span id="cb30-15"><a></a>  </span>
-<span id="cb30-16"><a></a>  <span class="co"># Legend</span></span>
-<span id="cb30-17"><a></a>  <span class="at">legend.position =</span> <span class="st">"bottom"</span>,  <span class="co"># "none", "left", "right", "top"</span></span>
-<span id="cb30-18"><a></a>  <span class="at">legend.title =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb30-19"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">theme</span>(</span>
+<span id="cb29-2"><a></a>  <span class="co"># Testo</span></span>
+<span id="cb29-3"><a></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb29-4"><a></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb29-5"><a></a>  <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">10</span>)),</span>
+<span id="cb29-6"><a></a>  </span>
+<span id="cb29-7"><a></a>  <span class="co"># Linee</span></span>
+<span id="cb29-8"><a></a>  <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>),</span>
+<span id="cb29-9"><a></a>  <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"gray90"</span>),</span>
+<span id="cb29-10"><a></a>  <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),  <span class="co"># rimuovi</span></span>
+<span id="cb29-11"><a></a>  </span>
+<span id="cb29-12"><a></a>  <span class="co"># Rettangoli/Sfondi</span></span>
+<span id="cb29-13"><a></a>  <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>),</span>
+<span id="cb29-14"><a></a>  <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"gray95"</span>),</span>
+<span id="cb29-15"><a></a>  </span>
+<span id="cb29-16"><a></a>  <span class="co"># Legend</span></span>
+<span id="cb29-17"><a></a>  <span class="at">legend.position =</span> <span class="st">"bottom"</span>,  <span class="co"># "none", "left", "right", "top"</span></span>
+<span id="cb29-18"><a></a>  <span class="at">legend.title =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb29-19"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="theme-elements" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
@@ -1336,75 +1313,82 @@ Marco Chiapello
 <div style="font-size: 0.7em;">
 <p><strong>Quattro tipi di elementi</strong> per personalizzazione completa:</p>
 <p><strong>1. <code>element_text()</code></strong> - Testo (titoli, labels, caption):</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>plot.title <span class="ot">=</span> <span class="fu">element_text</span>(</span>
-<span id="cb31-2"><a></a>  <span class="at">family =</span> <span class="st">"Helvetica"</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>, </span>
-<span id="cb31-3"><a></a>  <span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">10</span>)</span>
-<span id="cb31-4"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a>plot.title <span class="ot">=</span> <span class="fu">element_text</span>(</span>
+<span id="cb30-2"><a></a>  <span class="at">family =</span> <span class="st">"Helvetica"</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>, </span>
+<span id="cb30-3"><a></a>  <span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">10</span>)</span>
+<span id="cb30-4"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>2. <code>element_line()</code></strong> - Linee (assi, griglie):</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a>axis.line <span class="ot">=</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"solid"</span>)</span>
-<span id="cb32-2"><a></a>panel.grid <span class="ot">=</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"gray90"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>axis.line <span class="ot">=</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"solid"</span>)</span>
+<span id="cb31-2"><a></a>panel.grid <span class="ot">=</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"gray90"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>3. <code>element_rect()</code></strong> - Rettangoli (sfondi, bordi):</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>panel.background <span class="ot">=</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>)</span>
-<span id="cb33-2"><a></a>legend.background <span class="ot">=</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"gray95"</span>, <span class="at">color =</span> <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a>panel.background <span class="ot">=</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>)</span>
+<span id="cb32-2"><a></a>legend.background <span class="ot">=</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"gray95"</span>, <span class="at">color =</span> <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>4. <code>element_blank()</code></strong> - Rimuove elemento:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a>panel.grid.minor <span class="ot">=</span> <span class="fu">element_blank</span>()  <span class="co"># rimuove griglia secondaria</span></span>
-<span id="cb34-2"><a></a>axis.text.y <span class="ot">=</span> <span class="fu">element_blank</span>()       <span class="co"># rimuove etichette y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>panel.grid.minor <span class="ot">=</span> <span class="fu">element_blank</span>()  <span class="co"># rimuove griglia secondaria</span></span>
+<span id="cb33-2"><a></a>axis.text.y <span class="ot">=</span> <span class="fu">element_blank</span>()       <span class="co"># rimuove etichette y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="theme-elements---gerarchia" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2>Theme elements - Gerarchia</h2>
 <div style="font-size: 0.7em;">
 <p><strong>Gerarchia degli elementi</strong> - Da generale a specifico:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a><span class="fu">theme</span>(</span>
-<span id="cb35-2"><a></a>  <span class="co"># Livello 1: Globale</span></span>
-<span id="cb35-3"><a></a>  <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"Arial"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb35-4"><a></a>  <span class="at">line =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"gray30"</span>),</span>
-<span id="cb35-5"><a></a>  </span>
-<span id="cb35-6"><a></a>  <span class="co"># Livello 2: Categoria</span></span>
-<span id="cb35-7"><a></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  <span class="co"># eredita family da text</span></span>
-<span id="cb35-8"><a></a>  </span>
-<span id="cb35-9"><a></a>  <span class="co"># Livello 3: Specifico (override)</span></span>
-<span id="cb35-10"><a></a>  <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb35-11"><a></a>  <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"red"</span>)</span>
-<span id="cb35-12"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="fu">theme</span>(</span>
+<span id="cb34-2"><a></a>  <span class="co"># Livello 1: Globale</span></span>
+<span id="cb34-3"><a></a>  <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"Arial"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb34-4"><a></a>  <span class="at">line =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"gray30"</span>),</span>
+<span id="cb34-5"><a></a>  </span>
+<span id="cb34-6"><a></a>  <span class="co"># Livello 2: Categoria</span></span>
+<span id="cb34-7"><a></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  <span class="co"># eredita family da text</span></span>
+<span id="cb34-8"><a></a>  </span>
+<span id="cb34-9"><a></a>  <span class="co"># Livello 3: Specifico (override)</span></span>
+<span id="cb34-10"><a></a>  <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb34-11"><a></a>  <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"red"</span>)</span>
+<span id="cb34-12"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Tip</strong>: Modifica elementi più generali possibile per consistenza!</p>
 <p><strong>Salvare tema custom</strong>:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a>my_theme <span class="ot">&lt;-</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
-<span id="cb36-2"><a></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"Roboto"</span>))</span>
-<span id="cb36-3"><a></a></span>
-<span id="cb36-4"><a></a><span class="co"># Applica a tutti i plot della sessione</span></span>
-<span id="cb36-5"><a></a><span class="fu">theme_set</span>(my_theme)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>my_theme <span class="ot">&lt;-</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb35-2"><a></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"Roboto"</span>))</span>
+<span id="cb35-3"><a></a></span>
+<span id="cb35-4"><a></a><span class="co"># Applica a tutti i plot della sessione</span></span>
+<span id="cb35-5"><a></a><span class="fu">theme_set</span>(my_theme)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="position-adjustments" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2>Position adjustments</h2>
-<div style="font-size: 0.8em;">
+<div style="font-size: 0.65em;">
 <p>Modifica posizione elementi <strong>dentro</strong> un layer (risolve overlapping):</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="co"># Identity - nessun aggiustamento (dati sovrapposti)</span></span>
-<span id="cb37-2"><a></a><span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
-<span id="cb37-3"><a></a></span>
-<span id="cb37-4"><a></a><span class="co"># Stack - impilati (default per barre)</span></span>
-<span id="cb37-5"><a></a><span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"stack"</span>)</span>
-<span id="cb37-6"><a></a></span>
-<span id="cb37-7"><a></a><span class="co"># Dodge - affiancati (gruppi side-by-side)</span></span>
-<span id="cb37-8"><a></a><span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span>
-<span id="cb37-9"><a></a></span>
-<span id="cb37-10"><a></a><span class="co"># Fill - impilati a 100%</span></span>
-<span id="cb37-11"><a></a><span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)</span>
-<span id="cb37-12"><a></a></span>
-<span id="cb37-13"><a></a><span class="co"># Jitter - rumore casuale (scatter plot con sovrapposizione)</span></span>
-<span id="cb37-14"><a></a><span class="fu">geom_point</span>(<span class="at">position =</span> <span class="st">"jitter"</span>)</span>
-<span id="cb37-15"><a></a><span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a><span class="co"># Identity - nessun aggiustamento (dati sovrapposti)</span></span>
+<span id="cb36-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">fill =</span> drv)) <span class="sc">+</span></span>
+<span id="cb36-3"><a></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb36-4"><a></a></span>
+<span id="cb36-5"><a></a><span class="co"># Stack - impilati (default per barre)</span></span>
+<span id="cb36-6"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">fill =</span> drv)) <span class="sc">+</span></span>
+<span id="cb36-7"><a></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"stack"</span>)</span>
+<span id="cb36-8"><a></a></span>
+<span id="cb36-9"><a></a><span class="co"># Dodge - affiancati (gruppi side-by-side)</span></span>
+<span id="cb36-10"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">fill =</span> drv)) <span class="sc">+</span></span>
+<span id="cb36-11"><a></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span>
+<span id="cb36-12"><a></a></span>
+<span id="cb36-13"><a></a><span class="co"># Fill - impilati a 100%</span></span>
+<span id="cb36-14"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">fill =</span> drv)) <span class="sc">+</span></span>
+<span id="cb36-15"><a></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)</span>
+<span id="cb36-16"><a></a></span>
+<span id="cb36-17"><a></a><span class="co"># Jitter - rumore casuale (scatter plot con sovrapposizione)</span></span>
+<span id="cb36-18"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb36-19"><a></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="st">"jitter"</span>)</span>
+<span id="cb36-20"><a></a></span>
+<span id="cb36-21"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb36-22"><a></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Fondamentale</strong> per visualizzare correttamente dati sovrapposti!</p>
 </div>
 </section>
 <section id="layer-multipli" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2>Layer multipli</h2>
 <p>ggplot2 è <strong>compositivo</strong> - somma layer!</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb38-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span>      <span class="co"># Layer 1</span></span>
-<span id="cb38-3"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span>         <span class="co"># Layer 2</span></span>
-<span id="cb38-4"><a></a>  <span class="fu">geom_rug</span>(<span class="at">sides =</span> <span class="st">"bl"</span>)                 <span class="co"># Layer 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb37-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span>      <span class="co"># Layer 1</span></span>
+<span id="cb37-3"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span>         <span class="co"># Layer 2</span></span>
+<span id="cb37-4"><a></a>  <span class="fu">geom_rug</span>(<span class="at">sides =</span> <span class="st">"bl"</span>)                 <span class="co"># Layer 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Ogni layer può avere:<br>
 - Proprie estetiche<br>
 - Propri dati<br>

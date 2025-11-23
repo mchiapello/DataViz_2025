@@ -65,6 +65,8 @@ datasaurus_dozen %>%
   summarise(
     mean_x = mean(x),
     mean_y = mean(y),
+    sd_x = sd(x),
+    sd_y = sd(y),
     cor_xy = cor(x, y)
   )
 ```
@@ -104,44 +106,6 @@ ggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset)) +
 **Mai fidarsi solo delle statistiche!**
 
 La visualizzazione rivela pattern, outlier, distribuzioni che i numeri nascondono.
-:::
-:::
-:::
-:::
-
-## Anscombe's Quartet: Il Predecessore {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.75em;"}
-**Prima del Datasaurus, c'era Anscombe (1973)**
-
-::: {.columns}
-::: {.column width="50%"}
-4 dataset con statistiche IDENTICHE:
-
-- Media X: 9.0
-- Media Y: 7.5
-- Varianza X: 11.0
-- Varianza Y: 4.12
-- Correlazione: 0.816
-- Equazione regressione: y = 3 + 0.5x
-
-```r
-# Built-in in R
-data(anscombe)
-```
-:::
-
-::: {.column width="50%"}
-**Ma visualizzati sono completamente diversi:**
-
-1. Relazione lineare perfetta
-2. Relazione non-lineare (quadratica)
-3. Relazione lineare con outlier
-4. Outlier influente (high leverage)
-
-::: {.callout-tip}
-## Il messaggio
-Sempre visualizzare prima di analizzare statisticamente!
 :::
 :::
 :::
@@ -466,7 +430,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +       # Data + Aesthetics
   facet_wrap(~ year) +                        # Facets
   scale_color_brewer(palette = "Set1") +      # Scales
   coord_cartesian(ylim = c(10, 45)) +         # Coordinates
-  theme_minimal()                             # Theme
+  theme_bw()                                  # Theme
 ```
 :::
 
@@ -790,15 +754,23 @@ ggplot(mpg, aes(x = displ, y = hwy)) +  # aesthetics globali
 
 ```r
 # Scale libere per ogni panel
-facet_wrap(~ class, scales = "free")     # entrambi liberi
-facet_wrap(~ class, scales = "free_x")   # solo x libero
-facet_wrap(~ class, scales = "free_y")   # solo y libero
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(~ class, scales = "free")     # entrambi liberi
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(~ class, scales = "free_x")   # solo x libero
 
 # Etichette personalizzate
-facet_wrap(~ class, labeller = label_both)  # mostra "class: suv"
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(~ class, labeller = label_both)  # mostra "class: suv"
 
 # Margini
-facet_grid(drv ~ cyl, margins = TRUE)  # aggiunge totali marginali
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_grid(drv ~ cyl, margins = TRUE)  # aggiunge totali marginali
 ```
 
 **Best practice**: Mantieni scale fisse quando possibile per facilitare confronti!
@@ -836,20 +808,28 @@ geom_smooth()     # stat = "smooth"
 
 ## Layer 5: Stats {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.75em;"}
+::: {style="font-size: 0.55em;"}
 **Usare stats direttamente** (invece di geoms):
 
 ```r
 # Equivalenti
-geom_bar(stat = "count")
-stat_count(geom = "bar")
+ggplot(mpg, aes(x = class)) + 
+  geom_bar(stat = "count")
 
-# Cambio di stat
-geom_bar(stat = "identity")  # usa valori y così come sono
+ggplot(mpg, aes(x = class)) + 
+  stat_count(geom = "bar")
+
+# Cambio di stat - usa valori y così come sono
+ggplot(data.frame(x = c("A", "B", "C"), y = c(10, 20, 15)), 
+       aes(x = x, y = y)) +
+  geom_bar(stat = "identity")
 
 # Summary personalizzate
-stat_summary(fun = mean, geom = "point", size = 4)
-stat_summary(fun.data = mean_se, geom = "errorbar")
+ggplot(mpg, aes(x = class, y = hwy)) + 
+  stat_summary(fun = mean, geom = "point", size = 4)
+
+ggplot(mpg, aes(x = class, y = hwy)) + 
+  stat_summary(fun.data = mean_se, geom = "errorbar")
 ```
 
 **Variabili calcolate**: Gli stats creano nuove variabili accessibili con `after_stat()`:
@@ -1200,25 +1180,32 @@ theme_set(my_theme)
 
 ## Position adjustments {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
-::: {style="font-size: 0.8em;"}
+::: {style="font-size: 0.65em;"}
 Modifica posizione elementi **dentro** un layer (risolve overlapping):
 
 ```r
 # Identity - nessun aggiustamento (dati sovrapposti)
-geom_bar(position = "identity", alpha = 0.5)
+ggplot(mpg, aes(x = class, fill = drv)) +
+  geom_bar(position = "identity", alpha = 0.5)
 
 # Stack - impilati (default per barre)
-geom_bar(position = "stack")
+ggplot(mpg, aes(x = class, fill = drv)) +
+  geom_bar(position = "stack")
 
 # Dodge - affiancati (gruppi side-by-side)
-geom_bar(position = "dodge")
+ggplot(mpg, aes(x = class, fill = drv)) +
+  geom_bar(position = "dodge")
 
 # Fill - impilati a 100%
-geom_bar(position = "fill")
+ggplot(mpg, aes(x = class, fill = drv)) +
+  geom_bar(position = "fill")
 
 # Jitter - rumore casuale (scatter plot con sovrapposizione)
-geom_point(position = "jitter")
-geom_point(position = position_jitter(width = 0.2, height = 0))
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(position = "jitter")
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(position = position_jitter(width = 0.2, height = 0))
 ```
 
 **Fondamentale** per visualizzare correttamente dati sovrapposti!
