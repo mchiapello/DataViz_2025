@@ -30,6 +30,7 @@ data(faithful)
 # ESERCIZIO 1: Scatter Plot Base ----------------------------------------------
 # Obiettivo: Creare uno scatter plot per esplorare la relazione tra 
 #            cilindrata (displ) e consumo autostrada (hwy)
+# Dataset: mpg
 
 ggplot(mpg, aes(x = ___, y = ___)) +
   geom_point()
@@ -39,6 +40,7 @@ ggplot(mpg, aes(x = ___, y = ___)) +
 
 # ESERCIZIO 2: Ridurre Overplotting ------------------------------------------
 # Obiettivo: Usa la trasparenza (alpha = 0.4) per migliorare la visualizzazione
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = ___)) +
   ___(alpha = 0.4, size = 2.5)
@@ -46,6 +48,7 @@ ggplot(mpg, aes(x = displ, y = ___)) +
 
 # ESERCIZIO 3: Aggiungere Trend Line -----------------------------------------
 # Obiettivo: Aggiungi una linea di trend lineare usando geom_smooth(method = "lm")
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   ___(alpha = 0.4) +
@@ -54,6 +57,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 # ESERCIZIO 4: LOESS vs Linear -----------------------------------------------
 # Obiettivo: Confronta trend lineare (rosso) con LOESS (blu)
+# Dataset: mpg
 
 ggplot(mpg, aes(x = ___, y = ___)) +
   geom_point(alpha = 0.3, size = 1.5) +
@@ -63,6 +67,7 @@ ggplot(mpg, aes(x = ___, y = ___)) +
 
 # ESERCIZIO 5: Time Series con Line ------------------------------------------
 # Obiettivo: Visualizza disoccupazione (unemploy) nel tempo (date) con geom_line()
+# Dataset: economics
 
 ggplot(___, aes(x = date, y = ___)) +
   ___(color = "steelblue", linewidth = 1)
@@ -70,6 +75,7 @@ ggplot(___, aes(x = date, y = ___)) +
 
 # ESERCIZIO 6: Path vs Line --------------------------------------------------
 # Obiettivo: Usa geom_path() per tracciare unemploy vs psavert + aggiungi punti
+# Dataset: economics
 
 ggplot(economics, aes(x = unemploy, y = ___)) +
   ___(color = "darkgreen", linewidth = 0.8, alpha = 0.7) +
@@ -85,6 +91,7 @@ ggplot(economics, aes(x = unemploy, y = ___)) +
 
 # ESERCIZIO 7: Histogram Base ------------------------------------------------
 # Obiettivo: Crea istogramma di carat (peso diamanti) con bins = 30
+# Dataset: diamonds
 
 ggplot(___, aes(x = carat)) +
   ___(bins = 30, fill = "skyblue", color = "black")
@@ -94,6 +101,7 @@ ggplot(___, aes(x = carat)) +
 
 # ESERCIZIO 8: Sperimentare con Bins -----------------------------------------
 # Obiettivo: Prova bins = 10, bins = 100, e bins = 40. Quale è migliore?
+# Dataset: diamonds
 
 # bins = 10 (troppo grossolano)
 ggplot(diamonds, aes(x = ___)) +
@@ -112,6 +120,7 @@ ggplot(diamonds, aes(x = ___)) +
 
 # ESERCIZIO 9: Density Plot --------------------------------------------------
 # Obiettivo: Crea curva di densità per hwy (consumo autostrada)
+# Dataset: mpg
 
 ggplot(___, aes(x = hwy)) +
   ___(fill = "purple", alpha = 0.4, color = "purple4", linewidth = 1)
@@ -119,6 +128,7 @@ ggplot(___, aes(x = hwy)) +
 
 # ESERCIZIO 10: Histogram + Density Sovrapposti ------------------------------
 # Obiettivo: Combina histogram e density. Usa aes(y = after_stat(density))!
+# Dataset: mpg
 
 ggplot(mpg, aes(x = ___)) +
   geom_histogram(aes(y = after_stat(___)), 
@@ -130,6 +140,7 @@ ggplot(mpg, aes(x = ___)) +
 
 # ESERCIZIO 11: Frequency Polygon --------------------------------------------
 # Obiettivo: Usa geom_freqpoly() per visualizzare distribuzione di price (bins = 50)
+# Dataset: diamonds
 
 ggplot(diamonds, aes(x = ___)) +
   ___(bins = 50, ___ = "darkblue", linewidth = 1)
@@ -137,6 +148,7 @@ ggplot(diamonds, aes(x = ___)) +
 
 # ESERCIZIO 12: Dotplot per Dataset Piccolo ----------------------------------
 # Obiettivo: Usa geom_dotplot() per waiting in faithful (binwidth = 1)
+# Dataset: faithful
 
 ggplot(___, aes(x = ___)) +
   geom_dotplot(___ = 1, ___ = "orange", color = "black") +
@@ -152,6 +164,7 @@ ggplot(___, aes(x = ___)) +
 
 # ESERCIZIO 13: Bin2D per Big Data -------------------------------------------
 # Obiettivo: Usa geom_bin2d() per carat vs price (bins = 50)
+# Dataset: diamonds
 
 ggplot(diamonds, aes(x = ___, y = ___)) +
   ___(bins = 50) +
@@ -160,6 +173,7 @@ ggplot(diamonds, aes(x = ___, y = ___)) +
 
 # ESERCIZIO 14: Hexbin Alternative -------------------------------------------
 # Obiettivo: Ricrea con geom_hex() e scale_fill_viridis_c()
+# Dataset: diamonds
 # Nota: Richiede install.packages("hexbin") se non installato
 
 # Installa hexbin se necessario
@@ -175,6 +189,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 
 # ESERCIZIO 15: Density 2D Contours ------------------------------------------
 # Obiettivo: Aggiungi contorni densità 2D a faithful (eruptions vs waiting)
+# Dataset: faithful
 
 ggplot(___, aes(x = ___, y = waiting)) +
   ___(alpha = 0.4, size = 2) +
@@ -185,6 +200,7 @@ ggplot(___, aes(x = ___, y = waiting)) +
 
 # ESERCIZIO 16: Filled Density 2D --------------------------------------------
 # Obiettivo: Usa geom_density2d_filled() per mappa di calore
+# Dataset: faithful
 
 ___(faithful, aes(x = eruptions, y = waiting)) +
   ___(alpha = 0.8) +
@@ -197,6 +213,7 @@ ___(faithful, aes(x = eruptions, y = waiting)) +
 
 # ESERCIZIO 17: Boxplot per Gruppi -------------------------------------------
 # Obiettivo: Confronta hwy tra classi di auto con geom_boxplot()
+# Dataset: mpg
 
 ggplot(mpg, aes(x = ___, y = ___)) +
   geom_boxplot(___ = "lightgreen", outlier.color = "red", outlier.size = 2) +
@@ -207,6 +224,7 @@ ggplot(mpg, aes(x = ___, y = ___)) +
 
 # ESERCIZIO 18: Violin Plot --------------------------------------------------
 # Obiettivo: Ricrea il grafico precedente con geom_violin()
+# Dataset: mpg
 
 ___(mpg, aes(x = class, y = hwy)) +
   ___(fill = "coral", ___ = 0.6) +
@@ -217,6 +235,7 @@ ___(mpg, aes(x = class, y = hwy)) +
 
 # ESERCIZIO 19: Violin + Boxplot Combinati -----------------------------------
 # Obiettivo: Sovrapponi boxplot (width = 0.15) dentro violin plot
+# Dataset: mpg
 
 ggplot(mpg, aes(x = ___, y = ___)) +
   ___(fill = "skyblue", alpha = 0.5) +
@@ -227,6 +246,7 @@ ggplot(mpg, aes(x = ___, y = ___)) +
 
 # ESERCIZIO 20: Bar Chart - Conteggi -----------------------------------------
 # Obiettivo: Conta auto per classe con geom_bar() (solo x, no y!)
+# Dataset: mpg
 
 ggplot(mpg, aes(x = ___)) +
   ___(___ = "steelblue", ___ = "black") +
@@ -237,6 +257,7 @@ ggplot(mpg, aes(x = ___)) +
 
 # ESERCIZIO 21: Preparare Dati Aggregati per geom_col() ---------------------
 # Obiettivo: Calcola consumo medio per classe e visualizza con geom_col()
+# Dataset: mpg
 
 # Aggrega dati
 mpg_summary <- mpg %>%
@@ -261,6 +282,7 @@ ggplot(___, aes(x = class, y = mean_hwy)) +
 
 # ESERCIZIO 22: Barre + Error Bars -------------------------------------------
 # Obiettivo: Aggiungi barre di errore (± SD) usando geom_errorbar()
+# Dataset: mpg_summary
 
 ggplot(___, aes(x = class, y = mean_hwy)) +
   ___(fill = "darkgreen", alpha = 0.7) +
@@ -276,6 +298,7 @@ ggplot(___, aes(x = class, y = mean_hwy)) +
 
 # ESERCIZIO 23: Pointrange ---------------------------------------------------
 # Obiettivo: Usa geom_pointrange() invece di col + errorbar
+# Dataset: mpg_summary
 
 ggplot(mpg_summary, aes(x = ___, y = ___)) +
   ___(
@@ -292,6 +315,7 @@ ggplot(mpg_summary, aes(x = ___, y = ___)) +
 
 # ESERCIZIO 24: Ribbon per Time Series ---------------------------------------
 # Obiettivo: Crea banda di confidenza intorno a serie temporale
+# Dataset: economics_ribbon
 
 # Prepara dati con bande
 economics_ribbon <- economics %>%
@@ -315,6 +339,7 @@ ggplot(___, aes(x = ___, y = unemploy)) +
 
 # ESERCIZIO 25: Multi-layer Scatter ------------------------------------------
 # Obiettivo: Combina geom_rug() + geom_point() + geom_smooth()
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   ___(alpha = 0.3, color = "gray40") +
@@ -327,6 +352,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 # ESERCIZIO 26: Histogram Sovrapposti (Freq Poly) ----------------------------
 # Obiettivo: Confronta hwy per 4WD vs non-4WD con geom_freqpoly()
+# Dataset: mpg_drv
 
 # Prepara dati
 mpg_drv <- mpg %>%
@@ -342,6 +368,7 @@ ggplot(___, aes(x = hwy, color = is_4wd)) +
 
 # ESERCIZIO 27: Boxplot Orizzontale ------------------------------------------
 # Obiettivo: Boxplot class vs hwy + coord_flip()
+# Dataset: mpg
 
 ggplot(mpg, aes(x = class, y = hwy)) +
   ___(___ = "lightcoral") +
@@ -352,6 +379,7 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 
 # ESERCIZIO 28: Density 2D + Points ------------------------------------------
 # Obiettivo: Combina geom_density2d_filled() con geom_point() su faithful
+# Dataset: faithful
 
 ggplot(faithful, aes(x = eruptions, y = waiting)) +
   ___(alpha = 0.6) +
@@ -363,6 +391,7 @@ ggplot(faithful, aes(x = eruptions, y = waiting)) +
 
 # ESERCIZIO 29: Smooth con Intervallo Personalizzato -------------------------
 # Obiettivo: Smooth con CI 99% invece del 95% (level = 0.99)
+# Dataset: mpg
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   ___(alpha = 0.3) +
@@ -373,6 +402,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 # ESERCIZIO 30: Boxplot con Notch --------------------------------------------
 # Obiettivo: Usa notch = TRUE per mostrare CI della mediana
+# Dataset: mpg
 
 ggplot(___, aes(x = ___, y = ___)) +
   geom_boxplot(notch = TRUE, fill = "skyblue", outlier.color = "red") +
