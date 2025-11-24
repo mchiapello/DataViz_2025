@@ -1,19 +1,27 @@
 # Course Materials Structure Template
 ## REVELO Training - Data Viz 2025
 
-This document describes the standard structure for course chapter materials. Each chapter follows a consistent three-file pattern: presentation, student exercises, and instructor solutions.
+This document describes the standard structure for course chapter materials. Each chapter follows a consistent four-file pattern: presentation, student exercises (empty), scaffolded exercises (with hints), and instructor solutions.
 
 ---
 
 ## 📁 File Structure Overview
 
-Each course chapter consists of **3 coordinated files**:
+Each course chapter consists of **4 coordinated files**:
 
 1. **`XX_topic_name.qmd`** - Quarto RevealJS presentation (theory + live demos)
-2. **`XX_topic_name_exercises.R`** - Student R script with empty exercises
-3. **`XX_topic_name_exercises_SOLUTIONS.R`** - Instructor R script with complete solutions
+2. **`XX_topic_name_exercises.R`** - Student R script with empty exercises (blank)
+3. **`XX_topic_name_exercises_SCAFFOLD.R`** - Student R script with code hints and blanks (`___`)
+4. **`XX_topic_name_exercises_SOLUTIONS.R`** - Instructor R script with complete solutions
 
-Where `XX` = chapter number (e.g., `04_geometrie_base`)
+Where `XX` = chapter number (e.g., `07_facets_coordinate`)
+
+### File Purpose Summary
+
+- **`.qmd`**: Interactive slides for teaching concepts
+- **`_exercises.R`**: Blank template for students who want minimal guidance
+- **`_exercises_SCAFFOLD.R`**: Partial code with `___` blanks for guided learning
+- **`_SOLUTIONS.R`**: Complete working code for instructor/review
 
 ---
 
@@ -158,14 +166,15 @@ ggplot(data, aes(x = var)) + geom_point()
 
 ---
 
-## 2️⃣ Student Exercise File (`XX_topic_name_exercises.R`)
+## 2️⃣ Student Exercise File - Blank Version (`XX_topic_name_exercises.R`)
 
 ### Purpose
-Hands-on practice script where students write code to complete 30 exercises.
+Hands-on practice script where students write code **from scratch** to complete 30 exercises. Provides no code hints, only objectives.
 
 ### Format
 - **Type**: R script (`.R`)
 - **Execution**: Run line-by-line or section-by-section in RStudio
+- **Difficulty**: Higher - requires students to remember syntax
 
 ### Structure
 
@@ -200,7 +209,7 @@ data(faithful)
 
 #### Exercise Blocks (30 total, organized in 6 parts)
 
-**Part structure:**
+**Part structure (blank version):**
 ```r
 # =============================================================================
 # PARTE X: SECTION NAME
@@ -208,6 +217,7 @@ data(faithful)
 
 # ESERCIZIO N: Title --------------------------------------------------------
 # Obiettivo: [Clear description of what to accomplish]
+# Dataset: [dataset name if specific]
 
 # Il tuo codice qui:
 
@@ -260,18 +270,132 @@ mpg_summary <- mpg %>%
 # =============================================================================
 ```
 
-### Key Principles
+### Key Principles (Blank Version)
 
 1. **Empty space**: 3-4 blank lines for student code
 2. **Clear objectives**: Each exercise has specific goal in Italian
 3. **Progressive difficulty**: Basic → Advanced within each part
 4. **Self-contained**: Can be worked through independently
-5. **No labels**: No `labs()` calls - focus on geoms only
-6. **Hints**: Brief guidance in objective statement
+5. **No code hints**: Students must write everything from scratch
+6. **Dataset hints**: When specific dataset needed, mentioned in comment
 
 ---
 
-## 3️⃣ Solutions File (`XX_topic_name_exercises_SOLUTIONS.R`)
+## 3️⃣ Student Exercise File - Scaffold Version (`XX_topic_name_exercises_SCAFFOLD.R`)
+
+### Purpose
+Guided practice script with **partial code** and `___` blanks for students to fill in. Provides structure while requiring students to complete key parts.
+
+### Format
+- **Type**: R script (`.R`)
+- **Execution**: Run line-by-line or section-by-section in RStudio
+- **Difficulty**: Medium - provides syntax hints and structure
+
+### Structure
+
+#### Header Block
+**Identical to blank version** - same instructions.
+
+#### Setup Section
+**Identical to blank version** - same libraries and datasets.
+
+#### Exercise Blocks (30 total, organized in 6 parts)
+
+**Part structure (scaffold version):**
+```r
+# =============================================================================
+# PARTE X: SECTION NAME
+# =============================================================================
+
+# ESERCIZIO N: Title --------------------------------------------------------
+# Obiettivo: [Clear description of what to accomplish]
+# Dataset: [dataset name if specific]
+
+ggplot(___, aes(x = ___, y = ___)) +
+  ___() +
+  ___(~ ___)
+
+# [Optional: Teaching note explaining concept]
+```
+
+**Examples of scaffolding:**
+
+**Basic function call:**
+```r
+# ESERCIZIO 3: Histogram con Facet
+# Obiettivo: Histogram di hwy, facet per drv (tipo trazione)
+#            bins = 15
+
+ggplot(mpg, aes(x = hwy)) +
+  ___(bins = ___, fill = "steelblue", color = "black") +
+  facet_wrap(~ ___)
+```
+
+**Multiple approaches:**
+```r
+# ESERCIZIO 7: Grid Solo Righe
+# Obiettivo: Boxplot di class vs hwy
+#            Facet grid solo righe per year
+
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot() +
+  facet_grid(rows = vars(___))
+
+# Alternativa con formula:
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot() +
+  facet_grid(___ ~ .)
+```
+
+**Teaching notes:**
+```r
+# ESERCIZIO 15: Quando NON Usare Free Scales
+# Obiettivo: Bar plot count di class, facet per year
+#            Confronta scales
+
+# Scales fixed (MIGLIORE per confronti):
+ggplot(mpg, aes(x = class)) +
+  geom_bar(fill = "steelblue") +
+  facet_wrap(~ year, scales = "___")
+
+# Scales free_y (INGANNA - sembra simile conteggio):
+ggplot(mpg, aes(x = class)) +
+  geom_bar(fill = "coral") +
+  facet_wrap(~ year, scales = "___")
+
+# Conclusione: per confrontare magnitudini, usa scales fisse!
+```
+
+#### Footer Block
+**Identical to blank version** - same encouragement and next steps.
+
+### Key Principles (Scaffold Version)
+
+1. **Partial code**: Provide structure, require students to fill key parts
+2. **`___` blanks**: Clear indicators where student input needed
+3. **Function names given**: Focus on arguments and parameters
+4. **Teaching notes**: Inline comments explain concepts or warn about pitfalls
+5. **Multiple approaches**: Show alternative syntax when relevant
+6. **Progressive scaffolding**: Less guidance in later exercises
+
+### Scaffolding Strategy
+
+**High scaffolding (early exercises):**
+- Provide full `ggplot()` call structure
+- Show parameter names
+- Only blank out variable names and key values
+
+**Medium scaffolding (middle exercises):**
+- Provide function names but blank out more arguments
+- Require students to remember parameter names
+
+**Low scaffolding (later exercises):**
+- Provide minimal structure
+- Require students to complete larger code sections
+
+---
+
+## 4️⃣ Solutions File (`XX_topic_name_exercises_SOLUTIONS.R`)
 
 ### Purpose
 Complete working solutions for instructor reference and student review after attempting exercises.
@@ -412,11 +536,10 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 ### Key Principles
 
 1. **Complete code**: All exercises fully solved with working code
-2. **Same structure**: Mirrors student file exactly (parts, numbering, objectives)
+2. **Same structure**: Mirrors student files exactly (parts, numbering, objectives)
 3. **Educational comments**: Interpretations, insights, comparisons
 4. **Error-free**: All code tested and verified
-5. **No labels**: Like student file, no `labs()` - focus on geoms
-6. **Best practices**: Summary section with key takeaways
+5. **Best practices**: Summary section with key takeaways
 
 ---
 
@@ -426,28 +549,29 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 
 **Exercise numbering:**
 - Presentation mentions "30 esercizi organizzati in 6 parti"
-- Student file has exactly 30 exercises in 6 parts
-- Solutions file has same 30 exercises with identical numbering
+- Blank exercises file has exactly 30 exercises in 6 parts
+- Scaffold file has same 30 exercises with partial code
+- Solutions file has same 30 exercises with complete code
 
 **Content mapping:**
 ```
-Presentation Chapter 1 → Student File Part 1 → Solutions File Part 1
-Presentation Chapter 2 → Student File Part 2 → Solutions File Part 2
+Presentation Chapter 1 → Exercises Part 1 → Scaffold Part 1 → Solutions Part 1
+Presentation Chapter 2 → Exercises Part 2 → Scaffold Part 2 → Solutions Part 2
 ...etc
 ```
 
 **Datasets:**
-All three files use same datasets:
+All four files use same datasets:
 - `mpg` (234 rows) - car fuel economy
 - `diamonds` (53,940 rows) - diamond characteristics
 - `economics` (574 rows) - US economic time series
 - `faithful` (272 rows) - Old Faithful geyser eruptions
 
 **Packages:**
-All three files require:
+All four files require:
 - `ggplot2` (core)
 - `dplyr` (data manipulation)
-- `hexbin` (optional, for geom_hex)
+- Optional packages as needed (e.g., `hexbin` for geom_hex, `lubridate` for dates)
 
 ### Exercise-to-Slide Mapping
 
@@ -476,7 +600,9 @@ Each presentation chapter covers concepts tested in corresponding exercise part:
    - Students open exercise file
 
 3. **Practice time** (15-20 min per part)
-   - Students work on exercises
+   - Students choose blank OR scaffold file
+   - Advanced students: blank version (no hints)
+   - Beginners: scaffold version (guided)
    - Instructor circulates, helps
    - Solutions NOT distributed yet
 
@@ -501,7 +627,7 @@ When creating new chapter materials, ensure:
 ### Presentation File
 - [ ] YAML header with correct title, logo, background image
 - [ ] Slide 1: Obiettivi della Sessione
-- [ ] Slide 2: Esercizi Pratici with download link
+- [ ] Slide 2: Esercizi Pratici with download links for BOTH exercise files
 - [ ] Intro slide explaining core concept
 - [ ] 6 chapter sections (adjust number as needed)
 - [ ] Each chapter has 1-3 concept slides
@@ -511,35 +637,50 @@ When creating new chapter materials, ensure:
 - [ ] Final slide: Risorse & Prossimi Passi
 - [ ] Renders without errors: `quarto preview XX_topic.qmd`
 
-### Student Exercise File
+### Student Exercise File - Blank Version
 - [ ] Header with instructions
 - [ ] Setup section with libraries and data()
 - [ ] 30 exercises organized in 6 parts
 - [ ] Each exercise has clear objective in Italian
+- [ ] Dataset comment when specific dataset needed
 - [ ] 3-4 blank lines for student code
-- [ ] Data preparation exercises include starter code
+- [ ] NO code hints or templates
+- [ ] Data preparation exercises include data creation code only
 - [ ] Footer with encouragement and next steps
-- [ ] No `labs()` calls (focus on core concept)
-- [ ] Runs without errors when completed
+- [ ] Structure identical to scaffold version
+
+### Student Exercise File - Scaffold Version
+- [ ] Header identical to blank version
+- [ ] Setup identical to blank version
+- [ ] 30 exercises organized in 6 parts (same structure)
+- [ ] Each exercise has objectives identical to blank version
+- [ ] Partial code with `___` blanks for key parts
+- [ ] Teaching notes inline where helpful
+- [ ] Alternative approaches shown when relevant
+- [ ] Progressive scaffolding (more → less help)
+- [ ] Footer identical to blank version
+- [ ] All scaffold code syntactically valid (can run with blanks filled)
 
 ### Solutions File
 - [ ] Header warns against early distribution
-- [ ] Setup identical to student file
+- [ ] Setup identical to exercise files
 - [ ] All 30 exercises with complete working code
-- [ ] Objectives copied from student file
+- [ ] Objectives copied exactly from exercise files
 - [ ] Interpretive comments where helpful
 - [ ] Handles optional package installation
 - [ ] Footer with best practices recap
 - [ ] All code tested and error-free
-- [ ] Exact same structure as student file
+- [ ] Exact same structure as exercise files
 
 ### Cross-File Consistency
-- [ ] Exercise count matches presentation claim
-- [ ] Part names match between all files
-- [ ] Datasets match between all files
-- [ ] Numbering is consistent (1-30)
-- [ ] Objectives are identical in student and solutions
+- [ ] Exercise count matches presentation claim (usually 30)
+- [ ] Part names match across all 4 files
+- [ ] Datasets match across all 4 files
+- [ ] Numbering is consistent (1-30) across all files
+- [ ] Objectives are identical in blank, scaffold, and solutions
 - [ ] Concepts in presentation match exercise topics
+- [ ] Scaffold code → complete code in solutions (no gaps)
+- [ ] Blank version has NO code where scaffold has templates
 
 ---
 
@@ -568,25 +709,30 @@ When creating new chapter materials, ensure:
 ## 📂 File Naming Convention
 
 ```
-XX_topic_name.qmd                    # Presentation
-XX_topic_name_exercises.R            # Student exercises  
-XX_topic_name_exercises_SOLUTIONS.R  # Instructor solutions
+XX_topic_name.qmd                      # Presentation
+XX_topic_name_exercises.R              # Student exercises (blank)
+XX_topic_name_exercises_SCAFFOLD.R     # Student exercises (with hints)
+XX_topic_name_exercises_SOLUTIONS.R    # Instructor solutions
 ```
 
 **Where:**
 - `XX` = Two-digit chapter number (01, 02, 03, ...)
 - `topic_name` = Snake_case topic identifier
 - All lowercase, underscores for spaces
+- `_SCAFFOLD` suffix indicates guided version
+- `_SOLUTIONS` suffix indicates complete answers
 
 **Examples:**
 ```
-04_geometrie_base.qmd
-04_geometrie_base_exercises.R
-04_geometrie_base_exercises_SOLUTIONS.R
+07_facets_coordinate.qmd
+07_facets_coordinate_exercises.R
+07_facets_coordinate_exercises_SCAFFOLD.R
+07_facets_coordinate_exercises_SOLUTIONS.R
 
-05_aesthetics_avanzate.qmd
-05_aesthetics_avanzate_exercises.R
-05_aesthetics_avanzate_exercises_SOLUTIONS.R
+08_scale_trasformazioni.qmd
+08_scale_trasformazioni_exercises.R
+08_scale_trasformazioni_exercises_SCAFFOLD.R
+08_scale_trasformazioni_exercises_SOLUTIONS.R
 ```
 
 ---
@@ -599,35 +745,48 @@ XX_topic_name_exercises_SOLUTIONS.R  # Instructor solutions
    - Gather example datasets
 
 2. **Create presentation** (`XX_topic.qmd`)
-   - Copy template header from geometrie_base
+   - Copy template header from existing chapter
    - Write objective and exercise overview slides
+   - Mention BOTH exercise files in slide 2
    - Create 6 chapters with theory content
    - Add transition slides between chapters
    - Create closing slide with resources
 
-3. **Create student exercises** (`XX_topic_exercises.R`)
-   - Copy header and setup from geometrie_base
+3. **Create blank exercises** (`XX_topic_exercises.R`)
+   - Copy header and setup from existing chapter
    - Write 30 exercises (5 per part)
-   - Ensure clear objectives
-   - Leave space for code
+   - Ensure clear objectives with Dataset comments
+   - Leave 3-4 blank lines for code
+   - NO code hints or templates
    - Add data preparation where needed
 
-4. **Create solutions** (`XX_topic_exercises_SOLUTIONS.R`)
-   - Copy structure from student file
-   - Fill in all code solutions
-   - Test every exercise to ensure it runs
+4. **Create scaffold exercises** (`XX_topic_exercises_SCAFFOLD.R`)
+   - Copy structure from blank file (same header, setup, objectives)
+   - Add partial code with `___` blanks
+   - Include teaching notes inline
+   - Show alternative approaches where relevant
+   - Ensure progressive scaffolding (less help over time)
+   - Keep footer identical to blank version
+
+5. **Create solutions** (`XX_topic_exercises_SOLUTIONS.R`)
+   - Copy structure from exercise files
+   - Fill in ALL code solutions
+   - Test EVERY exercise to ensure it runs
    - Add interpretive comments
    - Write best practices summary
 
-5. **Test & verify**
+6. **Test & verify**
    - Render presentation: `quarto preview XX_topic.qmd`
    - Run all solution code to verify it works
-   - Check consistency: numbering, datasets, packages
+   - Verify scaffold code is syntactically valid
+   - Check consistency: numbering, datasets, packages across all 4 files
+   - Ensure objectives match exactly in blank, scaffold, and solutions
    - Review for typos and clarity
 
-6. **Package for distribution**
+7. **Package for distribution**
    - Presentation HTML (generated by Quarto)
-   - Student exercises R file
+   - Blank exercises R file
+   - Scaffold exercises R file
    - Solutions R file (hold until after workshop)
 
 ---
@@ -695,26 +854,33 @@ XX_topic_name_exercises_SOLUTIONS.R  # Instructor solutions
 
 ---
 
-## 🚀 Quick Reference: Creating Chapter 05
+## 🚀 Quick Reference: Creating Chapter 08
 
-To create materials for chapter 05 (example: Aesthetics Avanzate):
+To create materials for chapter 08 (example: Scale Trasformazioni):
 
-1. Copy `04_geometrie_base.qmd` → `05_aesthetics_avanzate.qmd`
+1. Copy `07_facets_coordinate.qmd` → `08_scale_trasformazioni.qmd`
 2. Update title, subtitle, content
 3. Keep same structure: Objectives → Exercises → Intro → 6 Chapters → Resources
 4. Keep transition slides ("Adesso tocca a te!")
+5. Update slide 2 to link to both exercise files
 
-5. Copy `04_geometrie_base_exercises.R` → `05_aesthetics_avanzate_exercises.R`
-6. Update header
-7. Write 30 new exercises in 6 parts
-8. Match exercise topics to presentation chapters
+6. Copy `07_facets_coordinate_exercises.R` → `08_scale_trasformazioni_exercises.R`
+7. Update header
+8. Write 30 new exercises in 6 parts (blank version - no code)
+9. Match exercise topics to presentation chapters
 
-9. Copy `05_aesthetics_avanzate_exercises.R` → `05_aesthetics_avanzate_exercises_SOLUTIONS.R`
-10. Update header
-11. Fill in all solutions
-12. Test all code
+10. Copy `08_scale_trasformazioni_exercises.R` → `08_scale_trasformazioni_exercises_SCAFFOLD.R`
+11. Keep header and objectives identical
+12. Add partial code with `___` blanks
+13. Add teaching notes inline
+14. Ensure progressive scaffolding
 
-**Estimated time:** 4-6 hours per complete chapter set
+15. Copy `08_scale_trasformazioni_exercises.R` → `08_scale_trasformazioni_exercises_SOLUTIONS.R`
+16. Update header (warn against early distribution)
+17. Fill in all solutions
+18. Test all code
+
+**Estimated time:** 6-8 hours per complete chapter set (4 files)
 
 ---
 
@@ -724,12 +890,30 @@ To create materials for chapter 05 (example: Aesthetics Avanzate):
 - **Test everything**: Run all code before distributing
 - **Timing**: Plan ~90 minutes per chapter in workshop (theory + practice)
 - **Flexibility**: Adjust exercise count per chapter needs (can be 25-35)
+- **Student choice**: Let students pick blank OR scaffold based on skill level
+- **Scaffolding philosophy**: Provide just enough help to keep students moving, not full solutions
 - **Feedback**: Collect student feedback to improve future chapters
 - **Updates**: Version control all files, note changes in git commits
 
+### Blank vs Scaffold Decision Guide
+
+**Use Blank Version when:**
+- Students have prior ggplot2 experience
+- Focus is on problem-solving, not syntax learning
+- Students are comfortable with R documentation
+- Workshop has adequate time for struggling/exploration
+
+**Use Scaffold Version when:**
+- Students are new to ggplot2
+- Syntax is complex or has many parameters
+- Limited time and must cover all exercises
+- Students need confidence boost with partial success
+
+**Best Practice:** Offer both, let students choose based on comfort level. Advanced students often start with blank and switch to scaffold if stuck.
+
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** 27 October 2025  
-**Based on:** Chapter 04 - Geometrie Base  
+**Document Version:** 2.0  
+**Last Updated:** 24 November 2025  
+**Based on:** Chapter 07 - Facets e Coordinate  
 **For use in:** REVELO Training - Data Viz 2025 Course
