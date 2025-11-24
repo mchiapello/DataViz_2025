@@ -28,6 +28,7 @@ data(iris)
 ## Esercizio 1.1: Confrontare Theme Gray e Minimal
 ## Obiettivo: Crea due scatter plot identici del dataset mpg (displ vs hwy),
 ##            uno con theme_gray() e uno con theme_minimal(), per vedere le differenze.
+# Dataset: mpg
 
 ## Soluzione 1.1:
 # Theme gray (default) - sfondo grigio
@@ -48,6 +49,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ## Esercizio 1.2: Theme Classic per Pubblicazioni
 ## Obiettivo: Crea un boxplot di hwy per classe di veicolo usando theme_classic().
 ##            Questo tema è ideale per pubblicazioni scientifiche.
+# Dataset: mpg
 
 ## Soluzione 1.2:
 ggplot(mpg, aes(x = class, y = hwy)) +
@@ -63,6 +65,7 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 ## Esercizio 1.3: Theme BW per Stampa
 ## Obiettivo: Crea un grafico a barre del conteggio di veicoli per classe usando
 ##            theme_bw() con base_size = 14 per renderlo leggibile in stampa.
+# Dataset: mpg
 
 ## Soluzione 1.3:
 ggplot(mpg, aes(x = class)) +
@@ -78,6 +81,7 @@ ggplot(mpg, aes(x = class)) +
 ## Esercizio 1.4: Theme Void per Visualizzazioni Minimali
 ## Obiettivo: Crea uno scatter plot di Sepal.Length vs Sepal.Width dal dataset iris
 ##            usando theme_void() per rimuovere tutti gli elementi non-dati.
+# Dataset: iris
 
 ## Soluzione 1.4:
 ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
@@ -88,6 +92,7 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
 ## Esercizio 1.5: Theme Dark per Presentazioni
 ## Obiettivo: Crea un density plot di carat dal dataset diamonds usando theme_dark()
 ##            con fill = "cyan" e alpha = 0.5.
+# Dataset: diamonds
 
 ## Soluzione 1.5:
 ggplot(diamonds, aes(x = carat)) +
@@ -107,6 +112,7 @@ ggplot(diamonds, aes(x = carat)) +
 ## Esercizio 2.1: Modificare Background del Plot
 ## Obiettivo: Parti da theme_minimal() e modifica plot.background per avere
 ##            fill = "lightblue" e panel.background con fill = "white".
+# Dataset: mpg
 
 ## Soluzione 2.1:
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -124,6 +130,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ## Esercizio 2.2: Personalizzare Panel Border
 ## Obiettivo: Crea uno scatter plot con theme_minimal() e aggiungi un bordo nero
 ##            spesso al panel usando panel.border.
+# Dataset: mpg
 
 ## Soluzione 2.2:
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -143,6 +150,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ## Esercizio 2.3: Rimuovere Griglia Minore
 ## Obiettivo: Crea un line plot di unemploy nel tempo dal dataset economics,
 ##            usa theme_minimal() e rimuovi solo panel.grid.minor.
+# Dataset: economics
 
 ## Soluzione 2.3:
 ggplot(economics, aes(x = date, y = unemploy/1000)) +
@@ -163,6 +171,7 @@ ggplot(economics, aes(x = date, y = unemploy/1000)) +
 ## Esercizio 2.4: Modificare Solo Griglia Verticale
 ## Obiettivo: Crea un bar chart di class da mpg, rimuovi panel.grid.major.x
 ##            ma mantieni panel.grid.major.y (utile per leggere i valori).
+# Dataset: mpg
 
 ## Soluzione 2.4:
 ggplot(mpg, aes(x = class)) +
@@ -184,6 +193,7 @@ ggplot(mpg, aes(x = class)) +
 ## Esercizio 2.5: Personalizzare Colore Griglia
 ## Obiettivo: Crea uno scatter plot e modifica panel.grid.major per avere
 ##            color = "red" e linetype = "dashed".
+# Dataset: mpg
 
 ## Soluzione 2.5:
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -208,6 +218,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ## Esercizio 3.1: Ruotare Labels Asse X
 ## Obiettivo: Crea un bar chart di manufacturer da mpg. Le etichette sono troppo lunghe:
 ##            ruotale di 45 gradi usando element_text() con angle = 45 e hjust = 1.
+# Dataset: mpg
 
 ## Soluzione 3.1:
 ggplot(mpg, aes(x = manufacturer)) +
@@ -232,6 +243,7 @@ ggplot(mpg, aes(x = manufacturer)) +
 ## Esercizio 3.2: Personalizzare Titolo Plot
 ## Obiettivo: Crea uno scatter plot e aggiungi un titolo "Mio Grafico".
 ##            Usa element_text() per renderlo size = 20, face = "bold", color = "navy".
+# Dataset: mpg
 
 ## Soluzione 3.2:
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -253,6 +265,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ## Esercizio 3.3: Modificare Aspetto Assi
 ## Obiettivo: Crea uno scatter plot con axis.line neri e spessi (size = 1)
 ##            usando element_line(), e rimuovi la griglia con element_blank().
+# Dataset: mpg
 
 ## Soluzione 3.3:
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -273,6 +286,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ## Esercizio 3.4: Personalizzare Background Legenda
 ## Obiettivo: Crea uno scatter plot con color = class. Personalizza legend.background
 ##            con fill = "gray95", color = "black", size = 0.5 usando element_rect().
+# Dataset: mpg
 
 ## Soluzione 3.4:
 ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
@@ -294,6 +308,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
 ## Esercizio 3.5: Rimuovere Tick Marks
 ## Obiettivo: Crea un grafico qualsiasi e rimuovi completamente i tick marks
 ##            degli assi usando element_blank() per axis.ticks.
+# Dataset: mpg
 
 ## Soluzione 3.5:
 ggplot(mpg, aes(x = class, y = hwy)) +
@@ -318,6 +333,7 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 ## Esercizio 4.1: Labels Complete con labs()
 ## Obiettivo: Crea uno scatter plot di displ vs hwy colorato per class.
 ##            Aggiungi title, subtitle, caption, e labels per x, y e color usando labs().
+# Dataset: mpg
 
 ## Soluzione 4.1:
 ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
@@ -338,6 +354,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
 ## Esercizio 4.2: Rimuovere Titolo Asse X
 ## Obiettivo: Crea un bar chart di class da mpg e rimuovi il titolo dell'asse X
 ##            usando x = NULL in labs().
+# Dataset: mpg
 
 ## Soluzione 4.2:
 ggplot(mpg, aes(x = class)) +
@@ -355,6 +372,7 @@ ggplot(mpg, aes(x = class)) +
 ## Esercizio 4.3: Multi-line Title
 ## Obiettivo: Crea uno scatter plot e aggiungi un titolo su due righe usando
 ##            "\n" in labs(title = "Riga 1\nRiga 2").
+# Dataset: mpg
 
 ## Soluzione 4.3:
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -372,6 +390,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ## Esercizio 4.4: Formattare Caption e Subtitle
 ## Obiettivo: Crea un line plot di economics e aggiungi caption allineato a destra
 ##            e subtitle grigio usando element_text() con hjust e color appropriati.
+# Dataset: economics
 
 ## Soluzione 4.4:
 ggplot(economics, aes(x = date, y = unemploy/1000)) +
@@ -402,6 +421,7 @@ ggplot(economics, aes(x = date, y = unemploy/1000)) +
 ## Esercizio 4.5: Rimuovere Titolo Legenda
 ## Obiettivo: Crea uno scatter plot con color mapping e rimuovi il titolo della
 ##            legenda usando color = NULL in labs().
+# Dataset: mpg
 
 ## Soluzione 4.5:
 ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
@@ -424,6 +444,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
 ## Esercizio 5.1: Posizionare Legenda in Basso
 ## Obiettivo: Crea uno scatter plot con color mapping e sposta la legenda
 ##            in basso usando legend.position = "bottom".
+# Dataset: mpg
 
 ## Soluzione 5.1:
 ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
@@ -443,6 +464,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
 ## Esercizio 5.2: Legenda con Coordinate Precise
 ## Obiettivo: Posiziona la legenda all'interno del grafico usando coordinate
 ##            (es. c(0.85, 0.25)) e aggiungi un background bianco con bordo.
+# Dataset: mpg
 
 ## Soluzione 5.2:
 ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
@@ -464,6 +486,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
 ## Esercizio 5.3: Layout Orizzontale Legenda
 ## Obiettivo: Metti la legenda in basso con layout orizzontale usando
 ##            legend.direction = "horizontal".
+# Dataset: mpg
 
 ## Soluzione 5.3:
 ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
@@ -481,6 +504,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
 ## Esercizio 5.4: Personalizzare Testo Legenda
 ## Obiettivo: Modifica legend.title per essere bold e size = 14,
 ##            e legend.text per essere italic e size = 11.
+# Dataset: mpg
 
 ## Soluzione 5.4:
 ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
@@ -506,6 +530,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
 ## Obiettivo: Crea uno scatter plot con punti piccoli (size = 1) e alpha = 0.3.
 ##            Usa guides() e override.aes per rendere le chiavi della legenda
 ##            più grandi (size = 4) e completamente opache (alpha = 1).
+# Dataset: mpg
 
 ## Soluzione 5.5:
 ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
@@ -535,6 +560,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
 ## Esercizio 6.1: Creare Tema Riutilizzabile
 ## Obiettivo: Crea una funzione theme_mio() che parte da theme_minimal() e
 ##            personalizza almeno 3 elementi (es. plot.title, panel.grid, legend.position).
+# Dataset: N/A (tema riutilizzabile)
 
 ## Soluzione 6.1:
 theme_mio <- function(base_size = 12) {
@@ -581,6 +607,7 @@ theme_mio <- function(base_size = 12) {
 
 ## Esercizio 6.2: Applicare Tema Custom
 ## Obiettivo: Usa il tuo theme_mio() creato nell'esercizio precedente su un nuovo grafico.
+# Dataset: mpg, economics
 
 ## Soluzione 6.2:
 ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
@@ -606,6 +633,7 @@ ggplot(economics, aes(x = date, y = unemploy/1000)) +
 ## Esercizio 6.3: Theme Set Globale
 ## Obiettivo: Imposta theme_minimal() come tema di default per tutta la sessione
 ##            usando theme_set(), poi crea un grafico per verificare.
+# Dataset: mpg, iris
 
 ## Soluzione 6.3:
 # Imposta tema globale
@@ -629,6 +657,7 @@ theme_set(theme_gray())
 ## Esercizio 6.4: Salvare con ggsave() - Alta Risoluzione
 ## Obiettivo: Crea un plot e salvalo come "plot_highres.png" con width = 10,
 ##            height = 6, dpi = 300 (qualità pubblicazione).
+# Dataset: mpg
 
 ## Soluzione 6.4:
 # Crea il plot
@@ -661,6 +690,7 @@ ___(
 ## Esercizio 6.5: Salvare in Formati Multipli
 ## Obiettivo: Crea un plot e salvalo in tre formati: PNG (web, 72 dpi),
 ##            PDF (vettoriale), e PNG (pubblicazione, 300 dpi).
+# Dataset: economics
 
 ## Soluzione 6.5:
 # Crea plot complesso

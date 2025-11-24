@@ -618,16 +618,28 @@ ggplot(quakes, aes(x = long, y = lat)) +
 **Trasforma in polare:**
 
 ```r
-# Pie chart
-ggplot(data, aes(x = "", y = value, 
-                 fill = category)) +
-  geom_col() +
-  coord_polar(theta = "y")
+# Pie chart - conta classi in mpg
+ggplot(mpg, aes(x = "", fill = class)) +
+  geom_bar(width = 1) +
+  coord_polar(theta = "y") +
+  theme_void()
+
+# Con valori pre-calcolati
+library(dplyr)
+class_counts <- mpg %>% 
+  count(class)
+
+ggplot(class_counts, aes(x = "", y = n, 
+                         fill = class)) +
+  geom_col(width = 1) +
+  coord_polar(theta = "y") +
+  theme_void()
 
 # Bullseye/radar chart
-ggplot(data, aes(x = category, y = value)) +
-  geom_col() +
-  coord_polar(theta = "x")
+ggplot(mpg, aes(x = class, fill = class)) +
+  geom_bar() +
+  coord_polar(theta = "x") +
+  theme_minimal()
 ```
 
 **Parametri:**
@@ -656,6 +668,15 @@ Generalmente **sconsigliati**:
 - Usa solo per proportions ovvie (50%, 25%, etc.)
 
 Se proprio necessario, max 5-6 categorie.
+:::
+
+::: {.callout-tip}
+## Nota tecnica
+Pie chart = bar chart stacked + coord_polar()
+
+- `geom_bar(width = 1)` crea barra singola
+- `coord_polar(theta = "y")` mappa altezza → angolo
+- `theme_void()` rimuove assi
 :::
 
 :::

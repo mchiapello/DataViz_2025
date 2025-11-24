@@ -36,7 +36,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 # ESERCIZIO 2: Controllo Colonne ----------------------------------------------
 # Obiettivo: Stesso plot, ma con 3 colonne (ncol = 3)
-# Dataset: mpg
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
@@ -46,7 +47,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 # ESERCIZIO 3: Histogram con Facet -------------------------------------------
 # Obiettivo: Histogram di hwy, facet per drv (tipo trazione)
 #            bins = 15
-# Dataset: mpg
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = hwy)) +
   ___(bins = ___, fill = "steelblue", color = "black") +
@@ -56,7 +58,8 @@ ggplot(mpg, aes(x = hwy)) +
 # ESERCIZIO 4: Facet con Aesthetic -------------------------------------------
 # Obiettivo: Scatter displ vs hwy, color = drv, facet per class
 #            Così combini color E facets
-# Dataset: mpg
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = displ, y = hwy, color = ___)) +
   geom_point() +
@@ -67,18 +70,19 @@ ggplot(mpg, aes(x = displ, y = hwy, color = ___)) +
 
 # ESERCIZIO 5: Time Series Facets --------------------------------------------
 # Obiettivo: Usa economics, line plot date vs unemploy
-#            Facet per decade
-# Dataset: economics_decade
+#            Facet non applicabile direttamente - crea variabile decade prima
+#            Aggiungi decade = floor(year(date)/10)*10
+#            Poi facet per decade
+# Dataset: economics
 
 # Prepara dati
 economics_decade <- economics %>%
   mutate(decade = floor(lubridate::year(date)/10)*10)
 
-ggplot(economics_decade, aes(x = date, y = unemploy)) +
-  ___() +
-  facet_wrap(~ ___, scales = "___")
+# Il tuo codice qui:
 
-# Nota: scales = "free_x" perché ogni decade ha diverso time range
+
+
 
 
 # =============================================================================
@@ -88,7 +92,8 @@ ggplot(economics_decade, aes(x = date, y = unemploy)) +
 # ESERCIZIO 6: Facet Grid 2D -------------------------------------------------
 # Obiettivo: Scatter displ vs hwy
 #            Facet grid con drv (righe) e cyl (colonne)
-# Dataset: mpg
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
@@ -100,7 +105,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 # ESERCIZIO 7: Grid Solo Righe -----------------------------------------------
 # Obiettivo: Boxplot di class vs hwy
 #            Facet grid solo righe per year
-# Dataset: mpg
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = class, y = hwy)) +
   geom_boxplot() +
@@ -115,7 +121,8 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 # ESERCIZIO 8: Grid Solo Colonne ----------------------------------------------
 # Obiettivo: Density plot di cty
 #            Facet grid solo colonne per drv
-# Dataset: mpg
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = cty)) +
   ___(fill = "lightblue", alpha = 0.7) +
@@ -135,14 +142,17 @@ ggplot(mpg, aes(x = cty)) +
 # Prepara dati
 diamonds_sample <- diamonds %>% sample_n(1000)
 
-ggplot(diamonds_sample, aes(x = carat, y = price)) +
-  geom_point(alpha = 0.5) +
-  facet_grid(___ ~ ___)
+# Il tuo codice qui:
+
+
+
 
 
 # ESERCIZIO 10: Grid con vars() ----------------------------------------------
 # Obiettivo: Stesso plot, usa vars() notation invece di formula
-# Dataset: diamonds_sample
+#            rows = vars(cut), cols = vars(color)
+
+# Il tuo codice qui:
 
 ggplot(diamonds_sample, aes(x = carat, y = price)) +
   geom_point(alpha = 0.5) +
@@ -158,7 +168,8 @@ ggplot(diamonds_sample, aes(x = carat, y = price)) +
 # ESERCIZIO 11: Scale Fisse (Default) ----------------------------------------
 # Obiettivo: Scatter displ vs hwy, facet per class
 #            Nota come alcuni pannelli hanno molto spazio vuoto
-# Dataset: mpg
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
@@ -169,7 +180,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 # ESERCIZIO 12: Scale Libere X e Y -------------------------------------------
 # Obiettivo: Stesso plot, scales = "free"
-# Dataset: mpg
+#            Osserva differenza - ogni pannello ottimizza range
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
@@ -180,7 +193,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 # ESERCIZIO 13: Solo X Libero ------------------------------------------------
 # Obiettivo: Stesso plot, scales = "free_x"
-# Dataset: mpg
+#            Y condiviso, X libero per ogni pannello
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
@@ -192,18 +207,20 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 # ESERCIZIO 14: Solo Y Libero ------------------------------------------------
 # Obiettivo: Boxplot di manufacturer vs hwy
 #            Facet per year, scales = "free_y"
-# Dataset: mpg
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = manufacturer, y = hwy)) +
   ___() +
-  facet_wrap(~ year, scales = "___") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  facet_wrap(~ year, scales = "___") 
 
 
 # ESERCIZIO 15: Quando NON Usare Free Scales ---------------------------------
 # Obiettivo: Bar plot count di class, facet per year
-#            Confronta scales
-# Dataset: mpg
+#            Prova scales = "fixed" e scales = "free_y"
+#            Quale permette miglior confronto tra anni?
+
+# Scales fixed:
 
 # Scales fixed (MIGLIORE per confronti):
 ggplot(mpg, aes(x = class)) +
@@ -223,8 +240,10 @@ ggplot(mpg, aes(x = class)) +
 # =============================================================================
 
 # ESERCIZIO 16: coord_flip() -------------------------------------------------
-# Obiettivo: Boxplot di class vs hwy con coord_flip()
-# Dataset: mpg
+# Obiettivo: Boxplot di class vs hwy
+#            Usa coord_flip() per labels leggibili
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = class, y = hwy)) +
   geom_boxplot() +
@@ -236,8 +255,11 @@ ggplot(mpg, aes(x = ___, y = ___)) +
 
 
 # ESERCIZIO 17: coord_cartesian() Zoom ---------------------------------------
-# Obiettivo: Zoom senza rimuovere dati
-# Dataset: diamonds_sample
+# Obiettivo: Scatter carat vs price (diamonds sample)
+#            Zoom: xlim = c(0, 2), ylim = c(0, 10000)
+#            Usa coord_cartesian() (non rimuove dati)
+
+# Il tuo codice qui:
 
 set.seed(123)
 diamonds_sample <- diamonds %>% sample_n(1000)
@@ -251,8 +273,11 @@ ggplot(diamonds_sample, aes(x = carat, y = price)) +
 
 
 # ESERCIZIO 18: coord_fixed() -----------------------------------------------
-# Obiettivo: Aspect ratio 1:1
+# Obiettivo: Scatter drat vs wt (mtcars)
+#            Applica coord_fixed(ratio = 1) per aspect 1:1
 # Dataset: mtcars
+
+# Il tuo codice qui:
 
 ggplot(mtcars, aes(x = drat, y = wt)) +
   geom_point(size = 3) +
@@ -262,25 +287,28 @@ ggplot(mtcars, aes(x = drat, y = wt)) +
 
 
 # ESERCIZIO 19: coord_polar() Pie Chart --------------------------------------
-# Obiettivo: Pie chart di class counts
-# Dataset: mpg
+# Obiettivo: Crea pie chart di class counts in mpg
+#            1. geom_bar(aes(x = "", fill = class))
+#            2. coord_polar(theta = "y")
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = "", fill = class)) +
   geom_bar(width = 1) +
-  ___(theta = "___") +
-  theme_void()
+  ___(theta = "___") 
 
 # Nota: theta = "y" mappa Y (height) ad angolo
 
 
 # ESERCIZIO 20: coord_polar() Bullseye ---------------------------------------
-# Obiettivo: Radar chart
-# Dataset: mpg
+# Obiettivo: Bar plot di class counts
+#            coord_polar(theta = "x") per radar chart
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = class, fill = class)) +
   geom_bar() +
-  coord_polar(theta = "___") +
-  theme_minimal()
+  coord_polar(theta = "___") 
 
 # theta = "x" mappa X (categories) ad angolo
 
@@ -290,8 +318,10 @@ ggplot(mpg, aes(x = class, fill = class)) +
 # =============================================================================
 
 # ESERCIZIO 21: scale_*_log10() ----------------------------------------------
-# Obiettivo: Log transform con scale functions
-# Dataset: diamonds_sample
+# Obiettivo: Scatter carat vs price (diamonds sample)
+#            Log10 transform su entrambi assi con scale functions
+
+# Il tuo codice qui:
 
 ggplot(diamonds_sample, aes(x = carat, y = price)) +
   geom_point(alpha = 0.5) +
@@ -300,8 +330,10 @@ ggplot(diamonds_sample, aes(x = carat, y = price)) +
 
 
 # ESERCIZIO 22: coord_trans() -----------------------------------------------
-# Obiettivo: Log transform con coord
-# Dataset: diamonds_sample
+# Obiettivo: Stesso plot, usa coord_trans(x = "log10", y = "log10")
+#            Osserva: risultato simile ma non identico
+
+# Il tuo codice qui:
 
 ggplot(diamonds_sample, aes(x = carat, y = price)) +
   geom_point(alpha = 0.5) +
@@ -311,8 +343,10 @@ ggplot(diamonds_sample, aes(x = carat, y = price)) +
 
 
 # ESERCIZIO 23: scale_*_sqrt() ----------------------------------------------
-# Obiettivo: Sqrt transform solo su Y
-# Dataset: diamonds_sample
+# Obiettivo: Scatter carat vs price
+#            sqrt transform solo su Y
+
+# Il tuo codice qui:
 
 ggplot(diamonds_sample, aes(x = carat, y = price)) +
   geom_point(alpha = 0.5) +
@@ -320,8 +354,11 @@ ggplot(diamonds_sample, aes(x = carat, y = price)) +
 
 
 # ESERCIZIO 24: coord_trans() con smooth ------------------------------------
-# Obiettivo: Differenza tra scale e coord con smooth
-# Dataset: mpg
+# Obiettivo: Scatter displ vs hwy + geom_smooth()
+#            Prova scale_x_log10() vs coord_trans(x = "log10")
+#            Nota differenza in smooth line
+
+# Con scale_x_log10:
 
 # Con scale_x_log10 (PREFERITO - smooth su dati trasformati):
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -339,8 +376,11 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 
 # ESERCIZIO 25: Limiti con coord_cartesian vs xlim -------------------------
-# Obiettivo: Impatto su smooth
-# Dataset: mpg
+# Obiettivo: Scatter displ vs hwy + geom_smooth()
+#            Confronta xlim(3, 6) vs coord_cartesian(xlim = c(3, 6))
+#            Nota impatto su smooth
+
+# Con xlim (rimuove dati):
 
 # Con xlim (RIMUOVE dati fuori range - smooth cambia):
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -362,8 +402,10 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 # =============================================================================
 
 # ESERCIZIO 26: Facets + coord_flip -----------------------------------------
-# Obiettivo: Facets + flip per leggibilità
-# Dataset: mpg
+# Obiettivo: Boxplot class vs hwy, facet per year
+#            Applica coord_flip() per leggibilità
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = class, y = hwy)) +
   geom_boxplot() +
@@ -372,8 +414,10 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 
 
 # ESERCIZIO 27: Facets + Zoom -----------------------------------------------
-# Obiettivo: Facets + zoom
-# Dataset: mpg
+# Obiettivo: Scatter displ vs hwy, facet per drv
+#            Zoom su xlim = c(2, 5), ylim = c(15, 35)
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
@@ -382,8 +426,11 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 
 # ESERCIZIO 28: Facets + Free Scales + Log ----------------------------------
-# Obiettivo: Combinazione complessa
-# Dataset: diamonds_sample
+# Obiettivo: Scatter carat vs price (diamonds sample)
+#            Facet per cut, scales = "free"
+#            scale_x_log10() + scale_y_log10()
+
+# Il tuo codice qui:
 
 ggplot(diamonds_sample, aes(x = carat, y = price)) +
   geom_point(alpha = 0.3) +
@@ -395,8 +442,12 @@ ggplot(diamonds_sample, aes(x = carat, y = price)) +
 
 
 # ESERCIZIO 29: Grid + Multiple Aesthetics ----------------------------------
-# Obiettivo: Troppe dimensioni!
-# Dataset: mpg
+# Obiettivo: Scatter displ vs hwy
+#            Color = class, size = cyl
+#            Facet grid: drv ~ year
+#            Nota: molte dimensioni! Leggibile?
+
+# Il tuo codice qui:
 
 ggplot(mpg, aes(x = displ, y = hwy, color = ___, size = ___)) +
   geom_point(alpha = 0.6) +
@@ -406,40 +457,35 @@ ggplot(mpg, aes(x = displ, y = hwy, color = ___, size = ___)) +
 
 
 # ESERCIZIO 30: Best Practice Showcase --------------------------------------
-# Obiettivo: Visualizzazione efficace
-# Dataset: mpg
+# Obiettivo: Crea visualizzazione efficace mpg data:
+#            - Histogram hwy
+#            - Facet per drv (tipo trazione)
+#            - Aggiungi vline per median di ogni gruppo
+#            - Labels chiari
+#
 
 # Calcola mediane
 hwy_medians <- mpg %>%
-  group_by(___) %>%
-  summarise(median_hwy = median(___))
+  group_by(drv) %>%
+  summarise(median_hwy = median(hwy))
 
-ggplot(mpg, aes(x = hwy)) +
-  ___(bins = 20, fill = "steelblue", color = "black", alpha = 0.7) +
-  geom_vline(data = hwy_medians, 
-             aes(xintercept = ___),
-             color = "red", linetype = "dashed", linewidth = 1) +
-  facet_wrap(~ ___, 
-             ncol = ___,
-             labeller = labeller(drv = c(
-               "4" = "4WD",
-               "f" = "Front-wheel",
-               "r" = "Rear-wheel"
-             ))) +
-  labs(
-    title = "Highway MPG Distribution by Drive Type",
-    subtitle = "Red line = median per group",
-    x = "Highway MPG",
-    y = "Count"
-  ) +
-  theme_minimal()
+# Il tuo codice qui (base + facet + vline):
+
+
+
 
 
 # =============================================================================
 # FINE ESERCIZI
 # =============================================================================
 # 
-# Completa gli esercizi sopra per praticare facets e coordinate systems!
-# Confronta poi con le soluzioni.
-#
+# Congratulazioni! Hai completato tutti gli esercizi.
+# 
+# Prossimi passi:
+# - Sperimenta con combinazioni di facets e coordinate systems
+# - Prova altri dataset (iris, economics, faithful)
+# - Esplora documentazione: ?facet_wrap, ?facet_grid, ?coord_*
+# - Considera quando usare facets vs aesthetics (color, shape)
+# 
+# Le soluzioni saranno fornite a fine corso!
 # =============================================================================

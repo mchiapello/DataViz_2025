@@ -792,16 +792,28 @@ Marco Chiapello
 <div class="column" style="width:50%;">
 <div style="font-size: 0.7em;">
 <p><strong>Trasforma in polare:</strong></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="co"># Pie chart</span></span>
-<span id="cb20-2"><a></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> value, </span>
-<span id="cb20-3"><a></a>                 <span class="at">fill =</span> category)) <span class="sc">+</span></span>
-<span id="cb20-4"><a></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb20-5"><a></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"y"</span>)</span>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="co"># Pie chart - conta classi in mpg</span></span>
+<span id="cb20-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">fill =</span> class)) <span class="sc">+</span></span>
+<span id="cb20-3"><a></a>  <span class="fu">geom_bar</span>(<span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb20-4"><a></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"y"</span>) <span class="sc">+</span></span>
+<span id="cb20-5"><a></a>  <span class="fu">theme_void</span>()</span>
 <span id="cb20-6"><a></a></span>
-<span id="cb20-7"><a></a><span class="co"># Bullseye/radar chart</span></span>
-<span id="cb20-8"><a></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> category, <span class="at">y =</span> value)) <span class="sc">+</span></span>
-<span id="cb20-9"><a></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb20-10"><a></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"x"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-7"><a></a><span class="co"># Con valori pre-calcolati</span></span>
+<span id="cb20-8"><a></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb20-9"><a></a>class_counts <span class="ot">&lt;-</span> mpg <span class="sc">%&gt;%</span> </span>
+<span id="cb20-10"><a></a>  <span class="fu">count</span>(class)</span>
+<span id="cb20-11"><a></a></span>
+<span id="cb20-12"><a></a><span class="fu">ggplot</span>(class_counts, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> n, </span>
+<span id="cb20-13"><a></a>                         <span class="at">fill =</span> class)) <span class="sc">+</span></span>
+<span id="cb20-14"><a></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb20-15"><a></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"y"</span>) <span class="sc">+</span></span>
+<span id="cb20-16"><a></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb20-17"><a></a></span>
+<span id="cb20-18"><a></a><span class="co"># Bullseye/radar chart</span></span>
+<span id="cb20-19"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">fill =</span> class)) <span class="sc">+</span></span>
+<span id="cb20-20"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb20-21"><a></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"x"</span>) <span class="sc">+</span></span>
+<span id="cb20-22"><a></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Parametri:</strong></p>
 <ul>
 <li><code>theta</code>: quale asse diventa angolo</li>
@@ -834,6 +846,24 @@ Marco Chiapello
 <li>Usa solo per proportions ovvie (50%, 25%, etc.)</li>
 </ul>
 <p>Se proprio necessario, max 5-6 categorie.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota tecnica</strong></p>
+</div>
+<div class="callout-content">
+<p>Pie chart = bar chart stacked + coord_polar()</p>
+<ul>
+<li><code>geom_bar(width = 1)</code> crea barra singola</li>
+<li><code>coord_polar(theta = "y")</code> mappa altezza → angolo</li>
+<li><code>theme_void()</code> rimuove assi</li>
+</ul>
 </div>
 </div>
 </div>
