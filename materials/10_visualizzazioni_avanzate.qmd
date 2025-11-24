@@ -572,37 +572,6 @@ Per valori con punto centrale significativo (es. fold-change, correlazioni)
 :::
 :::
 
-## Clustering e Riordinamento {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
-
-::: {style="font-size: 0.65em;"}
-```r
-# Clustering gerarchico manuale
-library(dendextend)
-
-# Converti in wide matrix
-heat_matrix <- heatmap_data %>%
-  select(car, variable, value_scaled) %>%
-  pivot_wider(names_from = variable, values_from = value_scaled) %>%
-  column_to_rownames("car") %>%
-  as.matrix()
-
-# Clustering
-row_order <- hclust(dist(heat_matrix))$order
-col_order <- hclust(dist(t(heat_matrix)))$order
-
-# Riordina factor levels
-heatmap_data$car <- factor(heatmap_data$car, 
-                            levels = rownames(heat_matrix)[row_order])
-heatmap_data$variable <- factor(heatmap_data$variable,
-                                 levels = colnames(heat_matrix)[col_order])
-
-# Plot con ordine cluster
-ggplot(heatmap_data, aes(variable, car, fill = value_scaled)) +
-  geom_tile() +
-  scale_fill_gradient2(low = "blue", mid = "white", high = "red")
-```
-:::
-
 ## {background-image="images/frequency-wave-7776034_1280.jpg" background-size="cover" background-opacity="0.1"}
 
 ::: {style="text-align: center; font-size: 3em; margin-top: 200px;"}
