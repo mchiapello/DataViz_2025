@@ -32,8 +32,6 @@ data(faithful)
 # Dataset: mpg
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point()  # <-- Completa questa riga
 
 
 
@@ -42,8 +40,6 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 # Obiettivo: Usa la trasparenza (alpha = 0.4) per migliorare la visualizzazione
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(alpha = )  # <-- Aggiungi il valore alpha
 
 
 
@@ -52,9 +48,6 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 # Obiettivo: Aggiungi una linea di trend lineare usando geom_smooth(method = "lm")
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  geom_smooth()  # <-- Aggiungi il parametro method
 
 
 
@@ -63,10 +56,6 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 # Obiettivo: Confronta trend lineare (rosso) con LOESS (blu)
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  geom_smooth(method = "lm", color = ) +  # <-- Aggiungi colore
-  geom_smooth(method = "loess", color = )  # <-- Aggiungi colore
 
 
 
@@ -76,8 +65,6 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 # Dataset: economics
 
 # Il tuo codice qui:
-ggplot(economics, aes(x = , y = )) +  # <-- Inserisci le variabili
-  geom_line()
 
 
 
@@ -99,8 +86,6 @@ ggplot(economics, aes(x = , y = )) +  # <-- Inserisci le variabili
 # Dataset: diamonds
 
 # Il tuo codice qui:
-ggplot(diamonds, aes(x = )) +  # <-- Inserisci la variabile
-  geom_histogram(bins = )  # <-- Inserisci il numero di bins
 
 
 
@@ -123,8 +108,6 @@ ggplot(diamonds, aes(x = )) +  # <-- Inserisci la variabile
 # Obiettivo: Crea curva di densità per hwy (consumo autostrada)
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = hwy)) +
-  geom_density()  # <-- Completa con la geometria corretta
 
 
 
@@ -133,9 +116,6 @@ ggplot(mpg, aes(x = hwy)) +
 # Obiettivo: Combina histogram e density. Usa aes(y = after_stat(density))!
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = hwy)) +
-  geom_histogram(aes(y = after_stat()), bins = 30) +  # <-- Completa after_stat
-  geom_density(color = "red", size = 1)
 
 
 
@@ -166,8 +146,6 @@ ggplot(mpg, aes(x = hwy)) +
 # Dataset: diamonds
 
 # Il tuo codice qui:
-ggplot(diamonds, aes(x = , y = )) +  # <-- Inserisci le variabili
-  geom_bin2d(bins = )  # <-- Inserisci il numero di bins
 
 
 
@@ -207,8 +185,6 @@ ggplot(diamonds, aes(x = , y = )) +  # <-- Inserisci le variabili
 # Dataset: mpg
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = class, y = hwy)) +
-  geom_boxplot()  # <-- Completa con la geometria corretta
 
 
 
@@ -233,8 +209,6 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 # Obiettivo: Conta auto per classe con geom_bar() (solo x, no y!)
 
 # Il tuo codice qui:
-ggplot(mpg, aes(x = )) +  # <-- Inserisci la variabile categorica
-  geom_bar()
 
 
 
