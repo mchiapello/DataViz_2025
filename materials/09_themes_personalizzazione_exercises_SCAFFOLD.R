@@ -3,7 +3,7 @@
 # ============================================================================
 #
 # Istruzioni:
-# - Completa ogni esercizio scrivendo il codice richiesto
+# - Completa ogni esercizio scrivendo il codice richiesto (29 esercizi)
 # - Esegui il codice per verificare che funzioni
 # - Sperimenta con variazioni!
 #
@@ -524,33 +524,6 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
   )
 
 # Gerarchia visiva: titolo più grande e bold, testo più piccolo
-
-
-## Esercizio 5.5: Guides Avanzate - Override Aesthetics
-## Obiettivo: Crea uno scatter plot con punti piccoli (size = 1) e alpha = 0.3.
-##            Usa guides() e override.aes per rendere le chiavi della legenda
-##            più grandi (size = 4) e completamente opache (alpha = 1).
-# Dataset: mpg
-
-## Soluzione 5.5:
-ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
-  geom_point(size = 1, alpha = 0.3) +  # Punti piccoli e trasparenti nel plot
-  labs(
-    title = "Override Aesthetics nella Legenda",
-    color = "Classe"
-  ) +
-  theme_minimal() +
-  ___(
-    color = guide_legend(
-      override.aes = list(
-        size = ___,    # Punti grandi nella legenda
-        alpha = ___    # Completamente opachi nella legenda
-      )
-    )
-  )
-
-# Essenziale quando i punti nel plot sono difficili da vedere ma vuoi
-# legende chiare. override.aes modifica SOLO la legenda, non il plot
 
 
 # ============================================================================

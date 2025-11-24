@@ -2,7 +2,7 @@
 # SOLUZIONI: Temi e Personalizzazione in ggplot2
 # ============================================================================
 #
-# Questo file contiene le soluzioni complete per tutti i 30 esercizi.
+# Questo file contiene le soluzioni complete per tutti i 29 esercizi.
 # Ogni soluzione include:
 # - La domanda originale dell'esercizio
 # - Codice completo e funzionante
@@ -497,32 +497,6 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
   )
 
 # Gerarchia visiva: titolo più grande e bold, testo più piccolo
-
-
-## Esercizio 5.5: Guides Avanzate - Override Aesthetics
-## Obiettivo: Crea uno scatter plot con punti piccoli (size = 1) e alpha = 0.3.
-##            Usa guides() e override.aes per rendere le chiavi della legenda
-##            più grandi (size = 4) e completamente opache (alpha = 1).
-
-## Soluzione 5.5:
-ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
-  geom_point(size = 1, alpha = 0.3) +  # Punti piccoli e trasparenti nel plot
-  labs(
-    title = "Override Aesthetics nella Legenda",
-    color = "Classe"
-  ) +
-  theme_minimal() +
-  guides(
-    color = guide_legend(
-      override.aes = list(
-        size = 4,    # Punti grandi nella legenda
-        alpha = 1    # Completamente opachi nella legenda
-      )
-    )
-  )
-
-# Essenziale quando i punti nel plot sono difficili da vedere ma vuoi
-# legende chiare. override.aes modifica SOLO la legenda, non il plot
 
 
 # ============================================================================

@@ -2,7 +2,7 @@
 # ESERCIZI: Temi e Personalizzazione in ggplot2
 # ============================================================================
 #
-# Questo file contiene 30 esercizi pratici per imparare a personalizzare
+# Questo file contiene 29 esercizi pratici per imparare a personalizzare
 # i grafici ggplot2 usando temi, element_*() functions, labs() e ggsave().
 #
 # ISTRUZIONI:
@@ -16,7 +16,7 @@
 # - Parte 2: Funzione theme() Basics (5 esercizi)
 # - Parte 3: Funzioni element_*() (5 esercizi)
 # - Parte 4: Labels e Titoli (5 esercizi)
-# - Parte 5: Personalizzazione Legende (5 esercizi)
+# - Parte 5: Personalizzazione Legende (4 esercizi)
 # - Parte 6: Temi Custom e Export (5 esercizi)
 #
 # ============================================================================
@@ -217,14 +217,6 @@ data(iris)
 ## Esercizio 5.4: Personalizzare Testo Legenda
 ## Obiettivo: Modifica legend.title per essere bold e size = 14,
 ##            e legend.text per essere italic e size = 11.
-
-
-
-
-## Esercizio 5.5: Guides Avanzate - Override Aesthetics
-## Obiettivo: Crea uno scatter plot con punti piccoli (size = 1) e alpha = 0.3.
-##            Usa guides() e override.aes per rendere le chiavi della legenda
-##            più grandi (size = 4) e completamente opache (alpha = 1).
 
 
 
