@@ -1042,81 +1042,6 @@ Marco Chiapello
 </div>
 </div></div>
 </section>
-<section id="tag-e-annotazioni-avanzate" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
-<h2>Tag e Annotazioni Avanzate</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div style="font-size: 0.6em;">
-<p><strong>plot.tag per Panel Labels:</strong></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="co"># Utile per figure multi-panel</span></span>
-<span id="cb31-2"><a></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb31-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb31-4"><a></a>  <span class="fu">labs</span>(<span class="at">tag =</span> <span class="st">"A"</span>) <span class="sc">+</span></span>
-<span id="cb31-5"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb31-6"><a></a>  <span class="fu">theme</span>(</span>
-<span id="cb31-7"><a></a>    <span class="at">plot.tag =</span> <span class="fu">element_text</span>(</span>
-<span id="cb31-8"><a></a>      <span class="at">size =</span> <span class="dv">20</span>,</span>
-<span id="cb31-9"><a></a>      <span class="at">face =</span> <span class="st">"bold"</span></span>
-<span id="cb31-10"><a></a>    ),</span>
-<span id="cb31-11"><a></a>    <span class="at">plot.tag.position =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>)</span>
-<span id="cb31-12"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Rimuovere Labels:</strong></p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="co"># x = NULL rimuove titolo asse</span></span>
-<span id="cb32-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class)) <span class="sc">+</span></span>
-<span id="cb32-3"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb32-4"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb32-5"><a></a>    <span class="at">x =</span> <span class="cn">NULL</span>,  <span class="co"># No titolo X</span></span>
-<span id="cb32-6"><a></a>    <span class="at">y =</span> <span class="st">"Conteggio"</span></span>
-<span id="cb32-7"><a></a>  )</span>
-<span id="cb32-8"><a></a></span>
-<span id="cb32-9"><a></a><span class="co"># color = NULL rimuove titolo legenda</span></span>
-<span id="cb32-10"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
-<span id="cb32-11"><a></a>                <span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb32-12"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb32-13"><a></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column" style="width:50%;">
-<div style="font-size: 0.56em;">
-<p><strong>Sostituire Tutti i Labels:</strong></p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a><span class="co"># ggtitle(), xlab(), ylab() - shortcut</span></span>
-<span id="cb33-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb33-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb33-4"><a></a>  <span class="fu">ggtitle</span>(<span class="st">"Titolo"</span>) <span class="sc">+</span></span>
-<span id="cb33-5"><a></a>  <span class="fu">xlab</span>(<span class="st">"Asse X"</span>) <span class="sc">+</span></span>
-<span id="cb33-6"><a></a>  <span class="fu">ylab</span>(<span class="st">"Asse Y"</span>)</span>
-<span id="cb33-7"><a></a></span>
-<span id="cb33-8"><a></a><span class="co"># Equivalente a:</span></span>
-<span id="cb33-9"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb33-10"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb33-11"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb33-12"><a></a>    <span class="at">title =</span> <span class="st">"Titolo"</span>,</span>
-<span id="cb33-13"><a></a>    <span class="at">x =</span> <span class="st">"Asse X"</span>,</span>
-<span id="cb33-14"><a></a>    <span class="at">y =</span> <span class="st">"Asse Y"</span></span>
-<span id="cb33-15"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Multi-line Titles con expression():</strong></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb34-2"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb34-3"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb34-4"><a></a>    <span class="at">title =</span> <span class="fu">expression</span>(</span>
-<span id="cb34-5"><a></a>      <span class="fu">paste</span>(<span class="st">"Consumo vs Cilindrata ("</span>, R<span class="sc">^</span><span class="dv">2</span>, <span class="st">")"</span>)</span>
-<span id="cb34-6"><a></a>    )</span>
-<span id="cb34-7"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Best Practice</strong></p>
-</div>
-<div class="callout-content">
-<p>Usa sempre <code>labs()</code> invece di modificare direttamente i nomi delle variabili nei dati!</p>
-</div>
-</div>
-</div>
-</div>
-</div></div>
-</section>
 <section id="section-3" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
 <div style="text-align: center; font-size: 3em; margin-top: 200px;">
@@ -1134,61 +1059,61 @@ Marco Chiapello
 <div class="column" style="width:50%;">
 <div style="font-size: 0.55em;">
 <p><strong>legend.position:</strong></p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a><span class="co"># Posizioni predefinite</span></span>
-<span id="cb35-2"><a></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)   <span class="co"># Default</span></span>
-<span id="cb35-3"><a></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"left"</span>)</span>
-<span id="cb35-4"><a></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span>
-<span id="cb35-5"><a></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
-<span id="cb35-6"><a></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)    <span class="co"># Nasconde</span></span>
-<span id="cb35-7"><a></a></span>
-<span id="cb35-8"><a></a><span class="co"># Coordinate precise (0-1, 0-1)</span></span>
-<span id="cb35-9"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
-<span id="cb35-10"><a></a>                <span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb35-11"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb35-12"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb35-13"><a></a>  <span class="fu">theme</span>(</span>
-<span id="cb35-14"><a></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.85</span>, <span class="fl">0.75</span>),</span>
-<span id="cb35-15"><a></a>    <span class="at">legend.background =</span> <span class="fu">element_rect</span>(</span>
-<span id="cb35-16"><a></a>      <span class="at">fill =</span> <span class="st">"white"</span>,</span>
-<span id="cb35-17"><a></a>      <span class="at">color =</span> <span class="st">"black"</span></span>
-<span id="cb35-18"><a></a>    )</span>
-<span id="cb35-19"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="co"># Posizioni predefinite</span></span>
+<span id="cb31-2"><a></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)   <span class="co"># Default</span></span>
+<span id="cb31-3"><a></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"left"</span>)</span>
+<span id="cb31-4"><a></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span>
+<span id="cb31-5"><a></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
+<span id="cb31-6"><a></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)    <span class="co"># Nasconde</span></span>
+<span id="cb31-7"><a></a></span>
+<span id="cb31-8"><a></a><span class="co"># Coordinate precise (0-1, 0-1)</span></span>
+<span id="cb31-9"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
+<span id="cb31-10"><a></a>                <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb31-11"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb31-12"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb31-13"><a></a>  <span class="fu">theme</span>(</span>
+<span id="cb31-14"><a></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.85</span>, <span class="fl">0.75</span>),</span>
+<span id="cb31-15"><a></a>    <span class="at">legend.background =</span> <span class="fu">element_rect</span>(</span>
+<span id="cb31-16"><a></a>      <span class="at">fill =</span> <span class="st">"white"</span>,</span>
+<span id="cb31-17"><a></a>      <span class="at">color =</span> <span class="st">"black"</span></span>
+<span id="cb31-18"><a></a>    )</span>
+<span id="cb31-19"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>legend.justification:</strong></p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a><span class="co"># Controlla quale parte della legenda</span></span>
-<span id="cb36-2"><a></a><span class="co"># si posiziona al punto specificato</span></span>
-<span id="cb36-3"><a></a><span class="fu">theme</span>(</span>
-<span id="cb36-4"><a></a>  <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),</span>
-<span id="cb36-5"><a></a>  <span class="at">legend.justification =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb36-6"><a></a>)</span>
-<span id="cb36-7"><a></a><span class="co"># Angolo top-right della legenda</span></span>
-<span id="cb36-8"><a></a><span class="co"># nell'angolo top-right del plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="co"># Controlla quale parte della legenda</span></span>
+<span id="cb32-2"><a></a><span class="co"># si posiziona al punto specificato</span></span>
+<span id="cb32-3"><a></a><span class="fu">theme</span>(</span>
+<span id="cb32-4"><a></a>  <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb32-5"><a></a>  <span class="at">legend.justification =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb32-6"><a></a>)</span>
+<span id="cb32-7"><a></a><span class="co"># Angolo top-right della legenda</span></span>
+<span id="cb32-8"><a></a><span class="co"># nell'angolo top-right del plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div style="font-size: 0.55em;">
 <p><strong>legend.direction:</strong></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="co"># Layout orizzontale</span></span>
-<span id="cb37-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
-<span id="cb37-3"><a></a>                <span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb37-4"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb37-5"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb37-6"><a></a>  <span class="fu">theme</span>(</span>
-<span id="cb37-7"><a></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb37-8"><a></a>    <span class="at">legend.direction =</span> <span class="st">"horizontal"</span></span>
-<span id="cb37-9"><a></a>  )</span>
-<span id="cb37-10"><a></a></span>
-<span id="cb37-11"><a></a><span class="co"># Layout verticale (default)</span></span>
-<span id="cb37-12"><a></a><span class="fu">theme</span>(<span class="at">legend.direction =</span> <span class="st">"vertical"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a><span class="co"># Layout orizzontale</span></span>
+<span id="cb33-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
+<span id="cb33-3"><a></a>                <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb33-4"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb33-5"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb33-6"><a></a>  <span class="fu">theme</span>(</span>
+<span id="cb33-7"><a></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb33-8"><a></a>    <span class="at">legend.direction =</span> <span class="st">"horizontal"</span></span>
+<span id="cb33-9"><a></a>  )</span>
+<span id="cb33-10"><a></a></span>
+<span id="cb33-11"><a></a><span class="co"># Layout verticale (default)</span></span>
+<span id="cb33-12"><a></a><span class="fu">theme</span>(<span class="at">legend.direction =</span> <span class="st">"vertical"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>legend.box:</strong></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a><span class="co"># Quando hai più legende</span></span>
-<span id="cb38-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
-<span id="cb38-3"><a></a>                <span class="at">color =</span> class, <span class="at">size =</span> cyl)) <span class="sc">+</span></span>
-<span id="cb38-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb38-5"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb38-6"><a></a>  <span class="fu">theme</span>(</span>
-<span id="cb38-7"><a></a>    <span class="at">legend.box =</span> <span class="st">"horizontal"</span>,  <span class="co"># Side-by-side</span></span>
-<span id="cb38-8"><a></a>    <span class="co"># oppure "vertical"</span></span>
-<span id="cb38-9"><a></a>    <span class="at">legend.box.just =</span> <span class="st">"top"</span></span>
-<span id="cb38-10"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="co"># Quando hai più legende</span></span>
+<span id="cb34-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
+<span id="cb34-3"><a></a>                <span class="at">color =</span> class, <span class="at">size =</span> cyl)) <span class="sc">+</span></span>
+<span id="cb34-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb34-5"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb34-6"><a></a>  <span class="fu">theme</span>(</span>
+<span id="cb34-7"><a></a>    <span class="at">legend.box =</span> <span class="st">"horizontal"</span>,  <span class="co"># Side-by-side</span></span>
+<span id="cb34-8"><a></a>    <span class="co"># oppure "vertical"</span></span>
+<span id="cb34-9"><a></a>    <span class="at">legend.box.just =</span> <span class="st">"top"</span></span>
+<span id="cb34-10"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1211,122 +1136,53 @@ Marco Chiapello
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Elementi Testo:</strong></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb39-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb39-3"><a></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Classe Veicolo"</span>) <span class="sc">+</span></span>
-<span id="cb39-4"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb39-5"><a></a>  <span class="fu">theme</span>(</span>
-<span id="cb39-6"><a></a>    <span class="co"># Titolo legenda</span></span>
-<span id="cb39-7"><a></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb39-8"><a></a>      <span class="at">size =</span> <span class="dv">14</span>,</span>
-<span id="cb39-9"><a></a>      <span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb39-10"><a></a>      <span class="at">color =</span> <span class="st">"navy"</span></span>
-<span id="cb39-11"><a></a>    ),</span>
-<span id="cb39-12"><a></a>    </span>
-<span id="cb39-13"><a></a>    <span class="co"># Labels legenda</span></span>
-<span id="cb39-14"><a></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(</span>
-<span id="cb39-15"><a></a>      <span class="at">size =</span> <span class="dv">11</span>,</span>
-<span id="cb39-16"><a></a>      <span class="at">face =</span> <span class="st">"italic"</span></span>
-<span id="cb39-17"><a></a>    ),</span>
-<span id="cb39-18"><a></a>    </span>
-<span id="cb39-19"><a></a>    <span class="co"># Allineamento titolo</span></span>
-<span id="cb39-20"><a></a>    <span class="at">legend.title.align =</span> <span class="fl">0.5</span>  <span class="co"># 0=left, 0.5=center, 1=right</span></span>
-<span id="cb39-21"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb35-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb35-3"><a></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Classe Veicolo"</span>) <span class="sc">+</span></span>
+<span id="cb35-4"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb35-5"><a></a>  <span class="fu">theme</span>(</span>
+<span id="cb35-6"><a></a>    <span class="co"># Titolo legenda</span></span>
+<span id="cb35-7"><a></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb35-8"><a></a>      <span class="at">size =</span> <span class="dv">14</span>,</span>
+<span id="cb35-9"><a></a>      <span class="at">face =</span> <span class="st">"bold"</span>,</span>
+<span id="cb35-10"><a></a>      <span class="at">color =</span> <span class="st">"navy"</span></span>
+<span id="cb35-11"><a></a>    ),</span>
+<span id="cb35-12"><a></a>    </span>
+<span id="cb35-13"><a></a>    <span class="co"># Labels legenda</span></span>
+<span id="cb35-14"><a></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(</span>
+<span id="cb35-15"><a></a>      <span class="at">size =</span> <span class="dv">11</span>,</span>
+<span id="cb35-16"><a></a>      <span class="at">face =</span> <span class="st">"italic"</span></span>
+<span id="cb35-17"><a></a>    ),</span>
+<span id="cb35-18"><a></a>    </span>
+<span id="cb35-19"><a></a>    <span class="co"># Allineamento titolo</span></span>
+<span id="cb35-20"><a></a>    <span class="at">legend.title.align =</span> <span class="fl">0.5</span>  <span class="co"># 0=left, 0.5=center, 1=right</span></span>
+<span id="cb35-21"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:50%;">
 <p><strong>Elementi Background:</strong></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb40-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb40-3"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb40-4"><a></a>  <span class="fu">theme</span>(</span>
-<span id="cb40-5"><a></a>    <span class="co"># Sfondo legenda</span></span>
-<span id="cb40-6"><a></a>    <span class="at">legend.background =</span> <span class="fu">element_rect</span>(</span>
-<span id="cb40-7"><a></a>      <span class="at">fill =</span> <span class="st">"gray95"</span>,</span>
-<span id="cb40-8"><a></a>      <span class="at">color =</span> <span class="st">"black"</span>,</span>
-<span id="cb40-9"><a></a>      <span class="at">size =</span> <span class="fl">0.5</span></span>
-<span id="cb40-10"><a></a>    ),</span>
-<span id="cb40-11"><a></a>    </span>
-<span id="cb40-12"><a></a>    <span class="co"># Sfondo chiavi</span></span>
-<span id="cb40-13"><a></a>    <span class="at">legend.key =</span> <span class="fu">element_rect</span>(</span>
-<span id="cb40-14"><a></a>      <span class="at">fill =</span> <span class="st">"white"</span>,</span>
-<span id="cb40-15"><a></a>      <span class="at">color =</span> <span class="cn">NA</span></span>
-<span id="cb40-16"><a></a>    ),</span>
-<span id="cb40-17"><a></a>    </span>
-<span id="cb40-18"><a></a>    <span class="co"># Dimensione chiavi</span></span>
-<span id="cb40-19"><a></a>    <span class="at">legend.key.size =</span> <span class="fu">unit</span>(<span class="fl">1.5</span>, <span class="st">"cm"</span>),</span>
-<span id="cb40-20"><a></a>    <span class="at">legend.key.height =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"cm"</span>),</span>
-<span id="cb40-21"><a></a>    <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"cm"</span>)</span>
-<span id="cb40-22"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb36-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb36-3"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb36-4"><a></a>  <span class="fu">theme</span>(</span>
+<span id="cb36-5"><a></a>    <span class="co"># Sfondo legenda</span></span>
+<span id="cb36-6"><a></a>    <span class="at">legend.background =</span> <span class="fu">element_rect</span>(</span>
+<span id="cb36-7"><a></a>      <span class="at">fill =</span> <span class="st">"gray95"</span>,</span>
+<span id="cb36-8"><a></a>      <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb36-9"><a></a>      <span class="at">size =</span> <span class="fl">0.5</span></span>
+<span id="cb36-10"><a></a>    ),</span>
+<span id="cb36-11"><a></a>    </span>
+<span id="cb36-12"><a></a>    <span class="co"># Sfondo chiavi</span></span>
+<span id="cb36-13"><a></a>    <span class="at">legend.key =</span> <span class="fu">element_rect</span>(</span>
+<span id="cb36-14"><a></a>      <span class="at">fill =</span> <span class="st">"white"</span>,</span>
+<span id="cb36-15"><a></a>      <span class="at">color =</span> <span class="cn">NA</span></span>
+<span id="cb36-16"><a></a>    ),</span>
+<span id="cb36-17"><a></a>    </span>
+<span id="cb36-18"><a></a>    <span class="co"># Dimensione chiavi</span></span>
+<span id="cb36-19"><a></a>    <span class="at">legend.key.size =</span> <span class="fu">unit</span>(<span class="fl">1.5</span>, <span class="st">"cm"</span>),</span>
+<span id="cb36-20"><a></a>    <span class="at">legend.key.height =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"cm"</span>),</span>
+<span id="cb36-21"><a></a>    <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">"cm"</span>)</span>
+<span id="cb36-22"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 </div>
-</section>
-<section id="guides-avanzate" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
-<h2>Guides Avanzate</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div style="font-size: 0.55em;">
-<p><strong>guides() - Controllo Fine:</strong></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="co"># Personalizza guide per estetica</span></span>
-<span id="cb41-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
-<span id="cb41-3"><a></a>                <span class="at">color =</span> class, <span class="at">size =</span> cyl)) <span class="sc">+</span></span>
-<span id="cb41-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb41-5"><a></a>  <span class="fu">guides</span>(</span>
-<span id="cb41-6"><a></a>    <span class="at">color =</span> <span class="fu">guide_legend</span>(</span>
-<span id="cb41-7"><a></a>      <span class="at">title =</span> <span class="st">"Tipo"</span>,</span>
-<span id="cb41-8"><a></a>      <span class="at">nrow =</span> <span class="dv">2</span>,</span>
-<span id="cb41-9"><a></a>      <span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">4</span>)</span>
-<span id="cb41-10"><a></a>    ),</span>
-<span id="cb41-11"><a></a>    <span class="at">size =</span> <span class="fu">guide_legend</span>(</span>
-<span id="cb41-12"><a></a>      <span class="at">title =</span> <span class="st">"Cilindri"</span>,</span>
-<span id="cb41-13"><a></a>      <span class="at">reverse =</span> <span class="cn">TRUE</span></span>
-<span id="cb41-14"><a></a>    )</span>
-<span id="cb41-15"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>guide_legend() Opzioni:</strong></p>
-<ul>
-<li><code>nrow/ncol</code> - Righe/colonne</li>
-<li><code>byrow</code> - Riempimento per riga</li>
-<li><code>reverse</code> - Inverti ordine</li>
-<li><code>override.aes</code> - Modifica aesthetics nella legenda</li>
-<li><code>title.position</code> - “top”, “bottom”, “left”, “right”</li>
-<li><code>label.position</code> - Come title</li>
-</ul>
-</div>
-</div><div class="column" style="width:50%;">
-<div style="font-size: 0.6em;">
-<p><strong>guide_colorbar() per Scale Continue:</strong></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a><span class="fu">ggplot</span>(faithfuld, <span class="fu">aes</span>(waiting, eruptions)) <span class="sc">+</span></span>
-<span id="cb42-2"><a></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">fill =</span> density)) <span class="sc">+</span></span>
-<span id="cb42-3"><a></a>  <span class="fu">scale_fill_viridis_c</span>() <span class="sc">+</span></span>
-<span id="cb42-4"><a></a>  <span class="fu">guides</span>(</span>
-<span id="cb42-5"><a></a>    <span class="at">fill =</span> <span class="fu">guide_colorbar</span>(</span>
-<span id="cb42-6"><a></a>      <span class="at">title =</span> <span class="st">"Densità"</span>,</span>
-<span id="cb42-7"><a></a>      <span class="at">barwidth =</span> <span class="dv">1</span>,</span>
-<span id="cb42-8"><a></a>      <span class="at">barheight =</span> <span class="dv">10</span>,</span>
-<span id="cb42-9"><a></a>      <span class="at">title.position =</span> <span class="st">"top"</span>,</span>
-<span id="cb42-10"><a></a>      <span class="at">title.hjust =</span> <span class="fl">0.5</span></span>
-<span id="cb42-11"><a></a>    )</span>
-<span id="cb42-12"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb42-13"><a></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Rimuovere Guide Specifiche:</strong></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="co"># Rimuove solo color legend</span></span>
-<span id="cb43-2"><a></a><span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>)</span>
-<span id="cb43-3"><a></a></span>
-<span id="cb43-4"><a></a><span class="co"># Equivalente a:</span></span>
-<span id="cb43-5"><a></a><span class="fu">scale_color_discrete</span>(<span class="at">guide =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Override Aesthetics</strong></p>
-</div>
-<div class="callout-content">
-<p><code>override.aes</code> è perfetto per rendere le chiavi della legenda più visibili quando i punti nel plot sono piccoli o trasparenti.</p>
-</div>
-</div>
-</div>
-</div>
-</div></div>
 </section>
 <section id="section-4" class="slide level2" data-background-image="images/frequency-wave-7776034_1280.jpg" data-background-size="cover" data-background-opacity="0.1">
 <h2></h2>
@@ -1345,70 +1201,70 @@ Marco Chiapello
 <div class="column" style="width:50%;">
 <div style="font-size: 0.6em;">
 <p><strong>Definire un Tema Custom:</strong></p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a><span class="co"># Crea funzione tema</span></span>
-<span id="cb44-2"><a></a>theme_mio <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">base_size =</span> <span class="dv">12</span>) {</span>
-<span id="cb44-3"><a></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> base_size) <span class="sc">+</span></span>
-<span id="cb44-4"><a></a>    <span class="fu">theme</span>(</span>
-<span id="cb44-5"><a></a>      <span class="co"># Griglia</span></span>
-<span id="cb44-6"><a></a>      <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb44-7"><a></a>      <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(</span>
-<span id="cb44-8"><a></a>        <span class="at">color =</span> <span class="st">"gray90"</span>,</span>
-<span id="cb44-9"><a></a>        <span class="at">size =</span> <span class="fl">0.5</span></span>
-<span id="cb44-10"><a></a>      ),</span>
-<span id="cb44-11"><a></a>      </span>
-<span id="cb44-12"><a></a>      <span class="co"># Testo</span></span>
-<span id="cb44-13"><a></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb44-14"><a></a>        <span class="at">size =</span> base_size <span class="sc">*</span> <span class="fl">1.5</span>,</span>
-<span id="cb44-15"><a></a>        <span class="at">face =</span> <span class="st">"bold"</span>,</span>
-<span id="cb44-16"><a></a>        <span class="at">hjust =</span> <span class="dv">0</span>,</span>
-<span id="cb44-17"><a></a>        <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">10</span>)</span>
-<span id="cb44-18"><a></a>      ),</span>
-<span id="cb44-19"><a></a>      </span>
-<span id="cb44-20"><a></a>      <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(</span>
-<span id="cb44-21"><a></a>        <span class="at">size =</span> base_size <span class="sc">*</span> <span class="fl">1.1</span>,</span>
-<span id="cb44-22"><a></a>        <span class="at">color =</span> <span class="st">"gray40"</span>,</span>
-<span id="cb44-23"><a></a>        <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">15</span>)</span>
-<span id="cb44-24"><a></a>      ),</span>
-<span id="cb44-25"><a></a>      </span>
-<span id="cb44-26"><a></a>      <span class="co"># Assi</span></span>
-<span id="cb44-27"><a></a>      <span class="at">axis.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb44-28"><a></a>        <span class="at">size =</span> base_size <span class="sc">*</span> <span class="fl">1.1</span>,</span>
-<span id="cb44-29"><a></a>        <span class="at">face =</span> <span class="st">"bold"</span></span>
-<span id="cb44-30"><a></a>      ),</span>
-<span id="cb44-31"><a></a>      </span>
-<span id="cb44-32"><a></a>      <span class="co"># Legenda</span></span>
-<span id="cb44-33"><a></a>      <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
-<span id="cb44-34"><a></a>      <span class="at">legend.title =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb44-35"><a></a>    )</span>
-<span id="cb44-36"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="co"># Crea funzione tema</span></span>
+<span id="cb37-2"><a></a>theme_mio <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">base_size =</span> <span class="dv">12</span>) {</span>
+<span id="cb37-3"><a></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> base_size) <span class="sc">+</span></span>
+<span id="cb37-4"><a></a>    <span class="fu">theme</span>(</span>
+<span id="cb37-5"><a></a>      <span class="co"># Griglia</span></span>
+<span id="cb37-6"><a></a>      <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb37-7"><a></a>      <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(</span>
+<span id="cb37-8"><a></a>        <span class="at">color =</span> <span class="st">"gray90"</span>,</span>
+<span id="cb37-9"><a></a>        <span class="at">size =</span> <span class="fl">0.5</span></span>
+<span id="cb37-10"><a></a>      ),</span>
+<span id="cb37-11"><a></a>      </span>
+<span id="cb37-12"><a></a>      <span class="co"># Testo</span></span>
+<span id="cb37-13"><a></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb37-14"><a></a>        <span class="at">size =</span> base_size <span class="sc">*</span> <span class="fl">1.5</span>,</span>
+<span id="cb37-15"><a></a>        <span class="at">face =</span> <span class="st">"bold"</span>,</span>
+<span id="cb37-16"><a></a>        <span class="at">hjust =</span> <span class="dv">0</span>,</span>
+<span id="cb37-17"><a></a>        <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">10</span>)</span>
+<span id="cb37-18"><a></a>      ),</span>
+<span id="cb37-19"><a></a>      </span>
+<span id="cb37-20"><a></a>      <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(</span>
+<span id="cb37-21"><a></a>        <span class="at">size =</span> base_size <span class="sc">*</span> <span class="fl">1.1</span>,</span>
+<span id="cb37-22"><a></a>        <span class="at">color =</span> <span class="st">"gray40"</span>,</span>
+<span id="cb37-23"><a></a>        <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">15</span>)</span>
+<span id="cb37-24"><a></a>      ),</span>
+<span id="cb37-25"><a></a>      </span>
+<span id="cb37-26"><a></a>      <span class="co"># Assi</span></span>
+<span id="cb37-27"><a></a>      <span class="at">axis.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb37-28"><a></a>        <span class="at">size =</span> base_size <span class="sc">*</span> <span class="fl">1.1</span>,</span>
+<span id="cb37-29"><a></a>        <span class="at">face =</span> <span class="st">"bold"</span></span>
+<span id="cb37-30"><a></a>      ),</span>
+<span id="cb37-31"><a></a>      </span>
+<span id="cb37-32"><a></a>      <span class="co"># Legenda</span></span>
+<span id="cb37-33"><a></a>      <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb37-34"><a></a>      <span class="at">legend.title =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb37-35"><a></a>    )</span>
+<span id="cb37-36"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div style="font-size: 0.55em;">
 <p><strong>Usare il Tema:</strong></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="co"># Applica a singolo plot</span></span>
-<span id="cb45-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
-<span id="cb45-3"><a></a>                <span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb45-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb45-5"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb45-6"><a></a>    <span class="at">title =</span> <span class="st">"Consumo vs Cilindrata"</span>,</span>
-<span id="cb45-7"><a></a>    <span class="at">subtitle =</span> <span class="st">"Dati EPA"</span></span>
-<span id="cb45-8"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb45-9"><a></a>  <span class="fu">theme_mio</span>()</span>
-<span id="cb45-10"><a></a></span>
-<span id="cb45-11"><a></a><span class="co"># Con base_size diverso</span></span>
-<span id="cb45-12"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class)) <span class="sc">+</span></span>
-<span id="cb45-13"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb45-14"><a></a>  <span class="fu">theme_mio</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a><span class="co"># Applica a singolo plot</span></span>
+<span id="cb38-2"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
+<span id="cb38-3"><a></a>                <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb38-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb38-5"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb38-6"><a></a>    <span class="at">title =</span> <span class="st">"Consumo vs Cilindrata"</span>,</span>
+<span id="cb38-7"><a></a>    <span class="at">subtitle =</span> <span class="st">"Dati EPA"</span></span>
+<span id="cb38-8"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb38-9"><a></a>  <span class="fu">theme_mio</span>()</span>
+<span id="cb38-10"><a></a></span>
+<span id="cb38-11"><a></a><span class="co"># Con base_size diverso</span></span>
+<span id="cb38-12"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class)) <span class="sc">+</span></span>
+<span id="cb38-13"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb38-14"><a></a>  <span class="fu">theme_mio</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Impostare come Default:</strong></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a><span class="co"># Per tutta la sessione</span></span>
-<span id="cb46-2"><a></a><span class="fu">theme_set</span>(<span class="fu">theme_mio</span>())</span>
-<span id="cb46-3"><a></a></span>
-<span id="cb46-4"><a></a><span class="co"># Ora tutti i plot usano theme_mio</span></span>
-<span id="cb46-5"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb46-6"><a></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb46-7"><a></a></span>
-<span id="cb46-8"><a></a><span class="co"># Reset a default</span></span>
-<span id="cb46-9"><a></a><span class="fu">theme_set</span>(<span class="fu">theme_gray</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="co"># Per tutta la sessione</span></span>
+<span id="cb39-2"><a></a><span class="fu">theme_set</span>(<span class="fu">theme_mio</span>())</span>
+<span id="cb39-3"><a></a></span>
+<span id="cb39-4"><a></a><span class="co"># Ora tutti i plot usano theme_mio</span></span>
+<span id="cb39-5"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb39-6"><a></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb39-7"><a></a></span>
+<span id="cb39-8"><a></a><span class="co"># Reset a default</span></span>
+<span id="cb39-9"><a></a><span class="fu">theme_set</span>(<span class="fu">theme_gray</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1431,67 +1287,67 @@ Marco Chiapello
 <div class="column" style="width:50%;">
 <div style="font-size: 0.65em;">
 <p><strong>Sintassi Base:</strong></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb47-2"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb47-3"><a></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb47-4"><a></a></span>
-<span id="cb47-5"><a></a><span class="co"># Salva ultimo plot</span></span>
-<span id="cb47-6"><a></a><span class="fu">ggsave</span>(<span class="st">"mio_plot.png"</span>)</span>
-<span id="cb47-7"><a></a></span>
-<span id="cb47-8"><a></a><span class="co"># Salva plot specifico</span></span>
-<span id="cb47-9"><a></a><span class="fu">ggsave</span>(<span class="st">"mio_plot.png"</span>, <span class="at">plot =</span> p)</span>
-<span id="cb47-10"><a></a></span>
-<span id="cb47-11"><a></a><span class="co"># Specifica dimensioni</span></span>
-<span id="cb47-12"><a></a><span class="fu">ggsave</span>(</span>
-<span id="cb47-13"><a></a>  <span class="st">"mio_plot.png"</span>,</span>
-<span id="cb47-14"><a></a>  <span class="at">plot =</span> p,</span>
-<span id="cb47-15"><a></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
-<span id="cb47-16"><a></a>  <span class="at">height =</span> <span class="dv">6</span>,</span>
-<span id="cb47-17"><a></a>  <span class="at">units =</span> <span class="st">"in"</span>  <span class="co"># "in", "cm", "mm"</span></span>
-<span id="cb47-18"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb40-2"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb40-3"><a></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb40-4"><a></a></span>
+<span id="cb40-5"><a></a><span class="co"># Salva ultimo plot</span></span>
+<span id="cb40-6"><a></a><span class="fu">ggsave</span>(<span class="st">"mio_plot.png"</span>)</span>
+<span id="cb40-7"><a></a></span>
+<span id="cb40-8"><a></a><span class="co"># Salva plot specifico</span></span>
+<span id="cb40-9"><a></a><span class="fu">ggsave</span>(<span class="st">"mio_plot.png"</span>, <span class="at">plot =</span> p)</span>
+<span id="cb40-10"><a></a></span>
+<span id="cb40-11"><a></a><span class="co"># Specifica dimensioni</span></span>
+<span id="cb40-12"><a></a><span class="fu">ggsave</span>(</span>
+<span id="cb40-13"><a></a>  <span class="st">"mio_plot.png"</span>,</span>
+<span id="cb40-14"><a></a>  <span class="at">plot =</span> p,</span>
+<span id="cb40-15"><a></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb40-16"><a></a>  <span class="at">height =</span> <span class="dv">6</span>,</span>
+<span id="cb40-17"><a></a>  <span class="at">units =</span> <span class="st">"in"</span>  <span class="co"># "in", "cm", "mm"</span></span>
+<span id="cb40-18"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Formati Supportati:</strong></p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a><span class="fu">ggsave</span>(<span class="st">"plot.png"</span>)   <span class="co"># PNG (default)</span></span>
-<span id="cb48-2"><a></a><span class="fu">ggsave</span>(<span class="st">"plot.pdf"</span>)   <span class="co"># PDF vettoriale</span></span>
-<span id="cb48-3"><a></a><span class="fu">ggsave</span>(<span class="st">"plot.svg"</span>)   <span class="co"># SVG vettoriale</span></span>
-<span id="cb48-4"><a></a><span class="fu">ggsave</span>(<span class="st">"plot.eps"</span>)   <span class="co"># EPS per LaTeX</span></span>
-<span id="cb48-5"><a></a><span class="fu">ggsave</span>(<span class="st">"plot.jpg"</span>)   <span class="co"># JPEG</span></span>
-<span id="cb48-6"><a></a><span class="fu">ggsave</span>(<span class="st">"plot.tiff"</span>)  <span class="co"># TIFF</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fu">ggsave</span>(<span class="st">"plot.png"</span>)   <span class="co"># PNG (default)</span></span>
+<span id="cb41-2"><a></a><span class="fu">ggsave</span>(<span class="st">"plot.pdf"</span>)   <span class="co"># PDF vettoriale</span></span>
+<span id="cb41-3"><a></a><span class="fu">ggsave</span>(<span class="st">"plot.svg"</span>)   <span class="co"># SVG vettoriale</span></span>
+<span id="cb41-4"><a></a><span class="fu">ggsave</span>(<span class="st">"plot.eps"</span>)   <span class="co"># EPS per LaTeX</span></span>
+<span id="cb41-5"><a></a><span class="fu">ggsave</span>(<span class="st">"plot.jpg"</span>)   <span class="co"># JPEG</span></span>
+<span id="cb41-6"><a></a><span class="fu">ggsave</span>(<span class="st">"plot.tiff"</span>)  <span class="co"># TIFF</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div style="font-size: 0.4em;">
 <p><strong>Risoluzione e DPI:</strong></p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a><span class="co"># Alta risoluzione per pubblicazioni</span></span>
-<span id="cb49-2"><a></a><span class="fu">ggsave</span>(</span>
-<span id="cb49-3"><a></a>  <span class="st">"plot_highres.png"</span>,</span>
-<span id="cb49-4"><a></a>  <span class="at">plot =</span> p,</span>
-<span id="cb49-5"><a></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
-<span id="cb49-6"><a></a>  <span class="at">height =</span> <span class="dv">6</span>,</span>
-<span id="cb49-7"><a></a>  <span class="at">dpi =</span> <span class="dv">300</span>  <span class="co"># Standard pubblicazioni</span></span>
-<span id="cb49-8"><a></a>)</span>
-<span id="cb49-9"><a></a></span>
-<span id="cb49-10"><a></a><span class="co"># Bassa risoluzione per web</span></span>
-<span id="cb49-11"><a></a><span class="fu">ggsave</span>(</span>
-<span id="cb49-12"><a></a>  <span class="st">"plot_web.png"</span>,</span>
-<span id="cb49-13"><a></a>  <span class="at">plot =</span> p,</span>
-<span id="cb49-14"><a></a>  <span class="at">width =</span> <span class="dv">800</span>,</span>
-<span id="cb49-15"><a></a>  <span class="at">height =</span> <span class="dv">600</span>,</span>
-<span id="cb49-16"><a></a>  <span class="at">units =</span> <span class="st">"px"</span>,</span>
-<span id="cb49-17"><a></a>  <span class="at">dpi =</span> <span class="dv">72</span></span>
-<span id="cb49-18"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a><span class="co"># Alta risoluzione per pubblicazioni</span></span>
+<span id="cb42-2"><a></a><span class="fu">ggsave</span>(</span>
+<span id="cb42-3"><a></a>  <span class="st">"plot_highres.png"</span>,</span>
+<span id="cb42-4"><a></a>  <span class="at">plot =</span> p,</span>
+<span id="cb42-5"><a></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb42-6"><a></a>  <span class="at">height =</span> <span class="dv">6</span>,</span>
+<span id="cb42-7"><a></a>  <span class="at">dpi =</span> <span class="dv">300</span>  <span class="co"># Standard pubblicazioni</span></span>
+<span id="cb42-8"><a></a>)</span>
+<span id="cb42-9"><a></a></span>
+<span id="cb42-10"><a></a><span class="co"># Bassa risoluzione per web</span></span>
+<span id="cb42-11"><a></a><span class="fu">ggsave</span>(</span>
+<span id="cb42-12"><a></a>  <span class="st">"plot_web.png"</span>,</span>
+<span id="cb42-13"><a></a>  <span class="at">plot =</span> p,</span>
+<span id="cb42-14"><a></a>  <span class="at">width =</span> <span class="dv">800</span>,</span>
+<span id="cb42-15"><a></a>  <span class="at">height =</span> <span class="dv">600</span>,</span>
+<span id="cb42-16"><a></a>  <span class="at">units =</span> <span class="st">"px"</span>,</span>
+<span id="cb42-17"><a></a>  <span class="at">dpi =</span> <span class="dv">72</span></span>
+<span id="cb42-18"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Controllo Background:</strong></p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a><span class="co"># Sfondo trasparente</span></span>
-<span id="cb50-2"><a></a><span class="fu">ggsave</span>(</span>
-<span id="cb50-3"><a></a>  <span class="st">"plot_transparent.png"</span>,</span>
-<span id="cb50-4"><a></a>  <span class="at">plot =</span> p,</span>
-<span id="cb50-5"><a></a>  <span class="at">bg =</span> <span class="st">"transparent"</span></span>
-<span id="cb50-6"><a></a>)</span>
-<span id="cb50-7"><a></a></span>
-<span id="cb50-8"><a></a><span class="co"># Sfondo bianco</span></span>
-<span id="cb50-9"><a></a><span class="fu">ggsave</span>(</span>
-<span id="cb50-10"><a></a>  <span class="st">"plot_white.png"</span>,</span>
-<span id="cb50-11"><a></a>  <span class="at">plot =</span> p,</span>
-<span id="cb50-12"><a></a>  <span class="at">bg =</span> <span class="st">"white"</span></span>
-<span id="cb50-13"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="co"># Sfondo trasparente</span></span>
+<span id="cb43-2"><a></a><span class="fu">ggsave</span>(</span>
+<span id="cb43-3"><a></a>  <span class="st">"plot_transparent.png"</span>,</span>
+<span id="cb43-4"><a></a>  <span class="at">plot =</span> p,</span>
+<span id="cb43-5"><a></a>  <span class="at">bg =</span> <span class="st">"transparent"</span></span>
+<span id="cb43-6"><a></a>)</span>
+<span id="cb43-7"><a></a></span>
+<span id="cb43-8"><a></a><span class="co"># Sfondo bianco</span></span>
+<span id="cb43-9"><a></a><span class="fu">ggsave</span>(</span>
+<span id="cb43-10"><a></a>  <span class="st">"plot_white.png"</span>,</span>
+<span id="cb43-11"><a></a>  <span class="at">plot =</span> p,</span>
+<span id="cb43-12"><a></a>  <span class="at">bg =</span> <span class="st">"white"</span></span>
+<span id="cb43-13"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1518,50 +1374,50 @@ Marco Chiapello
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>ggthemes - Temi Classici:</strong></p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a><span class="fu">library</span>(ggthemes)</span>
-<span id="cb51-2"><a></a></span>
-<span id="cb51-3"><a></a><span class="co"># Economist style</span></span>
-<span id="cb51-4"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb51-5"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb51-6"><a></a>  <span class="fu">theme_economist</span>() <span class="sc">+</span></span>
-<span id="cb51-7"><a></a>  <span class="fu">scale_color_economist</span>()</span>
-<span id="cb51-8"><a></a></span>
-<span id="cb51-9"><a></a><span class="co"># Wall Street Journal</span></span>
-<span id="cb51-10"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class)) <span class="sc">+</span></span>
-<span id="cb51-11"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb51-12"><a></a>  <span class="fu">theme_wsj</span>()</span>
-<span id="cb51-13"><a></a></span>
-<span id="cb51-14"><a></a><span class="co"># FiveThirtyEight</span></span>
-<span id="cb51-15"><a></a><span class="fu">ggplot</span>(economics, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> unemploy)) <span class="sc">+</span></span>
-<span id="cb51-16"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb51-17"><a></a>  <span class="fu">theme_fivethirtyeight</span>()</span>
-<span id="cb51-18"><a></a></span>
-<span id="cb51-19"><a></a><span class="co"># Altri: theme_tufte(), theme_excel(), </span></span>
-<span id="cb51-20"><a></a><span class="co">#        theme_stata(), theme_solarized()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb44-2"><a></a></span>
+<span id="cb44-3"><a></a><span class="co"># Economist style</span></span>
+<span id="cb44-4"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb44-5"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb44-6"><a></a>  <span class="fu">theme_economist</span>() <span class="sc">+</span></span>
+<span id="cb44-7"><a></a>  <span class="fu">scale_color_economist</span>()</span>
+<span id="cb44-8"><a></a></span>
+<span id="cb44-9"><a></a><span class="co"># Wall Street Journal</span></span>
+<span id="cb44-10"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class)) <span class="sc">+</span></span>
+<span id="cb44-11"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb44-12"><a></a>  <span class="fu">theme_wsj</span>()</span>
+<span id="cb44-13"><a></a></span>
+<span id="cb44-14"><a></a><span class="co"># FiveThirtyEight</span></span>
+<span id="cb44-15"><a></a><span class="fu">ggplot</span>(economics, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> unemploy)) <span class="sc">+</span></span>
+<span id="cb44-16"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb44-17"><a></a>  <span class="fu">theme_fivethirtyeight</span>()</span>
+<span id="cb44-18"><a></a></span>
+<span id="cb44-19"><a></a><span class="co"># Altri: theme_tufte(), theme_excel(), </span></span>
+<span id="cb44-20"><a></a><span class="co">#        theme_stata(), theme_solarized()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:50%;">
 <p><strong>hrbrthemes - Temi Moderni:</strong></p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a><span class="fu">library</span>(hrbrthemes)</span>
-<span id="cb52-2"><a></a></span>
-<span id="cb52-3"><a></a><span class="co"># Modern minimal</span></span>
-<span id="cb52-4"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb52-5"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb52-6"><a></a>  <span class="fu">theme_ipsum</span>()</span>
-<span id="cb52-7"><a></a></span>
-<span id="cb52-8"><a></a><span class="co"># Con font Roboto Condensed</span></span>
-<span id="cb52-9"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb52-10"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb52-11"><a></a>  <span class="fu">theme_ipsum_rc</span>()</span>
-<span id="cb52-12"><a></a></span>
-<span id="cb52-13"><a></a><span class="co"># Dark theme</span></span>
-<span id="cb52-14"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb52-15"><a></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb52-16"><a></a>  <span class="fu">theme_ft_rc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb45-2"><a></a></span>
+<span id="cb45-3"><a></a><span class="co"># Modern minimal</span></span>
+<span id="cb45-4"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb45-5"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb45-6"><a></a>  <span class="fu">theme_ipsum</span>()</span>
+<span id="cb45-7"><a></a></span>
+<span id="cb45-8"><a></a><span class="co"># Con font Roboto Condensed</span></span>
+<span id="cb45-9"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb45-10"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb45-11"><a></a>  <span class="fu">theme_ipsum_rc</span>()</span>
+<span id="cb45-12"><a></a></span>
+<span id="cb45-13"><a></a><span class="co"># Dark theme</span></span>
+<span id="cb45-14"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb45-15"><a></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb45-16"><a></a>  <span class="fu">theme_ft_rc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>cowplot - Scientific:</strong></p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a><span class="fu">library</span>(cowplot)</span>
-<span id="cb53-2"><a></a></span>
-<span id="cb53-3"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb53-4"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb53-5"><a></a>  <span class="fu">theme_cowplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb46-2"><a></a></span>
+<span id="cb46-3"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb46-4"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb46-5"><a></a>  <span class="fu">theme_cowplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -1572,7 +1428,7 @@ Marco Chiapello
 <p><strong>Installazione</strong></p>
 </div>
 <div class="callout-content">
-<div class="sourceCode" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"ggthemes"</span>, <span class="st">"hrbrthemes"</span>, <span class="st">"cowplot"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"ggthemes"</span>, <span class="st">"hrbrthemes"</span>, <span class="st">"cowplot"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Alcuni richiedono font aggiuntivi installati sul sistema.</p>
 </div>
 </div>
@@ -1594,31 +1450,31 @@ Marco Chiapello
 <li>Salva con <code>ggsave()</code></li>
 </ol>
 <p><strong>2. Separazione Responsabilità:</strong></p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a><span class="co"># ✅ GIUSTO: Separa dati e aspetto</span></span>
-<span id="cb55-2"><a></a>p_base <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb55-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class))</span>
-<span id="cb55-4"><a></a></span>
-<span id="cb55-5"><a></a>p_styled <span class="ot">&lt;-</span> p_base <span class="sc">+</span></span>
-<span id="cb55-6"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb55-7"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Mio Plot"</span>)</span>
-<span id="cb55-8"><a></a></span>
-<span id="cb55-9"><a></a><span class="co"># ❌ SBAGLIATO: Tutto insieme</span></span>
-<span id="cb55-10"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(...)) <span class="sc">+</span> <span class="fu">geom_point</span>(...) <span class="sc">+</span> </span>
-<span id="cb55-11"><a></a>  <span class="fu">theme</span>(...) <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(...) <span class="sc">+</span></span>
-<span id="cb55-12"><a></a>  <span class="fu">guides</span>(...) <span class="sc">+</span> <span class="fu">labs</span>(...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a><span class="co"># ✅ GIUSTO: Separa dati e aspetto</span></span>
+<span id="cb48-2"><a></a>p_base <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb48-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> class))</span>
+<span id="cb48-4"><a></a></span>
+<span id="cb48-5"><a></a>p_styled <span class="ot">&lt;-</span> p_base <span class="sc">+</span></span>
+<span id="cb48-6"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb48-7"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Mio Plot"</span>)</span>
+<span id="cb48-8"><a></a></span>
+<span id="cb48-9"><a></a><span class="co"># ❌ SBAGLIATO: Tutto insieme</span></span>
+<span id="cb48-10"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(...)) <span class="sc">+</span> <span class="fu">geom_point</span>(...) <span class="sc">+</span> </span>
+<span id="cb48-11"><a></a>  <span class="fu">theme</span>(...) <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(...) <span class="sc">+</span></span>
+<span id="cb48-12"><a></a>  <span class="fu">guides</span>(...) <span class="sc">+</span> <span class="fu">labs</span>(...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:50%;">
 <p><strong>3. Riusabilità:</strong></p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a></a><span class="co"># Crea tema aziendale</span></span>
-<span id="cb56-2"><a></a>theme_company <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb56-3"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb56-4"><a></a>    <span class="fu">theme</span>(</span>
-<span id="cb56-5"><a></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb56-6"><a></a>        <span class="at">color =</span> <span class="st">"#003366"</span>,</span>
-<span id="cb56-7"><a></a>        <span class="at">face =</span> <span class="st">"bold"</span></span>
-<span id="cb56-8"><a></a>      ),</span>
-<span id="cb56-9"><a></a>      <span class="co"># ... altri parametri</span></span>
-<span id="cb56-10"><a></a>    )</span>
-<span id="cb56-11"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a><span class="co"># Crea tema aziendale</span></span>
+<span id="cb49-2"><a></a>theme_company <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb49-3"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb49-4"><a></a>    <span class="fu">theme</span>(</span>
+<span id="cb49-5"><a></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb49-6"><a></a>        <span class="at">color =</span> <span class="st">"#003366"</span>,</span>
+<span id="cb49-7"><a></a>        <span class="at">face =</span> <span class="st">"bold"</span></span>
+<span id="cb49-8"><a></a>      ),</span>
+<span id="cb49-9"><a></a>      <span class="co"># ... altri parametri</span></span>
+<span id="cb49-10"><a></a>    )</span>
+<span id="cb49-11"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1671,15 +1527,15 @@ Marco Chiapello
 </div><div class="column" style="width:50%;">
 <div style="font-size: 0.7em;">
 <p><strong>7. Accessibilità:</strong></p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a><span class="co"># Usa scale adatte a daltonici</span></span>
-<span id="cb57-2"><a></a><span class="fu">scale_color_viridis_d</span>()</span>
-<span id="cb57-3"><a></a><span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set2"</span>)</span>
-<span id="cb57-4"><a></a></span>
-<span id="cb57-5"><a></a><span class="co"># Font leggibili</span></span>
-<span id="cb57-6"><a></a><span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span>
-<span id="cb57-7"><a></a></span>
-<span id="cb57-8"><a></a><span class="co"># Contrasto sufficiente</span></span>
-<span id="cb57-9"><a></a><span class="co"># Evita rosso/verde come unica distinzione</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a><span class="co"># Usa scale adatte a daltonici</span></span>
+<span id="cb50-2"><a></a><span class="fu">scale_color_viridis_d</span>()</span>
+<span id="cb50-3"><a></a><span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set2"</span>)</span>
+<span id="cb50-4"><a></a></span>
+<span id="cb50-5"><a></a><span class="co"># Font leggibili</span></span>
+<span id="cb50-6"><a></a><span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span>
+<span id="cb50-7"><a></a></span>
+<span id="cb50-8"><a></a><span class="co"># Contrasto sufficiente</span></span>
+<span id="cb50-9"><a></a><span class="co"># Evita rosso/verde come unica distinzione</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
