@@ -1,278 +1,114 @@
-# 📁 Complete Directory Structure
-
-```
-DataViz/
-├── Course/                              🎓 NUOVO CORSO WEBSITE
-│   ├── _quarto.yml                     ⚙️  Configurazione Quarto
-│   ├── index.qmd                       🏠 Homepage
-│   ├── setup.qmd                       🔧 Istruzioni Setup
-│   ├── resources.qmd                   📚 Risorse
-│   ├── styles.css                      🎨 CSS Personalizzato
-│   ├── README.md                       📖 Documentazione
-│   ├── SETUP_GUIDE.md                  📝 Guida Setup Completa
-│   ├── .gitignore                      🚫 Git ignore file
-│   ├── .nojekyll                       🔗 GitHub Pages config
-│   ├── .Rprofile                       ⚙️  R configurazione
-│   │
-│   └── materials/                      📦 Materiali Corso
-│       ├── day1.qmd                    📅 Giorno 1
-│       ├── day2.qmd                    📅 Giorno 2
-│       ├── exercises.qmd               ✏️  Esercizi
-│       └── images/                     🖼️  Immagini
-│           └── ggplot2_logo.svg        🎨 Logo
-│
-├── ggplot2_knowledge_source.md         📚 Knowledge Base (già creato)
-│
-├── Data/                               📊 Dataset
-│   ├── Antihypertensive_Therapy.csv
-│   ├── cv_diseases_1.csv
-│   ├── cv_diseases_2.csv
-│   ├── cv_diseases_3.csv
-│   └── gene_expression_7vs7.txt
-│
-├── Scripts/                            💻 Scripts R
-│   └── DataViz.R
-│
-├── Scripts_specialised/                🔬 Scripts Specializzati
-│   ├── 000_measles_and_temps_heatmaps.R
-│   ├── 001_essentials.R
-│   ├── 002_oneVariable.R
-│   ├── 003_twoVariable.R
-│   ├── 004_scatter_basics.R
-│   ├── 005_volcanoPlot.R
-│   ├── 006_GOterms.R
-│   ├── 007_heatmaps.R
-│   ├── essential_00_colorsAndPalettes.R
-│   ├── essential_02_oneVariable.R
-│   ├── essential_03_twoVariable.R
-│   ├── MechanicsOfDataViz.Rmd
-│   ├── special_XX_hourlyTemperatures.R
-│   └── upsetr.R
-│
-├── ggplot2-main/                       📦 ggplot2 Source (reference)
-│   └── [ggplot2 repository contents]
-│
-└── Theory/                             📖 Teoria
-```
-
-## 🎯 Il Nuovo Sito Corso
-
-### Struttura Completa Post-Build
-
-Dopo aver eseguito `quarto render`, la struttura sarà:
+# 📁 Course Directory Overview
 
 ```
 Course/
 ├── _quarto.yml
 ├── index.qmd
-├── setup.qmd
-├── resources.qmd
-├── styles.css
 ├── README.md
+├── resources.qmd
+├── setup.qmd
+├── styles.css
 ├── SETUP_GUIDE.md
+├── STRUCTURE.md               # Questo file (panoramica aggiornata)
+├── DataViz_Course.Rproj
+├── .Rprofile
 ├── .gitignore
 ├── .nojekyll
-├── .Rprofile
-│
-├── materials/
+├── .quarto/                   # Configurazioni interne generate da Quarto
+├── _freeze/                   # Cache HTML/PNG creata da Quarto
+├── docs/                      # Sito statico pubblicabile (render più recente)
+├── materials/                 # Materiali didattici principali
 │   ├── day1.qmd
 │   ├── day2.qmd
-│   ├── exercises.qmd
-│   └── images/
-│       └── ggplot2_logo.svg
-│
-└── docs/                               🌐 SITO GENERATO (GitHub Pages)
-    ├── index.html
-    ├── setup.html
-    ├── resources.html
-    ├── materials/
-    │   ├── day1.html
-    │   ├── day2.html
-    │   ├── exercises.html
-    │   └── images/
-    ├── site_libs/                      📚 Librerie Quarto
-    ├── search.json                     🔍 Indice ricerca
-    └── styles.css
+│   ├── EXERCISES_README.md
+│   ├── TEMPLATE_STRUCTURE.md
+│   ├── presentation-style.css
+│   ├── data/
+│   │   ├── create_volcano_data.R
+│   │   ├── survey_data_spreadsheet_messy.xls
+│   │   └── survey_sorting_exercise.xlsx
+│   ├── images/
+│   │   ├── GoG.jpeg
+│   │   ├── frequency-wave-7776034_1280.jpg
+│   │   ├── ggplot2_blank.png
+│   │   ├── ggplot2_layers.png
+│   │   ├── ggplot2_logo.jpg
+│   │   ├── ggplot2_logo.svg
+│   │   └── tidy-1.png
+│   └── Capitoli 01–11 (slide + esercizi)
+│       ├── 01_introduzione.qmd
+│       ├── 02_gestione_tabelle.qmd
+│       ├── 03_grammar_of_graphics.qmd
+│       ├── 04_geometrie_base.qmd
+│       │   ├── 04_geometrie_base_exercises.R
+│       │   ├── 04_geometrie_base_exercises_SCAFFOLD.R
+│       │   └── 04_geometrie_base_exercises_SOLUTIONS.R
+│       ├── 05_estetiche_mappature.qmd
+│       │   ├── 05_estetiche_mappature_exercises.R
+│       │   ├── 05_estetiche_mappature_exercises_SCAFFOLD.R
+│       │   └── 05_estetiche_mappature_exercises_SOLUTIONS.R
+│       ├── 06_recap_giorno1.qmd
+│       ├── 07_facets_coordinate.qmd
+│       │   ├── 07_facets_coordinate_exercises.R
+│       │   ├── 07_facets_coordinate_exercises_SCAFFOLD.R
+│       │   └── 07_facets_coordinate_exercises_SOLUTIONS.R
+│       ├── 08_scale_trasformazioni.qmd
+│       │   ├── 08_scale_trasformazioni_exercises.R
+│       │   ├── 08_scale_trasformazioni_exercises_SCAFFOLD.R
+│       │   └── 08_scale_trasformazioni_exercises_SOLUTIONS.R
+│       ├── 09_themes_personalizzazione.qmd
+│       │   ├── 09_themes_personalizzazione_exercises.R
+│       │   ├── 09_themes_personalizzazione_exercises_SCAFFOLD.R
+│       │   └── 09_themes_personalizzazione_exercises_SOLUTIONS.R
+│       ├── 10_visualizzazioni_avanzate.qmd
+│       │   ├── 10_visualizzazioni_avanzate_exercises.R
+│       │   ├── 10_visualizzazioni_avanzate_exercises_SCAFFOLD.R
+│       │   └── 10_visualizzazioni_avanzate_exercises_SOLUTIONS.R
+│       └── 11_conclusioni_qa.qmd
+├── transcripts/               # Trascrizioni e script di supporto
+│   ├── COMPLETE_WORKSHOP_SUMMARY.md
+│   ├── analyze_transcript.py
+│   ├── ggplot2_part2_cleaned.txt
+│   ├── ggplot2_workshop_part2.en.vtt
+│   ├── pedersen_ggplot2_workshop.en.vtt
+│   ├── pedersen_transcript_clean.txt
+│   └── pedersen_transcript_cleaned.txt
+└── (altri asset generati dentro `_freeze/` e `docs/`)
 ```
 
-## 📝 Files Principali
+## 🔑 Core Project Files
+- `_quarto.yml`, `index.qmd`, `setup.qmd`, `resources.qmd`: definiscono struttura, navigazione e contenuti chiave del sito.
+- `styles.css` e `materials/presentation-style.css`: gestiscono gli stili rispettivamente per il sito e per le slide RevealJS.
+- `README.md`, `SETUP_GUIDE.md`: istruzioni operative (clonazione, render, deploy) e guida dettagliata al corso.
+- `.Rprofile`: imposta l'ambiente R consigliato per studenti e docenti.
 
-### Configurazione
-- **`_quarto.yml`**: Configurazione principale (navbar, theme, output)
-- **`.gitignore`**: Esclusioni Git
-- **`.nojekyll`**: Disabilita Jekyll per GitHub Pages
-- **`.Rprofile`**: Configurazione R per il corso
+## 📦 Teaching Materials (`materials/`)
+- **Capitoli 01–11**: ogni modulo include la presentazione `.qmd` e, dove applicabile, tre file di esercizi (versione studente, scaffold con blank e soluzioni complete).
+- **Dataset di supporto**: file Excel per la gestione tabelle e lo script `create_volcano_data.R`, che genera il dataset `volcano_data` usato nelle lezioni sulle visualizzazioni avanzate.
+- **Risorse condivise**: immagini, template di stile delle presentazioni e documentazione di riferimento (`EXERCISES_README.md`, `TEMPLATE_STRUCTURE.md`).
 
-### Contenuti
-- **`index.qmd`**: Homepage con info corso
-- **`setup.qmd`**: Guida installazione completa
-- **`resources.qmd`**: Risorse e riferimenti
-- **`materials/day1.qmd`**: Materiali primo giorno
-- **`materials/day2.qmd`**: Materiali secondo giorno
-- **`materials/exercises.qmd`**: Esercizi con soluzioni
+## 🌐 Generated Output
+- `docs/`: ultima build statica del sito pronta per GitHub Pages.
+- `_freeze/`: cache e asset generati da Quarto per render incrementali (normalmente da non modificare a mano).
 
-### Styling
-- **`styles.css`**: CSS personalizzato per il sito
+## 🗂️ Transcripts & Reference Material
+La cartella `transcripts/` raccoglie trascrizioni complete, file VTT e script di analisi che supportano la creazione dei contenuti didattici.
 
-### Documentazione
-- **`README.md`**: Documentazione tecnica progetto
-- **`SETUP_GUIDE.md`**: Guida completa setup e uso
+## 🆕 Aggiornamenti Recenti
+- Creato `materials/data/create_volcano_data.R` e linkato in `resources.qmd` per riprodurre il dataset usato nei volcano plots.
+- Rimossa la slide "Clustering e Riordinamento" dal capitolo 10 e allineati gli esercizi correlati.
+- Cap. 09: Parte 5 ora contiene 4 esercizi (totale 29) in tutte le varianti (`exercises`, `SCAFFOLD`, `SOLUTIONS`).
 
-## 🚀 Quick Start Commands
-
+## 🚀 Workflow Riepilogativo
 ```bash
-# Navigate to Course directory
-cd /Users/chiapell/personale/REVELO/DataViz/Course
-
-# Preview site locally
+# Preview locale con live reload
 quarto preview
 
-# Build site
+# Render completo del sito
 quarto render
 
-# Check Quarto installation
-quarto check
+# Pulizia cache/output
+quarto clean
 ```
 
-## 🌐 URLs
-
-### Locale (dopo quarto preview)
-- Homepage: http://localhost:XXXX/
-- Setup: http://localhost:XXXX/setup.html
-- Resources: http://localhost:XXXX/resources.html
-- Day 1: http://localhost:XXXX/materials/day1.html
-- Day 2: http://localhost:XXXX/materials/day2.html
-- Exercises: http://localhost:XXXX/materials/exercises.html
-
-### GitHub Pages (dopo deploy)
-- https://yourusername.github.io/dataviz-course/
-- https://yourusername.github.io/dataviz-course/setup.html
-- https://yourusername.github.io/dataviz-course/resources.html
-- etc.
-
-## 📦 Contenuti da Aggiungere (TODO)
-
-### Slides (da creare)
-```
-materials/slides/
-├── 01_introduction.pdf
-├── 02_grammar_of_graphics.pdf
-├── 03_basic_geoms.pdf
-├── 04_aesthetics.pdf
-├── 05_facets_coords.pdf
-├── 06_scales.pdf
-├── 07_themes.pdf
-├── 08_advanced_viz.pdf
-└── 09_best_practices.pdf
-```
-
-### Scripts (da creare)
-```
-materials/scripts/
-├── day1/
-│   ├── 01_intro.R
-│   ├── 02_grammar.R
-│   ├── 03_geoms.R
-│   ├── 04_aesthetics.R
-│   └── 05_facets.R
-└── day2/
-    ├── 06_scales.R
-    ├── 07_themes.R
-    └── 08_advanced.R
-```
-
-### Dataset (opzionale)
-```
-materials/data/
-├── penguins.csv
-├── diamonds_sample.csv
-└── custom_dataset.csv
-```
-
-### Soluzioni Esercizi (da creare)
-```
-materials/exercises/
-├── day1_solutions.R
-└── day2_solutions.R
-```
-
-## 🎨 Personalizzazione Rapida
-
-### Cambiare Colori
-Modifica `_quarto.yml`:
-```yaml
-format:
-  html:
-    theme: 
-      light: [cosmo, custom.scss]  # crea custom.scss
-```
-
-### Aggiungere Logo Reale
-Sostituisci `materials/images/ggplot2_logo.svg` con PNG/JPG
-
-### Modificare Footer
-Modifica `_quarto.yml`:
-```yaml
-website:
-  page-footer:
-    left: "Il tuo testo"
-    right: "© 2025"
-```
-
-## 📊 Statistiche
-
-### Files Creati: 13
-- Quarto files (.qmd): 5
-- Config files: 4
-- Documentation: 3
-- Assets: 1
-
-### Linee di Codice: ~3,000+
-- QMD content: ~2,500
-- CSS: ~200
-- Config: ~100
-- Documentation: ~200
-
-### Pagine Web: 6
-- Homepage
-- Setup
-- Resources
-- Day 1 materials
-- Day 2 materials
-- Exercises
-
-## ✅ Checklist Completamento
-
-### ✅ Infrastruttura
-- [x] Configurazione Quarto
-- [x] Struttura directory
-- [x] Files di configurazione
-- [x] CSS personalizzato
-- [x] Documentazione
-
-### ✅ Contenuti Base
-- [x] Homepage con programma
-- [x] Setup instructions
-- [x] Resources page
-- [x] Day 1 materials
-- [x] Day 2 materials
-- [x] Exercises with solutions
-
-### 📝 Da Completare (quando pronto)
-- [ ] Aggiungere slides PDF
-- [ ] Aggiungere scripts R
-- [ ] Aggiungere dataset custom
-- [ ] Aggiungere immagini reali
-- [ ] Personalizzare informazioni contatto
-- [ ] Test deploy GitHub Pages
-- [ ] Condividere con partecipanti
-
-## 🎓 Pronto per l'Uso!
-
-Il sito è completamente funzionale e pronto per:
-1. Preview locale
-2. Personalizzazione contenuti
-3. Deploy su GitHub Pages
-4. Uso nel corso
-
-Hai tutto il necessario per un corso professionale di Data Visualization! 🚀
+Aggiorna questo documento quando vengono aggiunti nuovi capitoli, dataset o risorse in modo che resti la fonte di riferimento per l'organizzazione del repository.
